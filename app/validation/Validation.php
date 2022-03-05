@@ -13,10 +13,6 @@ abstract class Validation {
 
   public function loadData($data){
     foreach ($data as $key => $value) {
-      // echo '<pre>';
-      // var_dump($data);
-      // echo '</pre>';
-      //exit;
       if (property_exists($this, $key)) {
           $this->{$key} = $value;
       }
