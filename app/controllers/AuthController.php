@@ -6,23 +6,28 @@ use core\Controller;
 use core\Request;
 
 class AuthController extends Controller {
-
   public static function login(){
-    Controller::Instance()->setLayout('auth');
-    return Controller::Instance()->render('login');
+    self::Instance()->setLayout('auth');
+    return self::Instance()->render('login');
   }
   public static function register(){
-    Controller::Instance()->setLayout('auth');
-    return Controller::Instance()->render("register");
+    self::Instance()->setLayout('auth');
+    return self::Instance()->render("register");
   }
   public static function handleRegister(Request $request){
-    $rules = RegisterForm::Instance()->rules();
-    RegisterForm::Instance()->loadData($request->body());
-    $result = RegisterForm::Instance()->validate();
-    echo '<pre>';
-    var_dump($result);
-    echo '</pre>';
-    exit;
+    $data = $request->body();
+    $form = RegisterForm::Instance();
+    $form->loadData($data);
+    $result = $form->validate();
+    if(!is_array($result)){
+      return "Success";
+    }else{
+      self::Instance()->setLayout('auth');
+      return self::Instance()->render("register",[
+        'form' => $form
+      ]);
+    }
+
   }
 }
 ?>

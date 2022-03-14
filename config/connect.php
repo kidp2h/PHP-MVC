@@ -1,16 +1,14 @@
 <?php
-  require_once '../vendor/autoload.php';
-  use \Dotenv\Dotenv;
-  $dotenv = Dotenv::createImmutable('../');
+  namespace config;
+  $dotenv = \Dotenv\Dotenv::createImmutable('../');
   $dotenv->load();
-
   class Database {
     private static Database $instance;
-    private static mysqli $con;
+    private static \mysqli $con;
     
-    public function __construct() {
+    public static function Instance(){
       if(!isset(self::$instance))
-        self::$instance = $this;
+        self::$instance = new Database();
       return self::$instance;
     }
     static public function connect(){
@@ -21,7 +19,7 @@
           exit();
         }
         return self::$con;
-      } catch (Exception $th) {
+      } catch (\Exception $th) {
         throw $th;
         exit();
       }

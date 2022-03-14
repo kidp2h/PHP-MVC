@@ -10,6 +10,7 @@
 </head>
 <body>
   <div class="container">
+    <h1>Authentication</h1>
     {{content}}
   </div>
 </body>

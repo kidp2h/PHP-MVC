@@ -18,7 +18,6 @@ abstract class Validation {
       }
     }
   }
-
   public function addError($attr, $rule, $params = []){
     $message = $this->errorMessages()[$rule] ?? '';
     foreach($params as $key => $value) {
@@ -51,7 +50,6 @@ abstract class Validation {
           $this->addError($attr, self::RULE_EMAIL);
         }
         if ($ruleName === self::RULE_MIN && strlen($value) < $rule['min']) {
-          echo $value;
           $this->addError($attr, self::RULE_MIN, ['min' => $rule['min']]);
         }
         if ($ruleName === self::RULE_MAX && strlen($value) > $rule['max']) {
@@ -62,7 +60,14 @@ abstract class Validation {
         }
       }
     }
-    return $this->errors;
+    if(count($this->errors) == 0) return true;
+    else return $this->errors;
+  }
+  public function hasError($attr){
+    return $this->errors[$attr] ?? false;
+  }
+  public function getFirstError($attr){
+    return $this->errors[$attr][0] ?? false;
   }
 }
 ?>

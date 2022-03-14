@@ -13,4 +13,7 @@ $app->router->post("/contact",[ContactController::class,"handleContact"]);
 $app->router->get("/login",[AuthController::class,"login"]);
 $app->router->get("/register",[AuthController::class,"register"]);
 $app->router->post("/register",[AuthController::class,"handleRegister"]);
+$app->router->get("/admin","admin");
+
 $app->run(); 
+
