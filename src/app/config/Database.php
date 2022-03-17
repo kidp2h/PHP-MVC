@@ -1,10 +1,11 @@
 <?php
-  namespace config;
-  $dotenv = \Dotenv\Dotenv::createImmutable('../');
+  namespace app\config;
+  use Dotenv\Dotenv;
+  $dotenv = Dotenv::createImmutable(dirname(__DIR__)."\/../");
   $dotenv->load();
   class Database {
     private static Database $instance;
-    private static \mysqli $con;
+    private static $con;
     
     public static function Instance(){
       if(!isset(self::$instance))
@@ -13,7 +14,8 @@
     }
     static public function connect(){
       try {
-        self::$con = mysqli_connect($_ENV["HOSTNAME"], $_ENV["USERNAME"], $_ENV["PASSWORD"], $_ENV["DATABASE"]);
+        
+        self::$con = mysqli_connect($_ENV['HOSTNAME_DB'], $_ENV["USERNAME"], $_ENV["PASSWORD"], $_ENV["DATABASE"]);
         if(mysqli_connect_errno()){
           echo "Failed" . mysqli_connect_error();
           exit();
