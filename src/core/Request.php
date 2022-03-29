@@ -26,4 +26,3 @@
       return $this->method() === strtoupper($method);
     }
   }
-?>

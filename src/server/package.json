@@ -1,0 +1,11 @@
+{
+  "name": "server-socket",
+  "version": "1.0.0",
+  "description": "server socket",
+  "main": "socket.js",
+  "author": "KidP2H",
+  "license": "MIT",
+  "devDependencies": {
+    "socket.io": "^4.4.1"
+  }
+}

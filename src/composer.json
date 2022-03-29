@@ -1,11 +1,15 @@
 {
   "require": {
-    "vlucas/phpdotenv": "^5.4"
+    "vlucas/phpdotenv": "^5.4",
+    "webonyx/graphql-php": "^14.11",
+    "sendgrid/sendgrid": "~7"
   },
   "autoload": {
     "psr-4": {
       "app\\": "./app/",
-      "core\\": "./core/"
+      "core\\": "./core/",
+      "utils\\":"./utils/"
     }
-  }
+  },
+  "scripts": {}
 }
