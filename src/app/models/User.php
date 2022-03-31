@@ -12,10 +12,10 @@ class User extends Model {
   public string $password;
   public string $email;
   public string $fullName;
-  public ?string $phoneNumber = NULL;
-  public ?string $address = NULL;
-  public bool $isVerified = false;
-  public ?string $tokenVerify = NULL;
+  public ?string $phoneNumber;
+  public ?string $address;
+  public bool $isVerified;
+  public ?string $tokenVerify;
   public string $createdAt;
   public string $updatedAt;
 
@@ -66,14 +66,14 @@ class User extends Model {
   }
   public static function resolve(array $data) {
     $user = new User();
-    $user->username = $data["username"];
-    $user->password = $data["password"];
-    $user->email = $data["email"];
-    $user->fullName = $data["fullName"];
-    $user->phoneNumber = $data["phoneNumber"];
-    $user->address = $data["address"];
-    $user->isVerified = $data["isVerified"];
-    $user->tokenVerify = $data["tokenVerify"];
+    array_key_exists("username",$data) == true ? $user->username = $data["username"] : null;
+    array_key_exists("password",$data) == true ? $user->password = $data["password"] : null;
+    array_key_exists("email",$data) == true ? $user->email = $data["email"] : null;
+    array_key_exists("fullName",$data) == true ? $user->fullName = $data["fullName"] : null;
+    array_key_exists("phoneNumber",$data) == true ? $user->phoneNumber = $data["phoneNumber"] : null;
+    array_key_exists("address",$data) == true ? $user->address = $data["address"] : null;
+    array_key_exists("isVerified",$data) == true ? $user->isVerified = $data["isVerified"] : null;
+    array_key_exists("tokenVerify",$data) == true ? $user->tokenVerify = $data["tokenVerify"] : null;
     return $user;
   }
 
@@ -116,5 +116,19 @@ class User extends Model {
       }
     }
     return $token;
+  }
+
+  public static function generateOTP(){
+    return mt_rand(00000000,99999999);
+  }
+  public static function sendCodeOTP($phone){
+    //... send otp to phone user
+    $result = Utils::generateOTP($phone);
+    $otp = $result[0];
+    $hash = $result[1];
+    echo "{$otp}\n{$hash}\n";
+    Utils::verifyOTP($phone, $hash, $otp);
+    exit;
+    return $phone;
   }
 }

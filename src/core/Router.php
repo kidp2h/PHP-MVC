@@ -55,6 +55,7 @@ class Router {
 
   public function resolve() {
     $path = $this->request->path();
+
     $method = strtoupper($this->request->method());
     $callback = $this->routes[$method][$path] ?? false;
     if (!$callback) {

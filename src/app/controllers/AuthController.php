@@ -10,6 +10,13 @@ class AuthController extends Controller {
     self::Instance()->setLayout('auth');
     return self::Instance()->render('login');
   }
+  public static function otp(){
+    self::Instance()->setLayout("auth");
+    return self::Instance()->render("otp");
+  }
+  public static function sendOTP(){
+    echo "kec";
+  }
   public static function register(){
     self::Instance()->setLayout('auth');
     return self::Instance()->render("register");

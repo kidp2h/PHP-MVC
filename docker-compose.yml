@@ -12,7 +12,7 @@ services:
   phpmyadmin:
     image: phpmyadmin
     ports:
-      - 8089:80
+      - 8999:80
     environment:
       MYSQL_ROOT_PASSWORD: 'root'
       PMA_HOST: 184.168.99.241
