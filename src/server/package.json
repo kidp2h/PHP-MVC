@@ -6,6 +6,11 @@
   "author": "KidP2H",
   "license": "MIT",
   "devDependencies": {
+    "nodemon": "^2.0.15",
     "socket.io": "^4.4.1"
+  },
+  "scripts": {
+    "start": "yarn build && nodemon index.ts",
+    "build": "tsc --build"
   }
 }

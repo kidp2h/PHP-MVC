@@ -29,16 +29,6 @@ class Application {
     self::$mail = new Mail();
     self::$app = $this;
   }
-  public static function Mailer() {
-    // self::$mail = new PHPMailer(true);
-    // self::$mail->isSMTP();
-    // self::$mail->Host       = 'smtp.sendgrid.net';
-    // self::$mail->SMTPAuth   = true;
-    // self::$mail->Username   = 'apikey';
-    // self::$mail->Password   = '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';
-    // self::$mail->SMTPSecure = "tls";
-    // self::$mail->Port       = 25;
-  }
   public function run() {
     echo $this->router->resolve();
   }

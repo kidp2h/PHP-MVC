@@ -23,15 +23,25 @@ class Utils {
   public static function generateOTP($phone){
     $otp = rand(000000,999999);
     $expire = new \DateTime();
-    $expire->add(new \DateInterval('PT300S'));
+    $expire = $expire->add(new \DateInterval('PT300S'));
+    $expire = $expire->getTimestamp();
     $data = "{$phone}.{$otp}.{$expire}";
-    $hash = crypt($data,$_ENV['SALT']);
-    $resultHash = "{$hash}.{$expire}";
-    return $resultHash;
+    $hash = hash_hmac("sha256",$data, $_ENV['SECRET_KEY']);;
+    $hashOTP = "{$hash}.{$expire}";
+    return [$otp,$hashOTP];
   }
   public static function verifyOTP($phone, $hash, $otp){
-
-
+    $hashOTP = explode(".",$hash);
+    $hashValue = $hashOTP[0];
+    $expire = $hashOTP[1]; 
+    $now = new \DateTime();
+    if($now->getTimestamp() > (int)$expire) return false;
+    $data = "{$phone}.{$otp}.{$expire}";
+    $newHash = hash_hmac("sha256",$data, $_ENV['SECRET_KEY']);
+    $newHashOTP = "{$newHash}.{$expire}";
+    echo $newHashOTP;
+    if($newHash === $hashValue) return true;
+    return false;
   }
 
 }
