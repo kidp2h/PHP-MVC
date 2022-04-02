@@ -3,3 +3,5 @@ vendor
 composer.lock
 node_modules
 dist
+cert.crt
+cert.key
