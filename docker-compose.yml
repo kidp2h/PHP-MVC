@@ -3,18 +3,34 @@ services:
   php:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.php
     ports:
-      - 3000:80
+      - 80:80
     volumes:
       - ./src:/var/www/html
-      # - ./sendmail.ini:/usr/local/etc/php/conf.d/sendmail.ini
+      - ./cert.crt:/etc/ssl/certs/cert.crt
+      - ./cert.key:/etc/ssl/private/cert.key
   phpmyadmin:
     image: phpmyadmin
     ports:
-      - 8999:80
+      - 3000:80
     environment:
-      MYSQL_ROOT_PASSWORD: 'root'
-      PMA_HOST: 184.168.99.241
-      PMA_USER: 'eb4p7xlxbl39'
-      PMA_PASSWORD: 'Sliverdz2604'
+      MYSQL_ROOT_PASSWORD: root
+      PMA_USER: root
+      PMA_PASSWORD: root
+  db:
+    image: mysql
+    hostname: kidp2h
+    ports:
+      - 4000:80
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+  node:
+    container_name: node__
+    build:
+      context: .
+      dockerfile: Dockerfile.node
+    ports:
+      - 5000:5000
+    volumes:
+      - ./src/server/socket/:/app
