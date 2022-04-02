@@ -10,7 +10,7 @@
     "socket.io": "^4.4.1"
   },
   "scripts": {
-    "start:development": "yarn build && nodemon index.ts",
+    "start": "yarn build && nodemon index.ts",
     "production": "yarn build && node ./dist/index.js",
     "build": "tsc --build"
   }

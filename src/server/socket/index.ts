@@ -33,6 +33,11 @@ const server = http.createServer(async (req, res) => {
     SMS.Emit(io, result, 'emitMessage');
     res.end();
   }
+  if (req.url == '/' && req.method == 'GET') {
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.write('...');
+    res.end();
+  }
 });
 const io = new Server(server);
 io.on('connection', (socket) => {
