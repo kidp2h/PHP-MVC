@@ -5,10 +5,12 @@ use database\Database;
 
 class m001_initialize implements IMigration {
   public static \mysqli $con;
+  
   public function __construct() {
-    self::$con = mysqli_connect($_ENV["HOSTNAME_DB"], $_ENV["USERNAME_DB"], $_ENV["PASSWORD_DB"]);
+    self::$con = Database::Instance()->connect();
     $this->up();
   }
+
   public function up(){
     self::$con->multi_query("CREATE DATABASE IF NOT EXISTS `shop`;
                             CREATE TABLE IF NOT EXISTS `shop`.`user`(
