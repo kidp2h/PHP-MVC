@@ -1,10 +1,10 @@
 <?php
 
-namespace app\config;
+namespace database;
 
 class Database {
   private static Database $instance;
-  protected static  $con;
+  protected static \mysqli $con;
 
   public static function Instance() {
     if (!isset(self::$instance))
@@ -13,8 +13,7 @@ class Database {
   }
   static public function connect() {
     try {
-
-      self::$con = mysqli_connect($_ENV['HOSTNAME_DB'], $_ENV["USERNAME"], $_ENV["PASSWORD"], $_ENV["DATABASE"]);
+      self::$con = mysqli_connect($_ENV['HOSTNAME_DB'], $_ENV["USERNAME_DB"], $_ENV["PASSWORD_DB"]);
       mysqli_set_charset(self::$con, 'UTF8');
       if (mysqli_connect_errno()) {
         echo "Failed" . mysqli_connect_error();
@@ -26,8 +25,7 @@ class Database {
       exit();
     }
   }
-
-  public function getDatabase() {
+  public function getDatabase() : \mysqli {
     return self::$con;
   }
 }

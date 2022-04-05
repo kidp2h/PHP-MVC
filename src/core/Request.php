@@ -1,6 +1,8 @@
 <?php 
   namespace core;
   class Request {
+    private array $routeParams = [];
+
     public function path(){
       return $_SERVER['REDIRECT_URL'];
     }
@@ -24,5 +26,25 @@
 
     public function isMethod($method){
       return $this->method() === strtoupper($method);
+    }
+
+    public function param($param){
+      return $this->routeParams[$param] ?? null;
+    }
+
+    public function params(){
+      return $this->routeParams;
+    }
+
+    public function setRouteParams($params){
+      $this->routeParams = $params;
+    }
+
+    public function session(){
+      return true;
+    }
+
+    public function setSession($key, $value){
+      $_SESSION[$key] = $value;
     }
   }

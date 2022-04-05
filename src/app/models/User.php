@@ -79,7 +79,7 @@ class User extends Model {
 
   public function updateUsername(int $id, $username) {
     try {
-      return self::$db->query("UPDATE {self::TABLE} SET username='{$username}' WHERE id={$id}");
+      //return self::$db->query("UPDATE {self::TABLE} SET username='{$username}' WHERE id={$id}");
     } catch (\Exception $e) {
       return (object)["message" => "Username has already exist !!", "status" => false];
     }
@@ -91,31 +91,6 @@ class User extends Model {
       "Verify Account",
       "Please verify this account with this code: {$token}"
     );
-  }
-  public static function generateToken() {
-    $token = "";
-    for ($i = 1; $i < 15; $i++) {
-      if (mt_rand(0, 1)) {
-        $token .= chr(mt_rand(65, 90))
-          . chr(mt_rand(97, 122))
-          . chr(mt_rand(65, 90))
-          . chr(mt_rand(97, 122))
-          . chr(mt_rand(65, 90))
-          . chr(mt_rand(97, 122))
-          . chr(mt_rand(97, 122))
-          . chr(mt_rand(65, 90));
-      } else {
-        $token .= chr(mt_rand(97, 122))
-          . chr(mt_rand(97, 122))
-          . chr(mt_rand(97, 122))
-          . chr(mt_rand(65, 90))
-          . chr(mt_rand(97, 122))
-          . chr(mt_rand(65, 90))
-          . chr(mt_rand(65, 90))
-          . chr(mt_rand(97, 122));
-      }
-    }
-    return $token;
   }
 
   public static function generateOTP(){

@@ -10,7 +10,7 @@ class ContactController extends Controller {
     return Controller::Instance()->render('contact');
   }
   public static function handleContact(Request $request){
-    $body = $request->body();
+    $body = $request->params();
     echo '<pre>';
     var_dump($body);
     echo '</pre>';

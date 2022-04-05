@@ -8,8 +8,11 @@
     "psr-4": {
       "app\\": "./app/",
       "core\\": "./core/",
-      "utils\\":"./utils/"
+      "utils\\": "./utils/",
+      "database\\": "./database/"
     }
   },
-  "scripts": {}
+  "scripts": {
+    "migrations": "docker exec php-mvc-php-1 php migrations.php"
+  }
 }

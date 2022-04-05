@@ -14,4 +14,5 @@ class View {
   public function checkView($view) {
     return file_exists(Application::$__ROOT_DIR__ . "/app/views/" . $view . ".php");
   }
+  
 }

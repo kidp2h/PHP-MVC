@@ -2,7 +2,7 @@
 
 namespace core;
 
-use app\config\Database;
+use database\Database;
 use mysqli;
 use app\models\User;
 
