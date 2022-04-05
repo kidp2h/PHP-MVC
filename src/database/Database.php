@@ -7,10 +7,10 @@ class Database {
   protected static \mysqli $con;
 
   public static function Instance() {
-    if (!isset(self::$instance))
-      self::$instance = new Database();
+    if (!isset(self::$instance)) self::$instance = new Database();
     return self::$instance;
   }
+
   static public function connect() {
     try {
       self::$con = mysqli_connect($_ENV['HOSTNAME_DB'], $_ENV["USERNAME_DB"], $_ENV["PASSWORD_DB"]);

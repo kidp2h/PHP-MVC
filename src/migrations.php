@@ -9,4 +9,5 @@ class Migrations {
     new mInitialize();
   }
 }
+
 new Migrations();
