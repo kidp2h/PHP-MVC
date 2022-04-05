@@ -2,9 +2,9 @@
 
 namespace core;
 
-use app\config\Database;
-// use PHPMailer\PHPMailer\PHPMailer;
+use database\Database;
 use Dotenv\Dotenv;
+use database\migrations\Migrations;
 use SendGrid\Mail\Mail;
 
 class Application {
@@ -14,10 +14,12 @@ class Application {
   public Request $request;
   public Response $response;
   public Model $model;
+  public Migrations $migration;
   public static Mail $mail;
   public $db;
 
   public function __construct($rootPath) {
+    session_start();
     $dotenv = Dotenv::createImmutable($rootPath);
     $dotenv->load();
     self::$__ROOT_DIR__ = $rootPath;
@@ -25,6 +27,7 @@ class Application {
     $this->response = new Response();
     $this->router = new Router($this->request, $this->response);
     $this->db = Database::Instance()->connect();
+    new Migrations();
     $this->model = new Model();
     self::$mail = new Mail();
     self::$app = $this;

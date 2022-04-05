@@ -12,9 +12,7 @@ class Controller
   }
   public static function Instance()
   {
-    if (!isset($instance)) {
-      $instance = new Controller();
-    }
+    if (!isset($instance)) $instance = new Controller();
     return $instance;
   }
   public function render($view, $params = [])

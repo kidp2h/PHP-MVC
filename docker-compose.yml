@@ -22,11 +22,12 @@ services:
     image: mysql
     hostname: kidp2h
     ports:
-      - 4000:80
+      - 3306:3306
     environment:
       MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - ./db:/var/lib/mysql
   node:
-    container_name: node__
     build:
       context: .
       dockerfile: Dockerfile.node
