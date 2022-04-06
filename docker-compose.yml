@@ -1,6 +1,7 @@
 version: '3.7'
 services:
   php:
+    container_name: php
     build:
       context: .
       dockerfile: Dockerfile.php
@@ -8,9 +9,8 @@ services:
       - 80:80
     volumes:
       - ./src:/var/www/html
-      - ./cert.crt:/etc/ssl/certs/cert.crt
-      - ./cert.key:/etc/ssl/private/cert.key
   phpmyadmin:
+    container_name: phpmyadmin
     image: phpmyadmin
     ports:
       - 3000:80
@@ -28,6 +28,7 @@ services:
     volumes:
       - ./db:/var/lib/mysql
   node:
+    container_name: node
     build:
       context: .
       dockerfile: Dockerfile.node
