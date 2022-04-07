@@ -20,6 +20,6 @@ class UserController extends Controller {
     if(!isset($body)){
       User::__self__()->sendCodeOTP($phoneNumber);
     }
-
   }
+
 }

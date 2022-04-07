@@ -1,20 +1,21 @@
 <?php
 
 namespace core;
-
 use database\Database;
 use Dotenv\Dotenv;
-use database\migrations\Migrations;
 use SendGrid\Mail\Mail;
+
 
 class Application {
   public static string $__ROOT_DIR__;
   public static Application $app;
+  public string $layout = "main";
   public Router $router;
+  public ?Controller $controller = null;
   public Request $request;
   public Response $response;
   public Model $model;
-  public Migrations $migration;
+  public View $view;
   public static Mail $mail;
   public $db;
 
@@ -27,8 +28,8 @@ class Application {
     $this->response = new Response();
     $this->router = new Router($this->request, $this->response);
     $this->db = Database::Instance()->connect();
-    new Migrations();
     $this->model = new Model();
+    $this->view = new View();
     self::$mail = new Mail();
     self::$app = $this;
   }
