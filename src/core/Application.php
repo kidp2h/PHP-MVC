@@ -14,7 +14,6 @@ class Application {
   public Request $request;
   public Response $response;
   public Model $model;
-  public Migrations $migration;
   public static Mail $mail;
   public $db;
 
@@ -27,7 +26,6 @@ class Application {
     $this->response = new Response();
     $this->router = new Router($this->request, $this->response);
     $this->db = Database::Instance()->connect();
-    new Migrations();
     $this->model = new Model();
     self::$mail = new Mail();
     self::$app = $this;
