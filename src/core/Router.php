@@ -2,10 +2,6 @@
 
 namespace core;
 
-use app\middlewares\UserMiddleware;
-use core\Application;
-use core\View;
-
 class Router {
   protected array $routes = [];
   public Request $request;
@@ -27,17 +23,17 @@ class Router {
           $this->routes['GET'][$arguments[0]]['middleware'] = $arguments[1];
           return;
       }
-      if($name == "post"){
-        switch(count($arguments)){
-          case 2:
-            $this->routes['POST'][$arguments[0]]['callback'] = $arguments[1];
-            $this->routes['POST'][$arguments[0]]['middleware'] = NULL;
-            return;
-          case 3:
-            $this->routes['POST'][$arguments[0]]['callback'] = $arguments[2];
-            $this->routes['POST'][$arguments[0]]['middleware'] = $arguments[1];
-            return;
-        }
+    }
+    if($name == "post"){
+      switch(count($arguments)){
+        case 2:
+          $this->routes['POST'][$arguments[0]]['callback'] = $arguments[1];
+          $this->routes['POST'][$arguments[0]]['middleware'] = NULL;
+          return;
+        case 3:
+          $this->routes['POST'][$arguments[0]]['callback'] = $arguments[2];
+          $this->routes['POST'][$arguments[0]]['middleware'] = $arguments[1];
+          return;
       }
     }
   }
@@ -72,71 +68,25 @@ class Router {
 
   return false;
   }
-
-  public function render($view, $params = []) {
-    $layout = $this->loadLayout();
-    $view = $this->loadView($view, $params);
-    if ($view == "404") {
-      $this->response->statusCode(404);
-      $view = "<b>Not Found View</b>";
-    }
-    return str_replace("{{content}}", $view, $layout);
-  }
-  public function loadContent($content) {
-    $layout = $this->loadLayout();
-    return str_replace("{{content}}", $content, $layout);
-  }
-  protected function loadLayout() {
-    $layout = Controller::$layout;
-    ob_start();
-    include_once Application::$__ROOT_DIR__ . "/app/views/layout/$layout.php";
-    return ob_get_clean();
-  }
-  protected function loadView($view, $params) {
-    foreach ($params as $key => $value) {
-      $$key = $value;
-    }
-    ob_start();
-    if (!View::Instance()->checkView($view)) {
-      return "404";
-    }
-    include_once Application::$__ROOT_DIR__ . "/app/views/$view.php";
-    return ob_get_clean();
-  }
   public function resolve() {
     $path = $this->request->path();
     $method = $this->request->method();
-    $callback = $this->routes[$method][$path]['callback'] ?? false;
-    $middleware = $this->routes[$method][$path]['middleware'];
-    if(count($middleware) == 1){
-      return call_user_func($middleware[0],$this->request, $this->response);
-    }
-    if(count($middleware) > 1){
-      $next = true;
-      for ($i = 0; $i < count($middleware); $i++) { 
-        $result = call_user_func($middleware[$i],$this->request, $this->response,$next);
-        if(!$result) {
-         $next = false;
-         return $result; 
-        }
+    $callback = $this->routes[$method][$path]['callback'] ?? $this->getCallback();
+    $middleware = $this->routes[$method][$path]['middleware'] ?? [];
+    $isPassMiddleware = true;
+    for ($i = 0; $i < count($middleware); $i++) { 
+      $result = call_user_func($middleware[$i],$this->request, $this->response);
+      if(!$result) {
+        $isPassMiddleware = $result;
+        break;
       }
     }
-    
-    // if(count($middleware) == 1) return call_user_func($middleware[0],$this->request);
-    // for ($i = 0; $i <= count($middleware) - 1; $i++) { 
-    //   $result = call_user_func($middleware[$i+1],$this->request, $middleware[$i + 1]);
-    //   if(!is_callable($result)) return false;
-      
-    // }
-    exit;
-    if(!$callback){
-      $callback = $this->getCallback();
-      if ($callback === false) {
-        $this->response->statusCode(404);
-        return $this->loadContent("<b>Not Found</b>"); 
-      }
+    $this->request->isPassedMiddleware = $isPassMiddleware;
+    if ($callback === false) {
+      $this->response->statusCode(404);
+      return $this->loadContent("<b>Not Found</b>"); 
     }
-    if (is_string($callback)) return $this->render($callback);
+    if (is_string($callback)) return Application::$app->view->render($callback);
     return call_user_func($callback, $this->request);
   }
 }

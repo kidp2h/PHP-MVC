@@ -15,13 +15,13 @@ This is project was coded base on framework and it was mixed between Laravel Fra
 
 ## MAIN LANGUAGE
 
-[![PHP](https://img.shields.io/badge/php-%23777BB4.svg?style=for-the-badge&logo=php&logoColor=white)]() [![PHP](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)]()
+[![PHP](https://img.shields.io/badge/php-%23777BB4.svg?style=for-the-badge&logo=php&logoColor=white)](https://php.net) [![PHP](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)](https://www.javascript.com/)
 
 ---
 
 ## OTHER TOOLS
 
-[![Docker](https://img.shields.io/badge/DOCKER-%2320232a.svg?style=for-the-badge&logo=docker&logoColor=%2361DAFB)]() [![Composer](https://img.shields.io/badge/COMPOSER-%2320232a.svg?style=for-the-badge&logo=composer&logoColor=%2361DAFB)](https://getcomposer.org) [![Yarn](https://img.shields.io/badge/Yarn-%2320232a.svg?style=for-the-badge&logo=YARN&logoColor=%2361DAFB)](https://yarnpkg.com/) [![NPM](https://img.shields.io/badge/NPM-%2320232a.svg?style=for-the-badge&logo=npm&logoColor=%2361DAFB)](https://npmjs.com/)
+[![Docker](https://img.shields.io/badge/DOCKER-%2320232a.svg?style=for-the-badge&logo=docker&logoColor=%2361DAFB)](https://docker.com) [![Composer](https://img.shields.io/badge/COMPOSER-%2320232a.svg?style=for-the-badge&logo=composer&logoColor=%2361DAFB)](https://getcomposer.org) [![Yarn](https://img.shields.io/badge/Yarn-%2320232a.svg?style=for-the-badge&logo=YARN&logoColor=%2361DAFB)](https://yarnpkg.com/) [![NPM](https://img.shields.io/badge/NPM-%2320232a.svg?style=for-the-badge&logo=npm&logoColor=%2361DAFB)](https://npmjs.com/)
 
 ---
 

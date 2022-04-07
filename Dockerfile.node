@@ -1,8 +1,7 @@
 FROM node:lts
 RUN apt-get update -y && apt-get upgrade -y
 WORKDIR /app
-COPY ./src/server/socket/package.json /app
-RUN yarn install
 RUN npm install -g typescript
-COPY ./src/server/socket/ /app
+COPY ./src /app
+RUN yarn install
 CMD yarn run production

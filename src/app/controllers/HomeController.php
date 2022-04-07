@@ -9,7 +9,7 @@ class HomeController extends Controller {
     $params = [
       'name' => "KidP2H"
     ];
-    return Controller::Instance()->render('home',$params);
+    return parent::render('home',$params);
   }
 }
 ?>

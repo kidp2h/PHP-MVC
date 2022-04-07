@@ -10,12 +10,10 @@ use core\Application;
 
 $app = new Application(dirname(__DIR__));
 $app->router->get("/", [HomeController::class, "home"]);
-
-
 $app->router->post("/contact", [ContactController::class, "handleContact"]);
 $app->router->get("/login", [AuthController::class, "login"]);
 $app->router->get("/user",[UserController::class, "getUser"]);
-$app->router->get("/register", [AuthController::class, "register"]);
+$app->router->get("/register", [[UserMiddleware::class,"isAuth"]] ,[AuthController::class, "register"]);
 $app->router->post("/register", [AuthController::class, "handleRegister"]);
 $app->router->get("/otp",[AuthController::class, "otp"]);
 $app->router->post("/sendOTP/{phoneNumber:\d+}",[UserController::class, "sendOTP"]);
