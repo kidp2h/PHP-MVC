@@ -1,0 +1,187 @@
+#admin .action button {
+  padding: 8px;
+  outline: none;
+  border: none;
+  color: white;
+  font-size: 1.25em;
+  border-radius: 5px;
+}
+#admin .save {
+  background-color: var(--green);
+}
+#admin .save:hover {
+  background-color: green;
+  transform: translateY(-3px);
+  transition: all 0.5s;
+}
+#admin .save:not(:hover) {
+  transition: all 0.5s;
+}
+#admin .remove {
+  background-color: var(--red);
+}
+#admin .remove:hover,
+.see-detail:hover,
+#admin .cancel:hover {
+  background-color: red;
+  transform: translateY(-3px);
+  transition: all 0.5s;
+}
+#admin .accept:hover {
+  background-color: green;
+  transform: translateY(-3px);
+  transition: all 0.5s;
+}
+#admin .accept {
+  background-color: var(--green);
+}
+#admin .cancel {
+  background-color: var(--red);
+}
+#admin .remove:not(:hover),
+#admin .see-detail:not(:hover),
+#admin .cancel:not(:hover),
+#admin .accept:not(:hover) {
+  transition: all 0.5s;
+}
+#admin .edit:not(:hover) {
+  transition: all 0.5s;
+}
+
+#admin .see-detail {
+  background-color: var(--red);
+  text-align: center;
+}
+#admin .see-detail i {
+  font-size: 2.5rem;
+}
+
+#admin .btn-table-action {
+  width: 40px;
+  height: 40px;
+  margin: 0px 5px;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 1.5rem;
+}
+#admin .add-user {
+  background-color: var(--ui-background);
+}
+#admin .remove-all {
+  background-color: var(--red);
+}
+#admin .save-all {
+  background-color: var(--green);
+}
+#admin .add-user:hover {
+  background-color: blue;
+}
+#admin .remove-all:hover {
+  background-color: red;
+}
+#admin .save-all:hover {
+  background-color: green;
+}
+#admin .add-product {
+  background-color: var(--purple);
+}
+#admin .add-product:hover {
+  background-color: purple;
+}
+#admin .add-category {
+  background-color: var(--green);
+}
+#admin .add-category:hover {
+  background-color: green;
+}
+#admin .status-bill i {
+  font-size: 2em;
+}
+#admin i.completed {
+  color: var(--green);
+}
+#admin i.cancelled {
+  color: var(--red);
+}
+#admin .table-action {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+#admin .table-action div {
+  display: flex;
+}
+
+.group-range-price {
+  margin-bottom: 10px;
+}
+#admin .tmanager-product .box-filter {
+  margin-bottom: 10px;
+}
+#admin .rangePrice {
+  border: 1px solid var(--purple);
+  width: 120px;
+  padding: 5px 10px 5px 10px;
+  border-radius: 5px;
+  height: 40px;
+}
+#admin .tmanager-product .box-filter label {
+  display: block;
+  font-size: 1.5rem;
+  margin-bottom: 5px;
+}
+button.btn-select-category {
+  background-color: transparent;
+  padding: 10px 30px;
+  border: 1px solid var(--purple);
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  font-size: 1.5rem;
+}
+
+button.btn-select-category:hover {
+  background-color: var(--purple);
+  color: white;
+}
+.btn-select-category.active {
+  background-color: var(--purple);
+  color: white;
+  transition: all 0.3s;
+}
+.box-search-detail {
+  transition: all 1s;
+  height: 100%;
+}
+
+.selectRate {
+  user-select: none;
+}
+.selectRate i {
+  font-size: 3rem;
+  color: var(--gray);
+}
+.selectRate i {
+  cursor: pointer;
+  font-style: normal;
+}
+.btn-filter-detail {
+  margin-bottom: 10px;
+  padding: 10px;
+  width: 100px;
+  background-color: var(--ui-background);
+  color: white;
+  border-radius: 10px;
+  transition: all 0.3s;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

@@ -4,6 +4,7 @@ namespace app\controllers;
 use app\validation\RegisterForm;
 use core\Controller;
 use core\Request;
+use app\models\User;
 
 class AuthController extends Controller {
   public static function login(){
@@ -23,6 +24,22 @@ class AuthController extends Controller {
     }else{
       echo "Failed";
     }
+  }
+  public static function verifyEmail(Request $request){
+    header("Content-Type: application/json");
+    $id = $request->param("id");
+    $hash = $request->param("hash");
+    $secretKey = $_ENV["SECRET_KEY"];
+    if($id && $hash){
+      $hashes = explode("__",$hash);
+      $user = User::__self__()->read(["email", "isVerified"],"id={$id}");
+      if(!$user->isVerified){
+        $mail = $user->email;
+        $isCorrect = password_verify($mail,$hashes[0]) && password_verify($mail,$hashes[1]);
+        ($isCorrect) ? User::__self__()->sendMailVerifyAccount(["address" => $mail]) : null;
+      }else return json_encode(["status" => "false","message" => "This account was verified"]);
+    }
+    
   }
   // public static function handleRegister(Request $request){
   //   $data = $request->body();
@@ -47,4 +64,3 @@ class AuthController extends Controller {
   }
 }
 ?>
-

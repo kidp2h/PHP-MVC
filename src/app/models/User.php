@@ -65,7 +65,7 @@ class User extends Model {
     return $this->user;
   }
   public static function resolve(array $data) {
-    $user = new User();
+    $user = self::__self__();
     array_key_exists("username",$data) == true ? $user->username = $data["username"] : null;
     array_key_exists("password",$data) == true ? $user->password = $data["password"] : null;
     array_key_exists("email",$data) == true ? $user->email = $data["email"] : null;
@@ -85,16 +85,17 @@ class User extends Model {
     }
   }
 
-  public static function sendMailVerifyAccount(array $to, $token) {
+  public static function sendMailVerifyAccount(array $to) {
+    $result = Utils::generateOTP($to['address']);
+    $address = $to["address"];
+    $otp = $result[0];
     Utils::sendMail(
-      ['address' => $to["address"], 'name' => $to["name"]],
+      ['address' => $to["address"]],
       "Verify Account",
-      "Please verify this account with this code: {$token}"
+      "Please verify this account with this code: {$otp}"
     );
-  }
+    User::__self__()->update(["isVerified" => 1,"tokenVerify" => $otp], "email={$address}");
 
-  public static function generateOTP(){
-    return mt_rand(00000000,99999999);
   }
   public static function sendCodeOTP($phone){
     //... send otp to phone user

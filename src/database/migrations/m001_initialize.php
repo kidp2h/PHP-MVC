@@ -1,14 +1,25 @@
 <?php
 
 namespace database\migrations;
-use database\Database;
 
 class m001_initialize implements IMigration {
   public static \mysqli $con;
   
   public function __construct() {
-    self::$con = Database::Instance()->connect();
-    $this->up();
+    try {
+      self::$con = mysqli_connect($_ENV['HOSTNAME_DB'], $_ENV["USERNAME_DB"], $_ENV["PASSWORD_DB"]);
+      mysqli_set_charset(self::$con, 'UTF8');
+
+      if (mysqli_connect_errno()) {
+        echo "Failed" . mysqli_connect_error();
+        exit();
+      }
+      $this->up();
+    } catch (\Exception $th) {
+      throw $th;
+      exit();
+    }
+    
   }
 
   public function up(){

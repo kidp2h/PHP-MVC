@@ -1,0 +1,55 @@
+#admin .pagination {
+  transition: all 0.25s;
+  white-space: nowrap;
+}
+
+#admin .pagination ul li {
+  display: inline-block;
+  padding: 8px;
+  height: 40px;
+  width: 40px;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 50px;
+  color: white;
+  margin: 0 5px;
+  font-size: 1.8rem;
+}
+#admin .pagination ul li:first-child,
+#admin .pagination ul li:last-child {
+  background-color: red;
+  margin-right: 0;
+}
+#admin .pagination ul li:first-child:hover,
+#admin .pagination ul li:last-child:hover {
+  background-color: var(--red);
+}
+
+#admin .page-user ul li {
+  background-color: var(--ui-background);
+}
+
+#admin .page-user ul li:hover {
+  background-color: blue;
+}
+#admin .page-category ul li {
+  background-color: var(--green);
+}
+#admin .page-category ul li:hover {
+  background-color: green;
+}
+#admin .page-product ul li {
+  background-color: var(--purple);
+}
+#admin .page-bill ul li {
+  background-color: var(--red);
+}
+#admin .page-product ul li:hover {
+  background-color: purple;
+}
+#admin .page-bill ul li:hover {
+  background-color: red;
+}
+#admin .pagination ul {
+  user-select: none;
+}

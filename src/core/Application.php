@@ -30,6 +30,7 @@ class Application {
     $this->db = Database::Instance()->connect();
     $this->model = new Model();
     $this->view = new View();
+    $this->controller = new Controller();
     self::$mail = new Mail();
     self::$app = $this;
   }

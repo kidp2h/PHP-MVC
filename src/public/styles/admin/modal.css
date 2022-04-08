@@ -1,0 +1,147 @@
+#admin .overlay {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(37, 37, 37, 0.39);
+  position: fixed;
+  z-index: 999999999999999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  display: none;
+}
+
+#admin .modal {
+  background-color: var(--ui-background);
+  position: absolute;
+  height: 500px;
+  border-radius: 10px;
+  animation: modalSlider ease 0.3s;
+  transition: all 0.3s;
+}
+
+#admin .modal-header {
+  margin-top: 10px;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid white;
+  height: 10%;
+}
+#admin .modal-header {
+  font-size: 1.75em;
+  color: white;
+}
+#admin .close-modal {
+  border-radius: 50px;
+  background-color: var(--red);
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+#admin .close-modal:hover {
+  background-color: red;
+}
+#admin .modal-main {
+  background-color: white;
+  width: 100%;
+  height: calc(90% - 10px);
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  overflow-y: scroll;
+}
+#admin .image-show {
+  display: flex;
+  margin: auto auto;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.modal table {
+  margin-bottom: 30px;
+}
+#admin .image-product {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 100px;
+  border: 2px solid var(--purple);
+  margin: 10px;
+}
+#admin .image-category {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 100px;
+  border: 2px solid var(--green);
+  margin: 10px;
+}
+
+.removeImage {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 40%;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: var(--red);
+  color: white;
+  border-radius: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s;
+  opacity: 0;
+  font-size: 2em;
+}
+.removeImage:hover {
+  width: 150px;
+  height: 150px;
+  bottom: 15px;
+  opacity: 1;
+  font-size: 5em;
+}
+@keyframes modalSlider {
+  from {
+    transform: translateY(-600px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+.modal-action {
+  position: absolute;
+  z-index: 9999999999999999;
+  bottom: 5px;
+  left: 5px;
+  width: 100%;
+}
+.modal-action button {
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+  color: white;
+  font-size: 2rem;
+}
+.btn-addImage {
+  background-color: var(--ui-background);
+}
+.btn-saveImage {
+  background-color: var(--green);
+}
+
+.product-show {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.product-show table {
+  margin-top: 30px;
+}

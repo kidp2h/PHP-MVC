@@ -1,0 +1,43 @@
+#admin select {
+    background-color: var(--purple);
+    border-radius: 5px;
+    appearance: none;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    width: 120px;
+    padding: 0.4em 0.5em;
+    color: white;
+    cursor: pointer;
+}
+#admin #select {
+    position: relative;
+    margin: 10px;
+    overflow: hidden;
+    padding: 30;
+}
+
+
+
+#admin .t-wrap::-webkit-scrollbar, .modal-main::-webkit-scrollbar {
+    width: 10px;
+    height: 5px;
+    
+}
+
+  /* Track */
+#admin .t-wrap::-webkit-scrollbar-track,.modal-main::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+    border-radius: 10px;
+}
+
+/* Handle */
+#admin .t-wrap::-webkit-scrollbar-thumb,.modal-main::-webkit-scrollbar-thumb {
+    background: #888; 
+    border-radius: 10px;
+}
+
+  /* Handle on hover */
+#admin .t-wrap::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
