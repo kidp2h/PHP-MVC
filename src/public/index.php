@@ -6,6 +6,7 @@ use app\controllers\HomeController;
 use app\controllers\AuthController;
 use app\controllers\UserController;
 use app\controllers\AdminController;
+use app\controllers\TestController;
 use app\middlewares\UserMiddleware;
 use core\Application;
 
@@ -22,4 +23,5 @@ $app->router->get("/contact", [[UserMiddleware::class,"isAuth"],[UserMiddleware:
 $app->router->get("/contact/{id:\d+}/{username:\w+}", [ContactController::class, "handleContact"]);
 $app->router->post("/verifyEmail/{id:\d+}/{hash:.*}",[AuthController::class, "verifyEmail"]);
 $app->router->get("/admin",[AdminController::class,"admin"]);
+$app->router->get("/test",[TestController::class,"test"]);
 $app->run();
