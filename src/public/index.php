@@ -9,7 +9,6 @@ use app\controllers\AdminController;
 use app\controllers\ProductController;
 use app\controllers\TestController;
 use app\middlewares\UserMiddleware;
-use app\models\Product;
 use core\Application;
 
 $app = new Application(dirname(__DIR__));
