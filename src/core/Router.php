@@ -68,6 +68,7 @@ class Router {
 
   return false;
   }
+  
   public function resolve() {
     $path = $this->request->path();
     $method = $this->request->method();
