@@ -1,0 +1,377 @@
+#admin .details {
+  margin: 25px 20px;
+  display: grid;
+  grid-gap: 30px;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+#admin .wrap-table {
+  display: grid;
+  position: relative;
+}
+
+#admin .details .wrap-table div {
+  height: 30px;
+  margin: 15px 0px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  color: white;
+}
+.details .wrap-image .image-document {
+  width: 70px;
+  height: 70px;
+  border-radius: 50px;
+  transition: all 0.2s;
+}
+/* tbody tr:nth-child(even) {
+  animation: tdSlideR2L ease 0.85s forwards;
+}
+tbody tr:nth-child(odd) {
+  animation: slideL2R ease 0.85s forwards;
+}
+tbody tr:first-child {
+  animation: slideT2B ease 0.85s forwards;
+}
+tbody tr:last-child {
+  animation: slideB2T ease 0.85s forwards;
+} */
+#admin .details .wrap-table:nth-child(1) thead tr {
+  background-color: var(--ui-background);
+}
+
+#admin .details .wrap-table:nth-child(2) thead tr {
+  background-color: var(--purple);
+}
+
+#admin .details .wrap-table:nth-child(3) thead tr {
+  background-color: var(--green);
+}
+/* custom table */
+#admin .content-table {
+  border-collapse: collapse;
+  font-size: 1.5rem;
+  min-width: 300px;
+  border-radius: 5px 5px 0 0;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+#admin .content-table thead tr {
+  background-color: var(--ui-background);
+  color: white;
+  text-align: left;
+  font-weight: bold;
+}
+#admin .content-table th,
+#admin .content-table td {
+  padding: 12px 15px;
+  text-align: center;
+}
+#admin .content-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+#admin .content-table tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+#admin .content-table tbody tr:last-of-type {
+  border-bottom: 2px solid var(--ui-background);
+}
+#admin .tuser tbody tr:last-of-type,
+#admin .tmanager-user tbody tr:last-of-type {
+  border-bottom: 2px solid var(--ui-background);
+}
+#admin .tproduct tbody tr:last-of-type,
+#admin .tmanager-product tbody tr:last-of-type {
+  border-bottom: 2px solid var(--purple);
+}
+#admin .tcategory tbody tr:last-of-type,
+#admin .tmanager-category tbody tr:last-of-type {
+  border-bottom: 2px solid var(--green);
+}
+#admin .tmanager-bill tbody tr:last-of-type {
+  border-bottom: 2px solid var(--red);
+}
+#admin .tmanager-revenue tbody tr:last-of-type {
+  border-bottom: 2px solid var(--gray);
+}
+#admin .tuser,
+#admin .tcategory,
+#admin .tproduct {
+  cursor: pointer;
+}
+#admin .tuser:hover::before {
+  content: 'User';
+  position: absolute;
+  top: -55px;
+  width: 120px;
+  height: 50px;
+  background-color: var(--ui-background);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  color: white;
+  animation: slideL2R 0.3s forwards;
+  font-size: 1.1em;
+}
+
+#admin .tcategory:hover::before {
+  content: 'Category';
+  position: absolute;
+  top: -55px;
+  width: 130px;
+  height: 50px;
+  background-color: var(--green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  color: white;
+  animation: slideL2R 0.3s forwards;
+  font-size: 1.1em;
+}
+
+#admin .tproduct:hover::before {
+  content: 'Product';
+  position: absolute;
+  top: -55px;
+  width: 120px;
+  height: 50px;
+  background-color: var(--purple);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  color: white;
+  animation: slideL2R 0.3s forwards;
+  font-size: 1.1em;
+}
+#admin tbody tr:hover {
+  z-index: 9999;
+  transform: translateY(-3px);
+  transition: ease-in-out 0.3s;
+}
+#admin tbody tr:not(:hover) {
+  transition: ease-in-out 0.3s;
+}
+
+#admin .tmanager {
+  margin: 20px 20px;
+}
+
+#admin .tmanager table {
+  width: 100%;
+}
+
+#admin .tmanager-product .content-table thead tr {
+  background-color: var(--purple);
+}
+
+#admin .tmanager-category .content-table thead tr {
+  background-color: var(--green);
+}
+
+#admin .tmanager-bill .content-table thead tr {
+  background-color: var(--red);
+}
+#admin .tmanager-user .content-table thead tr {
+  background-color: var(--ui-background);
+}
+#admin .tmanager-revenue .content-table thead tr {
+  background-color: var(--gray);
+}
+
+/* Table Product */
+#admin .tmanager .image-document {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50px;
+}
+#admin .i-product {
+  border: 3px solid var(--purple);
+}
+#admin .i-category {
+  border: 3px solid var(--green);
+}
+#admin .wrap-image {
+  position: relative;
+}
+#admin .addImage,
+#admin .changeImage {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 40%;
+  margin-left: auto;
+  margin-right: auto;
+  color: white;
+  border-radius: 50px;
+}
+#admin .i-product ~ .addImage,
+#admin .changeImage {
+  background-color: var(--purple);
+}
+#admin .i-category ~ .addImage,
+#admin .changeImage {
+  background-color: var(--green);
+}
+#admin .addImage:hover,
+#admin .changeImage:hover {
+  width: 100px;
+  height: 100px;
+  transition: ease-in 0.3s;
+  bottom: 6px;
+}
+#admin .addImage:not(:hover),
+#admin .changeImage:not(:hover) {
+  transition: ease-in-out 0.3s;
+}
+#admin .t-wrap td {
+  white-space: nowrap;
+}
+#admin .table-search {
+  position: relative;
+}
+#admin .tmanager .input-search {
+  margin-bottom: 20px;
+  border-radius: 10px;
+  padding: 10px 0px 10px 40px;
+  font-size: 1.5em;
+  width: 250px;
+}
+#admin .tmanager-product .input-search {
+  border: 1px solid var(--purple);
+}
+#admin .tmanager-user .input-search {
+  border: 1px solid var(--ui-background);
+}
+#admin .tmanager-category .input-search {
+  border: 1px solid var(--green);
+}
+#admin .tmanager-bill .input-search {
+  border: 1px solid var(--red);
+}
+#admin .tmanager-revenue .input-search {
+  border: 1px solid var(--gray);
+}
+#admin .ic-input-search {
+  position: absolute;
+  left: 14px;
+  top: 14px;
+  font-size: 1.75em;
+}
+#admin .tmanager-category .ic-input-search {
+  color: var(--green);
+}
+#admin .tmanager-product .ic-input-search {
+  color: var(--purple);
+}
+#admin .tmanager-user .ic-input-search {
+  color: var(--ui-background);
+}
+#admin .tmanager-bill .ic-input-search {
+  color: var(--red);
+}
+#admin .tmanager-revenue .ic-input-search {
+  color: var(--gray);
+}
+#admin .tmanager-revenue .box-filter {
+  display: flex;
+  align-items: flex-end;
+}
+#admin .revenue-total {
+  font-size: 2em;
+  position: fixed;
+  word-break: keep-all;
+  user-select: none;
+  pointer-events: none;
+  white-space: nowrap;
+}
+#admin .search-category select {
+  padding: 15px 0px 10px 0px;
+  background-color: var(--gray);
+  margin-bottom: 10px;
+}
+#admin select {
+  text-align-last: center;
+}
+
+#admin .btn-filter-revenue {
+  padding: 13px;
+  margin-bottom: 10px;
+  width: 120px;
+  background: var(--gray);
+  color: white;
+  border-radius: 5px;
+}
+
+#admin .btn-filter-bill {
+  padding: 13px;
+  margin-bottom: 10px;
+  width: 120px;
+  background: var(--red);
+  color: white;
+  border-radius: 5px;
+}
+
+.input-number {
+  width: 80px;
+  padding: 0 12px;
+  vertical-align: top;
+  text-align: center;
+  outline: none;
+  background-color: var(--purple);
+}
+
+.input-number,
+.input-number-decrement,
+.input-number-increment {
+  border: 1px solid var(--purple);
+  height: 40px;
+  user-select: none;
+  color: white;
+}
+
+.input-number-decrement,
+.input-number-increment {
+  display: inline-block;
+  width: 30px;
+  line-height: 38px;
+  background: #f1f1f1;
+  color: #444;
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.input-number-decrement {
+  border-bottom-left-radius: 50px;
+  border-top-left-radius: 50px;
+  margin-right: -5px;
+}
+
+.input-number-increment {
+  border-bottom-right-radius: 50px;
+  border-top-right-radius: 50px;
+  margin-left: -5px;
+}
+.rateProduct span {
+  background-color: var(--purple);
+  color: white;
+}
+th {
+  user-select: none;
+}
+.sort {
+  user-select: none;
+  cursor: pointer;
+}
+
+.sort > i {
+  margin-left: 5px;
+}

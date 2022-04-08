@@ -13,7 +13,7 @@ class Database {
 
   static public function connect() {
     try {
-      self::$con = mysqli_connect($_ENV['HOSTNAME_DB'], $_ENV["USERNAME_DB"], $_ENV["PASSWORD_DB"]);
+      self::$con = mysqli_connect($_ENV['HOSTNAME_DB'], $_ENV["USERNAME_DB"], $_ENV["PASSWORD_DB"],$_ENV["DATABASE"]);
       mysqli_set_charset(self::$con, 'UTF8');
       if (mysqli_connect_errno()) {
         echo "Failed" . mysqli_connect_error();

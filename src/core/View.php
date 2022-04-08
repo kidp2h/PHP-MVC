@@ -10,11 +10,8 @@ class View {
   }
   public function render($view, $params = []) {
         // get layout
-    $layout = Application::$app->layout;
-    if (Application::$app->controller) {
-        $layout = Application::$app->controller->layout;
-    }
-    // check view exist
+
+    $layout = Controller::$layout;
     $viewContent = $this->loadView($view, $params);
     if(!isset($viewContent)){
       $viewContent = "<b>Not Found</b>";

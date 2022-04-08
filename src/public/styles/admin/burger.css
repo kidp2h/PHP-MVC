@@ -1,0 +1,60 @@
+#admin .toggle, .user {
+    position: relative;
+    top: 0;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2em;
+    cursor: pointer;
+    color: var(--gray);
+}
+
+#admin .toggle {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    transition: all 0.5s ease-in-out;
+    border-radius: 10px;
+}
+#admin .toggle__burger {
+    width: 20px;
+    height: 3px;
+    background: black;
+    transition: all 0.5s ease-in-out;
+}
+#admin .toggle__burger::before,
+#admin .toggle__burger::after {
+    display: block;
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 3px;
+    background: black;
+    transition: all 0.5s ease-in-out;
+}
+
+#admin .toggle__burger::before {
+    transform: translateY(-10px);
+}
+#admin .toggle__burger::after {
+    transform: translateY(10px);
+}
+#admin .toggle.open .toggle__burger {
+    transform: translateX(-50px);
+    background: transparent;
+    box-shadow: none;
+}
+
+#admin .toggle.open .toggle__burger::before {
+    transform: rotate(45deg) translate(35px, -35px);
+}
+
+#admin .toggle.open .toggle__burger::after {
+    transform: rotate(-45deg) translate(35px, 35px);
+}

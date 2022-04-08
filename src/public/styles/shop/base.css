@@ -1,0 +1,279 @@
+/* * {
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+input,
+textarea,
+select,
+button {
+    outline: none;
+}
+input {
+    line-height: normal;
+}
+label,
+button {
+    cursor: pointer;
+}
+a {
+    text-decoration: none;
+}
+img {
+    display: block;
+    max-width: 100%;
+}
+ul {
+    list-style-type: none;
+}
+:root {
+    --ui-background: #5f50f1;
+    --green: #50f15f;
+    --red: #f15f50;
+    --purple: #b050f1;
+    --yellow: #f1c40f;
+}
+body {
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+::-webkit-scrollbar {
+    display: none;
+}
+.green {
+    color: var(--green);
+}
+.ui-bg {
+    color: var(--ui-background);
+}
+.purple {
+    color: var(--purple);
+}
+.red {
+    color: var(--red);
+}
+.container {
+    position: relative;
+}
+input[type="radio"] {
+    display: none;
+}
+.none {
+    display: none;
+}
+ */
+ * {
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    box-sizing: inherit; 
+    text-decoration: none;
+    outline: none;
+    border: none;
+}
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
+input,
+textarea,
+select,
+button {
+    outline: none;
+}
+input {
+    line-height: normal;
+}
+label,
+button {
+    cursor: pointer;
+}
+ul {
+    list-style-type: none;
+}
+
+html {
+    box-sizing: border-box;
+    font-size: 62.5%;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+    
+}
+body::-webkit-scrollbar {
+    display: none;
+}
+html.loader{
+    box-sizing: border-box;
+    font-size: 62.5%;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+}
+
+:root {
+    /* ADMIN */
+    --ui-background: #5f50f1;
+    --green: #50f15f;
+    --red: #f15f50;
+    --purple: #b050f1;
+    --yellow: #f1c40f;
+
+    /* HOME */
+    --black:#192a56;
+    --primary-bgc: #fff;
+    --text-black: #170055;
+    --text-color: #fff;
+    --primary-color: #5f50f1;
+    --gray : #212121;
+    --filter-black-2: rgba(0,0,0,0.0);
+    --filter-black-3: rgba(0,0,0,0.3);
+    --filter-black-5: rgba(0,0,0,0.5);
+    --filter-black-6: rgba(0,0,0,0.6);
+    --filter-black-8: rgba(0,0,0,0.8);
+    --box-shadow:0 .5rem 1.5rem rgba(0,0,0,0.5);
+
+    --height-nav: 6rem;
+    --slide-content-size: 6rem;
+    --slide-content-weight: 800;
+    --button-width: 4rem;
+    --button-height: calc(var(--button-width) * .8);
+    --rectangle-height: calc(var(--button-width) * .11);
+    --rectangle-radius: calc(var(--button-width) * .04);
+    --translate: calc(var(--button-width) * .17);
+    --transition: 0.65s;
+
+
+    --primary-color: #5f50f1;
+    --grey-color: rgb(158, 155, 153);
+    --blue-color: #a8bcd4;
+    --red-color: #f63400;
+    --cyan-color: #25bdb0;
+    --black-color: black;
+    --white-color: white;
+    --pink-color: #fcc6de;
+    --brown-color: #ad8111;
+}
+
+body {
+    min-height: 100vh;
+}
+
+
+.green {
+    color: var(--green);
+}
+.ui-bg {
+    color: var(--ui-background);
+}
+.purple {
+    color: var(--purple);
+}
+.red {
+    color: var(--red);
+}
+li.page-active {
+    background-color: red;
+}
+.container {
+    position: relative;
+}
+input[type="radio"] {
+    display: none;
+}
+.none {
+    display: none;
+}
+
+
+.mg-left-right-174 {
+    margin: 0 174px;
+}
+
+.pd-left-right-174 {
+    padding-left: 174px;
+    padding-right: 174px;
+}
+
+.pd-bot-50{
+    padding-bottom: 50px;
+}
+
+.pd-top-50 {
+    padding-top: 50px;
+}
+
+.mg-top-42 {
+    margin-top: 42px;
+}
+
+.mg-bot-42 {
+    margin-bottom: 42px;
+} 
+
+.color--brown,
+.color--grey,
+.color--pink,
+.color--black,
+.color--cyan,
+.color--red,
+.color--blue {
+    border-radius: 50%;
+    /* width: 26px;
+    height: 26px; */
+}
+
+.color--blue {
+    background-color: var(--blue-color);
+}
+
+.color--red {
+    background-color: var(--red-color);
+}
+
+.color--cyan {
+    background-color: var(--cyan-color);
+}
+.color--black {
+    background-color: var(--black-color);
+}
+
+.color--pink {
+    background-color: var(--pink-color);
+}
+
+.color--grey {
+    background-color: var(--grey-color);
+}
+
+.color--brown {
+    background-color: var(--brown-color);
+}
+
+@keyframes fadeIn {
+    from {opacity:0;}
+    to {opacity:1;}
+}
+
+@keyframes fadeIn_2 {
+    from {opacity:0.5;}
+    to {opacity:1;}
+}
+
+@keyframes action {
+    from { 
+    opacity: 0.3;
+    transform: translateY(50px); 
+    }
+    to { 
+        opacity: 1;
+        transform: translateY(-1px); 
+    }
+}
