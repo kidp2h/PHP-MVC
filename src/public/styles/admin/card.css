@@ -1,0 +1,59 @@
+#admin .card-statistic {
+    position: relative;
+    width: 100%;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 30px;
+}
+
+#admin .card-statistic .card {
+    position: relative;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+        rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+    border-radius: 15px;
+    user-select: none;
+    font-size: 18px;
+    padding: 30px;
+    color: black;
+    display: flex;
+    justify-content: space-between;
+    color: var(--ui-background);
+    align-items: center;
+    cursor: pointer;
+}
+
+#admin .card .icon-card i {
+    font-size: 3.5em;
+}
+
+#admin .card:nth-child(1):hover {
+    background-color: var(--ui-background);
+    color: white;
+}
+#admin .card:nth-child(2):hover {
+    background-color: var(--purple);
+    color: white;
+}
+#admin .card:nth-child(3):hover {
+    background-color: var(--green);
+    color: white;
+}
+#admin .card:nth-child(4):hover {
+    background-color: var(--red);
+    color: white;
+}
+#admin .card:hover {
+    background-color: var(--red);
+    color: white;
+    transition: all 0.3s;
+}
+
+#admin .card:hover i {
+    color: white;
+}
+
+#admin .card-wrap .number {
+    font-weight: 500;
+    font-size: 2.5em;
+}

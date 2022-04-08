@@ -1,0 +1,145 @@
+@keyframes sidebar_active {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-200px);
+  }
+}
+@keyframes sidebar {
+  from {
+    transform: translateX(-200px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0px);
+    opacity: 1;
+  }
+}
+
+@keyframes flyDisplayNone {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-999px);
+    display: none;
+  }
+}
+
+@keyframes flyDisplayBlock {
+  from {
+    opacity: 0;
+    transform: translateY(999px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes showTableManagerU2D {
+  from {
+    opacity: 0;
+    transform: translateY(-678px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
+@keyframes showTableManagerD2U {
+  from {
+    opacity: 0;
+    transform: translateY(500px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+@keyframes showTableManagerR2L {
+  from {
+    opacity: 0;
+    transform: translateX(-678px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}
+@keyframes showTableManagerL2R {
+  from {
+    opacity: 0;
+    transform: translateX(678px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}
+
+@keyframes slideL2R {
+  from {
+    opacity: 0;
+    transform: translateX(-678px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}
+
+@keyframes slideT2B {
+  from {
+    opacity: 0;
+    transform: translateY(-300px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+@keyframes slideB2T {
+  from {
+    opacity: 0;
+    transform: translateY(300px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
+@keyframes slideR2L {
+  from {
+    opacity: 0;
+    transform: translateX(0px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-678px);
+  }
+}
+@keyframes tdSlideR2L {
+  from {
+    opacity: 0;
+    transform: translateX(1000px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}
+@keyframes zoomIn {
+  0% {
+    opacity: 0;
+    transform: scale3d(0.1, 0.1, 0.1);
+  }
+  50% {
+    opacity: 1;
+  }
+}

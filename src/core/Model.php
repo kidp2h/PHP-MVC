@@ -38,7 +38,7 @@ class Model {
     $sql = "SELECT {$fieldSelect} FROM {$table} WHERE {$where}";
     $data = mysqli_fetch_assoc(self::$db->query($sql));
     if (!empty($data)) return call_user_func([static::class, "resolve"], $data);
-    return null;
+    return $data;
   }
   public function update(array $set, string $where) {
     $setQuery = "";

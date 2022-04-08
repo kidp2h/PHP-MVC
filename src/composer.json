@@ -13,6 +13,6 @@
     }
   },
   "scripts": {
-    "migrations": "docker exec php-mvc-php-1 php migrations.php "
+    "migrations": "docker exec php php migrations.php "
   }
 }

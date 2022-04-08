@@ -12,12 +12,12 @@ class Utils {
       $mail = Application::$mail;
       $mail->setFrom($_ENV["FROM_ADDRESS"], $_ENV["FROM_NAME"]);
       $mail->setSubject($subject);
-      $mail->addTo($to["address"], $to["name"]);
+      $mail->addTo($to["address"]);
       $mail->addContent("text/html", $body);
       $sendgrid = new SendGrid($_ENV['SENDGRID_API_KEY']);
       return $sendgrid->send($mail);
     } catch (Exception $e) {
-      return $e->getMessage();
+      echo $e->getMessage();
     }
   }
   public static function generateOTP($phone){

@@ -1,0 +1,186 @@
+#admin .sidebar {
+  position: fixed;
+  width: 300px;
+  height: 100%;
+  background-color: var(--ui-background);
+  transition: ease-in-out 0.3s;
+  border-left: 10px solid var(--ui-background);
+  user-select: none;
+  overflow: hidden;
+  z-index: 999999999;
+}
+
+#admin .sidebar.active {
+  width: 80px;
+}
+
+#admin .sidebar.active li a span {
+  animation-name: sidebar_active;
+  animation-duration: 0.5s;
+}
+
+#admin .sidebar li a span {
+  animation-name: sidebar;
+  animation-duration: 0.5s;
+}
+
+#admin .sidebar ul {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+#admin .sidebar ul li {
+  position: relative;
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+}
+
+#admin .sidebar ul li:hover,
+#admin .sidebar ul li.active {
+  background-color: white;
+}
+
+#admin .sidebar ul li:nth-child(1) {
+  margin-bottom: 40px;
+  background-color: var(--ui-background);
+}
+#admin .sidebar ul li:nth-child(1) span:hover {
+  color: white;
+}
+#admin .sidebar ul li:nth-child(1):hover {
+  color: white;
+}
+
+#admin .sidebar ul li:nth-child(1):hover a::before,
+#admin .sidebar ul li.active:nth-child(1) a::before {
+  background-color: var(--ui-background);
+  color: white;
+  content: 0;
+  box-shadow: none;
+}
+#admin .sidebar ul li:nth-child(1):hover a::after,
+#admin .sidebar ul li.active:nth-child(1) a::after {
+  background-color: var(--ui-background);
+  color: white;
+  content: 0;
+  box-shadow: none;
+}
+
+#admin .sidebar ul li a {
+  position: relative;
+  display: flex;
+}
+
+#admin .sidebar ul li a i {
+  position: relative;
+  line-height: 60px;
+  min-width: 60px;
+  text-align: center;
+  height: 60px;
+  font-size: 2em;
+}
+#admin .sidebar ul li a .title {
+  line-height: 60px;
+  text-align: start;
+  height: 60px;
+  font-size: 2rem;
+  position: relative;
+  padding: 0 10px;
+  white-space: normal;
+}
+
+#admin .sidebar ul li:hover > a,
+#admin .sidebar ul li.active > a {
+  color: black;
+  transition: ease-in-out 0.3s;
+}
+#admin .item {
+  color: white;
+}
+
+#admin .sidebar ul li:hover a::before,
+#admin .sidebar ul li.active a::before {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: -50px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+  box-shadow: 35px 35px 0 10px white;
+  pointer-events: none;
+  transition: ease-in-out 1s;
+}
+
+#admin .sidebar ul li.active a::after,
+#admin .sidebar ul li:hover a::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: -50px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+  box-shadow: 35px -35px 0px 10px white;
+  pointer-events: none;
+}
+#admin .sidebar ul li:hover i,
+#admin .sidebar ul li.active i {
+  color: var(--ui-background);
+}
+#admin .sidebar ul li:nth-child(2):hover i,
+#admin .sidebar ul li:nth-child(2).active i {
+  color: var(--ui-background);
+}
+#admin .sidebar ul li:nth-child(3):hover i,
+#admin .sidebar ul li:nth-child(3).active i {
+  color: var(--ui-background);
+}
+
+#admin .sidebar ul li:nth-child(4):hover i,
+#admin .sidebar ul li:nth-child(4).active i {
+  color: var(--purple);
+}
+
+#admin .sidebar ul li:nth-child(5):hover i,
+#admin .sidebar ul li:nth-child(5).active i {
+  color: var(--green);
+}
+#admin .sidebar ul li:nth-child(6):hover i,
+#admin .sidebar ul li:nth-child(6).active i {
+  color: var(--red);
+}
+#admin .sidebar ul li:nth-child(7):hover i,
+#admin .sidebar ul li:nth-child(7).active i {
+  color: var(--gray);
+}
+
+#admin #r-dashboard:not(:checked) ~ .dashboard {
+  animation: flyDisplayNone 0.5s forwards;
+  display: none;
+}
+#admin #r-dashboard:checked ~ .dashboard {
+  animation: flyDisplayBlock 0.5s forwards;
+}
+
+#admin #r-user:checked ~ .tmanager-user {
+  animation: showTableManagerU2D 0.5s forwards;
+}
+
+#admin #r-category:checked ~ .tmanager-category {
+  animation: showTableManagerD2U 0.5s forwards;
+}
+
+#admin #r-product:checked ~ .tmanager-product {
+  animation: showTableManagerR2L 0.5s forwards;
+}
+
+#admin #r-bill:checked ~ .tmanager-bill {
+  animation: showTableManagerL2R 0.5s forwards;
+}
+
+#admin #r-revenue:checked ~ .tmanager-revenue {
+  animation: zoomIn 0.5s forwards;
+}
