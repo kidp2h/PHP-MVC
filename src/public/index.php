@@ -25,4 +25,5 @@ $app->router->get("/contact/{id:\d+}/{username:\w+}", [ContactController::class,
 $app->router->post("/verifyEmail/{id:\d+}/{hash:.*}",[AuthController::class, "verifyEmail"]);
 $app->router->get("/admin",[AdminController::class,"admin"]);
 $app->router->get("/shop",[ProductController::class,"shop"]);
+$app->router->get("/detail",[DetailController::class,"detail"]);
 $app->run();
