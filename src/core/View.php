@@ -9,8 +9,6 @@ class View {
     return file_exists(Application::$__ROOT_DIR__ . "/app/views/" . $view . ".php");
   }
   public function render($view, $params = []) {
-        // get layout
-
     $layout = Controller::$layout;
     $viewContent = $this->loadView($view, $params);
     if(!isset($viewContent)){
