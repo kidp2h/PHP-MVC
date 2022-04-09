@@ -41,7 +41,7 @@
           <li>
             <a class="item" href="#home">
               <img
-                src="./images/logo.svg"
+                src="/public/images/logo.svg"
                 alt="Kiwi standing on oval"
                 width="60px"
                 height="60px"
@@ -100,5 +100,6 @@
         {{content}}
       </div>
     </div>
+    <script src="/public/javascripts/admin/main.js"></script>
   </body>
 </html>
