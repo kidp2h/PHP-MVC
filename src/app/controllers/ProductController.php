@@ -19,12 +19,12 @@ class ProductController extends Controller {
     return parent::render('shop');
   }
   public static function getProducts($limit=6){
-       $product = new Product();
-       $PAGE = $product->PageNumber($limit);
-        $row= $product->getProducstlist($limit, $PAGE);
-        while(!$row){
-          
-        }
+    $product = new Product();
+    $PAGE = $product->PageNumber($limit);
+    $row= $product->getProducstlist($limit, $PAGE);
+    while(!$row){
+     
+    }
   }
   }
   ?>
