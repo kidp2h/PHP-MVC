@@ -5,12 +5,12 @@
     class Product extends Model{
         const TABLE = "Products";
         private self $Product;
-        public int $ID;
-        public string $name;
+        public int $id;
+        public string $title;
         public int $price;
-        public int $sale;
-        public int $quantity;
-        public string $img;
+        public string  $Created_At;
+        public string $Update_At;
+        public string $Deleted_At;
         public function __construct()
         {
             
@@ -18,25 +18,25 @@
         public static function __seft__(){
             return new static();
         }
-        public function fillInstance($ID, $name, $price, $sale, $quantity, $img){
-            $this->Product->ID = $ID;
-            $this->Product->name = $name;
+        public function fillInstance($id, $title, $price, $Created_At, $Update_At, $Deleted_At){
+            $this->Product->ID = $id;
+            $this->Product->name = $title;
             $this->Product->price= $price;
-            $this->Product->sale= $sale;
-            $this->Product->quantity= $quantity;
-            $this->Product->img= $img;
+            $this->Product->sale= $Created_At;
+            $this->Product->quantity= $Update_At;
+            $this->Product->img= $Deleted_At;
         }
-        public function getID(){
-            return $this->Product->ID;
+        public function getId(){
+            return $this->Product->id;
         }
-        public function setID($ID){
-            $this->Product->ID=$ID;
+        public function setID($id){
+            $this->Product->ID=$id;
         }
         public function getName(){
-            return $this->Product->name;
+            return $this->Product->title;
         }
-        public function setName($name){
-            $this->Product->name=$name;
+        public function setName($title){
+            $this->Product->name=$title;
         }
         public function getPrice(){
             return $this->Product->price;
@@ -44,23 +44,23 @@
         public function setPrice($price){
             $this->Product->price=$price;
         }
-        public function getSale(){
-            return $this->Product->sale;
+        public function getCreated_At(){
+            return $this->Product->Created_At;
         }
-        public function setSale($sale){
-            $this->Product->sale=$sale;
+        public function setCreated_At($Created_At){
+            $this->Product->Created_At=$Created_At;
         }
-        public function getQuantity(){
-            return $this->Product->quantity;
+        public function getUpdate_At(){
+            return $this->Product->Update_At;
         }
-        public function setQuantity($quantity){
-            $this->Product->quantity=$quantity;
+        public function setUpdate_At($Update_At){
+            $this->Product->Update_At=$Update_At;
         }
-        public function getImg(){
-            return $this->Product->img;
+        public function getDeleted_At(){
+            return $this->Product->Deleted_At;
         }
-        public function setImg($img){
-            $this->Product->img=$img;   
+        public function setImg($Deleted_At){
+            $this->Product->Deleted_At=$Deleted_At;   
         }
         public function getQuantityProducts(){
             return self::$db->query("SELECT COUNT(*) FROM {self::TABLE}");
