@@ -12,14 +12,11 @@ class ProductController extends Controller {
     parent::setLayout('shop');
   }
   public static function Instance(){
-    if(!isset(self::$instance)){
-      self::$instance = new AdminController();
-    }
+    if(!isset(self::$instance)) self::$instance = new ProductController();
     return self::$instance;
   }
 
   public static function shop(){
-    parent::setLayout('shop');
     return parent::render('shop');
   }
     public static function getProducts($limit=6){
