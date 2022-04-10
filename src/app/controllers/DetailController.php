@@ -8,7 +8,7 @@ class DetailController extends Controller {
     private static self $instance;
 
     public function __construct() {
-        // parent::setLayout('detail');
+        //parent::setLayout('detail');
     }
 
     public static function Instance(){

@@ -1,31 +1,31 @@
-# PHP MVC Framework
+# 🌐 PHP MVC Framework
 
-## INTRODUCE
+## 🎆 INTRODUCE
 
 This is project was coded base on framework and it was mixed between Laravel Framework (PHP) and Express Framework (NodeJS)
 
 ---
 
-## PROJECT STATUS
+## 📶 PROJECT STATUS
 
 [![Build Status](https://img.shields.io/static/v1?label=build&message=passsed&color=success&style=for-the-badge)](https://github.com/kidp2h/php-mvc)
 [![Testing Status](https://img.shields.io/static/v1?label=test&message=passsed&color=success&style=for-the-badge)](https://github.com/kidp2h/php-mvc)
 
 ---
 
-## MAIN LANGUAGE
+## 🔣 MAIN LANGUAGE
 
 [![PHP](https://img.shields.io/badge/php-%23777BB4.svg?style=for-the-badge&logo=php&logoColor=white)](https://php.net) [![PHP](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)](https://www.javascript.com/)
 
 ---
 
-## OTHER TOOLS
+## 🔨 OTHER TOOLS
 
 [![Docker](https://img.shields.io/badge/DOCKER-%2320232a.svg?style=for-the-badge&logo=docker&logoColor=%2361DAFB)](https://docker.com) [![Composer](https://img.shields.io/badge/COMPOSER-%2320232a.svg?style=for-the-badge&logo=composer&logoColor=%2361DAFB)](https://getcomposer.org) [![Yarn](https://img.shields.io/badge/Yarn-%2320232a.svg?style=for-the-badge&logo=YARN&logoColor=%2361DAFB)](https://yarnpkg.com/) [![NPM](https://img.shields.io/badge/NPM-%2320232a.svg?style=for-the-badge&logo=npm&logoColor=%2361DAFB)](https://npmjs.com/)
 
 ---
 
-## Features
+## 🔰 Features
 
 - **Home**: Show products common, can add product here to cart user
 - **Shop**: Show all products, user can add to cart and filter product by price, category and name
@@ -34,7 +34,7 @@ This is project was coded base on framework and it was mixed between Laravel Fra
 
 ---
 
-## Tech
+## 🌍 Tech
 
 - **NodeJS** - Server bridge, php can connect to server sms and send sms to authentication sms
 - **Socket** - Server sms can listen when server bridge emit message to sms server
@@ -43,7 +43,7 @@ This is project was coded base on framework and it was mixed between Laravel Fra
 
 ---
 
-## Installation
+## ⚙️ Installation
 
 **This project has the following requirements:**
 
@@ -59,7 +59,7 @@ This is project was coded base on framework and it was mixed between Laravel Fra
 
 ### Install the dependencies and start the server.
 
-#### OS Linux
+#### 🐧 OS Linux
 
 For development enviroments
 
@@ -81,7 +81,7 @@ cd server
 yarn build && yarn production
 ```
 
-#### Docker
+#### 🐳 Docker
 
 This project is very easy to install and deploy in a Docker container.
 
@@ -111,7 +111,7 @@ or
 127.0.0.1:80
 ```
 
-#### Windows
+#### 🪟 Windows
 
 ```sh
 cd PHP-MVC
@@ -123,7 +123,7 @@ yarn build && yarn start
 
 ---
 
-## Libraries
+## 📦 Libraries
 
 Dillinger is currently extended with the following plugins.
 Instructions on how to use them in your own application are linked below.
@@ -135,6 +135,6 @@ Instructions on how to use them in your own application are linked below.
 
 ---
 
-## License
+## 📄 License
 
 MIT

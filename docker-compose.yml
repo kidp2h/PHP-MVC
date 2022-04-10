@@ -20,7 +20,11 @@ services:
       PMA_PASSWORD: root
   db:
     image: mysql
-    hostname: kidp2h
+    build:
+      context: .
+      dockerfile: Dockerfile.mysql
+    hostname: kidp2h_localhost
+    container_name: db
     ports:
       - 3306:3306
     environment:

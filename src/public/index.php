@@ -7,8 +7,8 @@ use app\controllers\AuthController;
 use app\controllers\UserController;
 use app\controllers\AdminController;
 use app\controllers\ProductController;
+use app\controllers\TestController;
 use app\middlewares\UserMiddleware;
-use app\models\Product;
 use core\Application;
 
 $app = new Application(dirname(__DIR__));
@@ -26,4 +26,5 @@ $app->router->post("/verifyEmail/{id:\d+}/{hash:.*}",[AuthController::class, "ve
 $app->router->get("/admin",[AdminController::class,"admin"]);
 $app->router->get("/shop",[ProductController::class,"shop"]);
 $app->router->get("/detail",[DetailController::class,"detail"]);
+// $app->router->get("/test",[TestController::class,"test"]);
 $app->run();
