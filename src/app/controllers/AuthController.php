@@ -5,19 +5,31 @@ use app\validation\RegisterForm;
 use core\Controller;
 use core\Request;
 use app\models\User;
+use core\Application;
 use core\Response;
+use utils\Utils;
 
 class AuthController extends Controller {
   public static string $layout = "auth";
-
+  public static array $data;
   public static function login(){
     return parent::render('login');
   }
+  public static function useHook(){
+    self::$data = ['SITE_KEY' => $_ENV["GC_SITE_KEY"],'SECRET_KEY' => $_ENV["GC_SECRET_KEY"]];
+  }
   public static function handleLogin(Request $request, Response $response){
-
+    $body = $request->body();
+    $result = Utils::verifyCaptcha($body['captcha']);
+    if(!$result["success"]) return json_encode(["status" => false, "message" => $result["error-codes"][0]]);
+    if(User::__self__()->checkUser($body["username"], $body["password"])){
+      Application::setCookie("username",$body["username"],time() + 3600);
+      $response->statusCode(200);
+      return json_encode(["status" => true, "redirect" => "/"]);
+    }
   }
   public static function register(Request $request){
-    return parent::render("register",['SITE_KEY' => $_ENV["GC_SITE_KEY"],'SECRET_KEY' => $_ENV["GC_SECRET_KEY"]]);
+    return parent::render("register");
   }
 
   public static function handleRegister(Request $request){

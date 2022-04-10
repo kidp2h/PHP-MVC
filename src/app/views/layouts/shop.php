@@ -134,4 +134,5 @@
         </div>
     </div>
 </body>
+<script src="/public/javascripts/main.js"></script>
 </html>
