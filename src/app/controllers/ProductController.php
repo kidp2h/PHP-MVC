@@ -8,7 +8,7 @@ class ProductController extends Controller {
   private static self $instance;
 
   public function __construct() {
-    parent::setLayout('shop');
+    parent::setLayout('main');
   }
 
   public static function Instance(){
