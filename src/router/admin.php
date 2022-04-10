@@ -3,7 +3,7 @@ namespace router;
 
 use app\controllers\AdminController;
 use core\Application;
-use app\controllers\HomeController;
+
 $app = Application::Instance();
 $app->router->prefix("/admin");
 $app->router->get("/", [AdminController::class, "admin"]);
