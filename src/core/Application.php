@@ -15,18 +15,19 @@ class Application {
   public ?Controller $controller = null;
   public Request $request;
   public Response $response;
+  public Session $session;
   public View $view;
   public Model $model;
   public static Mail $mail;
   public $db;
 
   public function __construct($rootPath) {
-    session_start();
     $dotenv = Dotenv::createImmutable($rootPath);
     $dotenv->load();
     self::$__ROOT_DIR__ = $rootPath;
     $this->request = new Request();
     $this->response = new Response();
+    $this->session = new Session();
     $this->router = new Router($this->request, $this->response);
     $this->db = Database::Instance()->connect();
     $this->model = new Model();

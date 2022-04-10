@@ -5,6 +5,7 @@ use app\validation\RegisterForm;
 use core\Controller;
 use core\Request;
 use app\models\User;
+use core\Response;
 
 class AuthController extends Controller {
   public static function login(){
@@ -36,6 +37,10 @@ class AuthController extends Controller {
       }else return json_encode(["status" => "false","message" => "This account was verified"]);
     }
     
+  }
+
+  public static function handleLogin(Request $request, Response $response){
+
   }
   // public static function handleRegister(Request $request){
   //   $data = $request->body();
