@@ -18,21 +18,21 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-    <link rel="stylesheet" href="<?= "/public/styles/admin/base.css" ?>">
-    <link rel="stylesheet" href="<?= "/public/styles/admin/alert.css" ?>">
-    <link rel="stylesheet" href="<?= "/public/styles/admin/animations.css" ?>">
-    <link rel="stylesheet" href="<?= "/public/styles/admin/sidebar.css" ?>">
-    <link rel="stylesheet" href="<?= "/public/styles/admin/card.css" ?>">
-    <link rel="stylesheet" href="<?= "/public/styles/admin/burger.css" ?>">
-    <link rel="stylesheet" href="<?= "/public/styles/admin/custom.css" ?>">
-    <link rel="stylesheet" href="<?= "/public/styles/admin/manager.css" ?>">
-    <link rel="stylesheet" href="<?= "/public/styles/admin/pagination.css" ?>">
-    <link rel="stylesheet" href="<?= "/public/styles/admin/switch.css" ?>">
-    <link rel="stylesheet" href="<?= "/public/styles/admin/table.css" ?>">
-    <link rel="stylesheet" href="<?= "/public/styles/admin/main.css" ?>">
-    <link rel="stylesheet" href="<?= "/public/styles/admin/responsive.css" ?>">
-    <link rel="stylesheet" href="<?= "/public/styles/admin/modal.css" ?>">
-    <link rel="stylesheet" href="<?= "/public/styles/admin/load.css" ?>">
+    <link rel="stylesheet" href="/public/styles/admin/base.css">
+    <link rel="stylesheet" href="/public/styles/admin/alert.css">
+    <link rel="stylesheet" href="/public/styles/admin/animations.css">
+    <link rel="stylesheet" href="/public/styles/admin/sidebar.css">
+    <link rel="stylesheet" href="/public/styles/admin/card.css">
+    <link rel="stylesheet" href="/public/styles/admin/burger.css">
+    <link rel="stylesheet" href="/public/styles/admin/custom.css">
+    <link rel="stylesheet" href="/public/styles/admin/manager.css">
+    <link rel="stylesheet" href="/public/styles/admin/pagination.css">
+    <link rel="stylesheet" href="/public/styles/admin/switch.css">
+    <link rel="stylesheet" href="/public/styles/admin/table.css">
+    <link rel="stylesheet" href="/public/styles/admin/main.css">
+    <link rel="stylesheet" href="/public/styles/admin/responsive.css">
+    <link rel="stylesheet" href="/public/styles/admin/modal.css">
+    <link rel="stylesheet" href="/public/styles/admin/load.css">
   </head>
   <body>
     <div id="admin">
