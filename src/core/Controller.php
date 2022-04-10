@@ -9,6 +9,9 @@ class Controller
   {
     self::$layout = $layout;
   }
+  public static function hook(){
+    self::setLayout(static::$layout);
+  }
   public static function render($view, $params = [])
   {
     return Application::$app->view->render($view, $params);

@@ -4,10 +4,9 @@ namespace router;
 use app\controllers\ContactController;
 use core\Application;
 use app\controllers\HomeController;
-use app\controllers\ProductController;
-use app\models\Product;
+use app\controllers\ShopController;
 
 $app = Application::Instance();
 $app->router->prefix("/shop");
-$app->router->get("/product", [ProductController::class,"shop"]);
+$app->router->get("/", [ShopController::class, "shop"]);
 
