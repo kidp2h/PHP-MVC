@@ -29,6 +29,7 @@ services:
       - 3306:3306
     environment:
       MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_HOST: '%'
     volumes:
       - ./db:/var/lib/mysql
   node:

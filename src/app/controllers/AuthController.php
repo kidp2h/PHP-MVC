@@ -19,11 +19,7 @@ class AuthController extends Controller {
     echo "kec";
   }
   public static function register(Request $request){
-    if($request->isPassedMiddleware){
-      echo "Passing";
-    }else{
-      echo "Failed";
-    }
+    return parent::render("register",['SITE_KEY' => $_ENV["GC_SITE_KEY"],'SECRET_KEY' => $_ENV["GC_SECRET_KEY"]]);
   }
   public static function verifyEmail(Request $request){
     header("Content-Type: application/json");

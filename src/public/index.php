@@ -1,15 +1,11 @@
 <?php
 require_once __DIR__ . '/../vendor/autoload.php';
-
-use app\controllers\ContactController;
-use app\controllers\HomeController;
-use app\controllers\AuthController;
-use app\controllers\UserController;
-use app\controllers\AdminController;
-use app\controllers\ProductController;
-use app\controllers\TestController;
-use app\middlewares\UserMiddleware;
+require_once __DIR__.'/../router/admin.php';
+require_once __DIR__.'/../router/shop.php';
+require_once __DIR__.'/../router/detail.php';
+require_once __DIR__.'/../router/index.php';
 use core\Application;
+<<<<<<< HEAD
 
 $app = new Application(dirname(__DIR__));
 $app->router->get("/", [HomeController::class, "home"]);
@@ -27,4 +23,7 @@ $app->router->get("/admin",[AdminController::class,"admin"]);
 $app->router->get("/shop",[ProductController::class,"shop"]);
 $app->router->get("/detail",[DetailController::class,"detail"]);
 // $app->router->get("/test",[TestController::class,"test"]);
+=======
+$app = Application::Instance();
+>>>>>>> main
 $app->run();

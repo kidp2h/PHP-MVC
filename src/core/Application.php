@@ -7,6 +7,7 @@ use SendGrid\Mail\Mail;
 
 
 class Application {
+  private static self $instance;
   public static string $__ROOT_DIR__;
   public static Application $app;
   public string $layout = "main";
@@ -14,6 +15,7 @@ class Application {
   public ?Controller $controller = null;
   public Request $request;
   public Response $response;
+  public View $view;
   public Model $model;
   public static Mail $mail;
   public $db;
@@ -32,6 +34,11 @@ class Application {
     $this->controller = new Controller();
     self::$mail = new Mail();
     self::$app = $this;
+  }
+
+  public static function Instance(){
+    if(!isset(self::$instance)) self::$instance = new Application(dirname(__DIR__));
+    return self::$instance;
   }
   public function run() {
     echo $this->router->resolve();

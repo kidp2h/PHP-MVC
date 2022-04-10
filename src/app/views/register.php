@@ -26,5 +26,7 @@
       ?>
     </div>
   </div>
+  <div class="g-recaptcha" data-sitekey="<?= $SITE_KEY ?>"></div>
+  <br/>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>

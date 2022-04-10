@@ -43,5 +43,14 @@ class Utils {
     if($newHash === $hashValue) return true;
     return false;
   }
+  public static function hashBcrypt(string $text){
+    return password_hash($text, PASSWORD_BCRYPT, ["cost" => $_ENV["SALT"]]);
+  }
+  public static function verifyBcrypt(string $hash, string $text){
+    return password_verify($text,$hash);
+  }
 
+  public static function verifyCaptcha(){
+    
+  }
 }

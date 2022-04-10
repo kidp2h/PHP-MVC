@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -334,3 +335,6 @@
     <!-- <script type="text/javascript" src="showMoreInfor.js"></script> -->
 </body>
 </html>
+=======
+<span><?= $productName ?></span>
+>>>>>>> main

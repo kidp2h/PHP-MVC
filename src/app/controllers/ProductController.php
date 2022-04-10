@@ -3,34 +3,41 @@ namespace app\controllers;
 use core\Controller;
 use core\Request;
 use app\models\Product;
-use mysqli;
 
 class ProductController extends Controller {
   private static self $instance;
 
   public function __construct() {
-    // parent::setLayout('shop');
+    parent::setLayout('shop');
   }
 
   public static function Instance(){
-    if(!isset(self::$instance)){
-      self::$instance = new ProductController();
-    }
+    if(!isset(self::$instance)) self::$instance = new ProductController();
     return self::$instance;
   }
 
   public static function shop(){
-    // parent::setLayout('shop');
-    return parent::render('shop',["id"=>5]);
+    return parent::render('shop');
   }
+<<<<<<< HEAD
 
+=======
+>>>>>>> main
   public static function getProducts($limit=6){
     $product = new Product();
     $PAGE = $product->PageNumber($limit);
     $row= $product->getProducstlist($limit, $PAGE);
     while(!$row){
+<<<<<<< HEAD
             
     }
   }
 }
 ?>
+=======
+     
+    }
+  }
+  }
+  ?>
+>>>>>>> main
