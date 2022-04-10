@@ -41,7 +41,8 @@ use core\Session;
     }
 
     public function setRouteParams($params){
-      $this->routeParams = $params;
+      if(is_array($params)) $this->routeParams = $params;
+      
     }
 
     public function session(){

@@ -67,7 +67,7 @@ class Router {
         for ($i = 1; $i < count($valueMatches); $i++)
             $values[] = $valueMatches[$i][0];
         // combine value and name param to array
-        $routeParams = array_combine($paramsName, $values);
+        if(isset($paramsName)) $routeParams = array_combine($paramsName, $values);
         // set param for request
         $this->request->setRouteParams($routeParams);
         return $components["callback"];
@@ -94,6 +94,7 @@ class Router {
       return $this->loadContent("<b>Not Found</b>"); 
     }
     if (is_string($callback)) return Application::$app->view->render($callback);
+    if(is_callable([$callback[0],'hook'])) call_user_func([$callback[0],'hook']);
     return call_user_func($callback, $this->request);
   }
 }

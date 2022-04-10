@@ -3,12 +3,11 @@ namespace app\controllers;
 use core\Controller;
 use core\Request;
 use app\models\Product;
-use mysqli;
 
 class ProductController extends Controller {
     private static self $instance;
   public function __construct() {
-    // parent::setLayout('shop');
+    parent::setLayout('shop');
   }
   public static function Instance(){
     if(!isset(self::$instance)) self::$instance = new ProductController();

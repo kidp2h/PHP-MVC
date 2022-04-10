@@ -49,4 +49,8 @@ class Utils {
   public static function verifyBcrypt(string $hash, string $text){
     return password_verify($text,$hash);
   }
+
+  public static function verifyCaptcha(){
+    
+  }
 }
