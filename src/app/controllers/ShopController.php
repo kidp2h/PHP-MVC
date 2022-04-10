@@ -11,6 +11,7 @@ class ShopController extends Controller {
   public static function hook(){
     parent::setLayout(self::$layout);
   }
+
   public static function Instance(){
     if(!isset(self::$instance)) self::$instance = new ShopController();
     return self::$instance;
@@ -19,13 +20,16 @@ class ShopController extends Controller {
   public static function shop(){
     return parent::render('shop');
   }
+
   public static function getProducts($limit=6){
     $product = new Product();
     $PAGE = $product->PageNumber($limit);
     $row= $product->getProducstlist($limit, $PAGE);
     while(!$row){
-     
+            
     }
   }
-  }
-  ?>
+}
+?>
+     
+
