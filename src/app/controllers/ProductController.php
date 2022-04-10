@@ -19,25 +19,16 @@ class ProductController extends Controller {
   public static function shop(){
     return parent::render('shop');
   }
-<<<<<<< HEAD
 
-=======
->>>>>>> main
   public static function getProducts($limit=6){
     $product = new Product();
     $PAGE = $product->PageNumber($limit);
     $row= $product->getProducstlist($limit, $PAGE);
     while(!$row){
-<<<<<<< HEAD
             
     }
   }
 }
 ?>
-=======
      
-    }
-  }
-  }
-  ?>
->>>>>>> main
+
