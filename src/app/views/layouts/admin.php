@@ -100,6 +100,7 @@
         {{content}}
       </div>
     </div>
+    <script src="/public/javascripts/main.js"></script>
     <script src="/public/javascripts/admin/main.js"></script>
   </body>
 </html>

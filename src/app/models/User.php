@@ -64,6 +64,11 @@ class User extends Model {
   public function getUser() {
     return $this->user;
   }
+  public function checkUser(string $username, string $password){
+    $user = $this->read(["*"],"username='$username'");
+    return Utils::verifyBcrypt($user->password, $password);
+  }
+
   public static function resolve(array $data) {
     $user = self::__self__();
     array_key_exists("username",$data) == true ? $user->username = $data["username"] : null;

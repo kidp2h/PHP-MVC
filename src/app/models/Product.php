@@ -1,88 +1,96 @@
 <?php   
-namespace app\models;
-use core\Model;
+    namespace app\models;
+    use core\Model;
+use mysqli;
 use utils\Utils;
-class product extends Model{
-    const TABLE = "product";
-    private self $product;
-    public int $id;
-    public string $title;
-    public int $price;
-    public string $createdAt;
-    public string $updatedAt;
-    public string $deletedAt;
-    public function __construct()
-    {
-        
-    }
-    public static function __self__(){
-        return new static();
-    }
-    public function fillInstance($id, $title, $price, $createdAt, $updatedAt, $deletedAt){
-        $this->product->ID = $id;
-        $this->product->name = $title;
-        $this->product->price= $price;
-        $this->product->sale= $createdAt;
-        $this->product->quantity= $updatedAt;
-        $this->product->img= $deletedAt;
-    }
-    public function getId(){
-        return $this->product->id;
-    }
-    public function setID($id){
-        $this->product->ID=$id;
-    }
-    public function getName(){
-        return $this->product->title;
-    }
-    public function setName($title){
-        $this->product->name=$title;
-    }
-    public function getPrice(){
-        return $this->product->price;
-    }
-    public function setPrice($price){
-        $this->product->price=$price;
-    }
-    public function getCreatedAt(){
-        return $this->product->createdAt;
-    }
-    public function setCreatedAt($createdAt){
-        $this->product->createdAt=$createdAt;
-    }
-    public function getUpdateAt(){
-        return $this->product->updatedAt;
-    }
-    public function setUpdateAt($updatedAt){
-        $this->product->updatedAt=$updatedAt;
-    }
-    public function getDeletedAt(){
-        return $this->product->deletedAt;
-    }
-    public function setImg($deletedAt){
-        $this->product->deletedAt=$deletedAt;   
-    }
-    public function getQuantity(){
-        return self::$db->query("SELECT COUNT(*) FROM {self::TABLE}");
-    }
-    
-    public function getProducstlist($LIMIT, $PAGE){
-        $sql= self::$db->query("SELECT * FROM {self::TABALE} ORDER BY 'ID' ASC LIMIT .$LIMIT. OFFSET .$LIMIT*($PAGE-1)");
-        return mysqli_fetch_array($sql);
-    }
-
-    public function getProductById($id) {
-        $sql = self::$db->query("SELECT * FROM product where product.id = '$id'");
-        return mysqli_fetch_array($sql);
-    }
-    
-    public function PageNumber($limit){
-        $total= $this->getQuantity();
-        if($total<=$limit){
-            return 1;
-        }else{
-            return $total % $limit==0 ? $total/$limit : $total/$limit+1;
+class Product extends Model{
+        const TABLE = "product";
+        private self $Product;
+        public int $id;
+        public string $title;
+        public int $price;
+        public string  $Created_At;
+        public string $Update_At;
+        public string $Deleted_At;
+        public function __construct()
+        {
+            
         }
-
-    }
+        public static function __seft__(){
+            return new static();
+        }
+        public function fillInstance($id, $title, $price, $Created_At, $Update_At, $Deleted_At){
+            $this->Product->ID = $id;
+            $this->Product->name = $title;
+            $this->Product->price= $price;
+            $this->Product->sale= $Created_At;
+            $this->Product->quantity= $Update_At;
+            $this->Product->img= $Deleted_At;
+        }
+        public function getId(){
+            return $this->Product->id;
+        }
+        public function setID($id){
+            $this->Product->ID=$id;
+        }
+        public function getName(){
+            return $this->Product->title;
+        }
+        public function setName($title){
+            $this->Product->name=$title;
+        }
+        public function getPrice(){
+            return $this->Product->price;
+        }
+        public function setPrice($price){
+            $this->Product->price=$price;
+        }
+        public function getCreated_At(){
+            return $this->Product->Created_At;
+        }
+        public function setCreated_At($Created_At){
+            $this->Product->Created_At=$Created_At;
+        }
+        public function getUpdate_At(){
+            return $this->Product->Update_At;
+        }
+        public function setUpdate_At($Update_At){
+            $this->Product->Update_At=$Update_At;
+        }
+        public function getDeleted_At(){
+            return $this->Product->Deleted_At;
+        }
+        public function setImg($Deleted_At){
+            $this->Product->Deleted_At=$Deleted_At;   
+        }
+        public function getAllProduct(){
+            $data = [];
+            $sql=self::$db->query("SELECT * FROM product");
+            while($row=mysqli_fetch_all($sql,1)){
+                $data=$row;
+            }
+            return $data;
+        }
+        public function getQuantityProducts(){
+            return mysqli_num_rows(self::$db->query("SELECT  * FROM product"));
+        }
+        public function getProducstlist($LIMIT, $PAGE){
+            $index =($PAGE-1)*$LIMIT;
+            $query = 'SELECT * FROM product LIMIT '.$index.','.$LIMIT.'';
+            $sql= self::$db->query($query);
+            $data = [];
+            while($row=mysqli_fetch_all($sql,1)){
+                $data=$row;
+            }
+            return $data;
+        }
+        
+        public function PageNumber($limit=6){
+            $total= $this->getQuantityProducts();
+            if($total<=$limit){
+                return 1;
+            }else{
+                return $total%$limit==0 ? $total/$limit : $total/$limit+1;
+            }
+        } 
 }

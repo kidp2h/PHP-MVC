@@ -1,10 +1,8 @@
 <?php
-
 namespace core;
 use database\Database;
 use Dotenv\Dotenv;
 use SendGrid\Mail\Mail;
-
 
 class Application {
   private static self $instance;
@@ -22,6 +20,7 @@ class Application {
   public $db;
 
   public function __construct($rootPath) {
+    error_reporting(0);
     $dotenv = Dotenv::createImmutable($rootPath);
     $dotenv->load();
     self::$__ROOT_DIR__ = $rootPath;
@@ -41,6 +40,11 @@ class Application {
     if(!isset(self::$instance)) self::$instance = new Application(dirname(__DIR__));
     return self::$instance;
   }
+
+  public static function setCookie(string $key, string $value, string $expire, string $path = "/"){
+    setcookie($key, $value,$expire, $path);
+  }
+
   public function run() {
     echo $this->router->resolve();
   }

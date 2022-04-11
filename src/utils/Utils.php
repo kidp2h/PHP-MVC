@@ -50,7 +50,18 @@ class Utils {
     return password_verify($text,$hash);
   }
 
-  public static function verifyCaptcha(){
-    
+  public static function verifyCaptcha(string $responseCaptcha){
+    $curl = curl_init("https://www.google.com/recaptcha/api/siteverify");
+    curl_setopt_array($curl,[
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_POST => 1,
+      CURLOPT_POSTFIELDS => http_build_query([
+        'secret' => $_ENV["GC_SECRET_KEY"],
+        'response' => $responseCaptcha
+      ])
+    ]);
+    $response = curl_exec($curl);
+    curl_close($curl);
+    return json_decode($response, true);
   }
 }
