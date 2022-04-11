@@ -1,9 +1,10 @@
 <?php   
     namespace app\models;
     use core\Model;
-    use utils\Utils;
+use mysqli;
+use utils\Utils;
     class Product extends Model{
-        const TABLE = "Products";
+        const TABLE = "product";
         private self $Product;
         public int $id;
         public string $title;
@@ -62,20 +63,34 @@
         public function setImg($Deleted_At){
             $this->Product->Deleted_At=$Deleted_At;   
         }
+        public function getAllProduct(){
+            $data = [];
+            $sql=self::$db->query("SELECT * FROM product");
+            while($row=mysqli_fetch_all($sql,1)){
+                $data=$row;
+            }
+            return $data;
+        }
         public function getQuantityProducts(){
-            return self::$db->query("SELECT COUNT(*) FROM {self::TABLE}");
+            return mysqli_num_rows(self::$db->query("SELECT  * FROM product"));
         }
         public function getProducstlist($LIMIT, $PAGE){
-            $sql= self::$db->query("SELECT * FROM {self::TABALE} ORDER BY 'ID' ASC LIMIT .$LIMIT. OFFSET .$LIMIT*($PAGE-1)");
-            return mysqli_fetch_array($sql);
+            $index =($PAGE-1)*$LIMIT;
+            $query = 'SELECT * FROM product LIMIT '.$index.','.$LIMIT.'';
+            $sql= self::$db->query($query);
+            $data = [];
+            while($row=mysqli_fetch_all($sql,1)){
+                $data=$row;
+            }
+            return $data;
         }
-        public function PageNumber($limit){
+        
+        public function PageNumber($limit=6){
             $total= $this->getQuantityProducts();
             if($total<=$limit){
                 return 1;
             }else{
                 return $total%$limit==0 ? $total/$limit : $total/$limit+1;
             }
-
-        }
+        } 
     }

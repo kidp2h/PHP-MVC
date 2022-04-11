@@ -10,4 +10,5 @@ use app\models\Product;
 $app = Application::Instance();
 $app->router->prefix("/shop");
 $app->router->get("/product", [ProductController::class,"shop"]);
+$app->router->get("/hello", [ProductController::class,"getProducts"]);
 
