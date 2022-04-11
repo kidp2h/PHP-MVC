@@ -9,9 +9,7 @@ class AdminController extends Controller {
   public static string $layout = 'admin';
 
   public static function Instance(){
-    if(!isset(self::$instance)){
-      self::$instance = new AdminController();
-    }
+    if(!isset(self::$instance)) self::$instance = new AdminController();
     return self::$instance;
   }
 
