@@ -7,11 +7,7 @@ use core\Request;
 class AdminController extends Controller {
   private static self $instance;
   public static string $layout = 'admin';
-  public function __construct() {
-  }
-  public static function hook(){
-    self::setLayout(self::$layout);
-  }
+
   public static function Instance(){
     if(!isset(self::$instance)){
       self::$instance = new AdminController();
@@ -20,7 +16,6 @@ class AdminController extends Controller {
   }
 
   public static function admin(){
-    //parent::setLayout('admin');
     return parent::render('admin');
   }
   public static function product(){

@@ -2,7 +2,8 @@
   "require": {
     "vlucas/phpdotenv": "^5.4",
     "webonyx/graphql-php": "^14.11",
-    "sendgrid/sendgrid": "~7"
+    "sendgrid/sendgrid": "~7",
+    "facebook/graph-sdk": "^5.1"
   },
   "autoload": {
     "psr-4": {

@@ -1,0 +1,33 @@
+#form-login {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 300px;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#text-or {
+  margin: auto;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+#text-or::after {
+  content: '';
+  border: 1px solid;
+  height: 2px;
+  width: 100px;
+  margin-left: 20px;
+}
+#text-or::before {
+  content: '';
+  border: 1px solid;
+  height: 2px;
+  width: 100px;
+  margin-right: 20px;
+}

@@ -7,15 +7,16 @@ use mysqli;
 
 use function PHPSTORM_META\type;
 
-class ProductController extends Controller {
+class ShopController extends Controller {
   private static self $instance;
-
-  public function __construct() {
-    parent::setLayout('main');
+  public static string $layout = "main";
+  
+  public static function hook(){
+    parent::setLayout(self::$layout);
   }
 
   public static function Instance(){
-    if(!isset(self::$instance)) self::$instance = new ProductController();
+    if(!isset(self::$instance)) self::$instance = new ShopController();
     return self::$instance;
   }
 

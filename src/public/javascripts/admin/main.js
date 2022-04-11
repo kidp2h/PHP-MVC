@@ -1,6 +1,3 @@
-const $ = (selector) => document.querySelector(selector);
-const $$ = (selector) => document.querySelectorAll(selector);
-
 $('.toggle').onclick = () => {
   $$('.pagination').forEach((item) => {
     item.classList.toggle('hidden');

@@ -1,8 +1,5 @@
 <?php
 namespace app\middlewares;
-
-use Closure;
-use core\Middleware;
 use core\Request;
 use core\Response;
 
