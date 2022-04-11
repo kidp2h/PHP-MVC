@@ -65,8 +65,14 @@ class product extends Model{
     public function getQuantity(){
         return self::$db->query("SELECT COUNT(*) FROM {self::TABLE}");
     }
+    
     public function getProducstlist($LIMIT, $PAGE){
         $sql= self::$db->query("SELECT * FROM {self::TABALE} ORDER BY 'ID' ASC LIMIT .$LIMIT. OFFSET .$LIMIT*($PAGE-1)");
+        return mysqli_fetch_array($sql);
+    }
+
+    public function getProductById($id) {
+        $sql = self::$db->query("SELECT * FROM product where product.id = '$id'");
         return mysqli_fetch_array($sql);
     }
     
