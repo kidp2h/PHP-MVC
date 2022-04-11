@@ -1,3 +1,6 @@
+<?php 
+                use \app\controllers\ProductController;
+?>                
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,6 +16,7 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?= "/public/styles/shop/base.css" ?>">
     <link rel="stylesheet" href="<?= "/public/styles/shop/apps.css" ?>">
@@ -20,9 +24,6 @@
     <title>Document</title>
 </head>
 <body>
-    <?php
-        echo $id;
-    ?>
 <div id="shop">
         <div id="wrapper">
             <div id="product-intro">
@@ -85,7 +86,7 @@
                         <button class="filter-submit" id="filtertitle">Filter</button>
                         <ul class="loc1">
 
-                        
+                                    
                                 <h3>Shipping & Delivery</h3>
                         
                             <li class="hotro">
@@ -125,15 +126,61 @@
                     <div class="center-product">
                         <ul id="products">
                        <?php
+                            forEach($currentPage as $product){
+                                echo '<li>
+                            <div class="product-items"></div>
+                            <div class="product-top">
+                                <a href="#product-${item.id}" class="product-thumb">
+                                    <img src="${item.imgList[0]}" alt="ảnh 1" width="200px" height="200px">
+                                </a>
+                               
+                                <!-- //Mua ngay -->
+                                <div class="buy-now">
+                                <div class="product-quantity">
+                                    <button class="btn btn-tru"> - </button>
+                                    <input type="number" min="1" max="99" value="1" class="inputQuantity" data-id ="${item.id}"  >
+                                    <button class="btn btn-add"> + </button>
+                                </div>
+                                    <div class="addtocart addToCart" data-id ="${item.id}" >
+                                        <p>ADD TO CART</p>
+                                        <i id="cart-icon" class="fas fa-shopping-cart"></i>
+                    
+                                    </div>
+                                </div>
+                                <div class="icon-heart">
+                                        <i class="far fa-heart"></i>
+                                        <i class="fas fa-heart"></i>
+                                </div>
+                            </div>
+                            <div class="product-info ">
+                                <div href="" class="product-cat">${item.category}</div>
+                                <div href="" class="product-name">'.$product["title"].'</div>
+                                <div class="price">
+                                <div class="product-price">1000</div>
+                                <div class="sale-price">'.$product["price"].'</div>
+                                </div>
+                            </div>
+                        </li>'; 
+                                
+                            }
+                            
+                                 
+                               
+                        ?>
                         
-                       ?>
                         </ul>
                        
                     </div>
                 </div>
 
                 <div id="chuyentrang">
-                        </div>      
+                <?php 
+                    for ($i=1;$i<=$pageNumber;$i++){
+                        echo '<a class="pagination"href="?page='.$i.'">'.$i.'</a>' ;
+                        }       
+                ?>               
+                </div>
+
             <div id="backtop" onclick="topFunction()">
                 <i class="fas fa-arrow-up"></i>
             </div>
