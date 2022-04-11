@@ -567,7 +567,7 @@ San pham  */
                     margin-top: auto;
                 }
                 
-                #shop #chuyentrang p.trangn {
+                #shop #chuyentrang a.pagination {
                     font-size: 1.5em;
                     margin: 0 0.5em;
                     color: #fff;
@@ -580,12 +580,12 @@ San pham  */
                     transition: all 0.3s ease-in-out;
                 }
                 
-                #shop #chuyentrang p.trangn:hover {
+                #shop #chuyentrang a:hover {
                     background-color: #f1f1f1;
                     color: #5f50f1;
                 }
 
-                #shop #chuyentrang p.trangn.active {
+                #shop #chuyentrang a.active {
                     background-color: #f1f1f1;
                     color: #5f50f1;
                 }

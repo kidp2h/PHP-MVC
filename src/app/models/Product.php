@@ -65,17 +65,18 @@ class product extends Model {
 	public function getQuantity() {
 		return self::$db->query("SELECT COUNT(*) FROM {self::TABLE}");
 	}
-	public function getProducstlist($LIMIT, $PAGE) {
-		$sql = self::$db->query("SELECT * FROM {self::TABALE} ORDER BY 'ID' ASC LIMIT .$LIMIT. OFFSET .$LIMIT*($PAGE-1)");
-		return mysqli_fetch_array($sql);
+	public function getListProducts($limit, $page){
+		$index = ($page - 1) * $limit;
+		$query = 'SELECT * FROM product LIMIT $index, $limit';
+		$sql= self::$db->query($query);
+		$data = [];
+		while($row = mysqli_fetch_all($sql, 1)) $data=$row;
+		return $data;
 	}
 
-	public function PageNumber($limit) {
+	public function pageNumber($limit) {
 		$total = $this->getQuantity();
-		if ($total <= $limit) {
-			return 1;
-		} else {
-			return $total % $limit == 0 ? $total / $limit : $total / $limit + 1;
-		}
+		if ($total <= $limit) return 1;
+		else return $total % $limit == 0 ? $total / $limit : $total / $limit + 1;
 	}
 }

@@ -20,7 +20,7 @@ class DetailController extends Controller {
   }
   public static function handleDetail(Request $request){
     $id = $request->param("id");
-    $productName = "product 1";
+    $productName = $id; //getProductById($id);
     return parent::render("detail",["productName" => $productName]);
   }
 }
