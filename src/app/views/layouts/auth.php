@@ -16,6 +16,15 @@
     {{content}}
   </div>
 </body>
+<!-- Messenger Plugin chat Code -->
+<div id="fb-root"></div>
+
+<!-- Your Plugin chat code -->
+<div id="fb-customer-chat" class="fb-customerchat">
+</div>
+
+<!-- Your SDK code -->
+<script src="/public/javascripts/messenger.js"></script>
 <script src="/public/javascripts/auth/facebook.js"></script>
 <script src="/public/javascripts/main.js"></script>
 <script src="/public/javascripts/auth/main.js"></script>
