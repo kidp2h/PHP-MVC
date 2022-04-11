@@ -3,7 +3,7 @@
     use core\Model;
 use mysqli;
 use utils\Utils;
-    class Product extends Model{
+class Product extends Model{
         const TABLE = "product";
         private self $Product;
         public int $id;
@@ -93,4 +93,4 @@ use utils\Utils;
                 return $total%$limit==0 ? $total/$limit : $total/$limit+1;
             }
         } 
-    }
+}
