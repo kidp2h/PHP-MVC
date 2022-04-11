@@ -36,14 +36,6 @@ class AuthController extends Controller
       return json_encode(["status" => true, "redirect" => "/"]);
     }
   }
-
-  public static function handleLoginFacebook(Request $request, Response $response)
-  {
-
-    //print_r($loginURL);
-    exit;
-    return "kec";
-  }
   public static function register(Request $request)
   {
     return parent::render("register");
