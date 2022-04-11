@@ -17,8 +17,6 @@
   <br/>
   <button type="submit" class="btn btn-primary" id="btn-login">Submit</button>
   <span id="text-or">OR</span>
-  <a href="javascript:void(0)" id="fbLink" onclick="fbLogin()">
-    <img src="/public/images/facebook.png" width="300" alt="">
-  </a>
+  <div class="fb-login-button" data-width="300" data-size="large" data-button-type="continue_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="true"></div>
 </div>
 

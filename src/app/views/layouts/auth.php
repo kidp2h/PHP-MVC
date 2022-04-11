@@ -24,6 +24,7 @@
 </div>
 
 <!-- Your SDK code -->
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v13.0&appId=379674354067143&autoLogAppEvents=1" nonce="G5t768ZJ"></script>
 <script src="/public/javascripts/messenger.js"></script>
 <script src="/public/javascripts/auth/facebook.js"></script>
 <script src="/public/javascripts/main.js"></script>
