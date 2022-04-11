@@ -1,7 +1,6 @@
 <?php
 
 namespace core;
-
 class Router {
   protected array $routes = [];
   public Request $request;
@@ -82,20 +81,28 @@ class Router {
     $callback = $this->routes[$method][$path]['callback'] ?? $this->getCallback();
     $middleware = $this->routes[$method][$path]['middleware'] ?? [];
     $isPassMiddleware = true;
+    
     for ($i = 0; $i < count($middleware); $i++) { 
       $result = call_user_func($middleware[$i],$this->request, $this->response);
-      if(!$result) {
-        $isPassMiddleware = $result;
-        break;
-      }
+      if(is_bool($result)) {
+        if(!$result){
+          $isPassMiddleware = $result;
+          $this->response->statusCode(404);
+          break;
+        }
+      } else return call_user_func($result);
+
     }
     $this->request->isPassedMiddleware = $isPassMiddleware;
+
     if ($callback === false) {
       $this->response->statusCode(404);
-      return $this->loadContent("<b>Not Found</b>"); 
+      $this->response->redirect("/login");
     }
     if (is_string($callback)) return Application::$app->view->render($callback);
-    if(is_callable([$callback[0],'hook'])) call_user_func([$callback[0],'hook']);
-    return call_user_func($callback, $this->request);
+    // Hooking
+    if(is_callable([$callback[0],'hook'])) call_user_func([$callback[0],'hook']); // Global Hook
+    if(is_callable([$callback[0],'useHook'])) call_user_func([$callback[0],'useHook']); // Local Hook
+    return call_user_func($callback, $this->request, $this->response);
   }
 }

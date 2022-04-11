@@ -8,5 +8,6 @@
 </head>
 <body>
   {{content}}
+  <script src="/public/javascripts/main.js"></script>
 </body>
 </html>

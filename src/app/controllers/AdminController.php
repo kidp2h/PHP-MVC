@@ -16,7 +16,6 @@ class AdminController extends Controller {
   }
 
   public static function admin(){
-    //parent::setLayout('admin');
     return parent::render('admin');
   }
   public static function product(){
