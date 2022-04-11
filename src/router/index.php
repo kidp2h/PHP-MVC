@@ -15,3 +15,5 @@ $app->router->post("/register", [[AuthMiddleware::class,"isLogout"]],[AuthContro
 
 $app->router->get("/login", [[AuthMiddleware::class,"isLogout"]], [AuthController::class, "login"]);
 $app->router->post("/login",[AuthController::class, "handleLogin"]);
+
+$app->router->get("/facebook",[AuthController::class, "handleLoginFacebook"]);
