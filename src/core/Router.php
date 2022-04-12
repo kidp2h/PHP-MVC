@@ -81,7 +81,6 @@ class Router {
     $callback = $this->routes[$method][$path]['callback'] ?? $this->getCallback();
     $middleware = $this->routes[$method][$path]['middleware'] ?? [];
     $isPassMiddleware = true;
-    
     for ($i = 0; $i < count($middleware); $i++) { 
       $result = call_user_func($middleware[$i],$this->request, $this->response);
       if(is_bool($result)) {
@@ -97,7 +96,7 @@ class Router {
 
     if ($callback === false) {
       $this->response->statusCode(404);
-      $this->response->redirect("/login");
+      // $this->response->redirect("/auth");
     }
     if (is_string($callback)) return Application::$app->view->render($callback);
     // Hooking
