@@ -568,6 +568,7 @@ San pham  */
                 }
                 
                 #shop #chuyentrang a.pagination {
+                    display: block;
                     font-size: 1.5em;
                     margin: 0 0.5em;
                     color: #fff;

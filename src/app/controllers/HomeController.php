@@ -12,4 +12,5 @@ class HomeController extends Controller {
     return parent::render('home',$params);
   }
 }
+
 ?>
