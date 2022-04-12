@@ -1,30 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600;700&display=swap" rel="stylesheet">
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
-    integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer"
-  />
-  <link rel="stylesheet" href="/public/styles/base.css">
-  <link rel="stylesheet" href="/public/styles/auth/auth.css">
-  <title>Main</title>
-</head>
-<body>
-  <!-- <div id="fb-root"></div> -->
-  <div class="blobs">
   <svg viewBox="0 0 800 500" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"
     xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%"id="blobSvg">
-    <g transform="translate(500, -200)">
+    <g transform="translate(500, -198)">
       <defs>
         <clipPath id="shape">
           <path fill="#d1d8e0">
@@ -85,48 +61,6 @@
           </path>
         </clipPath>
       </defs>
-      <image x="0" y="0" width="100%" height="100%" clip-path="url(#shape)" xlink:href="/public/images/mesh_3.jpg" preserveAspectRatio="none"></image>
-    </g>
-    <g transform="translate(-100, 400)">
-    <defs>
-      <clipPath id="shape">
-      <path fill="#d1d8e0">
-        <animate attributeName="d" dur="6000ms" repeatCount="indefinite" values="
-        M441,318.5Q439,387,367.5,388.5Q296,390,245,407Q194,424,138.5,398Q83,372,42.5,311Q2,250,64.5,205.5Q127,161,164,130Q201,99,247,108Q293,117,367,114Q441,111,442,180.5Q443,250,441,318.5Z;
-        
-        M433,284Q380,318,385.5,386Q391,454,334,463Q277,472,226,459.5Q175,447,133.5,418.5Q92,390,75.5,343.5Q59,297,60.5,250.5Q62,204,72,152.5Q82,101,133.5,89.5Q185,78,225,102Q265,126,306,117.5Q347,109,370.5,142Q394,175,440,212.5Q486,250,433,284Z;
-
-        M407,281.5Q370,313,347.5,335.5Q325,358,302,424.5Q279,491,231,459Q183,427,124,420.5Q65,414,66.5,354.5Q68,295,92,256Q116,217,118.5,176.5Q121,136,162,131.5Q203,127,236,108.5Q269,90,309.5,97.5Q350,105,383.5,133.5Q417,162,430.5,206Q444,250,407,281.5Z;
-
-        M425.5,304Q455,358,396,367Q337,376,302.5,388.5Q268,401,227.5,409Q187,417,141.5,402Q96,387,95.5,337.5Q95,288,104,252Q113,216,118,176.5Q123,137,164,134.5Q205,132,235.5,124.5Q266,117,322,91Q378,65,420,102Q462,139,429,194.5Q396,250,425.5,304Z
-
-        M441,318.5Q439,387,367.5,388.5Q296,390,245,407Q194,424,138.5,398Q83,372,42.5,311Q2,250,64.5,205.5Q127,161,164,130Q201,99,247,108Q293,117,367,114Q441,111,442,180.5Q443,250,441,318.5Z;
-        "></animate>
-      </path>
-      </clipPath>
-    </defs>
-    <image x="0" y="0" width="100%" height="100%" clip-path="url(#shape)" xlink:href="https://products.ls.graphics/mesh-gradients/images/29.-Pale-Cornflower-Blue_1.jpg" preserveAspectRatio="none"></image>
+    <image x="0" y="0" width="100%" height="100%" clip-path="url(#shape)" xlink:href="https://products.ls.graphics/mesh-gradients/images/02.-Egg-Sour.jpg" preserveAspectRatio="none"></image>
   </g>
   </svg>
-  </div>
-
-  <div class="container">
-    {{content}}
-  </div>
-</body>
-<!-- Messenger Plugin chat Code -->
-<div id="fb-root"></div>
-
-<!-- Your Plugin chat code -->
-<div id="fb-customer-chat" class="fb-customerchat">
-</div>
-
-<!-- Your SDK code -->
-<!-- <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v13.0&appId=379674354067143&autoLogAppEvents=1" nonce="G5t768ZJ"></script> -->
-<!-- <script src="/public/javascripts/messenger.js"></script> -->
-<!-- <script src="/public/javascripts/auth/facebook.js"></script> -->
-<!-- <script src="/public/javascripts/main.js"></script> -->
-<!-- <script src="/public/javascripts/auth/main.js"></script> -->
-<!-- <script src="https://www.google.com/recaptcha/api.js" async defer></script> -->
-<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> -->
-</html>
