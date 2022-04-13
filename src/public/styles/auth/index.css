@@ -70,6 +70,7 @@ body {
   border-radius: 10px;
   background-color: rgba( 255, 255, 255, 0.25 );
   font-size: 1.5rem;
+  color: white !important;
 }
 #text-or {
   margin: auto;
