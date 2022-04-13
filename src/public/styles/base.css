@@ -32,6 +32,9 @@ button {
 ul {
   list-style-type: none;
 }
+a {
+  text-decoration: none;
+}
 
 html {
   box-sizing: border-box;
@@ -84,14 +87,17 @@ html.loader {
   --transition: 0.65s;
 
   --primary-color: #5f50f1;
-  --grey-color: rgb(158, 155, 153);
+  --gray-color: rgb(158, 155, 153);
   --blue-color: #a8bcd4;
   --red-color: #f63400;
   --cyan-color: #25bdb0;
   --black-color: black;
-  --white-color: white;
+  --white-color: rgb(252, 244, 244);
   --pink-color: #fcc6de;
   --brown-color: #ad8111;
+  --lightBlue-color: rgb(132, 132, 233);
+  --purple-color: rgb(134, 84, 134);
+  --yellow-color: yellow;
 }
 
 #app > * {
@@ -153,7 +159,7 @@ input[type='radio'] {
 }
 
 .color--brown,
-.color--grey,
+.color--gray,
 .color--pink,
 .color--black,
 .color--cyan,
@@ -162,6 +168,22 @@ input[type='radio'] {
   border-radius: 50%;
   /* width: 26px;
     height: 26px; */
+}
+
+.color--yellow {
+  background-color: var(--yellow-color);
+}
+
+.color--purple {
+  background-color: var(--purple-color);
+}
+
+.color--lightBlue {
+  background-color: var(--lightBlue-color);
+}
+
+.color--white {
+  background-color: var(--white-color);
 }
 
 .color--blue {
@@ -183,8 +205,8 @@ input[type='radio'] {
   background-color: var(--pink-color);
 }
 
-.color--grey {
-  background-color: var(--grey-color);
+.color--gray {
+  background-color: var(--gray-color);
 }
 
 .color--brown {
