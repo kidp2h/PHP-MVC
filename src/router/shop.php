@@ -10,3 +10,4 @@ $app = Application::Instance();
 $app->router->prefix("/shop");
 $app->router->get("/", [ShopController::class, "shop"]);
 
+

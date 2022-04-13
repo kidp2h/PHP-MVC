@@ -17,9 +17,9 @@ class AuthController extends Controller
 {
   public static string $layout = "auth";
   public static array $data;
-  public static function login()
+  public static function auth()
   {
-    return parent::render('login');
+    return parent::render('auth');
   }
   public static function useHook()
   {

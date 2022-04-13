@@ -102,12 +102,12 @@
                         <ul id="products">
                        <?php
                             forEach($currentPage as $product){
-                                echo '<li><a href="#productId='.$product["id"].'">
+                                echo '<li><a href="http://localhost/detail/product/'.$product["id"].'">
                                 <div class="product-items"></div>
                                 <div class="product-top">
-                                    <a" class="product-thumb">
+                                    <div class="product-thumb">
                                         <img src="${item.imgList[0]}" alt="ảnh 1" width="200px" height="200px">
-                                    </a>
+                                    </div>
                                    
                                     <!-- //Mua ngay -->
                                     <div class="buy-now">

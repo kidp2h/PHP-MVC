@@ -21,8 +21,9 @@
   <link rel="stylesheet" href="/public/styles/home/index.css">
   <link rel="stylesheet" href="/public/styles/shop/apps.css">
   <link rel="stylesheet" href="/public/styles/shop/base.css">
-  <link rel="stylesheet" href="/public/styles/shop/rp.css">
-  <link rel="stylesheet" href="/public/styles/details/index.css">
+  <link rel="stylesheet" href="/public/styles/shop/rp.css"> 
+  <link rel="stylesheet" href="/public/styles/detail/style.css">
+  <link rel="stylesheet" href="/public/styles/detail/responsive.css">
   <link rel="stylesheet" href="/public/styles/cart/index.css">
   <link rel="stylesheet" href="/public/styles/order/index.css">
 

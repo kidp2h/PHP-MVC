@@ -3,6 +3,7 @@ namespace app\controllers;
 
 use core\Controller;
 use core\Request;
+use app\models\Product;
 
 class DetailController extends Controller {
   private static self $instance;
@@ -18,10 +19,13 @@ class DetailController extends Controller {
     }
     return self::$instance;
   }
+  
   public static function handleDetail(Request $request){
+    $product = new Product();
     $id = $request->param("id");
-    $productName = "product 1";
-    return parent::render("detail",["productName" => $productName]);
+    $productById = $product->getProductById($id);
+    $randomProduct = $product->randomProduct();
+    return parent::render("detail",["product" => $productById,"randomProduct" => $randomProduct]);
   }
 }
 ?>
