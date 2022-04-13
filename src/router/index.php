@@ -8,7 +8,7 @@ use app\middlewares\AuthMiddleware;
 use core\Application;
 $app = Application::Instance();
 $app->router->prefix("");
-$app->router->get("/",[[AuthMiddleware::class,"isAuth"]], [HomeController::class, "home"]);
+$app->router->get("/", [HomeController::class, "home"]);
 
 
 
