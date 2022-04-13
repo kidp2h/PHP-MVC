@@ -65,6 +65,23 @@ class product extends Model {
 	public function getQuantity() {
 		return self::$db->query("SELECT COUNT(*) FROM {self::TABLE}");
 	}
+    
+    public function getProductById($id) {
+        $sql = self::$db->query("SELECT * FROM product where product.id = '$id'");
+        while($row=mysqli_fetch_array($sql,1)){
+            $data=$row;
+        }
+        return $data;
+    }
+
+    public function randomProduct() { //random 8 products
+        $data = [];
+        $sql = self::$db->query("SELECT * FROM product ORDER BY RAND() LIMIT 7");
+        while($row=mysqli_fetch_all($sql,1)){
+            $data=$row;
+        }
+        return $data;
+    }
 	public function getListProducts($limit, $page){
 		$index = ($page - 1) * $limit;
 		$query = 'SELECT * FROM product LIMIT $index, $limit';
