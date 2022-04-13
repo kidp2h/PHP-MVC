@@ -23,22 +23,16 @@ class ShopController extends Controller {
 
   public static function shop(){
     $product = new Product();
-    $row=$product->getAllProduct();
-    $total=$product->getQuantityProducts();
-    $pageNumber=$product->PageNumber();
+    // $row=$product->getAllProduct();
+    $pageNumber=$product->pageNumber(6);
     $currentPage = 1;
-    if(isset($_GET['page'])){
+    if(!isset($_GET['page'])){
         $currentPage= $_GET['page'];
     }
-    $datapage=$product->getProducstlist(6,$currentPage);
-    return parent::render('shop',["productlist"=>$row,"total"=>$total,"pageNumber"=>$pageNumber,"currentPage"=>$datapage]);
+    $datapage=$product->getListProducts(6,$currentPage);
+    return parent::render('shop',["pageNumber"=>$pageNumber,"currentPage"=>$datapage]);
   }
-  public static function getProducts($limit){
-    $product = new Product();
-    $PAGE = $product->PageNumber($limit);
-    $row= $product->getProducstlist($limit, $PAGE);
- 
-  }
+
 }
 
 ?>

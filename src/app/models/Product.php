@@ -3,6 +3,7 @@
 namespace app\models;
 
 use core\Model;
+use mysqli;
 
 class product extends Model {
 	const TABLE = "product";
@@ -63,7 +64,7 @@ class product extends Model {
 		$this->product->deletedAt = $deletedAt;
 	}
 	public function getQuantity() {
-		return self::$db->query("SELECT COUNT(*) FROM {self::TABLE}");
+		return mysqli_num_rows(self::$db->query("SELECT * FROM product"));
 	}
     
     public function getProductById($id) {
@@ -84,7 +85,7 @@ class product extends Model {
     }
 	public function getListProducts($limit, $page){
 		$index = ($page - 1) * $limit;
-		$query = 'SELECT * FROM product LIMIT $index, $limit';
+		$query = "SELECT * FROM product LIMIT $index, $limit";
 		$sql= self::$db->query($query);
 		$data = [];
 		while($row = mysqli_fetch_all($sql, 1)) $data=$row;
