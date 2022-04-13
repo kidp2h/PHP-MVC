@@ -26,7 +26,7 @@ class ShopController extends Controller {
     // $row=$product->getAllProduct();
     $pageNumber=$product->pageNumber(6);
     $currentPage = 1;
-    if(!isset($_GET['page'])){
+    if(isset($_GET['page'])){
         $currentPage= $_GET['page'];
     }
     $datapage=$product->getListProducts(6,$currentPage);
