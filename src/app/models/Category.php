@@ -14,7 +14,7 @@ class Category extends Model {
 
     }
 
-    public static function __seft__() {
+    public static function __self__() {
         return new static();
     }
 
