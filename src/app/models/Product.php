@@ -3,7 +3,7 @@
     use core\Model;
 use mysqli;
 use utils\Utils;
-class Product extends Model{
+    class Product extends Model{
         const TABLE = "product";
         private self $Product;
         public int $id;
@@ -74,6 +74,24 @@ class Product extends Model{
         public function getQuantityProducts(){
             return mysqli_num_rows(self::$db->query("SELECT  * FROM product"));
         }
+
+        public function getProductById($id) {
+            $sql = self::$db->query("SELECT * FROM product where product.id = '$id'");
+            while($row=mysqli_fetch_array($sql,1)){
+                $data=$row;
+            }
+            return $data;
+        }
+
+        public function randomProduct() { //random 8 products
+            $data = [];
+            $sql = self::$db->query("SELECT * FROM product ORDER BY RAND() LIMIT 7");
+            while($row=mysqli_fetch_all($sql,1)){
+                $data=$row;
+            }
+            return $data;
+        }
+
         public function getProducstlist($LIMIT, $PAGE){
             $index =($PAGE-1)*$LIMIT;
             $query = 'SELECT * FROM product LIMIT '.$index.','.$LIMIT.'';
@@ -93,4 +111,4 @@ class Product extends Model{
                 return $total%$limit==0 ? $total/$limit : $total/$limit+1;
             }
         } 
-}
+    }

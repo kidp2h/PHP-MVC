@@ -1,0 +1,551 @@
+ 
+ /* TABLET AND MOBILE */
+@media(max-width: 1280px){ 
+    .pane-icon--minus-icon {
+        display: none;
+    }
+
+    .pane-icon {
+        color: #fff;
+        line-height: 42px;
+        text-align: center;
+    }
+
+    .pane-icon--plus-icon {
+        display: block;
+    }
+
+    .detail__delivery-return-content {
+        margin-bottom: 30px;
+    }
+    
+    .detail__delivery-return-content i {
+        font-size: 4.5rem;
+    }
+
+    .detail__delivery-return-header {
+        padding-bottom: 35px;
+    }
+
+    .delivery-return__detail h3 {
+        font-size: 1.6rem;
+    }
+
+    .detail__delivery-return-content p {
+        font-size: 1.3rem;
+        text-align: left;
+    }
+
+    .recommended__product-image:hover .recommended__add-to-cart{
+        animation: none; 
+    }
+
+    .recommended__add-to-cart{ 
+        display: flex;
+    }
+
+    .icon-heart{
+        right: 0;
+    }
+}
+
+@media(min-width: 1281px) {
+    .pane-tab-content {
+        display: block !important;
+    }
+}
+
+ /* TABLET 749*/
+@media(min-width: 701px) and (max-width: 1280px){
+/* @media(min-width: 46.25em) and (max-width: 64em){ */
+    .detail-item,
+    .detail-nav .detail-nav__item {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+/* 
+    .detail-item__slider {
+        height: auto;
+    } */
+    .detail-item__next-prev-btn {
+        top: 50%;
+    }
+
+    .detail-item__next-btn, .detail-item__prev-btn {
+        padding: 10px 16px
+    }
+
+    .item-infor .Img_box,
+    .item__variation .buy-it-now-btn {
+        width: 100%;
+        max-width: 359px;
+    }
+
+     /*reponsive phần show more infor */
+    .detail__more-infor {
+        margin: 50px 0 0 0;
+        padding: 0;
+        background-color: rgb(246, 246, 248);
+    }
+
+    .detail__infor-choose-list {
+        display: none;
+    }
+
+    .detail__more-infor {
+        background-color: #fff;
+    }
+
+    .detail__content-pane {
+        display: block;
+        padding: 0 15px 15px 15px;
+    }
+
+    .pane-heading {
+        height: 44px;
+        padding: 0 0  0 10px;
+        font-size: 1.4rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border: 5px solid rgb(246, 246, 248);
+        background-color: rgb(246, 246, 248);
+    }
+
+    .pane-icon {
+        background-color: black;
+        position: relative;
+        right: -5px;
+        width: 43px;
+        height: 43px;
+    }
+
+    /* .pane-icon--minus-icon {
+        display: none;
+    } */
+
+    .pane-tab-content {
+        display: none;
+        background-color: #fff;
+        border-left: 1px solid #ccc;
+        border-right: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+        padding: 0 20px 40px 20px;
+    }
+
+    .detail__sp-tab-content {
+        padding-top: 30px;
+    }
+
+    .detail__delivery-return {
+        padding-top: 40px;
+        padding-bottom: 0;
+    }
+
+    .detail__delivery-return:last-child {
+        margin-left: 42px;
+    }
+
+    /* responsive phần you may also like */
+    .recommended {
+        padding: 50px 132px;
+    }
+
+    .recommended__next-prev-btn {
+        top: 33%;
+    }
+
+    .recommended__prev-btn {
+        font-size: 4rem;
+        left: -58px;
+    }
+    
+    .recommended__next-btn {
+        font-size: 4rem;
+        right: -58px;
+    }
+
+    .recommended__quantity input[type="number"] { 
+        width: 56px;
+        font-size: 2rem;
+    }
+
+    .recommended__quantity .recommended__increment,
+    .recommended__quantity .recommended__decrement {
+        width: 32px;   
+        font-size: 2rem;
+        line-height: 2px;
+        /* width: 62px; */
+    }
+
+    .recommended-product-infor span,
+    .recommended-product-infor h3{
+        font-size: 1.6rem;
+    }
+
+    .recommended__color-item {
+        width: 30px;
+        height: 30px;
+        margin-bottom: 18px;
+        margin-right: 24px;
+        /* margin: 0 0 0 5px; */
+    }
+    
+}
+ 
+@media(width: 768px) {
+    .detail-item__slider {
+        height: 550px;
+    }
+
+    .detail-item__next-prev-btn {
+        top: 50%;
+    }
+
+    /* responsive phần you may also like */
+    .recommended {
+        padding: 50px 80px;
+    }
+
+    .recommended__next-prev-btn {
+        top: 33%;
+    }
+
+    .recommended__prev-btn {
+        font-size: 4rem;
+        left: -52px;
+    }
+    
+    .recommended__next-btn {
+        font-size: 4rem;
+        right: -52px;
+    }
+
+    .detail-item__next-btn, .detail-item__prev-btn {
+        padding: 8px 14px;
+    }
+
+    .recommended-product-infor span,
+    .recommended-product-infor h3{
+        font-size: 1.7rem;
+    }
+
+    .recommended__color-item {
+        width: 29px;
+        height: 29px;
+        margin-bottom: 16px;
+        margin-right: 22px;
+    }
+}
+
+ /* 748 */
+ /* MOBILE */
+@media(max-width: 700px) {
+    
+    .detail-item,
+    .detail-nav .detail-nav__item {
+        padding-left: 15px;
+        padding-right: 15px;
+        font-size: 1.2rem;
+    }
+    
+
+    .detail-item {
+        margin-top: 15px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .detail-item__slider {
+        width: 100%;
+        /* height: 500px; */
+
+    }
+
+    .detail-item .item-imgBx {
+        width: 100%;
+    }
+    .detail-item .item-imgBx img {
+        width: 100%;
+        height: auto;
+    }
+
+    .detail-item .item-infor {
+        margin: 30px 0 0 0;
+        width: 100%;
+    }
+
+    .item-infor .icon-bar i {
+        margin: 0;
+        padding: 0 15px;
+        font-size: 2rem;
+    }
+
+    .item-infor .Img_box,
+    .item__variation .buy-it-now-btn {
+        /* width: 345.2px; */
+        /* width: 100%; */
+        width: 100%;
+        max-width: 359px;
+    }
+
+    .item__support-link .support-link {
+        font-size: 1.4rem;
+    }
+
+    /*reponsive phần show more infor */ 
+    .detail__benefit-list:nth-child(2) {
+        padding: 0;
+    }
+    .detail__more-infor-img {
+        margin: 0;
+    }
+
+    .detail__more-infor {
+        background-color: #fff;
+        padding: 0;
+    }
+
+    .detail__infor-choose-list {
+        display: none;
+    }
+
+    .detail__content-pane {
+        display: block;
+        padding: 0 15px 15px 15px;
+    }
+
+    .pane-heading {
+        height: 44px;
+        padding: 0 10px;
+        font-size: 1.4rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border: 4px solid rgb(246, 246, 248);
+        background-color: rgb(246, 246, 248);
+    }
+
+    .pane-icon {
+        background-color: black;
+        position: relative;
+        right: -14px;
+        width: 43px;
+        height: 43px;
+    }
+
+    .pane-tab-content {
+        display: none;
+        background-color: #fff;
+        border-left: 1px solid #ccc;
+        border-right: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+        padding: 0 20px 40px 20px;
+    }
+
+     .detail__sp-tab-content {
+        padding-top: 30px;
+    }
+
+    .detail__more-infor-imgBox {
+        flex-direction: column;
+    }
+
+     .detail__more-infor-img {
+        width: 100%; 
+        height: 100%;
+    }
+
+    .detail__benefit-infor {
+        flex-direction: column;
+        padding-top: 20px;
+    }
+
+    .detail__benefit-list:nth-child(2) {
+        margin-left: 0;
+    }
+
+    .detail__benefit-list--tl .detail__benefit-item,
+    .detail__benefit-list--tr .detail__benefit-item {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .detail__sp-delivery-return {
+        flex-direction: column;
+        align-items: center;
+        padding-top: 50px;
+    }
+
+    .detail__delivery-return {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    .detail__delivery-return:last-child {
+        margin-left: 0;
+        margin-top: 20px;
+    }
+
+    /* responsive phần you may also like */
+    .recommended {
+        padding: 50px 50px;
+    }
+
+    .recommended__next-prev-btn {
+        top: 33%;
+    }
+
+    .recommended__prev-btn {
+        position: relative;
+        font-size: 3.4rem;
+        left: -37px;
+    }
+    
+    .recommended__next-btn {
+        position: relative;
+        font-size: 3.4rem;
+        right: -37px;
+    }
+
+    .recommended__quantity input[type="number"] { 
+        width: 44px;
+    }
+
+    .recommended__quantity #recommended__increment,
+    .recommended__quantity #recommended__decrement {
+        width: 34px;
+    }
+
+    .recommended__color-item {
+        width: 24px;
+        height: 24px;
+        margin-right: 18px;
+        margin-bottom: 15px;
+    }
+
+}
+
+
+    /* chuyển add to cart thành giỏ hàng  */
+@media(min-width: 1000px) and (max-width: 1040px) {
+    .recommended__addToCart span{
+        display: none;
+    }
+
+    .recommended__addToCart i {
+        display: block;
+        font-size: 2rem;
+    }
+}
+
+@media(min-width: 700px) and (max-width: 800px) {
+    
+    .recommended__addToCart span{
+        display: none;
+    }
+
+    .recommended__addToCart i {
+        display: block;
+        font-size: 2rem;
+    }
+}
+
+@media(min-width: 700px) and (max-width: 760px) {
+    .recommended__next-prev-btn {
+        top: 29%;
+    }
+}
+
+/* Điện thoại nhỏ như sucface duo, iphone 5, galaxy fold :))) */
+@media(max-width: 580px) { /* responsive chung cho các thiết bị nhỏ từ 580 trở xuống */
+    .detail-item__slider {
+        height: auto;
+    }
+
+    .detail-item__next-btn, .detail-item__prev-btn {
+        padding: 10px 16px
+    }
+
+    .recommended__add-to-cart-btn {
+        font-size: 1.6rem;
+    }
+
+    .recommended__next-btn,
+    .recommended__prev-btn {
+        font-size: 3.4rem;
+    }
+   
+    /* .recommended__next-prev-btn {
+        top: 34%;
+    } */
+
+    /* chuyển add to cart thành giỏ hàng VÌ QUÁ NHỎ =((  */
+    .recommended__addToCart span{
+        display: none;
+    }
+
+    .recommended__addToCart i {
+        display: block;
+        font-size: 2rem;
+    }
+}
+
+ /* responsive cho Iphone 5 */
+@media(width: 320px) {
+
+    /* phần detail  */
+    .detail-item__prev-btn {
+        padding: 6px 12px;
+    }
+
+    .detail-item__next-btn {
+        padding: 6px 12px;
+    }
+
+    /* phần yoy may also like */
+    .recommended__next-btn,
+    .recommended__prev-btn {
+        font-size: 3rem;      
+    }
+    .recommended__prev-btn {
+        left: -35px;
+    }
+    .recommended__next-btn {
+        right: -35px;
+    }
+    .recommended__next-prev-btn {
+        top: 32%;
+    }
+}
+
+ /* responsive cho Galaxy fold */
+@media(width: 280px) { 
+
+    .detail-item__prev-btn {
+        padding: 6px 12px;
+    }
+
+    .detail-item__next-btn {
+        padding: 6px 12px;
+    }
+
+    /* phần yoy may also like */
+    .recommended__next-prev-btn {
+        top: 27%;
+    }
+
+    .recommended__next-btn,
+    .recommended__prev-btn {
+        font-size: 3.2rem;
+    }
+
+    .recommended__prev-btn {
+        left: -34px;
+    }
+    .recommended__next-btn {
+        right: -34px;
+    }
+}
