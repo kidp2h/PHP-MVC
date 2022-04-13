@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,8 +19,9 @@
   <link rel="stylesheet" href="/public/styles/navbar.css">
   <link rel="stylesheet" href="/public/styles/footer.css">
   <link rel="stylesheet" href="/public/styles/home/index.css">
-  <link rel="stylesheet" href="/public/styles/shop/index.css">
-  <!-- <link rel="stylesheet" href="/public/styles/details/index.css"> -->
+  <link rel="stylesheet" href="/public/styles/shop/apps.css">
+  <link rel="stylesheet" href="/public/styles/shop/base.css">
+  <link rel="stylesheet" href="/public/styles/shop/rp.css"> 
   <link rel="stylesheet" href="/public/styles/detail/style.css">
   <link rel="stylesheet" href="/public/styles/detail/responsive.css">
   <link rel="stylesheet" href="/public/styles/cart/index.css">
@@ -231,7 +233,7 @@
       <div class="footer__img">
         <img src="./images/footer.jpg" alt="">
       </div>
-    </div>
+</div>
     <div class="footer__bottom">
       <p>Copyright © 2021 Shiba Shop. All Rights Reserved.</p>
     </div>
@@ -241,7 +243,8 @@
 
 <script src="/public/javascripts/main.js"></script>
 <!-- <script src="/public/javascripts/home/event.js"></script> -->
-<!-- <script src="/public/javascripts/shop/event.js"></script> -->
+<script src="/public/javascripts/shop/render.js"></script>
+<script src="/public/javascripts/shop/appli.js"></script>
 
 
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
