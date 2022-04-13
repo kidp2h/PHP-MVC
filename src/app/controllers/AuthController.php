@@ -44,20 +44,25 @@ class AuthController extends Controller
   public static function handleSignUp(Request $request, Response $response)
   {
     $body = $request->body();
-    //$captcha = Utils::verifyCaptcha($body['captcha']);
-    //if (!$captcha["success"]) return json_encode(["status" => false, "message" => $captcha["error-codes"][0]]);
+    $captcha = Utils::verifyCaptcha($body['captcha']);
+    if (!$captcha["success"]) return json_encode(["status" => false, "message" => $captcha["error-codes"][0]]);
     $result = User::__self__()->create([
       "username" => $body["username"],
       "password" => Utils::hashBcrypt($body["password"]),
       "email" => $body["email"],
       "fullName" => $body["fullName"]
     ]);
-    if ($result) {
+    if($result["status"]) {
       $response->statusCode(200);
       return json_encode(["status" => true, "redirect" => "/signin"]);
-    }else{
-      return json_encode(["status" => false, "message" => "Username or email is exist"]);
-    }
+    }else return json_encode(["status" => false, "message" => "Username or email is exist"]);
+    // if (User::__self__()->create) {
+    //   Application::setCookie("username", $body["username"], time() + 3600);
+    //   $response->statusCode(200);
+    //   return json_encode(["status" => true, "redirect" => "/"]);
+    // }else{
+    //   return json_encode(["status" => false, "message" => "Username or password is wrong"]);
+    // }
   }
 
   public static function verifyEmail(Request $request)
