@@ -24,7 +24,7 @@ let validateSignUp = {
   },
   "captcha" : {
     "message":"Please check this box captcha",
-    max: 99999999999999999
+    max: 99999999999999
   }
 }
 
@@ -65,7 +65,10 @@ $('#btn-signup') ? ($('#btn-signup').onclick = async () => {
     });
     if (response.status && response.redirect) {
       window.location.href = response.redirect;
-    }else {
+    } else if(response.message && response.status) {
+      showToast("success",response.message);
+      grecaptcha.reset();
+    } else {
       showToast("error",response.message);
       grecaptcha.reset();
     }
