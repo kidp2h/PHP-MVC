@@ -129,8 +129,8 @@
                     <li class="detail__infor-item">Additional Information</li>
                     <li class="detail__infor-item">Why Buy From Us</li>
                     <li class="detail__infor-item">Delivery & Returns</li>
-                    <li class="detail__infor-item">Custom tab</li>
-                    <li class="detail__infor-item">Reviews</li>
+                    <!-- <li class="detail__infor-item">Custom tab</li> -->
+                    <!-- <li class="detail__infor-item">Reviews</li> -->
                 </ul>
             </div>
 
