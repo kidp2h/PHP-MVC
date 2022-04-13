@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-signin-client_id" content="1091815126180-9utfq6dce4ok3qusms4hlrjh6bl59pas.apps.googleusercontent.com">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600;700&display=swap" rel="stylesheet">
@@ -144,10 +145,12 @@
 </body>
 
 <!-- Your SDK code -->
-<!-- <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v13.0&appId=379674354067143&autoLogAppEvents=1" nonce="G5t768ZJ"></script> -->
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v13.0&appId=379674354067143&autoLogAppEvents=1" nonce="G5t768ZJ"></script>
 <!-- <script src="/public/javascripts/messenger.js"></script> -->
-<!-- <script src="/public/javascripts/auth/facebook.js"></script> -->
 <script src="/public/javascripts/main.js"></script>
+<script src="https://apis.google.com/js/platform.js?onload=onLoadCallback" async defer></script>
+<script src="/public/javascripts/auth/google.js"></script>
+<script src="/public/javascripts/auth/facebook.js"></script>
 <script src="/public/javascripts/auth/toast.js"></script>
 <script src="/public/javascripts/auth/signin.js"></script>
 <script src="/public/javascripts/auth/signup.js"></script>

@@ -55,11 +55,9 @@ $(".showPassword").onclick = function() {
   let inputPassword = $("#password")
   if(inputPassword.getAttribute('type') == "password" ) {
     inputPassword.setAttribute("type","text");
-    console.log(this)
     this.classList.remove("fa-eye");
     this.classList.add("fa-eye-slash");
   } else {
-    console.log(this)
     inputPassword.setAttribute("type","password");
     this.classList.remove("fa-eye-slash");
     this.classList.add("fa-eye");

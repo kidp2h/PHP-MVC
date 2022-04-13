@@ -33,6 +33,9 @@ body {
   display: flex;
   margin-bottom: 2rem;
 }
+.social-group a {
+  color: #5f50f1;
+}
 .social-group .signin-social {
   font-size: 1.5rem;
   display: flex;
@@ -246,7 +249,6 @@ input::placeholder {
   border-radius: 10px;
   margin: 30px 0px;
   display: flex;
-  background-color: red;
   padding: 20px 10px;
   color: white;
   box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
@@ -259,7 +261,9 @@ input::placeholder {
 }
 .toast.error {
   background: rgba( 255, 0, 32, 0.25 );
-
+}
+.toast.success {
+  background: rgba( 0, 255, 20, 0.25 );;
 }
 
 .icon-toast {
