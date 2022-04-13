@@ -1,0 +1,19 @@
+#signup {
+  padding: 10px 30px;
+  backdrop-filter: blur(5px);
+  border-radius: 15px;
+  border: 1px solid rgba( 255, 255, 255, 0.18 );
+  background: rgba( 255, 255, 255, 0.25 );
+  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+  margin: 20px 0px;
+}
+.form-col-2 {
+  display: flex;
+}
+.form-col-2 .form-group {
+  width: 50%;
+}
+
+.form-col-2 .form-group:first-child {
+  margin-right: 10px;
+}

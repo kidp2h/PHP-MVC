@@ -1,0 +1,43 @@
+#signin {
+  padding: 10px 30px;
+  backdrop-filter: blur(5px);
+  border-radius: 15px;
+  border: 1px solid rgba( 255, 255, 255, 0.18 );
+  background: rgba( 255, 255, 255, 0.25 );
+  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+  margin: 20px 0px;
+}
+
+.forgot {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  font-size: 1.4rem ;
+  color: white;
+  cursor: pointer;
+}
+
+
+#btn-signin, #btn-signup {
+  width: 60px;
+  height: 60px;
+  color: white;
+  background-color: #FA4D53;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin:10px 0px;
+}
+#btn-signin i {
+  font-size: 2rem;
+}
+#new-user {
+  font-size: 1.3rem;
+  color: white;
+}
+#redirect-signup {
+  color:#FA4D53;
+  text-decoration: none;
+}
+

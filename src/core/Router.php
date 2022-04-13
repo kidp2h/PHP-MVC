@@ -96,7 +96,6 @@ class Router {
 
     if ($callback === false) {
       $this->response->statusCode(404);
-      // $this->response->redirect("/auth");
     }
     if (is_string($callback)) return Application::$app->view->render($callback);
     // Hooking
