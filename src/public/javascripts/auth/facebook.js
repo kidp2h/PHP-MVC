@@ -7,11 +7,11 @@ window.fbAsyncInit = function () {
   });
 
   FB.AppEvents.logPageView();
-  FB.getLoginStatus(function (response) {
-    if (response.status == 'connected') {
-      handleResponse();
-    }
-  });
+  // FB.getLoginStatus(function (response) {
+  //   if (response.status == 'connected') {
+  //     handleResponse();
+  //   }
+  // });
 };
 
 (function (d, s, id) {
