@@ -76,7 +76,7 @@ $('#btn-signup') ? ($('#btn-signup').onclick = async () => {
 }) : null
 
 const showMessageValidator = (status, selector, validate) => {
-
+  status.push(selector);
   $(`label[for=${selector}]`)?.classList.add('error')
   $(`label[for=${selector}] ~ span`)?.classList.add('validate-error')
   $(`label[for=${selector}] ~ span`).innerHTML = validate[selector]["message"]
