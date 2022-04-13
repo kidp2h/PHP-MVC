@@ -17,15 +17,15 @@ class AuthController extends Controller
 {
   public static string $layout = "auth";
   public static array $data;
-  public static function auth()
+  public static function signin()
   {
-    return parent::render('auth');
+    return parent::render('signin');
   }
   public static function useHook()
   {
     self::$data = ['SITE_KEY' => $_ENV["GC_SITE_KEY"], 'SECRET_KEY' => $_ENV["GC_SECRET_KEY"]];
   }
-  public static function handleLogin(Request $request, Response $response)
+  public static function handleSignIn(Request $request, Response $response)
   {
     $body = $request->body();
     $result = Utils::verifyCaptcha($body['captcha']);
@@ -34,27 +34,35 @@ class AuthController extends Controller
       Application::setCookie("username", $body["username"], time() + 3600);
       $response->statusCode(200);
       return json_encode(["status" => true, "redirect" => "/"]);
-    }
+    }else return json_encode(["status" => false, "message" => "Username or password is wrong"]);
   }
-  public static function register(Request $request)
+  public static function signup(Request $request)
   {
-    return parent::render("register");
+    return parent::render("signup");
   }
 
-  public static function handleRegister(Request $request)
+  public static function handleSignUp(Request $request, Response $response)
   {
-    $data = $request->body();
-    $form = RegisterForm::Instance();
-    $form->loadData($data);
-    $result = $form->validate();
-    if (!is_array($result)) {
-      return "Success";
-    } else {
-      parent::setLayout('auth');
-      return parent::render("register", [
-        'form' => $form
-      ]);
-    }
+    $body = $request->body();
+    $captcha = Utils::verifyCaptcha($body['captcha']);
+    if (!$captcha["success"]) return json_encode(["status" => false, "message" => $captcha["error-codes"][0]]);
+    $result = User::__self__()->create([
+      "username" => $body["username"],
+      "password" => Utils::hashBcrypt($body["password"]),
+      "email" => $body["email"],
+      "fullName" => $body["fullName"]
+    ]);
+    if($result["status"]) {
+      $response->statusCode(200);
+      return json_encode(["status" => true, "redirect" => "/signin"]);
+    }else return json_encode(["status" => false, "message" => "Username or email is exist"]);
+    // if (User::__self__()->create) {
+    //   Application::setCookie("username", $body["username"], time() + 3600);
+    //   $response->statusCode(200);
+    //   return json_encode(["status" => true, "redirect" => "/"]);
+    // }else{
+    //   return json_encode(["status" => false, "message" => "Username or password is wrong"]);
+    // }
   }
 
   public static function verifyEmail(Request $request)

@@ -119,6 +119,10 @@ li.page-active {
 input[type='radio'] {
   display: none;
 }
+::-ms-reveal,
+::-ms-clear {
+  display: none;
+}
 .none {
   display: none;
 }
