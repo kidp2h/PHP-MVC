@@ -6,7 +6,7 @@ window.fbAsyncInit = function () {
     version: 'v3.2',
   });
 
-  FB.AppEvents.logPageView();
+  // FB.AppEvents.logPageView();
   // FB.getLoginStatus(function (response) {
   //   if (response.status == 'connected') {
   //     handleResponse();
