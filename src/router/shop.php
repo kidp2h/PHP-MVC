@@ -1,6 +1,5 @@
 <?php
 namespace router;
-
 use app\controllers\ContactController;
 use core\Application;
 use app\controllers\HomeController;

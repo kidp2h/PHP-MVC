@@ -1,3 +1,4 @@
+
        <div id="shop">
         <div id="wrapper">
             <div id="product-intro">
