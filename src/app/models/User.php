@@ -91,15 +91,15 @@ class User extends Model {
   }
 
   public static function sendMailVerifyAccount(array $to) {
-    $result = Utils::generateOTP($to['address']);
+    $token = Utils::v4();
     $address = $to["address"];
-    $otp = $result[0];
+    $server = $_SERVER['SERVER_NAME'];
     Utils::sendMail(
       ['address' => $to["address"]],
       "Verify Account",
-      "Please verify this account with this code: {$otp}"
+      "Please click this link to verify account: {$server}/verify/{$token}"
     );
-    User::__self__()->update(["isVerified" => 1,"tokenVerify" => $otp], "email={$address}");
+    $result = User::__self__()->update(["tokenVerify" => "'$token'"], "email='$address'");
 
   }
   public static function sendCodeOTP($phone){

@@ -5,11 +5,11 @@
   <div class="social-group">
     <span class="signin-social">
       <img class="logo-social" src="/public/images/logo-fb.png" alt="facebook" />
-      Sign in with Facebook
+        <a href="javascript:void(0)" onclick="fbLogin()">Sign in with Facebook</a>
     </span>
-    <span class="signin-social">
-      <img class="logo-social" src="/public/images/logo-google.png" alt="facebook" />
-      Sign in with Google
+    <span class="signin-social" id="login-google">
+      <img class="logo-social" src="/public/images/logo-google.png" alt="google" />
+      <a>Sign in with Google</a>
     </span>
   </div>
   <div id="form-signin">

@@ -42,7 +42,7 @@ class Application {
   }
 
   public static function setCookie(string $key, string $value, string $expire, string $path = "/"){
-    setcookie($key, $value,$expire, $path);
+    setcookie($key, $value,$expire, $path,"",true);
   }
 
   public function run() {

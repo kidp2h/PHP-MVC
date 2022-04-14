@@ -243,9 +243,16 @@
 </body>
 
 <script src="/public/javascripts/main.js"></script>
+<<<<<<< HEAD
 <script src="/public/javascripts/home/event.js"></script>
 <script src="/public/javascripts/shop/render.js"></script>
 <script src="/public/javascripts/shop/appli.js"></script>
+=======
+<!-- <script src="/public/javascripts/home/event.js"></script> -->
+<!-- <script src="/public/javascripts/shop/render.js"></script>
+<script src="/public/javascripts/shop/appli.js"></script> -->
+<script src="/public/javascripts/detail/detail.js"></script>
+>>>>>>> main
 
 
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
