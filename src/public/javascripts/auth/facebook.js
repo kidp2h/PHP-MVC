@@ -52,7 +52,7 @@ function handleResponse() {
         data: { username, fullName, email },
       });
       if (res.status && res.redirect) {
-        // window.location.href = res.redirect;
+        window.location.href = res.redirect;
       }else {
         showToast("error",res.message);
       }

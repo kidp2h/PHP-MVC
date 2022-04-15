@@ -12,12 +12,12 @@
       <a>Sign in with Google</a>
     </span>
   </div>
-  <div id="form-signin">
+  <form id="form-signin" autocomplete="off">
     <div class="form-group">
       <label for="username" class="label-input">Username</label>
       <span class="validate-message">Error</span>
       <div class="group-input">
-        <input type="text" class="form-input status-valid" autocomplete="false" id="username" name="username" placeholder="Username" />
+        <input type="text" class="form-input status-valid" autocomplete="off" id="username" name="username" placeholder="Username" />
         <i class="fa-solid fa-circle-info"></i>
       </div>
     </div>
@@ -57,5 +57,5 @@
     
     <span id="new-user">Don't have account ?
       <a href="/signup" id="redirect-signup">SignUp</a></span>
-  </div>
+  </form>
 </div>
