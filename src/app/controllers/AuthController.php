@@ -62,10 +62,6 @@ class AuthController extends Controller {
       User::sendMailVerifyAccount(["address" => $body["email"]]);
       return json_encode(["status" => true, "redirect" => "/signin", "message" => "Please check your inbox to verify account"]);
     }else return json_encode(["status" => false, "message" => "Username or email is exist"]);
-      return json_encode(["status" => true, "message" => "Please check your inbox to verify account"]);
-    } else {
-      return json_encode(["status" => false, "message" => "Username or email is exist"]);
-    }
   }
 
   public static function verifyEmail(Request $request) {

@@ -2,7 +2,6 @@
 
 namespace core;
 use core\Application;
-use Exception;
 
 class View {
   public function checkView($view) {
