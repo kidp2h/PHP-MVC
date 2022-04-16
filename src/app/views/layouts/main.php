@@ -26,11 +26,6 @@
   <link rel="stylesheet" href="/public/styles/shop/rp.css">
   <link rel="stylesheet" href="/public/styles/detail/style.css">
   <link rel="stylesheet" href="/public/styles/detail/responsive.css">
-
-
-
-
-
 </head>
 
 <body>
@@ -70,8 +65,6 @@
           <i class="fas fa-shopping-cart"></i>
         </div>
       </div>
-
-
     </div>
   </div>
 
@@ -243,20 +236,12 @@
 </body>
 
 <script src="/public/javascripts/main.js"></script>
-<<<<<<< HEAD
 <script src="/public/javascripts/home/event.js"></script>
 <script src="/public/javascripts/shop/render.js"></script>
 <script src="/public/javascripts/shop/appli.js"></script>
-=======
-<!-- <script src="/public/javascripts/home/event.js"></script> -->
-<!-- <script src="/public/javascripts/shop/render.js"></script>
-<script src="/public/javascripts/shop/appli.js"></script> -->
 <script src="/public/javascripts/detail/detail.js"></script>
->>>>>>> main
-
 
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
   integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
 </html>
