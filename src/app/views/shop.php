@@ -24,13 +24,24 @@
 
                 </div>
                 <div id="product-gaoshop" >
-                    <div id="filter" class="hide" style="z-index:1100">
+                
+                   <div id="filter" class="hide" style="z-index:1100">
                         <i class="fas fa-times" id="close"></i>
+                        <form action="" method="GEST">
                         <ul class="loc1" >
                                 <h3>Product Categories</h3>
 
                             <li id="loccategories">
-                             
+                            <li class="theloai">
+    <input type="radio"  name="categories" value="All" checked="true" ><p id="productall" >All</p></input>
+    </li>
+                            <?php 
+									forEach($category as $cg){
+                                        echo '<li class="theloai">
+                                        <input type="radio" name="categories" value="'.$cg['title'].'" class="locsanpham '.$cg['title'].'" ><p>'.$cg["title"].'</p></input>
+                                    </li>';
+                                    }
+								?>
                             </li>
                             </ul>
                         <ul class="loc1">
@@ -39,9 +50,9 @@
                         
                             <li>
                                 <div class="slidecontainer">
-                                    <span>$ </span><input type="number"  min="0" max="10000" value="0" id="min-input" placeholder="Min-price" >
+                                    <span>$ </span><input type="number"  min="0" max="10000" value="0" id="min-input" placeholder="Min-price" name="Min-price" >
                                     <span>- $<span>
-                                    <input type="number" min="0" max="10000"  id ="max-input" value="99999" placeholder="Max-price" >
+                                    <input type="number" min="0" max="10000"  id ="max-input" value="9999" placeholder="Max-price" name="Max-price" >
 
                                 </div>
                             </li>
@@ -51,13 +62,14 @@
                                 <h3>By Title</h3>
                         
                             <li>
-                                <input type="text" name="" id="search" placeholder="Search for product title">
+                                <input type="text"  id="search" placeholder="Search for product title" name="title">
                             </li>
                             <li>
                             </li>
 
                         </ul>
-                        <button class="filter-submit" id="filtertitle">Filter</button>
+                        <button class="filter-submit" id="filtertitle" type="submit">Filter</button>
+                        </form>
                         <ul class="loc1">
 
                                     
@@ -98,11 +110,21 @@
 
                         </ul>
                     </div>
+                  
                     <div class="center-product">
-                        <ul id="products">
+                        
                        <?php
-                            forEach($currentPage as $product){
-                                echo '<li>
+                        if($data ==NULL){
+                            echo '<div id="empty">
+                            <i class="far fa-sad-tear"></i>
+                            <p>Empty Product</p>
+                            <div id="return">Return Shop</div>
+                        </div>';
+                        }else{
+                             echo'<ul id="products">';
+                            forEach($data as $product){
+                                echo '
+                                <li>
                                 <div class="product-items"></div>
                                 <div class="product-top">
                                     <div class="product-thumb">
@@ -130,8 +152,8 @@
                                     </div>
                                 </div>
                                 <div class="product-info ">
-                                    <div href="" class="product-cat">${item.category}</div>
-                                    <div href="" class="product-name">'.$product["title"].'</div>
+                                    <div href="" class="product-cat">'.$product["title"].'</div>
+                                    <div href="" class="product-name">'.$product["name"].'</div>
                                     <div class="price">
                                     <div class="product-price">1000</div>
                                     <div class="sale-price">'.$product["price"].'</div>
@@ -140,21 +162,33 @@
                             </li>'; 
                                 
                             }
+                         echo'</ul>';
+                        }
+                            
                             
                                  
                                
                         ?>
                         
-                        </ul>
+                        
                        
                     </div>
                 </div>
 
                 <div id="chuyentrang">
                 <?php 
-                    for ($i=1;$i<=$pageNumber;$i++){
-                        echo '<a class="pagination"href="?page='.$i.'">'.$i.'</a>' ;
-                        }       
+                    if($pageNumber==1){
+                        echo "";
+                    }else{
+                        if(isset($_GET['categories']) || isset($_GET['Min-price']) || isset($_GET['Max-price']) || isset($_GET['title'])){
+                        for ($i=1;$i<=$pageNumber;$i++){
+                            echo '<a class="pagination"href="?page='.$i.'?categories='.$_GET['categories'].'&Min-price='.$_GET['Min-price'].'&Max-price='.$_GET['Max-price'].'&title='.$_GET['title'].'">'.$i.'</a>' ;
+                            }}else{
+                                for ($i=1;$i<=$pageNumber;$i++){
+                                    echo '<a class="pagination"href="?page='.$i.'">'.$i.'</a>' ;
+                                    }
+                            }  
+                    }     
                 ?>               
                 </div>
 
