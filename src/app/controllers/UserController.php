@@ -21,5 +21,4 @@ class UserController extends Controller {
       User::__self__()->sendCodeOTP($phoneNumber);
     }
   }
-
 }
