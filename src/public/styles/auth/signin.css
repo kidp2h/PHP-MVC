@@ -1,6 +1,6 @@
 #signin {
   padding: 10px 30px;
-  backdrop-filter: blur(5px);
+  backdrop-filter: blur(8px);
   border-radius: 15px;
   border: 1px solid rgba(255, 255, 255, 0.18);
   background: rgba(255, 255, 255, 0.25);

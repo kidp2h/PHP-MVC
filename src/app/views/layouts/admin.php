@@ -51,37 +51,37 @@
             </a>
           </li>
           <li class="manager active m-dashboard">
-            <a class="item">
+            <a class="item" href="/admin">
               <i class="fas fa-chart-line"></i>
-              <span class="title">Dashboard</span>
+                <span class="title">Dashboard</span>
             </a>
           </li>
           <li class="manager m-user">
-            <a class="item">
+            <a class="item" href="/admin/user">
               <i class="fas fa-user-friends"></i>
-              <span class="title">User</span>
+                <span class="title">User</span>
             </a>
           </li>
           <li class="manager m-product">
-            <a class="item">
+            <a class="item" href="/admin/product">
               <i class="fas fa-cubes"></i>
               <span class="title">Product</span>
             </a>
           </li>
           <li class="manager m-category">
-            <a class="item">
+            <a class="item" href="/admin/category">
               <i class="fas fa-receipt"></i>
               <span class="title">Category</span>
             </a>
           </li>
           <li class="manager m-bill">
-            <a class="item">
+            <a class="item" href="/admin/bill">
               <i class="fas fa-file-invoice-dollar"></i>
               <span class="title">Bill</span>
             </a>
           </li>
           <li class="manager m-revenue">
-            <a class="item">
+            <a class="item" href="/admin/revenue">
               <i class="fas fa-signal"></i>
               <span class="title">Revenue</span>
             </a>

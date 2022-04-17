@@ -2,7 +2,6 @@
 
 namespace app\controllers;
 
-use app\validation\RegisterForm;
 use core\Controller;
 use core\Request;
 use app\models\User;
@@ -57,7 +56,7 @@ class AuthController extends Controller {
       "email" => $body["email"],
       "fullName" => $body["fullName"]
     ]);
-    if($result["status"]) {
+    if($result->status) {
       $response->statusCode(200);
       User::sendMailVerifyAccount(["address" => $body["email"]]);
       return json_encode(["status" => true, "redirect" => "/signin", "message" => "Please check your inbox to verify account"]);

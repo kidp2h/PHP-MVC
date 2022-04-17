@@ -217,7 +217,8 @@ body {
 }
 
 .form-input.status-valid {
-  padding-right: 45px;
+  padding-right: 60px;
+  padding-left: 10px;
 }
 
 input::placeholder {
@@ -235,6 +236,7 @@ input::placeholder {
 .showPassword {
   display: block !important;
   color: #6050f186;
+  font-size: 30px !important;
 }
 
 #confirm-password {
