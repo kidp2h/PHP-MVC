@@ -1,0 +1,245 @@
+.modal__cart {
+    position: absolute;
+    top: 0;
+    right: -100%;
+    
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 400px;
+    height: 100%;
+    background-color: #fff;
+
+    transition: all 0.3s ease;
+}
+
+.modal__cart.active {
+    right: 0;
+}
+
+.modal__cart-product-box {
+    height: 100%;
+}
+
+.modal__cart .box {
+    overflow-y: scroll;
+    width: 100%;
+    height: auto;
+    flex: 1;
+    /* firefox */
+    scrollbar-width: none;
+}
+
+.modal__cart .box::-webkit-scrollbar {
+    display: none;
+}
+
+.modal__cart-header {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+#main .modal__cart .btn-exist {
+    font-size: 2.5rem;
+    color: black;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.modal__cart-product-item {
+    padding: 25px;
+    display: flex; 
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+}
+
+.modal__cart-product-item:last-child {
+    border: none;
+}
+
+.modal__cart-imgbox{
+    width: 122px;
+    height: 178px;
+    flex-shrink: 0;
+}
+
+.modal__cart-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.modal__cart-item-infor {
+    margin-left: 20px;
+}
+
+
+.modal__cart-item-name {
+    font-size: 1.6rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-word;
+}
+
+.modal__cart-item-price {
+    display: block;
+    font-size: 1.4rem;
+    margin-top: 1px;
+    margin-bottom: 15px;
+    color: red;
+}
+
+.modal__cart-item-input {
+    display: flex;
+    width: 136px;
+    border: 1px solid black;
+    background-color: #fff;
+}
+
+.modal__cart-item-input input[type="number"] {
+   -moz-appearance: textfield;
+   text-align: center;
+   font-size: 2.4rem;
+   border: none;
+   outline: none;
+   width: 60px;
+   background-color: #fff;
+   color: #202030;
+}
+
+.modal__cart-item-input input::-webkit-inner-spin-button,
+.modal__cart-item-input input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.modal__cart-item-input button {
+    color: #202030;
+    background-color: #fff;
+    border: none;
+    font-size: 2.4rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.modal__cart-item-input button:hover {
+    color: blue;
+}
+
+.modal__cart-item-input .cart__item-decrement {
+    padding: 3px 0;
+    width: 38px;
+}
+
+.modal__cart-item-input  .cart__item-increment {
+    padding: 3px 0;
+    width: 38px;
+}
+
+.modal__cart-delete-icon {
+    margin-top: 28px;
+}
+
+.modal__cart-delete-icon i{
+    font-size: 1.6rem;
+    cursor: pointer;
+}
+
+.modal__cart-footer {
+    width: 100%;
+    background-color: #fff;
+    border-top: 1px solid #ccc;
+    padding: 20px;
+}
+
+.modal__cart-subtotal {
+    display: flex;
+    justify-content: space-between;
+}
+
+.subtotal-text {
+    font-size: 2rem;
+}
+
+.modal__cart-subtotal-all  {
+    font-size: 1.8rem;
+    color: red;
+}
+
+.modal__cart-view-cart {
+    margin-top: 20px;
+    text-align: center;
+    background-color: var(--ui-background);
+    color: var(--text-color);
+    height: 50px;
+    line-height: 50px;
+    cursor: pointer;
+}
+
+.modal__cart-view-cart:hover {
+    background-color: var(--red);
+    transition: 0.5s all;    
+}
+
+.modal__cart-view-cart-btn {
+    font-size: 1.8rem;
+}
+
+
+ /* KHI KHÔNG CÓ SẢN PHẨM */
+.modal__cart-empty {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    color: var(--ui-background);
+}
+
+.modal__cart-empty i {
+    font-size: 4rem;
+}
+
+.modal__cart-empty-text {
+    margin: 13px 0;
+    text-align: center;
+    font-size: 1.8rem;
+}
+
+ /* MOBILE */
+@media(max-width: 46.1875em) {
+    .modal__cart { 
+        width: 350px;
+    }
+}
+
+@media(min-width: 280px) and (max-width: 320px){
+    .modal__cart { 
+        width: 270px;
+    }
+
+    .modal__cart-product-item {
+        flex-direction: column;
+        justify-content: center;
+    }
+    .modal__cart-item-name { 
+        text-align: center;
+    }
+
+    .modal__cart-item-infor {
+        margin-top: 20px;
+        margin-left: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}

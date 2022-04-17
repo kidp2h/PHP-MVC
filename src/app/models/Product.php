@@ -85,7 +85,7 @@ class product extends Model {
     }
 	public function getListProducts($limit, $page){
 		$index = ($page - 1) * $limit;
-		$query = "SELECT * FROM product LIMIT $index, $limit";
+		$query = "SELECT product.*, category.title FROM product, category where product.category_id = category.id LIMIT $index, $limit";
 		$sql= self::$db->query($query);
 		$data = [];
 		while($row = mysqli_fetch_all($sql, 1)) $data=$row;

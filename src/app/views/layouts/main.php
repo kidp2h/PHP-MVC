@@ -24,7 +24,8 @@
   <link rel="stylesheet" href="/public/styles/shop/rp.css"> 
   <link rel="stylesheet" href="/public/styles/detail/style.css">
   <link rel="stylesheet" href="/public/styles/detail/responsive.css">
-  <link rel="stylesheet" href="/public/styles/cart/index.css">
+  <link rel="stylesheet" href="/public/styles/cart/cartPage.css">
+  <link rel="stylesheet" href="/public/styles/cart/modalCart.css">
   <link rel="stylesheet" href="/public/styles/order/index.css">
 
 
@@ -246,6 +247,7 @@
 <!-- <script src="/public/javascripts/shop/render.js"></script>
 <script src="/public/javascripts/shop/appli.js"></script> -->
 <script src="/public/javascripts/detail/detail.js"></script>
+<script src="/public/javascripts/cart/cartEvent.js"></script>
 
 
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>

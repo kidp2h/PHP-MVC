@@ -25,3 +25,12 @@ const HttpRequest = async (
     throw new Error('Too few argument !!');
   }
 };
+
+function getParrent(element, seletor) {
+  while(element.parentElement) {
+      if(element.parentElement.matches(seletor)) {
+          return element.parentElement
+      }
+      element = element.parentElement
+  }
+}
