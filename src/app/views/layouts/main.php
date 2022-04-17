@@ -26,7 +26,6 @@
   <link rel="stylesheet" href="/public/styles/shop/rp.css">
   <link rel="stylesheet" href="/public/styles/detail/style.css">
   <link rel="stylesheet" href="/public/styles/detail/responsive.css">
-<<<<<<< HEAD
   <link rel="stylesheet" href="/public/styles/cart/cartPage.css">
   <link rel="stylesheet" href="/public/styles/cart/modalCart.css">
   <link rel="stylesheet" href="/public/styles/order/index.css">
@@ -34,8 +33,6 @@
 
 
 
-=======
->>>>>>> main
 </head>
 
 <body>
