@@ -63,8 +63,11 @@ $('#btn-signup') ? ($('#btn-signup').onclick = async () => {
       method: 'POST',
       data: { username, password, fullName, email, confirmPassword , captcha },
     });
-    if (response.status && response.redirect) {
-      window.location.href = response.redirect;
+    if (response.status && response.redirect && response.message) {
+      showToast("success",response.message);
+      setTimeout(() => {
+        window.location.href = response.redirect;
+      }, 3000)
     } else if(response.message && response.status) {
       showToast("success",response.message);
       grecaptcha.reset();

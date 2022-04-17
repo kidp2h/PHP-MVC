@@ -94,12 +94,12 @@ class User extends Model {
     $token = Utils::v4();
     $address = $to["address"];
     $server = $_SERVER['SERVER_NAME'];
-    Utils::sendMail(
+    Utils::sendMailWithTemplate(
       ['address' => $to["address"]],
       "Verify Account",
-      "Please click this link to verify account: {$server}/verify/{$token}"
+      ["verifyToken" => $token, "baseUrl" => $_ENV["BASE_URL"]]
     );
-    $result = User::__self__()->update(["tokenVerify" => "'$token'"], "email='$address'");
+    User::__self__()->update(["tokenVerify" => "'$token'"], "email='$address'");
 
   }
   public static function sendCodeOTP($phone){
