@@ -48,7 +48,10 @@
 							<h3>Product Categories</h3>
 
 							<li id="loccategories">
-
+								<?php 
+									echo $category;
+								?>
+	
 							</li>
 						</ul>
 						<ul class="loc1">

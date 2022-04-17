@@ -73,5 +73,6 @@ class Category extends Model {
         }
         return $data;
     }
+
 }
 ?>

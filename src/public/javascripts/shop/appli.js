@@ -132,4 +132,5 @@ function Searchshop(from, to, name, category){
   }
   window.onload= function(){
     InitEvent();
+    rendertheloai();
   }

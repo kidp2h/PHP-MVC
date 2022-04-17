@@ -149,24 +149,24 @@ function filtersort() {
 // lÀM CATEGORIES
 // INR RA DANH SÁCH THỂ LOẠI CỦA SẢN PHẨM
 function rendertheloai(){
-    var htmls = CategoryModel.getAll().map(items =>{
-        var cout =0;
-        let listProducts = ProductModel.getAll();
-        listProducts.forEach(value =>{
-            if(items.name.toUpperCase() == value.category.toUpperCase()){
-                cout++;
-            }
-        });
-        return `
-        <li class="theloai">
-            <input type="radio" name="categories" value="${items.name}" class="locsanpham ${items.name}" ><p>${items.name}(${cout})</p></input>
-        </li>
-       `
-    })
+    // var htmls = CategoryModel.getAll().map(items =>{
+    //     var cout =0;
+    //     let listProducts = ProductModel.getAll();
+    //     listProducts.forEach(value =>{
+    //         if(items.name.toUpperCase() == value.category.toUpperCase()){
+    //             cout++;
+    //         }
+    //     });
+    //     return `
+    //     <li class="theloai">
+    //         <input type="radio" name="categories" value="${items.name}" class="locsanpham ${items.name}" ><p>${items.name}(${cout})</p></input>
+    //     </li>
+    //    `
+    // })
     
-    document.getElementById('loccategories').innerHTML =`<li class="theloai">
-    <input type="radio"  name="categories" value="All" checked="true" ><p id="productall"   >All(${ProductModel.getAll().length})</p></input>
-    </li>`+htmls.join("");
+    // document.getElementById('loccategories').innerHTML =`<li class="theloai">
+    // <input type="radio"  name="categories" value="All" checked="true" ><p id="productall"   >All(${ProductModel.getAll().length})</p></input>
+    // </li>`+htmls.join("");
     $$(".theloai").forEach(item=>{
         item.onclick=function(){
             item.querySelector("input").checked=true;
