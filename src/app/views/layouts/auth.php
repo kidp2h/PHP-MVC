@@ -4,18 +4,12 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-signin-client_id" content="1091815126180-9utfq6dce4ok3qusms4hlrjh6bl59pas.apps.googleusercontent.com">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600;700&display=swap" rel="stylesheet">
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
-    integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer"
-  />
+  <link rel="stylesheet" href="/public/vendor/icons/css/ionicons.min.css"> 
   <link rel="stylesheet" href="/public/styles/base.css">
-
   <link rel="stylesheet" href="/public/styles/auth/signin.css">
   <link rel="stylesheet" href="/public/styles/auth/signup.css">
   <link rel="stylesheet" href="/public/styles/auth/index.css">
@@ -26,10 +20,11 @@
   <div class="blobs">
   <svg viewBox="0 0 800 500" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"
     xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%"id="blobSvg">
+
     <g transform="translate(500, -200)">
       <defs>
         <clipPath id="shape">
-          <path fill="#d1d8e0">
+          <path filter="url(#shadow)">
             <animate attributeName="d" dur="5000ms" repeatCount="indefinite" values="M466.5,297Q476,344,439.5,373.5Q403,403,361,410Q319,417,284.5,449Q250,481,213,455Q176,429,139.5,413Q103,397,78.5,364Q54,331,60.5,290.5Q67,250,59.5,209Q52,168,62.5,120.5Q73,73,126,75.5Q179,78,214.5,44Q250,10,294.5,22Q339,34,362.5,74Q386,114,427,137Q468,160,462.5,205Q457,250,466.5,297Z;
             
             M451.5,286.5Q426,323,416,364.5Q406,406,374,439Q342,472,296,456Q250,440,213,434Q176,428,129.5,422.5Q83,417,78.5,370Q74,323,67,286.5Q60,250,55,208.5Q50,167,74,132.5Q98,98,130.5,68.5Q163,39,206.5,36Q250,33,293,37.5Q336,42,378.5,60.5Q421,79,433,124Q445,169,461,209.5Q477,250,451.5,286.5Z;
@@ -144,10 +139,12 @@
 </body>
 
 <!-- Your SDK code -->
-<!-- <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v13.0&appId=379674354067143&autoLogAppEvents=1" nonce="G5t768ZJ"></script> -->
-<!-- <script src="/public/javascripts/messenger.js"></script> -->
-<!-- <script src="/public/javascripts/auth/facebook.js"></script> -->
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v13.0&appId=379674354067143&autoLogAppEvents=1" nonce="G5t768ZJ"></script>
+<script src="/public/javascripts/messenger.js"></script>
 <script src="/public/javascripts/main.js"></script>
+<script src="https://apis.google.com/js/platform.js?onload=onLoadCallback" async defer></script>
+<script src="/public/javascripts/auth/google.js"></script>
+<script src="/public/javascripts/auth/facebook.js"></script>
 <script src="/public/javascripts/auth/toast.js"></script>
 <script src="/public/javascripts/auth/signin.js"></script>
 <script src="/public/javascripts/auth/signup.js"></script>

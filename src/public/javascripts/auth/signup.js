@@ -24,7 +24,7 @@ let validateSignUp = {
   },
   "captcha" : {
     "message":"Please check this box captcha",
-    max: 99999999999999999
+    max: 99999999999999
   }
 }
 
@@ -63,9 +63,15 @@ $('#btn-signup') ? ($('#btn-signup').onclick = async () => {
       method: 'POST',
       data: { username, password, fullName, email, confirmPassword , captcha },
     });
-    if (response.status && response.redirect) {
-      window.location.href = response.redirect;
-    }else {
+    if (response.status && response.redirect && response.message) {
+      showToast("success",response.message);
+      setTimeout(() => {
+        window.location.href = response.redirect;
+      }, 3000)
+    } else if(response.message && response.status) {
+      showToast("success",response.message);
+      grecaptcha.reset();
+    } else {
       showToast("error",response.message);
       grecaptcha.reset();
     }
@@ -73,7 +79,7 @@ $('#btn-signup') ? ($('#btn-signup').onclick = async () => {
 }) : null
 
 const showMessageValidator = (status, selector, validate) => {
-
+  status.push(selector);
   $(`label[for=${selector}]`)?.classList.add('error')
   $(`label[for=${selector}] ~ span`)?.classList.add('validate-error')
   $(`label[for=${selector}] ~ span`).innerHTML = validate[selector]["message"]

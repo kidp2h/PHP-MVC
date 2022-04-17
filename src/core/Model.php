@@ -27,7 +27,7 @@ class Model {
     $table = $this->tableName();
     $sql = "INSERT INTO {$table} ({$fields}) VALUES ({$values})";
     try {
-      return self::$db->query($sql);
+      if(self::$db->query($sql)) return (object)["status" => true ]; 
     } catch (\Exception $e) {
       return (object)["message" => $e->getMessage(), "status" => false];
     }
@@ -48,7 +48,6 @@ class Model {
     $setQuery = rtrim($setQuery, ", ");
     $table = $this->tableName();
     $sql = "UPDATE {$table} SET {$setQuery} WHERE {$where}";
-
     try {
       return self::$db->query($sql);
     } catch (\Exception $e) {

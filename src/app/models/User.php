@@ -91,15 +91,15 @@ class User extends Model {
   }
 
   public static function sendMailVerifyAccount(array $to) {
-    $result = Utils::generateOTP($to['address']);
+    $token = Utils::v4();
     $address = $to["address"];
-    $otp = $result[0];
-    Utils::sendMail(
+    $server = $_SERVER['SERVER_NAME'];
+    Utils::sendMailWithTemplate(
       ['address' => $to["address"]],
       "Verify Account",
-      "Please verify this account with this code: {$otp}"
+      ["verifyToken" => $token, "baseUrl" => $_ENV["BASE_URL"]]
     );
-    User::__self__()->update(["isVerified" => 1,"tokenVerify" => $otp], "email={$address}");
+    User::__self__()->update(["tokenVerify" => "'$token'"], "email='$address'");
 
   }
   public static function sendCodeOTP($phone){
@@ -111,5 +111,13 @@ class User extends Model {
     Utils::verifyOTP($phone, $hash, $otp);
     exit;
     return $phone;
+  }
+
+    public function getUserByUsername($username){
+    $sql = self::$db->query("SELECT * FROM user WHERE user.username = '$username'");
+    while($row = mysqli_fetch_array($sql,1)){
+        $data = $row;
+    }
+    return $data;
   }
 }

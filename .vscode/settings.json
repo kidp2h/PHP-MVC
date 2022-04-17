@@ -1,6 +1,5 @@
 {
   "editor.tabSize": 2,
-  "intelephense.format.braces": "k&r",
   "editor.formatOnSave": true,
-  "editor.defaultFormatter": "zobo.php-intellisense",
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
 }

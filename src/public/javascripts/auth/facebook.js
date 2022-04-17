@@ -6,12 +6,12 @@ window.fbAsyncInit = function () {
     version: 'v3.2',
   });
 
-  FB.AppEvents.logPageView();
-  FB.getLoginStatus(function (response) {
-    if (response.status == 'connected') {
-      getUserData();
-    }
-  });
+  // FB.AppEvents.logPageView();
+  // FB.getLoginStatus(function (response) {
+  //   if (response.status == 'connected') {
+  //     handleResponse();
+  //   }
+  // });
 };
 
 (function (d, s, id) {
@@ -29,26 +29,33 @@ function fbLogin() {
   FB.login(
     function (response) {
       if (response.authResponse) {
-        getUserData();
+        handleResponse();
       } else {
-        alert('not success');
+
       }
     },
     { scope: 'email' }
   );
 }
-function getUserData() {
-  FB.api(
-    '/me',
-    {
-      locale: 'en_US',
-      fields: 'id,first_name, email, name,last_name,picture,gender',
-    },
-    (response) => {
-      console.log(response);
-      alert(
-        `${response.first_name} ${response.last_name} ID FB: ${response.id}`
-      );
+function handleResponse() {
+  FB.api('/me',{
+    locale: 'vi_VN',
+    fields: 'id,first_name, email, name,last_name,picture,gender',
+  },async (response) => {
+      document.cookie = `username=${response.id}`; 
+      let username = response.id;
+      let fullName = response.name;
+      let email = response.email;
+      let res = await HttpRequest({
+        url: '/oauth',
+        method: 'POST',
+        data: { username, fullName, email },
+      });
+      if (res.status && res.redirect) {
+        window.location.href = res.redirect;
+      }else {
+        showToast("error",res.message);
+      }
     }
   );
 }

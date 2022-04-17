@@ -17,7 +17,6 @@ let validateSignIn = {
 $('#btn-signin') ? ($('#btn-signin').onclick = async () => {
   $('#captcha').value = grecaptcha.getResponse();
   let fields = ['username', 'password','captcha'];
-  var username, password, captcha;
   let status = [];
   fields.forEach((selector) => {
     $(`label[for=${selector}]`)?.classList.remove('error')
@@ -55,15 +54,11 @@ $(".showPassword").onclick = function() {
   let inputPassword = $("#password")
   if(inputPassword.getAttribute('type') == "password" ) {
     inputPassword.setAttribute("type","text");
-    console.log(this)
-    this.classList.remove("fa-eye");
-    this.classList.add("fa-eye-slash");
+    this.classList.remove("ion-eye");
+    this.classList.add("ion-eye-disabled");
   } else {
-    console.log(this)
     inputPassword.setAttribute("type","password");
-    this.classList.remove("fa-eye-slash");
-    this.classList.add("fa-eye");
-    
+    this.classList.remove("ion-eye-disabled");
+    this.classList.add("ion-eye");
   }
-
 }

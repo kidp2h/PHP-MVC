@@ -2,7 +2,6 @@
 
 namespace core;
 use core\Application;
-use Exception;
 
 class View {
   public function checkView($view) {
@@ -26,6 +25,7 @@ class View {
     foreach ($params as $key => $value) {
       $$key = $value;
     }
+    
     ob_start();
     include_once Application::$__ROOT_DIR__ . "/app/views/$view.php";
     return ob_get_clean();

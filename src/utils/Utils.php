@@ -20,6 +20,20 @@ class Utils {
       echo $e->getMessage();
     }
   }
+  public static function sendMailWithTemplate(array $to, string $subject, array $dataTemplate){
+    try {
+      $mail = Application::$mail;
+      $mail->setFrom($_ENV["FROM_ADDRESS"], $_ENV["FROM_NAME"]);
+      $mail->setSubject($subject);
+      $mail->addTo($to["address"]);
+      $mail->setTemplateId($_ENV["DYNAMIC_TEMPLATE"]);
+      $mail->addDynamicTemplateDatas($dataTemplate);
+      $sendgrid = new SendGrid($_ENV['SENDGRID_API_KEY']);
+      return $sendgrid->send($mail);
+    } catch (Exception $e) {
+      echo $e->getMessage();
+    }
+  }
   public static function generateOTP($phone){
     $otp = rand(000000,999999);
     $expire = new \DateTime();
@@ -63,5 +77,28 @@ class Utils {
     $response = curl_exec($curl);
     curl_close($curl);
     return json_decode($response, true);
+  }
+
+  public static function v4() {
+    return sprintf('%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
+
+      // 32 bits for "time_low"
+      mt_rand(0, 0xffff), mt_rand(0, 0xffff),
+
+      // 16 bits for "time_mid"
+      mt_rand(0, 0xffff),
+
+      // 16 bits for "time_hi_and_version",
+      // four most significant bits holds version number 4
+      mt_rand(0, 0x0fff) | 0x4000,
+
+      // 16 bits, 8 bits for "clk_seq_hi_res",
+      // 8 bits for "clk_seq_low",
+      // two most significant bits holds zero and one for variant DCE1.1
+      mt_rand(0, 0x3fff) | 0x8000,
+
+      // 48 bits for "node"
+      mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff)
+    );
   }
 }

@@ -1,4 +1,3 @@
-
        <div id="shop">
         <div id="wrapper">
             <div id="product-intro">
@@ -125,21 +124,23 @@
                              echo'<ul id="products">';
                             forEach($data as $product){
                                 echo '
-                                <li><a href="http://localhost/detail/product/'.$product["id"].'">
+                                <li>
                                 <div class="product-items"></div>
                                 <div class="product-top">
                                     <div class="product-thumb">
-                                        <img src="${item.imgList[0]}" alt="ảnh 1" width="200px" height="200px">
+                                        <a href="http://localhost/detail/product/'.$product["id"].'">
+                                            <img src="${item.imgList[0]}" alt="ảnh 1" width="200px" height="200px">
+                                        </a>
                                     </div>
                                    
                                     <!-- //Mua ngay -->
                                     <div class="buy-now">
                                     <div class="product-quantity">
                                         <button class="btn btn-tru"> - </button>
-                                        <input type="number" min="1" max="99" value="1" class="inputQuantity" data-id ="${item.id}"  >
+                                        <input type="number" min="1" max="99" value="1" class="inputQuantity" data-id ="'.$product["id"].'"  >
                                         <button class="btn btn-add"> + </button>
                                     </div>
-                                        <div class="addtocart addToCart" data-id ="${item.id}" >
+                                        <div class="addtocart addToCart" data-id ="'.$product["id"].'" >
                                             <p>ADD TO CART</p>
                                             <i id="cart-icon" class="fas fa-shopping-cart"></i>
                         
@@ -157,10 +158,9 @@
                                     <div class="product-price">1000</div>
                                     <div class="sale-price">'.$product["price"].'</div>
                                     </div>
-                                </div></a>
-                            </li>
-                            ';
-                           
+                                </div>
+                            </li>'; 
+                                
                             }
                          echo'</ul>';
                         }

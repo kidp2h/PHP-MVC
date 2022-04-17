@@ -3,7 +3,6 @@
 namespace app\models;
 
 use core\Model;
-use mysqli;
 
 class product extends Model {
 	const TABLE = "product";
@@ -100,9 +99,13 @@ class product extends Model {
 		$query = "SELECT product.*, category.title FROM product, category where product.category_id = category.id   ";
 		$sql= self::$db->query($query);
 		$data = [];
-		while($row = mysqli_fetch_all($sql, 1)) $data=$row;
+		$sql = self::$db->query("SELECT * FROM product ORDER BY RAND() LIMIT 7");
+		while ($row = mysqli_fetch_all($sql, 1)) {
+			$data = $row;
+		}
 		return $data;
 	}
+
 
 	public function pageNumber($limit,$category, $priceFrom, $priceTo, $tilte) {
 		$total = $this->getQuantity($category, $priceFrom, $priceTo, $tilte);

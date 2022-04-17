@@ -12,7 +12,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
+    integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <title>Main</title>
   <link rel="stylesheet" href="/public/styles/base.css">
@@ -21,10 +23,11 @@
   <link rel="stylesheet" href="/public/styles/home/index.css">
   <link rel="stylesheet" href="/public/styles/shop/apps.css">
   <link rel="stylesheet" href="/public/styles/shop/base.css">
-  <link rel="stylesheet" href="/public/styles/shop/rp.css"> 
+  <link rel="stylesheet" href="/public/styles/shop/rp.css">
   <link rel="stylesheet" href="/public/styles/detail/style.css">
   <link rel="stylesheet" href="/public/styles/detail/responsive.css">
-  <link rel="stylesheet" href="/public/styles/cart/index.css">
+  <link rel="stylesheet" href="/public/styles/cart/cartPage.css">
+  <link rel="stylesheet" href="/public/styles/cart/modalCart.css">
   <link rel="stylesheet" href="/public/styles/order/index.css">
 
 
@@ -50,8 +53,8 @@
 
       <nav class="navbar">
         <a href="/" class="home active">Home</a>
-        <a href="#category" class="category">Category</a>
-        <a href="#feature" class="feature">Featured</a>
+        <a href="/#category" class="category">Category</a>
+        <a href="/#feature" class="feature">Featured</a>
         <a href="/shop" class="shop">Shop</a>
         <a href="/about" class="about">About</a>
       </nav>
@@ -62,15 +65,13 @@
           <i class="fas fa-search" id="nav-search"></i>
         </div>
         <i class="fas fa-search" id="search-icon"></i>
-        <a href="/login" class="user-info">
+        <a href="/signin" class="user-info">
           <i class="fas fa-user" id="user-icon"></i>
         </a>
         <div class="icon cart" id="cart-icon" data-amount="0">
           <i class="fas fa-shopping-cart"></i>
         </div>
       </div>
-
-
     </div>
   </div>
 
@@ -233,7 +234,7 @@
       <div class="footer__img">
         <img src="./images/footer.jpg" alt="">
       </div>
-</div>
+    </div>
     <div class="footer__bottom">
       <p>Copyright © 2021 Shiba Shop. All Rights Reserved.</p>
     </div>
@@ -242,12 +243,13 @@
 </body>
 
 <script src="/public/javascripts/main.js"></script>
-<!-- <script src="/public/javascripts/home/event.js"></script> -->
+<script src="/public/javascripts/home/event.js"></script>
 <script src="/public/javascripts/shop/render.js"></script>
 <script src="/public/javascripts/shop/appli.js"></script>
-
+<script src="/public/javascripts/detail/detail.js"></script>
+<script src="/public/javascripts/cart/cartEvent.js"></script>
 
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </html>

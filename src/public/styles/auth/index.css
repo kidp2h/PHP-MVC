@@ -11,7 +11,7 @@
 body {
   position: relative;
   width: 100%;
-  background-image:  url("/public/images/bg_signin.jpg");
+  background-color: #6050f149;
 }
 
 .form-group {
@@ -32,6 +32,9 @@ body {
 .social-group {
   display: flex;
   margin-bottom: 2rem;
+}
+.social-group a {
+  color: #5f50f1;
 }
 .social-group .signin-social {
   font-size: 1.5rem;
@@ -67,6 +70,7 @@ body {
   border-radius: 10px;
   background-color: rgba( 255, 255, 255, 0.25 );
   font-size: 1.5rem;
+  color: white !important;
 }
 #text-or {
   margin: auto;
@@ -213,7 +217,8 @@ body {
 }
 
 .form-input.status-valid {
-  padding-right: 45px;
+  padding-right: 60px;
+  padding-left: 10px;
 }
 
 input::placeholder {
@@ -231,6 +236,7 @@ input::placeholder {
 .showPassword {
   display: block !important;
   color: #6050f186;
+  font-size: 30px !important;
 }
 
 #confirm-password {
@@ -246,7 +252,6 @@ input::placeholder {
   border-radius: 10px;
   margin: 30px 0px;
   display: flex;
-  background-color: red;
   padding: 20px 10px;
   color: white;
   box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
@@ -259,7 +264,9 @@ input::placeholder {
 }
 .toast.error {
   background: rgba( 255, 0, 32, 0.25 );
-
+}
+.toast.success {
+  background: rgba( 0, 255, 20, 0.25 );;
 }
 
 .icon-toast {
@@ -311,4 +318,8 @@ input::placeholder {
 ::-ms-reveal,
 ::-ms-clear {
   display: none;
+}
+
+svg clipPath {
+  box-shadow: rgb(0, 0, 0) 0px 5px 15px;
 }
