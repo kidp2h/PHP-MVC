@@ -8,9 +8,6 @@ use core\Request;
 use app\models\User;
 use core\Application;
 use core\Response;
-use Facebook\Exceptions\FacebookResponseException;
-use Facebook\Exceptions\FacebookSDKException;
-use Facebook\FacebookResponse;
 use utils\Utils;
 
 class AuthController extends Controller {
@@ -60,13 +57,11 @@ class AuthController extends Controller {
       "email" => $body["email"],
       "fullName" => $body["fullName"]
     ]);
-    if ($result) {
+    if($result["status"]) {
       $response->statusCode(200);
       User::sendMailVerifyAccount(["address" => $body["email"]]);
-      return json_encode(["status" => true, "message" => "Please check your inbox to verify account"]);
-    } else {
-      return json_encode(["status" => false, "message" => "Username or email is exist"]);
-    }
+      return json_encode(["status" => true, "redirect" => "/signin", "message" => "Please check your inbox to verify account"]);
+    }else return json_encode(["status" => false, "message" => "Username or email is exist"]);
   }
 
   public static function verifyEmail(Request $request) {

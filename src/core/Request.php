@@ -5,7 +5,7 @@ use core\Session;
   class Request {
     private array $routeParams = [];
     public Session $session;
-    public bool $isPassedMiddleware;
+     public bool $isPassedMiddleware;
 
     public function path(){
       return $_SERVER['REDIRECT_URL'];

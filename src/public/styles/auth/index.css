@@ -11,7 +11,7 @@
 body {
   position: relative;
   width: 100%;
-  background-image:  url("/public/images/bg_signin.jpg");
+  background-color: #6050f149;
 }
 
 .form-group {
@@ -316,4 +316,8 @@ input::placeholder {
 ::-ms-reveal,
 ::-ms-clear {
   display: none;
+}
+
+svg clipPath {
+  box-shadow: rgb(0, 0, 0) 0px 5px 15px;
 }
