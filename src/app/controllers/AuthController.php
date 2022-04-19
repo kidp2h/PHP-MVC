@@ -11,26 +11,29 @@ use utils\Utils;
 
 class AuthController extends Controller {
   public static string $layout = "auth";
-  public static array $data;
+  public static array $params = [];
+  public static array $paramsLayout = [];
   public static function signin() {
-    return parent::render('signin');
+    return parent::render('signin',["title" => "Sign In"]);
   }
   public static function useHook() {
-    self::$data = ['SITE_KEY' => $_ENV["GC_SITE_KEY"], 'SECRET_KEY' => $_ENV["GC_SECRET_KEY"]];
+    self::$params = ['SITE_KEY' => $_ENV["GC_SITE_KEY"], 'SECRET_KEY' => $_ENV["GC_SECRET_KEY"]];
   }
   public static function handleSignIn(Request $request, Response $response) {
     $body = $request->body();
     $result = Utils::verifyCaptcha($body['captcha']);
     if (!$result["success"]) return json_encode(["status" => false, "message" => $result["error-codes"][0]]);
-    if (User::__self__()->checkUser($body["username"], $body["password"])) {
-      $_SESSION["username"] = $body["username"];
-      Application::setCookie("username", $body["username"], time() + 3600);
+    $result = User::__self__()->checkUser($body["username"], $body["password"]);
+    if ($result->status) {
+      User::applyRefreshToken($result->user->id);
+      $data = User::newAccessToken($result->user->id);
+      Application::setCookie("accessToken", $data["accessToken"], time() + 3600);
       $response->statusCode(200);
       return json_encode(["status" => true, "redirect" => "/"]);
     } else return json_encode(["status" => false, "message" => "Username or password is wrong"]);
   }
   public static function signup(Request $request) {
-    return parent::render("signup");
+    return parent::render("signup",["title" => "Sign Up"]);
   }
 
   public static function handleOAuth(Request $request, Response $response){
@@ -78,4 +81,35 @@ class AuthController extends Controller {
       } else return json_encode(["status" => "false", "message" => "This account was verified"]);
     }
   }
+
+  public static function newAccessToken(int $id){
+    $accessToken = User::newAccessToken($id)["accessToken"];
+    Application::setCookie("accessToken", $accessToken, time() + 3600);
+  }
+
+  public static function logout(Request $request, Response $response){
+    setcookie('accessToken', null, -1, '/'); 
+    unset($_SESSION["id"]);
+    return $response->redirect("/signin");
+
+  }
+  // public static function getAccessToken(){
+  //   $result = User::newAccessToken($_POST["id"]);
+    
+  //   return json_encode($result);
+  // }
+  // public static function verifyAccessToken(){
+  //   $accessToken = $_POST["accessToken"];
+  //   $resultDecode = User::decodeAccessToken($accessToken);
+  //   if(!$resultDecode["status"])
+  //     return json_encode($resultDecode);
+  //   return json_encode($resultDecode);
+  // }
+  // public static function verifyRefreshToken(){
+  //   $refreshToken = $_POST["refreshToken"];
+  //   $resultDecode = User::verifyRefreshToken($refreshToken);
+  //   if($resultDecode)
+  //     return json_encode(["status" => true]);
+  //   return json_encode(["status" => $resultDecode["status"], "message" => $resultDecode[""]]);   
+  // }
 }

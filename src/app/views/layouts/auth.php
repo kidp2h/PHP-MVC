@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="/public/styles/auth/signin.css">
   <link rel="stylesheet" href="/public/styles/auth/signup.css">
   <link rel="stylesheet" href="/public/styles/auth/index.css">
-  <title>Main</title>
+  <title><?= $title ?></title>
 </head>
 <body>
   <!-- <div id="fb-root"></div> -->

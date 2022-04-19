@@ -15,6 +15,7 @@
   font-size: 1.4rem;
   color: white;
   cursor: pointer;
+  color: #6050f1a1;
 }
 
 #btn-signin,
@@ -34,7 +35,7 @@
 }
 #new-user {
   font-size: 1.3rem;
-  color: white;
+  color: #6050f1a1;
 }
 #redirect-signup {
   color: #fa4d53;

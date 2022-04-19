@@ -3,11 +3,13 @@
 namespace app\models;
 
 use core\Model;
+use DateTime;
 use utils\Utils;
 
 class User extends Model {
   const TABLE = "user";
   private self $user;
+  public string $id;
   public string $username;
   public string $password;
   public string $email;
@@ -16,6 +18,8 @@ class User extends Model {
   public ?string $address;
   public bool $isVerified;
   public ?string $tokenVerify;
+  public string $refreshToken;
+  public int $permission;
   public string $createdAt;
   public string $updatedAt;
 
@@ -35,6 +39,7 @@ class User extends Model {
     $this->user->address = $address;
     $this->user->isVerified = $isVerified;
     $this->user->tokenVerify = $tokenVerify;
+
   }
 
   public function setUsername(string $username) {
@@ -66,25 +71,52 @@ class User extends Model {
   }
   public function checkUser(string $username, string $password){
     $user = $this->read(["*"],"username='$username'");
-    return Utils::verifyBcrypt($user->password, $password);
+    return (object)["status" => Utils::verifyBcrypt($user->password, $password), "user" => $user];
   }
 
   public static function resolve(array $data) {
     $user = self::__self__();
+    array_key_exists("id",$data) == true ? $user->id = $data["id"] : null;
     array_key_exists("username",$data) == true ? $user->username = $data["username"] : null;
     array_key_exists("password",$data) == true ? $user->password = $data["password"] : null;
     array_key_exists("email",$data) == true ? $user->email = $data["email"] : null;
     array_key_exists("fullName",$data) == true ? $user->fullName = $data["fullName"] : null;
     array_key_exists("phoneNumber",$data) == true ? $user->phoneNumber = $data["phoneNumber"] : null;
     array_key_exists("address",$data) == true ? $user->address = $data["address"] : null;
+    array_key_exists("permission",$data) == true ? $user->permission = $data["permission"] : null;
     array_key_exists("isVerified",$data) == true ? $user->isVerified = $data["isVerified"] : null;
     array_key_exists("tokenVerify",$data) == true ? $user->tokenVerify = $data["tokenVerify"] : null;
     return $user;
   }
 
+
+  public static function applyRefreshToken(int $id){
+    $baseUrl = $_ENV["BASE_URL"];
+    $secretKey = Utils::hashBcrypt($_ENV["SECRET_KEY"]);
+    $now = new DateTime();
+    $expire = ($now->add(new \DateInterval("PT2678400S")))->getTimestamp();
+    $data = "$baseUrl.$expire";
+    $hash = hash_hmac("sha256", $data,$_ENV["SECRET_KEY"]);
+    $refreshToken = "{$hash}.&$@{$expire}.&$@{$id}.&$@{$secretKey}";
+    return User::__self__()->update(["refreshToken" => "'{$refreshToken}'"], "id=$id");
+  }
+
+  public static function verifyRefreshToken($refreshToken){
+    $arrayHash = explode(".&$@", $refreshToken);
+    if(count($arrayHash) == 0 || !Utils::verifyBcrypt($arrayHash[3],$_ENV["SECRET_KEY"]))
+      return ["status" => false, "message" => "Invalid Refresh Token", "error-code" => -1];
+    if(count($arrayHash) == 4){
+      $hash = $arrayHash[0];
+      $baseUrl = $_ENV["BASE_URL"];
+      $expire = $arrayHash[1];
+      $data = hash_hmac("sha256","$baseUrl.$expire", $_ENV["SECRET_KEY"]);  
+      return $data == $hash;
+    }
+    return ["status" => false, "message" => "Invalid Refresh Token", "error-code" => -1];
+  }
   public function updateUsername(int $id, $username) {
     try {
-      //return self::$db->query("UPDATE {self::TABLE} SET username='{$username}' WHERE id={$id}");
+      return self::$db->query("UPDATE {self::TABLE} SET username='{$username}' WHERE id={$id}");
     } catch (\Exception $e) {
       return (object)["message" => "Username has already exist !!", "status" => false];
     }
@@ -113,11 +145,56 @@ class User extends Model {
     return $phone;
   }
 
-    public function getUserByUsername($username){
-    $sql = self::$db->query("SELECT * FROM user WHERE user.username = '$username'");
-    while($row = mysqli_fetch_array($sql,1)){
-        $data = $row;
+  public static function newAccessToken(int $id) {
+    $baseUrl = $_ENV["BASE_URL"];
+    $secretKey = Utils::hashBcrypt($_ENV["SECRET_KEY"]);
+    $now = new DateTime();
+    $expire = ($now->add(new \DateInterval("PT300S")))->getTimestamp();
+    $user = User::__self__()->read(["*"],"id=$id");
+    if(!isset($user)){
+      return ["status" => false, "message" => "Invalid id"];
     }
+    $info = json_encode([
+      "id" => $user->id,
+      "username" => $user->username,
+      "fullName" => $user->fullName,
+      "permission" => $user->permission
+    ]);
+    $data = "$baseUrl.$info.$expire";
+    $hash = hash_hmac("sha256", $data,$_ENV["SECRET_KEY"]);
+    return ["accessToken" => "{$hash}.&$@{$expire}.&$@{$id}.&$@{$secretKey}"];
+  }
+
+  public static function decodeAccessToken($accessToken){
+    $accessToken = urldecode($accessToken);
+    $arrayHash = explode(".&$@",$accessToken);
+    $secretKeyHash = $arrayHash[3];
+    $now = (new DateTime())->getTimestamp();
+    if(count($arrayHash)  != 4 || !Utils::verifyBcrypt($secretKeyHash, $_ENV["SECRET_KEY"])) 
+      return ["status" => false, "message" => "Invalid Access Token", "error-code" => -1];
+    if(count($arrayHash) == 4) {
+      $hash = $arrayHash[0];
+      $expire = $arrayHash[1];
+      $id = $arrayHash[2];
+      $baseUrl = $_ENV['BASE_URL'];
+      $user = User::__self__()->read(["*"],"id=$id");
+      $info = json_encode([
+        "id" => $user->id,
+        "username" => $user->username,
+        "fullName" => $user->fullName,
+        "permission" => $user->permission
+      ]);
+      if($now > (int)$expire) return ["status" => false, "id" => $id ,"message" => "This access token is expire", "error-code" => 0];
+
+      $data = hash_hmac("sha256","$baseUrl.$info.$expire" ,$_ENV["SECRET_KEY"]);
+      if($data == $hash) return ["status" => true, "id" => $id, "result" => json_decode($info)];
+    }
+    return ["status" => false, "message" => "Invalid Access Token", "error-code" => 999];
+  }
+
+  public function getUserByUsername($username){
+    $sql = self::$db->query("SELECT * FROM user WHERE user.username = '$username'");
+    while($row = mysqli_fetch_array($sql,1)) $data = $row;
     return $data;
   }
 }
