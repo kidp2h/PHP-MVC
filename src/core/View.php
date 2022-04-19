@@ -7,9 +7,14 @@ class View {
   public function checkView($view) {
     return file_exists(Application::$__ROOT_DIR__ . "/app/views/" . $view . ".php");
   }
-  public function render($view, $params = []) {
+  public function render($view, $params = [], $paramsLayout = []) {
     $layout = Controller::$layout;
+    foreach ($paramsLayout as $key => $value) {
+      $$key = $value;
+    }
     $viewContent = $this->loadView($view, $params);
+
+
     if(!isset($viewContent)){
       $viewContent = "<b>Not Found</b>";
     }
@@ -25,7 +30,6 @@ class View {
     foreach ($params as $key => $value) {
       $$key = $value;
     }
-    
     ob_start();
     include_once Application::$__ROOT_DIR__ . "/app/views/$view.php";
     return ob_get_clean();

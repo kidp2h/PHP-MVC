@@ -58,7 +58,7 @@ class Utils {
     return false;
   }
   public static function hashBcrypt(string $text){
-    return password_hash($text, PASSWORD_BCRYPT, ["cost" => $_ENV["SALT"]]);
+    return password_hash($text, PASSWORD_DEFAULT, ["cost" => $_ENV["SALT"]]);
   }
   public static function verifyBcrypt(string $hash, string $text){
     return password_verify($text,$hash);
