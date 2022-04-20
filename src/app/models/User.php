@@ -89,6 +89,49 @@ class User extends Model {
     return $user;
   }
 
+  public static function getTokenReset(string $email){
+    $baseUrl = $_ENV["BASE_URL"];
+    $secretKey = Utils::hashBcrypt($_ENV["SECRET_KEY"]);
+    $now = new DateTime();
+    $expire = ($now->add(new \DateInterval("PT300S")))->getTimestamp();
+    $user = User::__self__()->read(["*"],"email='$email'");
+    if(!isset($user)){
+      return ["status" => false, "message" => "Invalid id"];
+    }
+    $info = json_encode([
+      "id" => $user->id,
+      "email" => $user->email
+    ]);
+    $data = "$baseUrl.$info.$expire";
+    $hash = hash_hmac("sha256", $data,$_ENV["SECRET_KEY"]);
+    return ["accessToken" => "{$hash}.&$$@{$expire}.&$$@{$user->tokenVerify}.&$$@{$secretKey}"];
+  }
+
+  public static function decodeTokenReset(string $tokenReset){
+    $tokenReset = urldecode($tokenReset);
+    $arrayHash = explode(".&$$@",$tokenReset);
+    $secretKeyHash = $arrayHash[3];
+    var_dump($arrayHash);
+    $now = (new DateTime())->getTimestamp();
+    if(count($arrayHash)  != 4 || !Utils::verifyBcrypt($secretKeyHash, $_ENV["SECRET_KEY"])) 
+      return ["status" => false, "message" => "Invalid Token", "error-code" => -1];
+    if(count($arrayHash) == 4) {
+      $hash = $arrayHash[0];
+      $expire = $arrayHash[1];
+      $token = $arrayHash[2];
+      $baseUrl = $_ENV['BASE_URL'];
+      $user = User::__self__()->read(["*"],"tokenVerify='$token'");
+      $info = json_encode([
+        "id" => $user->id,
+        "email" => $user->email
+      ]);
+      if($now > (int)$expire) return ["status" => false, "message" => "This token is expire", "error-code" => 0];
+
+      $data = hash_hmac("sha256","$baseUrl.$info.$expire" ,$_ENV["SECRET_KEY"]);
+      if($data == $hash) return ["status" => true, "user" => $user, "result" => json_decode($info)];
+    }
+    return ["status" => false, "message" => "Invalid Token", "error-code" => 999];
+  }
 
   public static function applyRefreshToken(int $id){
     $baseUrl = $_ENV["BASE_URL"];

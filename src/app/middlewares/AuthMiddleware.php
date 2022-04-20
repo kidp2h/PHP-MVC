@@ -19,4 +19,9 @@ class AuthMiddleware {
     if(!isset($_COOKIE['accessToken'])) return true;
     return fn() => $response->redirect("/");
   }
+  public static function isTokenReset(Request $request, Response $response) : bool {
+    $data = $request->body();
+    $token = $data["token"];
+    return true;
+  }
 }
