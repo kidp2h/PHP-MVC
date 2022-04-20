@@ -91,7 +91,27 @@ class AuthController extends Controller {
     setcookie('accessToken', null, -1, '/'); 
     unset($_SESSION["id"]);
     return $response->redirect("/signin");
+  }
 
+  public static function resetPassword(Request $request, Response $response) {
+    return parent::render("resetPassword");
+  }
+  public static function handleResetPassword(Request $request, Response $response) {
+    echo "handleResetPassword";
+
+  }
+  public static function forgotPassword(Request $request, Response $response){
+    return parent::render("forgotPassword");
+  }
+  public static function handleForgotPassword(Request $request, Response $response){
+    echo "handleForgotPassword";
+  }
+  public static function getTokenReset(Request $request, Response $response){
+    var_dump(User::getTokenReset("thjnhsoajca@gmail.com"));
+  }
+  public static function verifyTokenReset(Request $request, Response $response) {
+    $tokenReset = $_POST["tokenReset"];
+    var_dump(User::decodeTokenReset($tokenReset));
   }
   // public static function getAccessToken(){
   //   $result = User::newAccessToken($_POST["id"]);
