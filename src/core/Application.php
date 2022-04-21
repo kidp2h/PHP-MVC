@@ -56,12 +56,15 @@ class Application {
   public static function Instance(){
     if(!isset(self::$instance)) self::$instance = new Application(dirname(__DIR__));
     return self::$instance;
-  }
+  } 
 
   public static function setCookie(string $key, string $value, string $expire, string $path = "/"){
     setcookie($key, $value,$expire, $path,"",true, true);
   }
 
+  public static function removeCookie(string $key){
+    self::setcookie($key,"",-1);
+  }
   public function run() {
     echo $this->router->resolve();
   }

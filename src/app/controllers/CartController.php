@@ -51,6 +51,8 @@ class CartController extends Controller {
   }
 
   public static function handleUpdateToCart(Request $request, Response $response) {
+    //$userId = User::decodeAccessToken($accessToken);
+    //...
     return json_encode(["status" => true]);
   }
 

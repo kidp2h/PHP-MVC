@@ -111,7 +111,6 @@ class User extends Model {
     $tokenReset = urldecode($tokenReset);
     $arrayHash = explode(".&$$@",$tokenReset);
     $secretKeyHash = $arrayHash[3];
-    var_dump($arrayHash);
     $now = (new DateTime())->getTimestamp();
     if(count($arrayHash)  != 4 || !Utils::verifyBcrypt($secretKeyHash, $_ENV["SECRET_KEY"])) 
       return ["status" => false, "message" => "Invalid Token", "error-code" => -1];

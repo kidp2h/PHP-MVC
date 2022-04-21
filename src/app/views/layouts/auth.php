@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/public/vendor/icons/css/ionicons.min.css"> 
+  <link rel="stylesheet" href="/public/vendor/icons/ionicons.min.css"> 
   <link rel="stylesheet" href="/public/styles/base.css">
   <link rel="stylesheet" href="/public/styles/auth/signin.css">
   <link rel="stylesheet" href="/public/styles/auth/signup.css">
