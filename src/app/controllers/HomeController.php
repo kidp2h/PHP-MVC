@@ -3,46 +3,26 @@
 namespace app\controllers;
 
 use app\models\Category;
+use app\models\Store;
+use app\models\Slide;
+use core\Application;
 use core\Controller;
-use core\Request;
+
 
 class HomeController extends Controller {
   public static function home() {
-
-    $categories = Category::__self__()->getCategoryList();
-    $slides = json_decode(
-      '
-        [
-          {
-            "id": 1,
-            "header": "ai lop diu",
-            "title": "abc",
-            "desc":"xyz"
-          },
-          {
-            "id": 2,
-            "header": "ai lop diu",
-            "title": "abc",
-            "desc":"xyz"
-          },
-          {
-            "id": 3,
-            "header": "ai lop diu",
-            "title": "abc",
-            "desc":"xyz"
-          }
-        ]
-      '
-    );
-
-
-
+    $body = Application::Instance()->request->body();
+    if(!isset($body['store'])) $body['store'] = 1;
+    $categories = Category::__self__()->getCategoryListByStore($body['store']);
+    $stores = Store::__self__()->getStoreList();
+    
     $params = [
       'name' => $_COOKIE["username"],
-      'categories' => $categories,
-      'slides' => $slides
+      'categories' => $categories
     ];
 
-    return parent::render('home', $params);
+    $paramsLayout = [ 'storeCurrent' => $body['store'], 'stores' => $stores];
+
+    return parent::render('home', $params, $paramsLayout);
   }
 }

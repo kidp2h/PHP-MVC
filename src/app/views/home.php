@@ -3,7 +3,7 @@
     <div class="slider-wrapper">
       <?php
       function SliderItem($slide) {
-        if ($slide->id === 1) $active = 'active';
+        if ($slide['id'] === 1) $active = 'active';
         return '
               <div class="slider-wrapper__slide ' . $active . '">
                   <div class="slide__content">
@@ -34,9 +34,9 @@
     <ul class="slider-dots">
       <?php
       function SliderDots($slide) {
-        if ($slide->id === 1) $active = 'active';
+        if ($slide['id'] === 1) $active = 'active';
         return '
-            <li class="slider-dot-item ' . $active . '" data-index="' . $slide->id . '"></li>
+            <li class="slider-dot-item ' . $active . '" data-index="' . $slide['id'] . '"></li>
           ';
       }
       foreach ($slides as $slide) {
@@ -59,9 +59,9 @@
       function CategoryItem($category) {
         return '
           <div class="category-item">
-            <h2 class="category-content" data-text="' . $category->title . '"> ' . $category->title . ' </h2>
+            <h2 class="category-content" data-text="' . $category['title'] . '"> ' . $category['title'] . ' </h2>
             <div class="category-image__box">
-                <img src="" alt="unsplash" class="category-image"/>
+                <img src="'.$category['image'].'" alt="unsplash" class="category-image"/>
             </div>
           </div>
           ';
