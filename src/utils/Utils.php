@@ -20,6 +20,20 @@ class Utils {
       echo $e->getMessage();
     }
   }
+  public static function sendMailWithTemplate(array $to, string $subject, array $dataTemplate){
+    try {
+      $mail = Application::$mail;
+      $mail->setFrom($_ENV["FROM_ADDRESS"], $_ENV["FROM_NAME"]);
+      $mail->setSubject($subject);
+      $mail->addTo($to["address"]);
+      $mail->setTemplateId($_ENV["DYNAMIC_TEMPLATE"]);
+      $mail->addDynamicTemplateDatas($dataTemplate);
+      $sendgrid = new SendGrid($_ENV['SENDGRID_API_KEY']);
+      return $sendgrid->send($mail);
+    } catch (Exception $e) {
+      echo $e->getMessage();
+    }
+  }
   public static function generateOTP($phone){
     $otp = rand(000000,999999);
     $expire = new \DateTime();
@@ -44,7 +58,7 @@ class Utils {
     return false;
   }
   public static function hashBcrypt(string $text){
-    return password_hash($text, PASSWORD_BCRYPT, ["cost" => $_ENV["SALT"]]);
+    return password_hash($text, PASSWORD_DEFAULT, ["cost" => $_ENV["SALT"]]);
   }
   public static function verifyBcrypt(string $hash, string $text){
     return password_verify($text,$hash);

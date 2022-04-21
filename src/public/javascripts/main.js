@@ -1,5 +1,5 @@
-const $ = (selector) => document.querySelector(selector);
-const $$ = (selector) => document.querySelectorAll(selector);
+const $ = document.querySelector.bind(document);
+const $$ = document.querySelectorAll.bind(document);
 
 const HttpRequest = async (
   options = { url: '', method: 'GET', data: null, headers: {} }
@@ -34,3 +34,14 @@ function getParrent(element, seletor) {
       element = element.parentElement
   }
 }
+
+function selectStore() {
+  $('#store-select').addEventListener("change", () => {
+    let i = window.location.href.indexOf('?');
+    let url = window.location.href.slice(0, i);
+    url += $('#store-select').value;
+    window.location.href = url;
+  })
+}
+
+selectStore();

@@ -160,4 +160,4 @@ const Home = {
   },
 };
 
-Home.init();
+// Home.init();

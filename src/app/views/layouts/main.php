@@ -30,10 +30,6 @@
   <link rel="stylesheet" href="/public/styles/cart/modalCart.css">
   <link rel="stylesheet" href="/public/styles/cart/cartPage.css">
   <link rel="stylesheet" href="/public/styles/order/index.css">
-
-
-
-
 </head>
 
 <body>
@@ -59,6 +55,16 @@
         <a href="/shop" class="shop">Shop</a>
         <a href="/about" class="about">About</a>
       </nav>
+
+      <select name="store" id="store-select">
+      <?php
+        foreach($stores as $store) {
+          $op = '';
+          if($store['id'] === $storeCurrent) $op = 'selected="selected"';
+          echo '<option '.$op.' value="?store='.$store['id'].'">'.$store['address'].'</option>';
+        }
+      ?>
+      </select>
 
       <div class="icons">
         <div class="navbar__inputSearch">
@@ -494,11 +500,11 @@
 </body>
 
 <script src="/public/javascripts/main.js"></script>
-<script src="/public/javascripts/home/event.js"></script>
+<!-- <script src="/public/javascripts/home/event.js"></script>
 <script src="/public/javascripts/shop/render.js"></script>
 <script src="/public/javascripts/shop/appli.js"></script>
 <script src="/public/javascripts/detail/detail.js"></script>
-<script src="/public/javascripts/cart/cartEvent.js"></script>
+<script src="/public/javascripts/cart/cartEvent.js"></script> -->
 
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"

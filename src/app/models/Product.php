@@ -8,7 +8,7 @@ class product extends Model {
 	const TABLE = "product";
 	private self $product;
 	public int $id;
-	public string $title;
+	public string $name;
 	public int $price;
 	public string $createdAt;
 	public string $updatedAt;
@@ -18,9 +18,9 @@ class product extends Model {
 	public static function __self__() {
 		return new static();
 	}
-	public function fillInstance($id, $title, $price, $createdAt, $updatedAt, $deletedAt) {
+	public function fillInstance($id, $name, $price, $createdAt, $updatedAt, $deletedAt) {
 		$this->product->ID = $id;
-		$this->product->name = $title;
+		$this->product->name = $name;
 		$this->product->price = $price;
 		$this->product->sale = $createdAt;
 		$this->product->quantity = $updatedAt;
@@ -33,10 +33,10 @@ class product extends Model {
 		$this->product->ID = $id;
 	}
 	public function getName() {
-		return $this->product->title;
+		return $this->product->name;
 	}
-	public function setName($title) {
-		$this->product->name = $title;
+	public function setName($name) {
+		$this->product->name = $name;
 	}
 	public function getPrice() {
 		return $this->product->price;
@@ -62,19 +62,42 @@ class product extends Model {
 	public function setImg($deletedAt) {
 		$this->product->deletedAt = $deletedAt;
 	}
-	public function getQuantity() {
-		return self::$db->query("SELECT COUNT(*) FROM {self::TABLE}");
+	public function getQuantity($category, $priceFrom, $priceTo, $tilte) {
+		if(strtoupper($category)==strtoupper("All")){
+		return mysqli_num_rows(self::$db->query("SELECT *
+		FROM product, category 
+		where product.category_id = category.id  
+		AND Upper (product.name) LIKE Upper('%$tilte%') 
+		AND product.price BETWEEN $priceFrom AND $priceTo"));
+	}else{
+		return mysqli_num_rows(self::$db->query("SELECT * 
+		FROM product, category 
+		where product.category_id = category.id 
+		AND Upper(category.title) = Upper('$category')
+		AND Upper (product.name) LIKE Upper('%$tilte%') 
+		AND product.price BETWEEN $priceFrom AND $priceTo"));
 	}
+}  
+    public function getProductById($id) {
+        $sql = self::$db->query("SELECT * FROM product where product.id = '$id'");
+        while($row=mysqli_fetch_array($sql,1)){
+            $data=$row;
+        }
+        return $data;
+    }
 
-	public function getProductById($id) {
-		$sql = self::$db->query("SELECT * FROM product where product.id = '$id'");
-		while ($row = mysqli_fetch_array($sql, 1)) {
-			$data = $row;
-		}
-		return $data;
-	}
-
-	public function randomProduct() { //random 8 products
+    public function randomProduct() { //random 8 products
+        $data = [];
+        $sql = self::$db->query("SELECT * FROM product ORDER BY RAND() LIMIT 7");
+        while($row=mysqli_fetch_all($sql,1)){
+            $data=$row;
+        }
+        return $data;
+    }
+	public function getListProducts($limit, $page){
+		$index = ($page - 1) * $limit;
+		$query = "SELECT product.*, category.title FROM product, category where product.category_id = category.id   ";
+		$sql= self::$db->query($query);
 		$data = [];
 		$sql = self::$db->query("SELECT * FROM product ORDER BY RAND() LIMIT 7");
 		while ($row = mysqli_fetch_all($sql, 1)) {
@@ -82,18 +105,35 @@ class product extends Model {
 		}
 		return $data;
 	}
-	public function getListProducts($limit, $page) {
-		$index = ($page - 1) * $limit;
-		$query = 'SELECT * FROM product LIMIT $index, $limit';
-		$sql = self::$db->query($query);
-		$data = [];
-		while ($row = mysqli_fetch_all($sql, 1)) $data = $row;
-		return $data;
-	}
 
-	public function pageNumber($limit) {
-		$total = $this->getQuantity();
+
+	public function pageNumber($limit,$category, $priceFrom, $priceTo, $tilte) {
+		$total = $this->getQuantity($category, $priceFrom, $priceTo, $tilte);
 		if ($total <= $limit) return 1;
 		else return $total % $limit == 0 ? $total / $limit : $total / $limit + 1;
 	}
+	public function filterAdvanced($category, $priceFrom, $priceTo, $tilte, $limit, $page){
+		$index = ($page - 1) * $limit;
+		if(strtoupper($category)==strtoupper("All")){
+			$query="SELECT product.*, category.title 
+			FROM product, category 
+			where product.category_id = category.id  
+			AND Upper (product.name) LIKE Upper('%$tilte%') 
+			AND product.price BETWEEN $priceFrom AND $priceTo
+			LIMIT $index, $limit";
+		}else{
+			$query="SELECT product.*, category.title 
+			FROM product, category 
+			where product.category_id = category.id 
+			AND Upper(category.title) = Upper('$category')
+			AND Upper (product.name) LIKE Upper('%$tilte%') 
+			AND product.price BETWEEN $priceFrom AND $priceTo
+			LIMIT $index, $limit";
+				
+	 }
+				$sql= self::$db->query($query);
+				$data = [];
+				while($row = mysqli_fetch_all($sql, 1)) $data=$row;
+				return $data;
+		}
 }

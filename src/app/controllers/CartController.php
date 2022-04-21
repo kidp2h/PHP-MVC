@@ -5,6 +5,7 @@ use core\Controller;
 use core\Request;
 use app\models\Cart;
 use app\models\User;
+use core\Response;
 
 class CartController extends Controller {
   private static self $instance;
@@ -22,7 +23,7 @@ class CartController extends Controller {
   }
 
   public static function handleAddToCart(Request $request) {
-    if(!isset($_COOKIE["username"])) die();
+    if(!isset($_SESSION["username"])) die();
     $Cart = new Cart();
     $User = new User();
     $body = $request->body();

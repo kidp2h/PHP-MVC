@@ -12,12 +12,11 @@
       <a>Sign in with Google</a>
     </span>
   </div>
-  <form id="form-signin" autocomplete="off">
     <div class="form-group">
       <label for="username" class="label-input">Username</label>
       <span class="validate-message">Error</span>
       <div class="group-input">
-        <input type="text" class="form-input status-valid" autocomplete="off" id="username" name="username" placeholder="Username" />
+        <input spellcheck="false" type="text" class="form-input status-valid" autocomplete="off" id="username" name="username" placeholder="Username" />
         <i class="fa-solid fa-circle-info"></i>
       </div>
     </div>
@@ -25,9 +24,9 @@
       <label for="password" class="label-input">Password</label>
       <span class="validate-message">Error</span>
       <div class="group-input">
-      <input type="password" class="form-input status-valid" id="password" name="password" placeholder="Password" />
+      <input spellcheck="false"  type="password" class="form-input status-valid" id="password" name="password" placeholder="Password" />
         <!-- <i class="fa-solid fa-check"></i> -->
-        <i class="fa-solid fa-eye showPassword"></i>
+        <i class="ion-eye showPassword"></i>
         <input type="checkbox" name="" id="" style="display: none;" checked>
       </div>
     </div>
@@ -42,7 +41,7 @@
         <input type="checkbox" name="agree" id="agree" />
         <span class="checkbox-text">Remember me</span>
         <span class="checkmark">
-          <i class="fa-solid fa-check"></i>
+          <i class="ion-checkmark-round"></i>
         </span>
       </div>
       <div class="forgot">
@@ -51,11 +50,10 @@
     </div>
     
     <button id="btn-signin">
-      <i class="fa-solid fa-arrow-right"></i>
+      <i class="ion-ios-arrow-thin-right"></i>
     </button>
     <input type="hidden" id="captcha">
     
     <span id="new-user">Don't have account ?
       <a href="/signup" id="redirect-signup">SignUp</a></span>
-  </form>
 </div>

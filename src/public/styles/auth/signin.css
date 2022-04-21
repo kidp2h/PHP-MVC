@@ -1,6 +1,6 @@
 #signin {
   padding: 10px 30px;
-  backdrop-filter: blur(5px);
+  backdrop-filter: blur(8px);
   border-radius: 15px;
   border: 1px solid rgba(255, 255, 255, 0.18);
   background: rgba(255, 255, 255, 0.25);
@@ -15,6 +15,7 @@
   font-size: 1.4rem;
   color: white;
   cursor: pointer;
+  color: #6050f1a1;
 }
 
 #btn-signin,
@@ -34,7 +35,7 @@
 }
 #new-user {
   font-size: 1.3rem;
-  color: white;
+  color: #6050f1a1;
 }
 #redirect-signup {
   color: #fa4d53;

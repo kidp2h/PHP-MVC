@@ -1,4 +1,6 @@
-
+* {
+  user-select: none;
+}
 .container {
   background-size: cover;
   background-repeat: no-repeat;
@@ -41,11 +43,15 @@ body {
   display: flex;
   margin: auto 0;
   flex-direction: row;
-  border: 1px solid #6050f1a1;
-  background-color: rgba( 255, 255, 255, 0.25 );;
+  /* border: 1px solid #6050f179; */
+  background-color: rgba(255, 255, 255, 0.25);
   border-radius: 10px;
   padding: 10px;
   cursor: pointer;
+  color: #5f50f1;
+}
+
+.rc-anchor {
   color: #5f50f1;
 }
 
@@ -59,18 +65,20 @@ body {
   margin-right: 20px;
 }
 
-.form-group .label-input{
+.form-group .label-input {
   font-size: 1.4rem;
   font-weight: 400;
-  color: white;
+  color: #6050f1a1;
+  text-transform: uppercase;
 }
 .form-group .form-input {
   border: 1.5px solid #6050f1a1;
   padding: 1rem;
   border-radius: 10px;
-  background-color: rgba( 255, 255, 255, 0.25 );
+  background-color: rgba(255, 255, 255, 0.25);
   font-size: 1.5rem;
   color: white !important;
+  color: #5f50f1 !important;
 }
 #text-or {
   margin: auto;
@@ -97,15 +105,14 @@ body {
   align-items: center;
 }
 
-
 .checkbox-text {
   position: absolute;
   left: 3rem;
   font-size: 1.4rem;
   user-select: none;
-  color: white;
+  color: #6050f1a1;
 }
-.form-group input[type=checkbox] {
+.form-group input[type='checkbox'] {
   position: absolute;
   opacity: 0;
   z-index: 9999999999999999999;
@@ -119,7 +126,7 @@ body {
   position: absolute;
   width: 20px;
   height: 20px;
-  background-color: #FAFBFF;
+  background-color: #fafbff;
   border: 1px solid #6050f1a1;
   border-radius: 5px;
   top: 0;
@@ -135,7 +142,7 @@ body {
 }
 
 .checkbox:hover input ~ .checkmark {
-  background-color: rgba(218, 218, 218, 0.267) ;
+  background-color: rgba(218, 218, 218, 0.267);
 }
 
 /* When the checkbox is checked, add a blue background */
@@ -146,19 +153,16 @@ body {
   display: flex;
 }
 
-
 .checkbox {
   position: relative;
   height: 20px;
   display: flex;
   justify-content: center;
   width: 100%;
-
 }
 
-
 .form-input.is-invalid {
-  border: 1px solid #FA4D53 ;
+  border: 1px solid #fa4d53;
 }
 
 .form-input.valid {
@@ -168,16 +172,15 @@ body {
 .validate-message {
   visibility: hidden;
   font-size: 1.3rem;
-  color: #FA4D53;
+  color: #fa4d53;
 }
 .validate-message.validate-error {
   visibility: visible;
-
 }
 
 .group-input {
   width: 100%;
-  position:relative;
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -207,7 +210,7 @@ body {
   transition: all 0.5s;
 }
 .form-input.is-invalid ~ i {
-  color: #FA4D53;
+  color: #fa4d53;
   display: block;
 }
 
@@ -217,7 +220,8 @@ body {
 }
 
 .form-input.status-valid {
-  padding-right: 45px;
+  padding-right: 60px;
+  padding-left: 10px;
 }
 
 input::placeholder {
@@ -226,15 +230,24 @@ input::placeholder {
 }
 
 @keyframes shake {
-  0% { margin-left: 0rem; }
-  25% { margin-left: 1rem; }
-  75% { margin-left: -1rem; }
-  100% { margin-left: 0rem; }
+  0% {
+    margin-left: 0rem;
+  }
+  25% {
+    margin-left: 1rem;
+  }
+  75% {
+    margin-left: -1rem;
+  }
+  100% {
+    margin-left: 0rem;
+  }
 }
 
 .showPassword {
   display: block !important;
   color: #6050f186;
+  font-size: 30px !important;
 }
 
 #confirm-password {
@@ -252,19 +265,19 @@ input::placeholder {
   display: flex;
   padding: 20px 10px;
   color: white;
-  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
-  backdrop-filter: blur( 4px );
-  -webkit-backdrop-filter: blur( 4px );
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   border-radius: 10px;
-  border: 1px solid rgba( 255, 255, 255, 0.18 );
+  border: 1px solid rgba(255, 255, 255, 0.18);
   font-size: 14px;
   animation: slideIn ease 1s, slideOut ease-in-out 1s 3s forwards;
 }
 .toast.error {
-  background: rgba( 255, 0, 32, 0.25 );
+  background: rgba(255, 0, 32, 0.25);
 }
 .toast.success {
-  background: rgba( 0, 255, 20, 0.25 );;
+  background: rgba(0, 255, 20, 0.25);
 }
 
 .icon-toast {
@@ -272,15 +285,15 @@ input::placeholder {
 }
 .icon-toast i {
   font-size: 20px;
-  color : white
+  color: white;
 }
 .btn-toast {
-  background: rgba( 95, 80, 241, 0.25 );
-  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
-  backdrop-filter: blur( 13px );
-  -webkit-backdrop-filter: blur( 13px );
+  background: rgba(95, 80, 241, 0.25);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(13px);
+  -webkit-backdrop-filter: blur(13px);
   border-radius: 10px;
-  border: 1px solid rgba( 255, 255, 255, 0.18 );
+  border: 1px solid rgba(255, 255, 255, 0.18);
   width: 20px;
   height: 20px;
   display: flex;
@@ -288,7 +301,7 @@ input::placeholder {
   align-items: center;
   padding: 10px;
   margin: 0px 10px;
-  border-radius:10px;
+  border-radius: 10px;
   cursor: pointer;
 }
 
@@ -297,7 +310,7 @@ input::placeholder {
     opacity: 0;
     transform: translateX(500px);
   }
-  to{
+  to {
     opacity: 1;
     transform: translateX(0);
   }
@@ -307,7 +320,7 @@ input::placeholder {
     opacity: 1;
     transform: translateX(0);
   }
-  to{
+  to {
     opacity: 0;
     transform: translateX(500px);
   }
