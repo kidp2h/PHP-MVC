@@ -182,7 +182,7 @@
                     }else{
                         if(isset($_GET['categories']) || isset($_GET['Min-price']) || isset($_GET['Max-price']) || isset($_GET['title'])){
                         for ($i=1;$i<=$pageNumber;$i++){
-                            echo '<a class="pagination"href="?page='.$i.'?categories='.$_GET['categories'].'&Min-price='.$_GET['Min-price'].'&Max-price='.$_GET['Max-price'].'&title='.$_GET['title'].'">'.$i.'</a>' ;
+                            echo '<a class="pagination"href="?page='.$i.'&categories='.$_GET['categories'].'&Min-price='.$_GET['Min-price'].'&Max-price='.$_GET['Max-price'].'&title='.$_GET['title'].'">'.$i.'</a>' ;
                             }}else{
                                 for ($i=1;$i<=$pageNumber;$i++){
                                     echo '<a class="pagination"href="?page='.$i.'">'.$i.'</a>' ;

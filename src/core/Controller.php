@@ -18,8 +18,9 @@ class Controller {
   public static function render($view, $params = [], $paramsLayout = []) {
     // handle params optional or params in hook controller
     $params = array_merge(static::$params, $params);
-    $paramsLayout = array_merge(static::$paramsLayout, $params);
-    //var_dump($params);
+    $paramsLayout = array_merge(static::$paramsLayout,  $paramsLayout);
+
+    // var_dump($paramsLayout);
     // exit;
     return Application::$app->view->render(
       $view,
