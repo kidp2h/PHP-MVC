@@ -49,8 +49,32 @@ class CartController extends Controller {
     return json_encode(["status" => true]);
   }
 
-  public function handleUpdateToCart() {
-    echo "x";
+  public static function handleUpdateToCart(Request $request) {
+    if(!isset($_COOKIE["username"])) die();
+    $Cart = new Cart();
+    $User = new User();
+    $body = $request->body();
+    $userName = $_COOKIE["username"];
+    $productId = $body['productId'];
+    $amount = $body['amount'];
+    $user = $User->getUserByUsername($userName);
+    $userId = $user['id'];
+
+    $Cart->updateProductToCart($userId, $productId, $amount);
+    return json_encode(["status" => true]);
+  }
+
+  public static function handleDeleteToCart(Request $request) {
+    if(!isset($_COOKIE["username"])) die();
+    $Cart = new Cart();
+    $User = new User();
+    $body = $request->body();
+    $userName = $_COOKIE["username"];
+    $productId = $body['productId'];
+    $user = $User->getUserByUsername($userName);
+    $userId = $user['id'];
+
+    $Cart->deleteProductFromCart($userId, $productId);
     return json_encode(["status" => true]);
   }
 
@@ -60,6 +84,14 @@ class CartController extends Controller {
     $userName = $_COOKIE["username"];
     $CartProducts = $Cart->getProductFromCart($userName);
     return parent::render("cart",["productList" => $CartProducts]);
+  }
+
+  public static function handleRenderCartModal(){ 
+    if(!isset($_COOKIE["username"])) die();
+    $userName = $_COOKIE["username"];
+    $CartProducts = Cart::__self__()->getProductFromCart($userName);
+    $CartTotalPrice = Cart::__self__()->totalPriceOfCart($userName);
+    return json_encode(["status" => true, "productList" => $CartProducts, "cartTotalPrice" => $CartTotalPrice]);
   }
 }
 ?>
