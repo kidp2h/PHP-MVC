@@ -1,5 +1,5 @@
 .env
-./vendor
+/src/vendor
 composer.lock
 node_modules
 dist
