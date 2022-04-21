@@ -1,28 +1,40 @@
-// console.log("Cái con kẹc 🙂")
 
-// function openModalCart() {
-//     if($('.navbar__cart') == null) return;
-//     const navCart = $('.navbar__cart');
+function handleOpenCloseModalCart() {
+    if(!$('#cart-icon')) return;
+    const navCart = $('#cart-icon');
+    const exitCartBtn = $('.btn-exist');
+    navCart.onclick = async () => {
+        $('.modal').classList.add('active');
 
-//     navCart.onclick = function () {
-//         window.location.href = BASE_URL + '/cart/cartPage.html';
-//     }
-// }
-
-// openModalCart();
-
-// function closeBtnClick() {
-//     const closeBtn = $$('.close-btn');
-//     closeBtn.forEach((btn) => {
-//         btn.onclick = () => {
-//             if($('.modal__cart.active')) {
-//                 $('.modal__cart.active').classList.remove('active');
-//             } 
-//         }
-//     });
-// }
-
-// closeBtnClick();
+        let response = await HttpRequest({
+            url: '/cart/modal',
+            method: 'GET',
+        });
+        if(response.status) {
+           if(response.productList == ''){
+                $('.modal__cart-product-box').innerHTML = modalCartEmpty();
+                $('.modal__cart-footer').style.display = 'none';
+                $('.modal__cart-subtotal-all').innerHTML = '';
+            } else { 
+                let productlist = response.productList.map((product) => {
+                    return productItemCartModal(product);
+                });
+                let cartTotalPrice = response.cartTotalPrice;
+                $('.modal__cart-product-box').innerHTML = productlist.join('');
+                $('.modal__cart-footer').style.display = 'block';
+                $('.modal__cart-subtotal-all').innerHTML = `$${cartTotalPrice[0]['totalPrice']}`;
+            }
+        } else {
+            $('.modal__cart-product-box').innerHTML = modalCartEmpty();
+            $('.modal__cart-footer').style.display = 'none';
+            $('.modal__cart-subtotal-all').innerHTML = '';
+        }
+    }
+    exitCartBtn.onclick = () => {
+        $('.modal').classList.remove('active');
+    }
+}
+handleOpenCloseModalCart();
 
 function modalCartEmpty() {
     return `
@@ -33,108 +45,26 @@ function modalCartEmpty() {
     `
 }
 
-function cartPageEmpty() {
-    return `    <div class="cartList__Empty">
-                    <div class="empty__logo">
-                        <i class="fas fa-shopping-bag"></i>
-                    </div>
-                    <h2>GIỎ HÀNG CỦA BẠN ĐANG TRỐNG</h2>
-                    <p>Bạn chưa có sản phẩm nào trong giỏ hàng</p>
-                    
-                    <p>Bạn sẽ tìm thấy rất nhiều món bánh ngon ở cửa hàng chúng tôi.</p>
-                    <button>
-                        <a href="/orderPage/orderPage.html">XEM ĐƠN HÀNG</a>
-                    </button>
-                    <button>
-                        <a href="">TIẾP TỤC MUA HÀNG</a>
-                    </button>
-                </div>`;
-}
-
-function productItemCartModel(product) {
+function productItemCartModal(product) {
     return `
-        <li class="modal__cart-product-item">
-            <div class="modal__cart-delete-icon">
-                    <i class="far fa-times-circle deleteIcon" data-id = "${product.id}"></i>
-            </div>
-
-            <div class="modal__cart-imgbox">
-                <img class="modal__cart-img" src="../product.jpg" alt="">
-            </div>
+        <li class="modal__cart-product-item cartProduct">
+        <div class="modal__cart-imgbox">
+            <img class="modal__cart-img" src="${product.img}" alt="">
+        </div>
         <div class="modal__cart-item-infor">
             <h3 class="modal__cart-item-name">${product.name}</h3>
-            <span class="modal__cart-item-price">${product.sale}đ</span>
+            <span class="modal__cart-item-price cartProductPrice">$${product.price}</span>
             <div class="modal__cart-item-input">
                 <button class="cart__item-decrement"  data-id = "${product.id}">-</button>
                 <input type="number" min="1" max="9999" step="1" value="${product.quantity}" class="cart_item-input" data-id = "${product.id}" inputmode="numeric">
                 <button class="cart__item-increment" data-id = "${product.id}">+</button>
-            </div>       
+            </div>
+            <div class="modal__cart-delete-icon deleteIcon">
+                <i class="far fa-trash-alt deleteIcon" data-id = "${product.id}"></i>
+            </div>
         </div>
     </li>
     `;
-}
-
-function productItemCartPage(product) {
-    return `
-        <div class="cartPage__product">
-        <div class="cartPage__product-item">
-            <div class="cartPage__product-imgBox">
-                <img class="cartPage__product-img" src="../product.jpg" alt="">
-            </div>
-
-            <div class="cartPage__product-item-infor">
-                <h3 class="cartPage__product-name">
-                    ${product.name}
-                </h3>
-            
-                <div class="modal__cart-delete-icon">
-                    <i class="far fa-times-circle deleteIcon" data-id = "${product.id}"></i>
-                </div>
-            </div>
-        </div>
-        <div class="cartPage__product-item-price">
-            <span class="cartPage__product-cost">${product.sale}đ</span>
-        </div>
-        <div class="cartPage__item-input">                           
-            <div class="modal__cart-item-input">
-                <button class="cart__item-decrement"  data-id = "${product.id}">-</button>
-                <input type="number" min="1" max="999" step="1" value="${product.quantity}" class="cart_item-input" data-id = "${product.id}"  inputmode="numeric">
-                <button class="cart__item-increment" data-id = "${product.id}">+</button>
-            </div>
-        </div>                             
-        <div class = "cartPage__product-total">
-            <span class="cartPage__product-total-cost">${product.sale * product.quantity}đ</span>
-        </div>
-    </div>
-    `;
-}
-
-function productTotalPrice() {
-    let productList = $$('.cartPage__product');
-    let sumPrice = 0;
-    productList.forEach((product) => {
-        productPrice = product.querySelector('.cartPage__product-cost').innerText.split('$')[1];
-        productQuantity = product.querySelector('.cart_item-input').value;
-        sumPrice += productPrice * productQuantity;
-    });
-    return sumPrice;
-}
-
-function renderCartPage() {
-    const url = BASE_API_URL + API_CART;
-    sendRequest('GET', url, {}, (res) => {
-        if(res.status == 1) {
-            const htmls = res.productList.map((product) => {
-                return productItemCartPage(product);
-            }).join('');
-
-            if($('.product-box')) {
-                $('.product-box').innerHTML = htmls;
-                $('.cartPage__Subtotal-number').innerHTML = `${productTotalPrice()}đ`;
-                eventCart.init();
-            }
-        }
-    })
 }
 
 function getParent(element, seletor) {
@@ -145,22 +75,38 @@ function getParent(element, seletor) {
         element = element.parentElement
     }
 }
-// renderCartPage();
 
-// function getParrent(element, seletor) {
-//     while(element.parentElement) {
-//         if(element.parentElement.matches(seletor)) {
-//             return element.parentElement
-//         }
-//         element = element.parentElement
-//     }
-// }
+function updatePriceToModalCart() {
+    $('.modal__cart-subtotal-all').innerHTML = `$${productTotalPrice()}`;
+}
+
+function updatePriceToCartPage(product, amount = 0) {
+    if(product) {
+        productPrice = product.querySelector('.cartPage__product-cost').innerText.split('$')[1];
+        product.querySelector('.cartPage__product-total-cost').innerHTML = `$${productPrice*amount}`;
+    }
+    $('.cartPage__Subtotal-number').innerHTML = `$${productTotalPrice()}`;
+}
+
+function productTotalPrice() { 
+    let sumPrice = 0;
+    let productPriceList = $$('.cartProductPrice');
+    let productQuantityList = $$('.cart_item-input');
+    let productQuantity, price;
+
+    productPriceList.forEach((productPrice, index) => {
+        productQuantity = productQuantityList[index].value;
+        price = productPrice.innerText.split('$')[1];
+        sumPrice += parseInt(price)*parseInt(productQuantity);
+    })
+    return sumPrice;
+}
 
 const eventCart = {
     async inputBtnClick(e) {
         let isPlus = e.target.classList.contains('cart__item-increment'); 
         let isMinus = e.target.classList.contains('cart__item-decrement');
-        let inputQuantity, product, productId, productPrice;
+        let inputQuantity, product, productId;
         if (isPlus || isMinus) {
             inputQuantity = e.target.parentElement.querySelector('.cart_item-input');
             productId = e.target.dataset.id;
@@ -171,66 +117,107 @@ const eventCart = {
             else if(isMinus) {
                 --inputQuantity.value;
             }
-            product = getParent(e.target,'.cartPage__product');
-            productPrice = product.querySelector('.cartPage__product-cost').innerText.split('$')[1];
-            product.querySelector('.cartPage__product-total-cost').innerHTML = `$${productPrice*inputQuantity.value}`;
-            $('.cartPage__Subtotal-number').innerHTML = `$${productTotalPrice()}`;
+            product = getParent(e.target,'.cartProduct');
+            if($('.modal__cart-product-box')) {
+                updatePriceToModalCart();
+            }
+            if($('#cartPage .product-box')){
+                updatePriceToCartPage(product, inputQuantity.value);
+            }
 
             let response = await HttpRequest({
                 url: '/cart/edit',
                 method: 'POST',
                 data: {productId, amount: inputQuantity.value},
-                });
+            });
             if(response.status) {
-                console.log("kẹc");
+                console.log("update kẹc");
             }
         }
     },
+    deleteBtnClick() {
+        let deleteBtn = $$('.deleteIcon i');
+        deleteBtn.forEach((item, index) => {
+            item.onclick = async () => {
+                productId = item.dataset.id;
+                product = getParent(item, '.cartProduct');
+                product.remove();
+                if($('.modal__cart-product-box')) {
+                    updatePriceToModalCart();
+                }
+                if($('#cartPage .product-box')){
+                    updatePriceToCartPage(product);
+                }
+
+                let response = await HttpRequest({
+                    url: '/cart/delete',
+                    method: 'POST',
+                    data: {productId},
+                    });
+                if(response.status) {
+                    console.log("xoá kẹc");
+                }
+            }
+        })
+        // let deleteBtn = e.target.classList.contains('.deleteIcon i');
+        // console.log(deleteBtn);
+        // if(deleteBtn) {
+        //     productId = e.target.dataset.id;
+        //     product = getParent(e.target, '.cartPage__product');
+        //     product.remove();
+
+        //     let response = await HttpRequest({
+        //     url: '/cart/delete',
+        //     method: 'POST',
+        //     data: {productId},
+        //     });
+        //     if(response.status) {
+        //         console.log("xoá kẹc");
+        //     }
+        // }
+    },
+    btnCartModal() {
+        // if(!$('.modal__cart-product-box')) return;
+        $('.modal__cart-product-box').addEventListener('click', (e) => {
+            this.inputBtnClick(e);
+            this.deleteBtnClick();
+            // this.inputOnBlur(); 
+        });
+    },
     btnCartPage() {
+        if(!$('#cartPage .product-box')) return;
         $('#cartPage .product-box').addEventListener('click', (e) => {
             this.inputBtnClick(e);
+            this.deleteBtnClick();
         });
-    }
-    ,
+    },
     init() {
         this.btnCartPage();
+        this.btnCartModal();
+        // this.deleteBtnClick();
     }
 }
 
 eventCart.init();
-
-// $('#cartPage .product-box').addEventListener('click', (e) => {
-//     console.log('kẹc')
-// });
-
-// eventCart.init();
-
-
-// editQuantity(e)
-// function kec() {
-//     console.log("Cái con kẹc 🙂")
-// }
-// kec();
-
 
 function AddToCart() {
     let inputQuantity = $$('.inputQuantity');
     let addToCart = $$('.addToCart');
     for(const [index, item] of addToCart.entries()) {
         item.onclick = async (e) => {
-                let productId = item.dataset.id;
-                let amount = inputQuantity[index].value;
-    
-                let response = await HttpRequest({
-                    url: '/cart',
-                    method: 'POST',
-                    data: {productId, amount},
-                    });
-                if(response.status) {
-                    console.log("kẹc");
-                }
+            let productId = item.dataset.id;
+            let amount = inputQuantity[index].value;
+
+            let response = await HttpRequest({
+                url: '/cart',
+                method: 'POST',
+                data: {productId, amount},
+                });
+            if(response.status) {
+                console.log("kẹc");
             }
         }
+    }
 }
 
 AddToCart();

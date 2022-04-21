@@ -19,7 +19,7 @@
         <?php 
             forEach($productList as $product) {
                 echo ' 
-                <div class="cartPage__product">
+                <div class="cartPage__product cartProduct">
                     <div class="cartPage__product-item">
                         <div class="cartPage__product-imgBox">
                             <img class="cartPage__product-img" src="./images/products/product-9-img-1.jpg" alt="">
@@ -31,12 +31,12 @@
                             </h3>
                         
                             <div class="modal__cart-delete-icon deleteIcon">
-                            <i class="far fa-trash-alt deleteIcon" data-id="9"></i>
+                            <i class="far fa-trash-alt deleteIcon" data-id="'.$product['id'].'"></i>
                             </div>
                         </div>
                     </div>
                     <div class="cartPage__product-item-price">
-                        <span class="cartPage__product-cost">$'.$product['price'].'</span>
+                        <span class="cartPage__product-cost cartProductPrice">$'.$product['price'].'</span>
                     </div>
                     <div class="cartPage__item-input">                           
                         <div class="modal__cart-item-input">
