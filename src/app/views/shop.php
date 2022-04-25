@@ -13,12 +13,11 @@
 
                     <div id="chocloc">
                         <select name="Select" id="slt">
-                            <option value="All">All</option>
-                            <option value="Featured">Featured</option>
-                            <option value="A-Z">Alphabetically, A-Z</option>
-                            <option value="Z-A">Alphabetically, Z-A</option>
-                            <option value="lowtohigh">Price, low to high</option>
-                            <option value="hightolow">Price, high to low</option>
+                            <option class="option" value="All">All</option>
+                            <option class="option" value="AZ">Alphabetically, A-Z</option>
+                            <option class="option" value="ZA">Alphabetically, Z-A</option>
+                            <option class="option" value="lowtohigh">Price, low to high</option>
+                            <option class="option" value="hightolow">Price, high to low</option>
                         </select>
                     </div>
 
@@ -50,9 +49,9 @@
                         
                             <li>
                                 <div class="slidecontainer">
-                                    <span>$ </span><input type="number"  min="0" max="10000" value="0" id="min-input" placeholder="Min-price" name="Min-price" >
+                                    <span>$ </span><input type="number"  min="0" max="10000" value="0" id="min-input" placeholder="minPrice" name="Min-price" >
                                     <span>- $<span>
-                                    <input type="number" min="0" max="10000"  id ="max-input" value="9999" placeholder="Max-price" name="Max-price" >
+                                    <input type="number" min="0" max="100000"  id ="max-input" value="9999" placeholder="maxPrice" name="maxPice" >
 
                                 </div>
                             </li>
@@ -62,11 +61,19 @@
                                 <h3>By Title</h3>
                         
                             <li>
-                                <input type="text"  id="search" placeholder="Search for product title" name="title">
+                                <input type="text"  id="search" placeholder="Search for product title" name="title" >
+                            </li>
+                        
+                        </ul>
+                        <ul class="loc1">
+                        <h3>ByInput</h3>
+                        <li>
+                                
+                                <input type="number" id="storename" name="storename" value="1">
                             </li>
                             <li>
+                                <input  type="text" id="sort" name="sort" value="All">
                             </li>
-
                         </ul>
                         <button class="filter-submit" id="filtertitle" type="submit">Filter</button>
                         </form>
@@ -120,8 +127,11 @@
                             <p>Empty Product</p>
                             <div id="return">Return Shop</div>
                         </div>';
+
                         }else{
+                            
                              echo'<ul id="products">';
+                            
                             forEach($data as $product){
                                 echo '
                                 <li>
@@ -129,7 +139,7 @@
                                 <div class="product-top">
                                     <div class="product-thumb">
                                         <a href="http://localhost/detail/product/'.$product["id"].'">
-                                            <img src="${item.imgList[0]}" alt="ảnh 1" width="200px" height="200px">
+                                            <img src="'.json_decode($product['image'])[0].'" alt="ảnh 1" width="200px" height="200px">
                                         </a>
                                     </div>
                                    
@@ -180,15 +190,15 @@
                     if($pageNumber==1){
                         echo "";
                     }else{
-                        if(isset($_GET['categories']) || isset($_GET['Min-price']) || isset($_GET['Max-price']) || isset($_GET['title'])){
-                        for ($i=1;$i<=$pageNumber;$i++){
-                            echo '<a class="pagination"href="?page='.$i.'&categories='.$_GET['categories'].'&Min-price='.$_GET['Min-price'].'&Max-price='.$_GET['Max-price'].'&title='.$_GET['title'].'">'.$i.'</a>' ;
-                            }}else{
+                        // if(isset($_GET['categories']) || isset($_GET['minPrice']) || isset($_GET['maxPrice']) || isset($_GET['title']) || isset($_GET['storename']) || isset($_GET['sort'])){
+                        // for ($i=1;$i<=$pageNumber;$i++){
+                        //     echo '<a class="pagination"href="?page='.$i.'&categories='.$_GET['categories'].'&minPrice='.$_GET['minPrice']||0.'&maxPrice='.$_GET['maxPrice'].'&title='.$_GET['title'].'&store='.$_GET['storename'].'&sort='.$_GET['sort'].'">'.$i.'</a>' ;
+                        //     }}else{
                                 for ($i=1;$i<=$pageNumber;$i++){
-                                    echo '<a class="pagination"href="?page='.$i.'">'.$i.'</a>' ;
+                                    echo '<a class="pagination"href="?page='.$i.'Store='.$_GET['storename'].'">'.$i.'</a>' ;
                                     }
                             }  
-                    }     
+                    // }     
                 ?>               
                 </div>
 

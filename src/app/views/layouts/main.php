@@ -499,12 +499,12 @@
 
 </body>
 
-<script src="/public/javascripts/main.js"></script>
-<!-- <script src="/public/javascripts/home/event.js"></script>
-<script src="/public/javascripts/shop/render.js"></script>
+<script src="/public/javasc ripts/main.js"></script>
+<script src="/public/javascripts/home/event.js"></script>
+<!-- <script src="/public/javascripts/shop/render.js"></script> -->
 <script src="/public/javascripts/shop/appli.js"></script>
 <script src="/public/javascripts/detail/detail.js"></script>
-<script src="/public/javascripts/cart/cartEvent.js"></script> -->
+<script src="/public/javascripts/cart/cartEvent.js"></script>
 
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"

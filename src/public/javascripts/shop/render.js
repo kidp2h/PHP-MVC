@@ -1,4 +1,5 @@
- 
+const $ = document.querySelector.bind(document);
+const $$ = document.querySelectorAll.bind(document);
     function setProductFilterWhite(ProductFilter){
         localStorage.setItem("ProductFilterWhite",JSON.stringify(ProductFilter));
         
