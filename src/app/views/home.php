@@ -2,25 +2,20 @@
   <div class="slider">
     <div class="slider-wrapper">
       <?php
-      function SliderItem($slide) {
-        if ($slide['id'] === 1) $active = 'active';
+      function SliderItem($key, $slide)
+      {
+        if ($key === 0) $active = 'active';
         return '
               <div class="slider-wrapper__slide ' . $active . '">
-                  <div class="slide__content">
-                      <span>' . $slide->title . '</span>
-                      <h3>' . $slide->header . '</h3>
-                      <p>' . $slide->desc . '</p>
-                      <button class="btn slide__btn">SHOP NOW</button>
-                  </div>
                   <div class="slide__imageBox">
-                      <img src="" alt="" class="slide__image">
+                      <img src="' . $slide . '" alt="" class="slide__image">
                   </div>
               </div>
           ';
       }
 
-      foreach ($slides as $slide) {
-        echo SliderItem($slide);
+      foreach ($slides as $key => $slide) {
+        echo SliderItem($key, $slide);
       }
 
       ?>
@@ -33,14 +28,15 @@
 
     <ul class="slider-dots">
       <?php
-      function SliderDots($slide) {
-        if ($slide['id'] === 1) $active = 'active';
+      function SliderDots($key)
+      {
+        if ($key === 0) $active = 'active';
         return '
-            <li class="slider-dot-item ' . $active . '" data-index="' . $slide['id'] . '"></li>
+            <li class="slider-dot-item ' . $active . '" data-index="' . ($key + 1) . '"></li>
           ';
       }
-      foreach ($slides as $slide) {
-        echo SliderDots($slide);
+      foreach ($slides as $key => $slide) {
+        echo SliderDots($key);
       }
       ?>
     </ul>
@@ -56,12 +52,13 @@
     <div class="category-box">
       <?php
 
-      function CategoryItem($category) {
+      function CategoryItem($category)
+      {
         return '
           <div class="category-item">
             <h2 class="category-content" data-text="' . $category['title'] . '"> ' . $category['title'] . ' </h2>
             <div class="category-image__box">
-                <img src="'.$category['image'].'" alt="unsplash" class="category-image"/>
+                <img src="' . $category['image'] . '" alt="unsplash" class="category-image"/>
             </div>
           </div>
           ';
