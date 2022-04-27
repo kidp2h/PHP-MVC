@@ -45,15 +45,20 @@ class AuthController extends Controller {
 
   public static function handleOAuth(Request $request, Response $response){
     $body = $request->body();
-    $result = User::__self__()->create([
-      "username" => $body["username"],
-      "password" => Utils::hashBcrypt(rand(1000000000,9999999999)),
-      "email" => $body["email"],
-      "fullName" => $body["fullName"],
-      "isVerified" => 1
-    ]);
-    $response->statusCode(200);
+    $user = User::__self__()->getUserByUsername($body["username"]);
+    if(!isset($user->id)){
+      $user = User::__self__()->create([
+        "username" => $body["username"],
+        "password" => Utils::hashBcrypt(rand(1000000000,9999999999)),
+        "email" => $body["email"],
+        "fullName" => $body["fullName"],
+        "isVerified" => 1
+      ]);
+    }
+
+    self::newAccessToken((int)$user->id);
     return json_encode(["status" => true, "redirect" => "/"]);
+
   }
 
   public static function handleSignUp(Request $request, Response $response) {
