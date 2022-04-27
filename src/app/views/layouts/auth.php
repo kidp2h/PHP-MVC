@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/public/vendor/icons/css/ionicons.min.css"> 
+  <link rel="stylesheet" href="/public/icons/css/ionicons.min.css"> 
   <link rel="stylesheet" href="/public/styles/base.css">
   <link rel="stylesheet" href="/public/styles/auth/signin.css">
   <link rel="stylesheet" href="/public/styles/auth/signup.css">
@@ -110,22 +110,22 @@
   <div class="container">
     {{content}}
     <div id="toasts">
-        <!-- <div class="toast error">
+        <!-- <div class="toast success">
           <div class="icon-toast">
-            <i class="fa-solid fa-circle-exclamation"></i>
+            <i class="ion-alert-circled"></i>
           </div>
           <div class="message-toast">Username or password is wrong</div>
           <div class="btn-toast">
-            <i class="fa-solid fa-times"></i>
+            <i class="ion-ios-close"></i>
           </div>
         </div>
         <div class="toast error">
           <div class="icon-toast">
-            <i class="fa-solid fa-circle-exclamation"></i>
+            <i class="ion-alert-circled"></i>
           </div>
           <div class="message-toast">Username or password is wrong</div>
           <div class="btn-toast">
-            <i class="fa-solid fa-times"></i>
+            <i class="ion-ios-close"></i>
           </div>
         </div> -->
     </div>
@@ -148,6 +148,8 @@
 <script src="/public/javascripts/auth/toast.js"></script>
 <script src="/public/javascripts/auth/signin.js"></script>
 <script src="/public/javascripts/auth/signup.js"></script>
+<script src="/public/javascripts/auth/forgotPassword.js"></script>
+<script src="/public/javascripts/auth/resetPassword.js"></script>
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> -->
 </html>

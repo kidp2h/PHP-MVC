@@ -3,7 +3,6 @@ namespace app\models;
 use core\Model;
 
 class Cart extends Model {
-    const TABLE = 'cart';
     private self $Cart;
     public int $user_id;
     public int $product_id;

@@ -2,6 +2,7 @@
 namespace app\middlewares;
 
 use app\controllers\AuthController;
+use app\models\RequestPending;
 use app\models\User;
 use core\Request;
 use core\Response;
@@ -21,9 +22,14 @@ class AuthMiddleware {
     if(!isset($_COOKIE['accessToken'])) return true;
     return fn() => $response->redirect("/");
   }
-  public static function isTokenReset(Request $request, Response $response) : bool {
-    $data = $request->body();
-    $token = $data["token"];
-    return true;
+  public static function isTokenReset(Request $request, Response $response) : callable | bool {
+    
+    $tokenReset = urldecode($request->param("tokenReset") ?? ($request->body())["tokenReset"]);
+    $requestPending = RequestPending::__self__()->read(["*"],"token='$tokenReset'");
+    if($requestPending){
+      return true;
+    }
+
+    return fn() => $response->redirect("/signin");
   }
 }

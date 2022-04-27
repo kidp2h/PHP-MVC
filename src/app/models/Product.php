@@ -4,7 +4,7 @@ namespace app\models;
 
 use core\Model;
 
-class product extends Model
+class Product extends Model
 {
 	const TABLE = "product";
 	private self $product;

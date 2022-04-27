@@ -6,7 +6,7 @@ class Controller {
   public static array $params = [];
   public static array $paramsLayout = [];
 
-  public static function setLayout($layout) {
+  public static function setLayout(string $layout) {
     self::$layout = $layout;
   }
 
@@ -19,9 +19,6 @@ class Controller {
     // handle params optional or params in hook controller
     $params = array_merge(static::$params, $params);
     $paramsLayout = array_merge(static::$paramsLayout,  $paramsLayout);
-
-    // var_dump($paramsLayout);
-    // exit;
     return Application::$app->view->render(
       $view,
       $params,

@@ -3,18 +3,23 @@
 namespace core;
 
 use database\Database;
-use mysqli;
-use app\models\User;
+use ReflectionProperty;
 
 class Model {
   public static $db;
-
   public function __construct() {
     self::$db = Database::Instance()->getDatabase();
   }
-  public function tableName() {
+  private function tableName() {
     return strtolower(str_replace("app\models\\", "", static::class));
   }
+
+  private function getTypeProp(string $key){
+    $property = new ReflectionProperty(static::class, $key);
+    $type = $property->getType()->getName();
+    return $type;
+  }
+
   public function create(array $data) {
     $fields = "";
     $values = "";
@@ -32,18 +37,26 @@ class Model {
       return (object)["message" => $e->getMessage(), "status" => false];
     }
   }
-  public function read(array $fieldSelect, string $where) {
-    $fieldSelect = implode(",", $fieldSelect);
-    $table = $this->tableName();
-    $sql = "SELECT {$fieldSelect} FROM {$table} WHERE {$where}";
-    $data = mysqli_fetch_assoc(self::$db->query($sql));
-    if (!empty($data)) return call_user_func([static::class, "resolve"], $data);
-    return $data;
+  public function read(array $fieldSelect, string $where) : static | null {
+    try {
+      $fieldSelect = implode(",", $fieldSelect);
+      $table = $this->tableName();
+      $sql = "SELECT {$fieldSelect} FROM {$table} WHERE {$where}";
+      $data = mysqli_fetch_assoc(self::$db->query($sql));
+      if (!empty($data)) return call_user_func([static::class, "resolve"], $data);
+      return $data;
+    } catch (\Throwable $th) {
+      var_dump($th);
+    }
+
   }
   public function update(array $set, string $where) {
     $setQuery = "";
     foreach ($set as $key => $value) {
-      $setQuery .= $key . "=" . $value . ", ";
+      if($this->getTypeProp($key) == "int") 
+        $setQuery .= $key . "=" . $value . ", ";
+      else 
+        $setQuery .= $key . "='" . $value . "', ";
     }
     $setQuery = rtrim($setQuery, ", ");
     $table = $this->tableName();
