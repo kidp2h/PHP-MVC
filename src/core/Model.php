@@ -30,9 +30,11 @@ class Model {
     $fields = rtrim($fields, ", ");
     $values = rtrim($values, ", ");
     $table = $this->tableName();
-    $sql = "INSERT INTO {$table} ({$fields}) VALUES ({$values})";
+    $sql = "INSERT INTO {$table} ({$fields}) VALUES ({$values}); SELECT LAST_INSERT_ID()";
     try {
-      if(self::$db->query($sql)) return (object)["status" => true ]; 
+      $result = self::$db->query($sql);
+      var_dump($result);
+      if($result) return (object)["status" => true, ]; 
     } catch (\Exception $e) {
       return (object)["message" => $e->getMessage(), "status" => false];
     }
