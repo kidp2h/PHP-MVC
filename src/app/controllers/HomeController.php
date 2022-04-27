@@ -33,4 +33,9 @@ class HomeController extends Controller
 
     return parent::render('home', $params, $paramsLayout);
   }
+
+  public static function PageNotFound(){
+    Controller::setLayout("");
+    return parent::render("404");
+  }
 }

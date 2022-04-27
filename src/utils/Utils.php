@@ -20,13 +20,13 @@ class Utils {
       echo $e->getMessage();
     }
   }
-  public static function sendMailWithTemplate(array $to, string $subject, array $dataTemplate){
+  public static function sendMailWithTemplate(array $to, string $subject, string $templateId ,array $dataTemplate){
     try {
       $mail = Application::$mail;
       $mail->setFrom($_ENV["FROM_ADDRESS"], $_ENV["FROM_NAME"]);
       $mail->setSubject($subject);
       $mail->addTo($to["address"]);
-      $mail->setTemplateId($_ENV["DYNAMIC_TEMPLATE"]);
+      $mail->setTemplateId($templateId);
       $mail->addDynamicTemplateDatas($dataTemplate);
       $sendgrid = new SendGrid($_ENV['SENDGRID_API_KEY']);
       return $sendgrid->send($mail);

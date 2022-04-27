@@ -25,6 +25,7 @@ class Application {
 
   public function __construct($rootPath) {
     error_reporting(0);
+    date_default_timezone_set('Asia/Ho_Chi_Minh');
     header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}");
     header('Access-Control-Allow-Credentials: true');
     header('Access-Control-Max-Age: 86400');    // cache for 1 day
@@ -60,6 +61,10 @@ class Application {
 
   public static function setCookie(string $key, string $value, string $expire, string $path = "/"){
     setcookie($key, $value,$expire, $path,"",true, true);
+  }
+
+  public static function removeCookie(string $key){
+    setcookie($key, '',-1);
   }
 
   public function run() {

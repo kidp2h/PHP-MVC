@@ -1,5 +1,5 @@
 <!-- <div class="fb-signin-button" data-width="300" data-size="large" data-button-type="continue_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="true"></div> -->
-<div id="signin">
+<div class="form-glass" id="signin">
   <h1 class="title">Sign In</h1>
   <span id="text-or">Sign In With</span>
   <div class="social-group">
@@ -17,15 +17,14 @@
       <span class="validate-message">Error</span>
       <div class="group-input">
         <input spellcheck="false" type="text" class="form-input status-valid" autocomplete="off" id="username" name="username" placeholder="Username" />
-        <i class="fa-solid fa-circle-info"></i>
+        <i class="ion-ios-information-outline"></i>
       </div>
     </div>
     <div class="form-group">
       <label for="password" class="label-input">Password</label>
       <span class="validate-message">Error</span>
       <div class="group-input">
-      <input spellcheck="false"  type="password" class="form-input status-valid" id="password" name="password" placeholder="Password" />
-        <!-- <i class="fa-solid fa-check"></i> -->
+        <input spellcheck="false"  type="password" class="form-input status-valid" id="password" name="password" placeholder="Password" />
         <i class="ion-eye showPassword"></i>
         <input type="checkbox" name="" id="" style="display: none;" checked>
       </div>
@@ -45,11 +44,11 @@
         </span>
       </div>
       <div class="forgot">
-        <span>Forgot Password?</span>
+        <span><a href="/forgotPassword">Forgot Password?</a> </span>
       </div>
     </div>
     
-    <button id="btn-signin">
+    <button id="btn-signin" class="btn-submit">
       <i class="ion-ios-arrow-thin-right"></i>
     </button>
     <input type="hidden" id="captcha">

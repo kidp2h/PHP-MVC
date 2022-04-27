@@ -1,6 +1,7 @@
 <?php
 
 namespace core;
+use Error;
 class Router {
   protected array $routes = [];
   public Request $request;
@@ -46,7 +47,7 @@ class Router {
     return $this->routes[$method] ?? [];
   }
 
-  public function getCallback(){
+  public function getComponentsRoute(){
     $method = $this->request->method();
     $path = $this->request->path();
     $routes = $this->getRouteMap($method);
@@ -66,41 +67,56 @@ class Router {
         for ($i = 1; $i < count($valueMatches); $i++)
             $values[] = $valueMatches[$i][0];
         // combine value and name param to array
-        if(isset($paramsName)) $routeParams = array_combine($paramsName, $values);
+        if(!empty($paramsName) && !empty($values)) $routeParams = array_combine($paramsName, $values);
         // set param for request
         $this->request->setRouteParams($routeParams);
-        return $components["callback"];
+        return ["callback" => $components["callback"], "middleware" => $components["middleware"]];
       }
     }
     return false;
   }
   
   public function resolve() {
-    $path = $this->request->path();
-    $method = $this->request->method();
-    $callback = $this->routes[$method][$path]['callback'] ?? $this->getCallback();
-    $middleware = $this->routes[$method][$path]['middleware'] ?? [];
-    $isPassMiddleware = true;
-    for ($i = 0; $i < count($middleware); $i++) { 
-      $result = call_user_func($middleware[$i],$this->request, $this->response);
-      if(is_bool($result)) {
-        if(!$result){
-          $isPassMiddleware = $result;
-          $this->response->statusCode(404);
-          break;
+    try {
+      $path = $this->request->path();
+      $method = $this->request->method();
+      $componentsRoute = $this->getComponentsRoute();
+      $callback = $this->routes[$method][$path]['callback'] ?? $componentsRoute["callback"];
+      $middleware = $this->routes[$method][$path]['middleware'] ?? $componentsRoute["middleware"];
+      $isPassMiddleware = true;
+
+      if($middleware){
+        for ($i = 0; $i < count($middleware); $i++) { 
+          $result = call_user_func($middleware[$i],$this->request, $this->response);
+          if(is_bool($result)) {
+            if(!$result){
+              $isPassMiddleware = $result;
+              $this->response->statusCode(404);
+              break;
+            }
+          } else return call_user_func($result);
+    
         }
-      } else return call_user_func($result);
-
+        $this->request->isPassedMiddleware = $isPassMiddleware;
+      }
+      if (!$callback) {
+        return Application::$app->response->redirect("/NotFound");
+      }
+      if (is_string($callback)) return Application::$app->view->render($callback);
+      // Hooking
+      if(is_callable([$callback[0],'hook'])) call_user_func([$callback[0],'hook']); // Global Hook
+      if(is_callable([$callback[0],'useHook'])) call_user_func([$callback[0],'useHook']); // Local Hook
+      if(is_callable($callback)){
+        return call_user_func($callback, $this->request, $this->response);
+      }else {
+        throw new Error("Not Found Controller");
+      }
+  
+    } catch (\Throwable $th) {
+      echo "<pre>";
+      var_dump($th);      
+      echo "</pre>";
+      exit;
     }
-    $this->request->isPassedMiddleware = $isPassMiddleware;
-
-    if ($callback === false) {
-      $this->response->statusCode(404);
-    }
-    if (is_string($callback)) return Application::$app->view->render($callback);
-    // Hooking
-    if(is_callable([$callback[0],'hook'])) call_user_func([$callback[0],'hook']); // Global Hook
-    if(is_callable([$callback[0],'useHook'])) call_user_func([$callback[0],'useHook']); // Local Hook
-    return call_user_func($callback, $this->request, $this->response);
   }
 }

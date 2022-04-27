@@ -21,7 +21,8 @@ class View {
     ob_start();
     include_once Application::$__ROOT_DIR__."/app/views/layouts/$layout.php";
     $layoutContent = ob_get_clean();
-    return str_replace('{{content}}', $viewContent, $layoutContent);
+    if($layout != "") return str_replace('{{content}}', $viewContent, $layoutContent);
+    return $viewContent;
   }
   protected function loadView($view, $params) {
     if (!$this->checkView($view)) {
