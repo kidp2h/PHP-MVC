@@ -65,7 +65,7 @@
                             </li>
                         
                         </ul>
-                        <ul class="loc1">
+                        <ul class="loc1" style="display:none ;">
                         <h3>ByInput</h3>
                         <li>
                                 
