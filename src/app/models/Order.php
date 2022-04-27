@@ -5,7 +5,7 @@ use core\Model;
 class Order extends Model {
     const TABLE = 'cart';
     private self $Order;
-    public string $id;
+    public int $id;
     public int $user_id;
     public int $store_id;
     public int $status;

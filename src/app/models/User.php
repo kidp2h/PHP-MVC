@@ -7,9 +7,8 @@ use DateTime;
 use utils\Utils;
 
 class User extends Model {
-  const TABLE = "user";
   private self $user;
-  public string $id;
+  public int $id;
   public string $username;
   public string $password;
   public string $email;
@@ -26,7 +25,7 @@ class User extends Model {
   public function __construct() {
   }
 
-  public static function __self__() {
+  public static function __self__() : static {
     return new static();
   }
 
@@ -39,6 +38,8 @@ class User extends Model {
     $this->user->address = $address;
     $this->user->isVerified = $isVerified;
     $this->user->tokenVerify = $tokenVerify;
+
+    return $this->user;
 
   }
 
@@ -93,7 +94,7 @@ class User extends Model {
     $baseUrl = $_ENV["BASE_URL"];
     $secretKey = Utils::hashBcrypt($_ENV["SECRET_KEY"]);
     $now = new DateTime();
-    $expire = ($now->add(new \DateInterval("PT300S")))->getTimestamp();
+    $expire = ($now->add(new \DateInterval("PT30000000S")))->getTimestamp();
     $user = User::__self__()->read(["*"],"email='$email'");
     if(!isset($user)){
       return ["status" => false, "message" => "Invalid id"];
@@ -104,14 +105,13 @@ class User extends Model {
     ]);
     $data = "$baseUrl.$info.$expire";
     $hash = hash_hmac("sha256", $data,$_ENV["SECRET_KEY"]);
-    return ["accessToken" => "{$hash}.&$$@{$expire}.&$$@{$user->tokenVerify}.&$$@{$secretKey}"];
+    return ["tokenReset" => "{$hash}.&$$@{$expire}.&$$@{$user->tokenVerify}.&$$@{$secretKey}", "status" => true];
   }
 
   public static function decodeTokenReset(string $tokenReset){
     $tokenReset = urldecode($tokenReset);
     $arrayHash = explode(".&$$@",$tokenReset);
     $secretKeyHash = $arrayHash[3];
-    var_dump($arrayHash);
     $now = (new DateTime())->getTimestamp();
     if(count($arrayHash)  != 4 || !Utils::verifyBcrypt($secretKeyHash, $_ENV["SECRET_KEY"])) 
       return ["status" => false, "message" => "Invalid Token", "error-code" => -1];
@@ -125,10 +125,10 @@ class User extends Model {
         "id" => $user->id,
         "email" => $user->email
       ]);
-      if($now > (int)$expire) return ["status" => false, "message" => "This token is expire", "error-code" => 0];
+      if($now > (int)$expire) return ["status" => false, "message" => "This token is expire", "isExpire" => true];
 
       $data = hash_hmac("sha256","$baseUrl.$info.$expire" ,$_ENV["SECRET_KEY"]);
-      if($data == $hash) return ["status" => true, "user" => $user, "result" => json_decode($info)];
+      if($data == $hash) return ["status" => true, "user" => $user];
     }
     return ["status" => false, "message" => "Invalid Token", "error-code" => 999];
   }
@@ -172,10 +172,20 @@ class User extends Model {
     Utils::sendMailWithTemplate(
       ['address' => $to["address"]],
       "Verify Account",
+      $_ENV["TEMPLATE_VERIFY_ACCOUNT"],
       ["verifyToken" => $token, "baseUrl" => $_ENV["BASE_URL"]]
     );
     User::__self__()->update(["tokenVerify" => "'$token'"], "email='$address'");
+  }
 
+  public static function sendMailResetPassword(array $to, string $token){
+    $token = Utils::v4();
+    Utils::sendMailWithTemplate(
+      ['address' => $to["address"]],
+      "Reset Account",
+      $_ENV["TEMPLATE_RESET_PASSWORD"],
+      ["tokenReset" => $token, "baseUrl" => $_ENV["BASE_URL"]]
+    );
   }
   public static function sendCodeOTP($phone){
     //... send otp to phone user

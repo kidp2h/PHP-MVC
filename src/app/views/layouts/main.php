@@ -12,9 +12,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
-    integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="/public/icons/css/ionicons.min.css">
 
   <title>Main</title>
   <link rel="stylesheet" href="/public/styles/base.css">
@@ -502,9 +500,9 @@
 
 <script src="/public/javascripts/main.js"></script>
 <script src="/public/javascripts/home/event.js"></script>
-<!-- <script src="/public/javascripts/shop/render.js"></script>
+<!-- <script src="/public/javascripts/shop/render.js"></script> -->
 <script src="/public/javascripts/shop/appli.js"></script>
-<script src="/public/javascripts/detail/detail.js"></script>  -->
+<script src="/public/javascripts/detail/detail.js"></script>
 <script src="/public/javascripts/cart/cartEvent.js"></script>
 
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>

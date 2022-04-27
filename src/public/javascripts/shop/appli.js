@@ -1,4 +1,6 @@
-// Ẩn hiện filter
+// Ẩn hiện filter;
+// const $ = document.querySelector.bind(document);
+// const $$ = document.querySelectorAll.bind(document);
 function InitEvent() {
 
     document.getElementById('ter').onclick = function() {
@@ -34,8 +36,8 @@ function InitEvent() {
     // Nút backtop
     // When the user scrolls down 20px from the top of the document, show the button
     window.onscroll = function() { scrollFunction() };
-    var sortfilter = document.getElementById('slt');
-    sortfilter.addEventListener('input', filtersort);
+    // var sortfilter = document.getElementById('slt');
+    //  sortfilter.addEventListener('input', filtersort);
 
     if($('#product-intro p'))
     $('#product-intro p').onclick = () => {
@@ -130,7 +132,34 @@ function Searchshop(from, to, name, category){
 
     return products;
   }
+  var sortfilter = document.getElementById('slt');
+  var store = document.getElementById('store-select');
+  function getData(){
+      let sortfilter = document.getElementById('slt');
+      let valuefilter = sortfilter.value;
+      console.log(valuefilter);
+      $('#sort').value=valuefilter;
+      document.getElementById('filtertitle').click();   
+  }
+  function getStore(){
+      let sortname = document.getElementById('store-select');
+      let sortNameValue=sortname.value;
+      $('#storename').value=sortNameValue;
+      document.getElementById('filtertitle').click();
+  }
+
+  sortfilter.addEventListener("change",getData);
+  store.addEventListener("change",getStore);
+  let url = window.location.href.indexOf("sort=");
+  url = window.location.href.slice(url+5);
+  console.log(url);
+  if(url.indexOf("shop")!=-1){
+    sortfilter.value=All;
+  }
+  sortfilter.value=url;
   window.onload= function(){
     InitEvent();
-    rendertheloai();
+    // rendertheloai();
+    //  getData();
+    //  getStore();
   }

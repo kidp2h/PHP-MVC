@@ -3,7 +3,6 @@ namespace app\models;
 use core\Model;
  
 class Category extends Model {
-    const TABLE = 'category';
     private self $Category;
     public int $id;
     public string $title;

@@ -5,22 +5,9 @@ use core\Controller;
 use core\Request;
 use app\models\Cart;
 use app\models\User;
-use core\Response;
 
 class CartController extends Controller {
-  private static self $instance;
   public static string $layout = "main";
-  
-  public static function hook(){
-    parent::setLayout(self::$layout);
-  }
-
-  public static function Instance(){
-    if(!isset(self::$instance)){
-      self::$instance = new CartController();
-    }
-    return self::$instance;
-  }
 
   public static function handleAddToCart(Request $request) {
     $result = User::__self__()->decodeAccessToken($_COOKIE["accessToken"]);
