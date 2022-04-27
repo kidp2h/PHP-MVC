@@ -22,8 +22,8 @@
     </div>
 
     <div class="slider-controls">
-      <li class="btn btn-prev"><i class="fas fa-angle-double-left"></i></li>
-      <li class="btn btn-next"><i class="fas fa-angle-double-right"></i></li>
+      <li class="btn btn-prev"><i class="ion-ios-arrow-back"></i></li>
+      <li class="btn btn-next"><i class="ion-ios-arrow-forward"></i></li>
     </div>
 
     <ul class="slider-dots">
