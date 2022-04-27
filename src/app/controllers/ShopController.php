@@ -40,8 +40,8 @@ class ShopController extends Controller {
     $title= "";
     $sort="All";
     $storeid=1;
-    if(isset($_GET['storename'])){
-      $storeid=$_GET['storename'];
+    if(isset($_GET['store'])){
+      $storeid=$_GET['store'];
     }
     if(isset($_GET['sort'])){
       $sort=$_GET['sort'];
@@ -54,7 +54,7 @@ class ShopController extends Controller {
     if(isset($_GET['minPrice'])){
       $priceFrom = $_GET['minPrice'];} 
     if(isset($_GET['maxPrice'])){
-      $priceTo =$_GET['maxPrice'];  }
+      $priceTo =$_GET['maxPrice'];}
     if(isset($_GET['title'])){
       $title = $_GET['title'];}
       if(!isset($body['store'])) $body['store'] = 1;
@@ -64,7 +64,7 @@ class ShopController extends Controller {
      $pageNumber=$product->pageNumber($storeid,6,$category,$priceFrom,$priceTo,$title);
      $data_fillter=$product->filterAdvanced($storeid, $sort,$category,$priceFrom,$priceTo,$title,6,$currentPage);
       // $data =$product->getListProducts($storeid);
-    return parent::render('shop',["category"=>$category_data, "data"=>$data_fillter,"pageNumber"=>$pageNumber],$paramsLayout);
+    return parent::render('shop',['storeCurrent' => $body['store'],"category"=>$category_data, "data"=>$data_fillter,"pageNumber"=>$pageNumber],$paramsLayout);
   }
 
 }

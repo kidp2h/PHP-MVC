@@ -1,6 +1,6 @@
 // Ẩn hiện filter;
-const $ = document.querySelector.bind(document);
-const $$ = document.querySelectorAll.bind(document);
+// const $ = document.querySelector.bind(document);
+// const $$ = document.querySelectorAll.bind(document);
 function InitEvent() {
 
     document.getElementById('ter').onclick = function() {
@@ -138,27 +138,25 @@ function Searchshop(from, to, name, category){
       let sortfilter = document.getElementById('slt');
       let valuefilter = sortfilter.value;
       console.log(valuefilter);
-      $('#sort').value=valuefilter; 
-      store.addEventListener("input",getStore);
-      $('#filtertitle').click();   
+      $('#sort').value=valuefilter;
+      document.getElementById('filtertitle').click();   
   }
   function getStore(){
       let sortname = document.getElementById('store-select');
       let sortNameValue=sortname.value;
-      let store = sortNameValue.toString();
-      let arr=store.split('=');
-      $('#storename').value=arr[1];
-      sortfilter.addEventListener("input",getData);
-      $('#filtertitle').click();
-
+      $('#storename').value=sortNameValue;
+      document.getElementById('filtertitle').click();
   }
-  
-  sortfilter.addEventListener("input",getData);
-  
-  store.addEventListener("input",getStore);
-  
+
+  sortfilter.addEventListener("change",getData);
+  store.addEventListener("change",getStore);
+  let url = window.location.href.indexOf("sort=");
+  url = window.location.href.slice(url+5);
+  console.log(url);
+  sortfilter.value=url;
   window.onload= function(){
     InitEvent();
     // rendertheloai();
-    // getData();
+    //  getData();
+    //  getStore();
   }

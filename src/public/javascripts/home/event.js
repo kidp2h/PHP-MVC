@@ -1,3 +1,42 @@
+function ProductItem( product ) {
+
+  product.image = JSON.parse(product.image);
+
+  return `  
+      <div class="product-item">
+          <div class="product-image__box">
+
+              <img src="${product.image[0]}" alt="unsplash" class="product-image"/>
+              <img src="${product.image[1]}" alt="unsplash" class="product-image--back"/>
+
+              
+              <div class="product-control">
+                  <div class="product-quantity">
+                      <button class="btn btn-mul"> - </button>
+                      <input type="number" class ="inputQuantity" data-id="${product.id}" min="1" max="9999" value="1">
+                      <button class="btn btn-add"> + </button>
+                  </div>
+
+                  <div class="product-add-cart addToCart" data-id = "${product.id}">   
+                      <div>
+                          <p id="add">ADD TO CART</p>
+                      </div>
+                  </div>
+              </div>
+
+          </div>
+
+          <div class="product-info">
+              <h2 class="product-info__heading">${product.name}</h2>
+              <div class="product-price">
+                  <span class="product-info__price product-info__price--sale"></span>
+                  <span class="product-info__price"></span>
+              </div> 
+          </div> 
+      </div>
+  `
+}
+
 const Home = {
   slider: function () {
     let slides = $$('.slider-wrapper__slide');
@@ -121,12 +160,11 @@ const Home = {
     btnLoad.style.display = 'block';
     let _this = this;
     let page = 1;
-    btnLoad.onclick = function () {
-      renderHome.products(++page);
-      _this.btnProduct();
-      _this.btnItemProduct();
-      if (page == Math.floor(ProductModel.getTotalPage_Rate(8)))
-        btnLoad.style.display = 'none';
+    btnLoad.onclick = async function () {
+      let dis = await _this.renderProduct(++page);
+      // _this.btnProduct();
+      // _this.btnItemProduct();
+      if(dis) btnLoad.style.display = 'none';
     };
   },
 
@@ -154,10 +192,35 @@ const Home = {
     };
   },
 
+  async renderProduct(page =1) {
+    let store = $('#store-select')?.value;
+    let products = await HttpRequest({url:`http://localhost/product/on50?store=${store}&page=${page}`});
+
+    if(products.length === 0) return true;
+   
+    let productBox = $('.product .product-box');
+    if (!productBox) return;
+
+    if (page == 1) {
+      productBox.innerHTML = products.map((product) => ProductItem(product)).join('');
+
+    } else {
+
+      productBox.insertAdjacentHTML(
+        'beforeend',
+        products.map((product) => ProductItem(product)).join('')
+      );
+
+    }
+    return false;
+  },
+
   init: function () {
     if(!$('#home')) return;
     this.slider();
+    this.renderProduct();
+    this.btnLoad();
   },
 };
 
-// Home.init();
+Home.init();

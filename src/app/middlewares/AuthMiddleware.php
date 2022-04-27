@@ -11,8 +11,10 @@ class AuthMiddleware {
     $result = User::decodeAccessToken($_COOKIE['accessToken']);
     
     if($result["status"]) return true;
-    if($result["error-code"] == 0 && !$result["status"]) 
+    if($result["error-code"] == 0 && !$result["status"]) {
       AuthController::newAccessToken($_SESSION["id"]);
+      return true;
+    } 
     return fn() => $response->redirect("/signin");
   }
   public static function isLogout(Request $request, Response $response) : callable | bool{

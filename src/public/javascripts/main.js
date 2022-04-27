@@ -38,10 +38,15 @@ function getParrent(element, seletor) {
 function selectStore() {
   $('#store-select').addEventListener("change", () => {
     let i = window.location.href.indexOf('?');
-    let url = window.location.href.slice(0, i);
-    url += $('#store-select').value;
-    window.location.href = url;
+    let url= window.location.href+"/";
+    if(i!=-1){
+       url = window.location.href.slice(0, i); 
+    }
+    console.log(i);
+    url +="?store="+$('#store-select').value;
+    // window.location.href = url;
   })
+  
 }
 
 selectStore();

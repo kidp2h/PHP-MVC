@@ -49,9 +49,9 @@
                         
                             <li>
                                 <div class="slidecontainer">
-                                    <span>$ </span><input type="number"  min="0" max="10000" value="0" id="min-input" placeholder="minPrice" name="Min-price" >
+                                    <span>$ </span><input type="number"  min="0" max="10000" value="0" id="min-input" placeholder="minPrice" name="minPrice" >
                                     <span>- $<span>
-                                    <input type="number" min="0" max="100000"  id ="max-input" value="9999" placeholder="maxPrice" name="maxPice" >
+                                    <input type="number" min="0" max="100000"  id ="max-input" value="9999" placeholder="maxPrice" name="maxPrice" >
 
                                 </div>
                             </li>
@@ -69,10 +69,10 @@
                         <h3>ByInput</h3>
                         <li>
                                 
-                                <input type="number" id="storename" name="storename" value="1">
+                                <?php echo '<input type="number" id="storename" name="store" value="'.$storeCurrent.'" >'?>
                             </li>
                             <li>
-                                <input  type="text" id="sort" name="sort" value="All">
+                                <input  type="text" id="sort" name="sort" value="All" >
                             </li>
                         </ul>
                         <button class="filter-submit" id="filtertitle" type="submit">Filter</button>
@@ -190,15 +190,15 @@
                     if($pageNumber==1){
                         echo "";
                     }else{
-                        // if(isset($_GET['categories']) || isset($_GET['minPrice']) || isset($_GET['maxPrice']) || isset($_GET['title']) || isset($_GET['storename']) || isset($_GET['sort'])){
-                        // for ($i=1;$i<=$pageNumber;$i++){
-                        //     echo '<a class="pagination"href="?page='.$i.'&categories='.$_GET['categories'].'&minPrice='.$_GET['minPrice']||0.'&maxPrice='.$_GET['maxPrice'].'&title='.$_GET['title'].'&store='.$_GET['storename'].'&sort='.$_GET['sort'].'">'.$i.'</a>' ;
-                        //     }}else{
+                        if(isset($_GET['categories']) || isset($_GET['minPrice']) || isset($_GET['maxPrice']) || isset($_GET['title']) || isset($_GET['storename']) || isset($_GET['sort'])){
+                        for ($i=1;$i<=$pageNumber;$i++){
+                            echo '<a class="pagination"href="?page='.$i.'&store='.$_GET['store'].'&sort='.$_GET['sort'].'&categories='.$_GET['categories'].'&minPrice='.$_GET['minPrice'].'&maxPrice='.$_GET['maxPrice'].'&title='.$_GET['title'].'">'.$i.'</a>' ;
+                            }}else{
                                 for ($i=1;$i<=$pageNumber;$i++){
-                                    echo '<a class="pagination"href="?page='.$i.'Store='.$_GET['storename'].'">'.$i.'</a>' ;
+                                    echo '<a class="pagination"href="?page='.$i.'&store='.$_GET['store'].'">'.$i.'</a>' ;
                                     }
                             }  
-                    // }     
+                    }     
                 ?>               
                 </div>
 

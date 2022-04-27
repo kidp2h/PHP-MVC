@@ -30,13 +30,13 @@
                                 '.$product['name'].'
                             </h3>
                         
-                            <div class="modal__cart-delete-icon deleteIcon">
+                            <div class="modal__cart-delete-icon">
                             <i class="far fa-trash-alt deleteIcon" data-id="'.$product['id'].'"></i>
                             </div>
                         </div>
                     </div>
                     <div class="cartPage__product-item-price">
-                        <span class="cartPage__product-cost cartProductPrice">$'.$product['price'].'</span>
+                        <span class="cartPage__product-cost cartProductPrice" data-price = "'.$product['price'].'">$'.$product['price'].'</span>
                     </div>
                     <div class="cartPage__item-input">                           
                         <div class="modal__cart-item-input">
