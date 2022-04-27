@@ -153,6 +153,9 @@ function Searchshop(from, to, name, category){
   let url = window.location.href.indexOf("sort=");
   url = window.location.href.slice(url+5);
   console.log(url);
+  if(url.indexOf("shop")!=-1){
+    sortfilter.value=All;
+  }
   sortfilter.value=url;
   window.onload= function(){
     InitEvent();
