@@ -14,10 +14,10 @@ use DateTime;
 
 class AuthController extends Controller {
   public static string $layout = "auth";
-  // public static array $params = [];
-  // public static array $paramsLayout = [];
+  public static array $params = [];
+  public static array $paramsLayout = ["title" => "Sign In"];
   public static function signin() {
-    return parent::render('signin',["title" => "Sign In"]);
+    return parent::render('signin');
   }
   public static function useHook() {
     self::$params = ['SITE_KEY' => $_ENV["GC_SITE_KEY"], 'SECRET_KEY' => $_ENV["GC_SECRET_KEY"]];
@@ -40,7 +40,8 @@ class AuthController extends Controller {
     } else return json_encode(["status" => false, "message" => "Username or password is wrong"]);
   }
   public static function signup(Request $request) {
-    return parent::render("signup",["title" => "Sign Up"]);
+    self::$paramsLayout = ["title" => "Sign Up"];
+    return parent::render("signup");
   }
 
   public static function handleOAuth(Request $request, Response $response){
@@ -135,13 +136,14 @@ class AuthController extends Controller {
 
   }
   public static function forgotPassword(Request $request, Response $response){
+    self::$paramsLayout = ["title" => "Forgot Password"];
     return parent::render("forgotPassword");
   }
   public static function handleForgotPassword(Request $request, Response $response){
     $body = $request->body();
     $email = $body["email"];
-    // $captcha = Utils::verifyCaptcha($body['captcha']);
-    // if (!$captcha["success"]) return json_encode(["status" => false, "message" => $captcha["error-codes"][0]]);
+    $captcha = Utils::verifyCaptcha($body['captcha']);
+    if (!$captcha["success"]) return json_encode(["status" => false, "message" => $captcha["error-codes"][0]]);
     $user = User::__self__()->read(["*"], "email='$email'");
     if($user){
       $token = '';
