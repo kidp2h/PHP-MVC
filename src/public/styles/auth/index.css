@@ -1,6 +1,16 @@
 * {
   user-select: none;
 }
+.form-glass {
+  padding: 10px 30px;
+  backdrop-filter: blur(8px);
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  margin: 20px 0px;
+}
+
 .container {
   background-size: cover;
   background-repeat: no-repeat;
@@ -264,13 +274,14 @@ input::placeholder {
   margin: 30px 0px;
   display: flex;
   padding: 20px 10px;
+  align-items: center;
   color: white;
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.18);
-  font-size: 14px;
+  font-size: 1.5rem;
   animation: slideIn ease 1s, slideOut ease-in-out 1s 3s forwards;
 }
 .toast.error {
@@ -281,30 +292,30 @@ input::placeholder {
 }
 
 .icon-toast {
-  margin-right: 10px;
+  margin-right: 30px;
+  margin-left: 15px;
 }
 .icon-toast i {
-  font-size: 20px;
+  font-size: 3rem;
   color: white;
 }
 .btn-toast {
-  background: rgba(95, 80, 241, 0.25);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-  backdrop-filter: blur(13px);
-  -webkit-backdrop-filter: blur(13px);
-  border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  width: 20px;
-  height: 20px;
+  width: 10px;
+  height: 10px;
   display: flex;
   justify-content: center;
+  text-align: center;
   align-items: center;
-  padding: 10px;
+  padding: 9px;
   margin: 0px 10px;
   border-radius: 10px;
   cursor: pointer;
+  margin-left: 30px;
 }
-
+.btn-toast i {
+  font-size: 2.5rem;
+  color: white;
+}
 @keyframes slideIn {
   from {
     opacity: 0;
@@ -333,4 +344,22 @@ input::placeholder {
 
 svg clipPath {
   box-shadow: rgb(0, 0, 0) 0px 5px 15px;
+}
+
+.btn-submit {
+  width: 60px;
+  height: 60px;
+  color: white;
+  background-color: #fa4d53;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0px;
+}
+.btn-submit i {
+  font-size: 3rem !important;
+}
+a {
+  color: #6050f186 !important;
 }

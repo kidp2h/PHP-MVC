@@ -5,13 +5,8 @@ use core\Controller;
 use core\Request;
 
 class AdminController extends Controller {
-  private static self $instance;
   public static string $layout = 'admin';
 
-  public static function Instance(){
-    if(!isset(self::$instance)) self::$instance = new AdminController();
-    return self::$instance;
-  }
 
   public static function admin(){
     return parent::render('admin');

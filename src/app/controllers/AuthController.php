@@ -2,17 +2,20 @@
 
 namespace app\controllers;
 
+use app\models\RequestPending;
 use core\Controller;
 use core\Request;
 use app\models\User;
 use core\Application;
 use core\Response;
 use utils\Utils;
+use DateInterval;
+use DateTime;
 
 class AuthController extends Controller {
   public static string $layout = "auth";
-  public static array $params = [];
-  public static array $paramsLayout = [];
+  // public static array $params = [];
+  // public static array $paramsLayout = [];
   public static function signin() {
     return parent::render('signin',["title" => "Sign In"]);
   }
@@ -21,13 +24,17 @@ class AuthController extends Controller {
   }
   public static function handleSignIn(Request $request, Response $response) {
     $body = $request->body();
-    $result = Utils::verifyCaptcha($body['captcha']);
-    if (!$result["success"]) return json_encode(["status" => false, "message" => $result["error-codes"][0]]);
+    //$result = Utils::verifyCaptcha($body['captcha']);
+    //if (!$result["success"]) return json_encode(["status" => false, "message" => $result["error-codes"][0]]);
     $result = User::__self__()->checkUser($body["username"], $body["password"]);
     if ($result->status) {
+      if(!$result->user->isVerified){
+        return json_encode(["status" => false, "message" => "Account isn't verified email"]);
+      }
       User::applyRefreshToken($result->user->id);
       $data = User::newAccessToken($result->user->id);
       Application::setCookie("accessToken", $data["accessToken"], time() + 3600);
+
       $response->statusCode(200);
       return json_encode(["status" => true, "redirect" => "/"]);
     } else return json_encode(["status" => false, "message" => "Username or password is wrong"]);
@@ -94,17 +101,54 @@ class AuthController extends Controller {
   }
 
   public static function resetPassword(Request $request, Response $response) {
-    return parent::render("resetPassword");
+    return parent::render("resetPassword",["tokenReset" => $request->param("tokenReset")]);
   }
   public static function handleResetPassword(Request $request, Response $response) {
-    echo "handleResetPassword";
+    try {
+      $body = $request->body();
+      $tokenReset = $body["tokenReset"];
+      $newPassword = $body["newPassword"];
+      $confirmNewPassword = $body["confirmNewPassword"];
+      if(!empty($newPassword) && !empty($confirmNewPassword) && $newPassword == $confirmNewPassword){
+        $resultToken = User::decodeTokenReset($tokenReset);
+        if($resultToken["status"]){
+          // TODO: update new password
+          $id = $resultToken["user"]->id;
+          $newPassword = Utils::hashBcrypt($newPassword);
+          $result = User::__self__()->update(["password" => $newPassword],"id=$id");
+          if($result) {
+            RequestPending::__self__()->delete("token='$tokenReset'");
+            return json_encode(["status" => true, "message" => "Change password successfully, sign up now !!", "redirect" => "/signin"]);
+          }
+        }else return json_encode(["status" => false, "message" => "Token error, please contact to developer"]);
+      }
+      return json_encode(["status" => false, "message" => "Not found"]);
+    } catch (\Throwable $th) {
+      var_dump($th);
+    }
+
 
   }
   public static function forgotPassword(Request $request, Response $response){
     return parent::render("forgotPassword");
   }
   public static function handleForgotPassword(Request $request, Response $response){
-    echo "handleForgotPassword";
+    $body = $request->body();
+    $email = $body["email"];
+    // $captcha = Utils::verifyCaptcha($body['captcha']);
+    // if (!$captcha["success"]) return json_encode(["status" => false, "message" => $captcha["error-codes"][0]]);
+    $user = User::__self__()->read(["*"], "email='$email'");
+    if($user){
+      $token = '';
+      $_request = RequestPending::__self__()->read(["*"],"email='$email'");
+      $resultToken = User::__self__()->getTokenReset($email);
+      if(!$resultToken["status"]) return $response->redirect("/signin");
+      $token = $resultToken["tokenReset"];
+      if($_request) RequestPending::updateRequest($email, $_request->token, $token);
+      else RequestPending::createRequest($email, $token);
+      User::sendMailResetPassword(["address" => $email], $token);
+      return json_encode(["status" => true, "message" => "Please check mail to reset password" ]);
+    } else return json_encode(["status" => false, "message" => "Email isn't valid, please try again !" ]);
   }
   public static function getTokenReset(Request $request, Response $response){
     var_dump(User::getTokenReset("thjnhsoajca@gmail.com"));

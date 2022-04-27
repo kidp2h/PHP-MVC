@@ -1,5 +1,5 @@
 <!-- <div class="fb-signin-button" data-width="300" data-size="large" data-button-type="continue_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="true"></div> -->
-<div id="signup">
+<div class="form-glass" id="signup">
   <h1 class="title">Sign Up</h1>
   <span id="text-or">CONITNUE WITH</span>
   <div class="social-group">
@@ -18,7 +18,7 @@
       <span class="validate-message">Error</span>
       <div class="group-input">
         <input spellcheck="false" type="text" class="form-input status-valid" id="fullname" name="fullname" placeholder="Full Name" value="Nguyen Phuc Thinh"/>
-        <i class="fa-solid fa-circle-info"></i>
+        <i class="ion-ios-information-outline"></i>
       </div>
     </div>
     <div class="form-group">
@@ -26,7 +26,7 @@
       <span class="validate-message">Error</span>
       <div class="group-input">
         <input spellcheck="false"  type="email" class="form-input status-valid" value="kidp2h@gmail.com" id="email" name="email" placeholder="Email" />
-        <i class="fa-solid fa-circle-info"></i>
+        <i class="ion-ios-information-outline"></i>
       </div>
     </div>
     <div class="form-group">
@@ -34,7 +34,7 @@
       <span class="validate-message">Error</span>
       <div class="group-input">
         <input spellcheck="false"  type="text" class="form-input status-valid" value="admin" id="username" name="username" placeholder="Username" value=""/>
-        <i class="fa-solid fa-circle-info"></i>
+        <i class="ion-ios-information-outline"></i>
       </div>
     </div>
     <div class="form-col-2">
@@ -42,7 +42,7 @@
         <label for="password" class="label-input">Password</label>
         <span class="validate-message">Error</span>
         <div class="group-input">
-        <input spellcheck="false" type="password" class="form-input status-valid" value="admin" id="password" name="password" placeholder="Password" />
+          <input spellcheck="false" type="password" class="form-input status-valid" value="admin" id="password" name="password" placeholder="Password" />
           <!-- <i class="fa-solid fa-check"></i> -->
           <i class="ion-eye showPassword"></i>
           <input type="checkbox" name="" id="" style="display: none;" checked>
@@ -53,7 +53,8 @@
         <label for="confirm-password" class="label-input">Confirm password</label>
         <span class="validate-message">Error</span>
         <div class="group-input">
-        <input spellcheck="false" type="password" class="form-input status-valid" value="admin" id="confirm-password" name="confirm-password" placeholder="Confirm password" />
+          <input spellcheck="false" type="password" class="form-input status-valid" value="admin" id="confirm-password" name="confirm-password" placeholder="Confirm password" />
+          <i class="ion-eye showPassword"></i>
           <!-- <i class="fa-solid fa-check"></i> -->
           <!-- <i class="fa-solid fa-eye showPassword"></i>
           <input type="checkbox" name="" id="" style="display: none;" checked> -->
@@ -80,7 +81,7 @@
       </div>
     </div>
     
-    <button id="btn-signup">
+    <button id="btn-signup" class="btn-submit">
       <i class="ion-ios-arrow-thin-right"></i>
     </button>
     <input type="hidden" id="captcha">
