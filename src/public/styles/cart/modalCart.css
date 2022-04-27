@@ -194,6 +194,14 @@
     font-size: 1.8rem;
 }
 
+.modal__cart-view-cart-btn a {
+    display: block;
+    text-decoration: none;
+    width: 100%;
+    height: 100%;
+    color: var(--white-color);
+}
+
 
  /* KHI KHÔNG CÓ SẢN PHẨM */
 .modal__cart-empty {

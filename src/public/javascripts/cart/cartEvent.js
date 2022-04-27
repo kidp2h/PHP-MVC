@@ -125,17 +125,13 @@ const eventCart = {
             }
             updatePriceToCart(product, input.value);
 
-            try{
-                let response = await HttpRequest({
-                    url: '/cart/edit',
-                    method: 'POST',
-                    data: {productId, amount: input.value},
-                });
-                if(response.status) {
-                    console.log("update kẹc");
-                } else throw("ném lỗi");
-            } catch(e) {
-                console.log(e);
+            let response = await HttpRequest({
+                url: '/cart/edit',
+                method: 'POST',
+                data: {productId, amount: input.value},
+            });
+            if(response.status) {
+                console.log("update");
             }
         }
     },
@@ -160,7 +156,7 @@ const eventCart = {
                     data: {productId, amount: inputQuantity},
                 });
                 if(response.status) {
-                    console.log("update kẹc");
+                    console.log("update");
                 }
             }
         });
@@ -179,7 +175,7 @@ const eventCart = {
             data: {productId},
             });
             if(response.status) {
-                console.log("xoá kẹc");
+                console.log("xoá");
             }
         }
     },
@@ -220,7 +216,7 @@ function AddToCart() {
                 data: {productId, amount},
                 });
             if(response.status) {
-                console.log("kẹc");
+                console.log("add thành công");
             }
         }
     }

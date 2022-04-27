@@ -22,7 +22,7 @@
                 <div class="cartPage__product cartProduct">
                     <div class="cartPage__product-item">
                         <div class="cartPage__product-imgBox">
-                            <img class="cartPage__product-img" src="./images/products/product-9-img-1.jpg" alt="">
+                            <img class="cartPage__product-img" src="" alt="">
                         </div>
 
                         <div class="cartPage__product-item-infor">

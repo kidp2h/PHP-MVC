@@ -28,6 +28,7 @@
   <link rel="stylesheet" href="/public/styles/detail/responsive.css">
   <link rel="stylesheet" href="/public/styles/cart/cartPage.css">
   <link rel="stylesheet" href="/public/styles/cart/modalCart.css">
+  <link rel="stylesheet" href="/public/styles/cart/modalStyle.css">
   <link rel="stylesheet" href="/public/styles/order/index.css">
 </head>
 
@@ -375,7 +376,8 @@
                     <span class="modal__cart-subtotal-all"></span>
                 </div>
                 <div class="modal__cart-view-cart">
-                    <span class="modal__cart-view-cart-btn">VIEW CART</span>
+                    <span class="modal__cart-view-cart-btn">
+                     <a href="/cart">VIEW CART</a></span>
                 </div>
             </div>
         </div>
