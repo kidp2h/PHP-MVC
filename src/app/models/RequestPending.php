@@ -9,7 +9,7 @@ use utils\Utils;
 
 class RequestPending extends Model {
   private self $request;
-  public string $id;
+  public int $id;
   public string $email;
   public string $token;
   public string $expire;

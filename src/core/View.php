@@ -1,7 +1,6 @@
 <?php
 
 namespace core;
-use core\Application;
 
 class View {
   public function checkView($view) {

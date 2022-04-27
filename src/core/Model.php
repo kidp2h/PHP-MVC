@@ -10,11 +10,11 @@ class Model {
   public function __construct() {
     self::$db = Database::Instance()->getDatabase();
   }
-  public function tableName() {
+  private function tableName() {
     return strtolower(str_replace("app\models\\", "", static::class));
   }
 
-  public function getTypeProp(string $key){
+  private function getTypeProp(string $key){
     $property = new ReflectionProperty(static::class, $key);
     $type = $property->getType()->getName();
     return $type;

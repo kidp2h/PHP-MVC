@@ -6,8 +6,6 @@ use core\Model;
 
 class Store extends Model
 {
-    const TABLE = 'store';
-
     public function __construct()
     {
     }
