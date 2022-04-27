@@ -34,6 +34,7 @@ class Model {
     try {
       $result = self::$db->query($sql);
       var_dump($result);
+      exit;
       if($result) return (object)["status" => true, ]; 
     } catch (\Exception $e) {
       return (object)["message" => $e->getMessage(), "status" => false];
