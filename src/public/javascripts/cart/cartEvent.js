@@ -17,12 +17,13 @@ function handleOpenCloseModalCart() {
                 $('.modal__cart-product-box').innerHTML = modalCartEmpty();
             } else { 
                 let productlist = response.productList.map((product) => {
+                    console.log(product.storeId);
                     return productItemCartModal(product);
                 });
                 let cartTotalPrice = response.cartTotalPrice;
                 $('.modal__cart-product-box').innerHTML = productlist.join('');
                 $('.modal__cart-footer').style.display = 'block';
-                $('.modal__cart-subtotal-all').innerHTML = `$${cartTotalPrice[0]['totalPrice']}`;
+                $('.modal__cart-subtotal-all').innerHTML = `$${cartTotalPrice['totalPrice']}`;
             }
         } else {
             $('.modal__cart-footer').style.display = 'none';
@@ -46,21 +47,22 @@ function modalCartEmpty() {
 }
 
 function productItemCartModal(product) {
+    product.image = JSON.parse(product.image);
     return `
         <li class="modal__cart-product-item cartProduct">
         <div class="modal__cart-imgbox">
-            <img class="modal__cart-img" src="${product.img}" alt="">
+            <img class="modal__cart-img" src="${product.image[0]}" alt="">
         </div>
         <div class="modal__cart-item-infor">
             <h3 class="modal__cart-item-name">${product.name}</h3>
             <span class="modal__cart-item-price cartProductPrice" data-price = "${product.price}">$${product.price}</span>
             <div class="modal__cart-item-input">
-                <button class="cart__item-decrement"  data-id = "${product.id}">-</button>
-                <input type="number" min="1" max="9999" step="1" value="${product.quantity}" class="cart_item-input" data-id = "${product.id}" inputmode="numeric">
-                <button class="cart__item-increment" data-id = "${product.id}">+</button>
+                <button class="cart__item-decrement"  data-id = "${product.id}" data-store = "${product.storeId}">-</button>
+                <input type="number" min="1" max="9999" step="1" value="${product.quantity}" class="cart_item-input" data-id = "${product.id}" data-store = "${product.storeId}" inputmode="numeric">
+                <button class="cart__item-increment" data-id = "${product.id}" data-store = "${product.storeId}">+</button>
             </div>
             <div class="modal__cart-delete-icon">
-                <i class="far fa-trash-alt deleteIcon" data-id = "${product.id}"></i>
+                <i class="far fa-trash-alt deleteIcon" data-id = "${product.id}" data-store = "${product.storeId}"></i>
             </div>
         </div>
     </li>
@@ -103,15 +105,21 @@ function productTotalPrice() {
     return sumPrice;
 }
 
+const checkOut = {
+    updated: true,
+}
+
 const eventCart = {
     async inputBtnClick(e) {
         let isPlus = e.target.classList.contains('cart__item-increment'); 
         let isMinus = e.target.classList.contains('cart__item-decrement');
-        let input, product, productId;
+        let input, product, productId, storeId;
         if (isPlus || isMinus) {
             product = getParent(e.target,'.cartProduct');
             input = e.target.parentElement.querySelector('.cart_item-input');
             productId = e.target.dataset.id;
+            storeId = e.target.dataset.store;
+
             if(isPlus) {
                 if (parseInt(input.value) >= parseInt(input.max)) return;
                 ++input.value;
@@ -125,13 +133,15 @@ const eventCart = {
             }
             updatePriceToCart(product, input.value);
 
+            checkOut.updated = false;
             let response = await HttpRequest({
                 url: '/cart/edit',
                 method: 'POST',
-                data: {productId, amount: input.value},
+                data: {productId, amount: input.value, storeId},
             });
             if(response.status) {
-                console.log("update");
+                checkOut.updated = true;
+                console.log("updated thành công")
             }
         }
     },
@@ -146,6 +156,7 @@ const eventCart = {
                 || parseInt(newInputValue) === parseInt(lastInputValue[index])) return;
                 inputQuantity = newInputValue;
                 productId = input.dataset.id;
+                storeId = input.dataset.store;
                 
                 product = getParent(input,'.cartProduct');
                 updatePriceToCart(product, inputQuantity);
@@ -153,7 +164,7 @@ const eventCart = {
                 let response = await HttpRequest({
                     url: '/cart/edit',
                     method: 'POST',
-                    data: {productId, amount: inputQuantity},
+                    data: {productId, amount: inputQuantity, storeId},
                 });
                 if(response.status) {
                     console.log("update");
@@ -164,18 +175,30 @@ const eventCart = {
     async deleteBtnClick(e) {
         let deleteBtn = e.target.classList.contains('deleteIcon');
         if(deleteBtn) {
+            storeId = e.target.dataset.store;
             productId = e.target.dataset.id;
             product = getParent(e.target, '.cartProduct');
             product.remove();
             updatePriceToCart(product);
 
             let response = await HttpRequest({
-            url: '/cart/delete',
-            method: 'POST',
-            data: {productId},
+                url: '/cart/delete',
+                method: 'POST',
+                data: {productId, storeId},
             });
             if(response.status) {
                 console.log("xoá");
+            }
+        }
+    },
+    checkOutBtn() {
+        if($('.cartPage__Checkout') == null) return;
+        let checkOutBtn = $('.cartPage__Checkout');
+        checkOutBtn.onclick = function() {
+            if(checkOut.updated) {
+                console.log("đã thanh toán")
+            } else {
+                console.log("đợi cập nhật")
             }
         }
     },
@@ -197,6 +220,7 @@ const eventCart = {
     init() {
         this.btnCartPage();
         this.btnCartModal();
+        this.checkOutBtn();
     }
 }
 
@@ -209,11 +233,12 @@ function AddToCart() {
         item.onclick = async (e) => {
             let productId = item.dataset.id;
             let amount = inputQuantity[index].value;
+            let storeId = $('#store-select').value;
 
             let response = await HttpRequest({
                 url: '/cart',
                 method: 'POST',
-                data: {productId, amount},
+                data: {productId, storeId, amount},
                 });
             if(response.status) {
                 console.log("add thành công");

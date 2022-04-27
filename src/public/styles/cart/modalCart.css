@@ -45,9 +45,8 @@
     border-bottom: 1px solid #ccc;
 }
 
-#main .modal__cart .btn-exist {
+.modal__cart .btn-exist {
     font-size: 2.5rem;
-    color: black;
     top: 50%;
     transform: translateY(-50%);
 }

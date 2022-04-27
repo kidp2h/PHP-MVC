@@ -147,10 +147,10 @@
                                     <div class="buy-now">
                                     <div class="product-quantity">
                                         <button class="btn btn-tru"> - </button>
-                                        <input type="number" min="1" max="99" value="1" class="inputQuantity" data-id ="'.$product["id"].'"  >
+                                        <input type="number" min="1" max="99" value="1" class="inputQuantity" data-id ="'.$product["id"].'">
                                         <button class="btn btn-add"> + </button>
                                     </div>
-                                        <div class="addtocart addToCart" data-id ="'.$product["id"].'" >
+                                        <div class="addtocart addToCart" data-id ="'.$product["id"].'">
                                             <p>ADD TO CART</p>
                                             <i id="cart-icon" class="fas fa-shopping-cart"></i>
                         
