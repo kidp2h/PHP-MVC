@@ -7,9 +7,8 @@ use DateTime;
 use utils\Utils;
 
 class User extends Model {
-  const TABLE = "user";
   private self $user;
-  public string $id;
+  public int $id;
   public string $username;
   public string $password;
   public string $email;
@@ -26,7 +25,7 @@ class User extends Model {
   public function __construct() {
   }
 
-  public static function __self__() {
+  public static function __self__() : static {
     return new static();
   }
 
@@ -39,6 +38,8 @@ class User extends Model {
     $this->user->address = $address;
     $this->user->isVerified = $isVerified;
     $this->user->tokenVerify = $tokenVerify;
+
+    return $this->user;
 
   }
 

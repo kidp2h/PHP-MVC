@@ -6,7 +6,7 @@ class Router {
   protected array $routes = [];
   public Request $request;
   public Response $response;
-  public string $prefix;
+  private string $prefix;
 
   public function __construct(Request $request, Response $response) {
     $this->request = $request;
@@ -43,11 +43,11 @@ class Router {
     }
   }
 
-  public function getRouteMap($method) : array {
+  private function getRouteMap($method) : array {
     return $this->routes[$method] ?? [];
   }
 
-  public function getComponentsRoute(){
+  private function getComponentsRoute(){
     $method = $this->request->method();
     $path = $this->request->path();
     $routes = $this->getRouteMap($method);
