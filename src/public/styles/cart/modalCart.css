@@ -45,9 +45,8 @@
     border-bottom: 1px solid #ccc;
 }
 
-#main .modal__cart .btn-exist {
+.modal__cart .btn-exist {
     font-size: 2.5rem;
-    color: black;
     top: 50%;
     transform: translateY(-50%);
 }
@@ -192,6 +191,14 @@
 
 .modal__cart-view-cart-btn {
     font-size: 1.8rem;
+}
+
+.modal__cart-view-cart-btn a {
+    display: block;
+    text-decoration: none;
+    width: 100%;
+    height: 100%;
+    color: var(--white-color);
 }
 
 

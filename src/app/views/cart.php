@@ -18,11 +18,12 @@
         <div class="product-box">
         <?php 
             forEach($productList as $product) {
+                $product['image'] = json_decode($product['image']);
                 echo ' 
                 <div class="cartPage__product cartProduct">
                     <div class="cartPage__product-item">
                         <div class="cartPage__product-imgBox">
-                            <img class="cartPage__product-img" src="./images/products/product-9-img-1.jpg" alt="">
+                            <img class="cartPage__product-img" src="'.$product['image'][0].'" alt="">
                         </div>
 
                         <div class="cartPage__product-item-infor">
@@ -31,7 +32,7 @@
                             </h3>
                         
                             <div class="modal__cart-delete-icon">
-                            <i class="far fa-trash-alt deleteIcon" data-id="'.$product['id'].'"></i>
+                            <i class="far fa-trash-alt deleteIcon" data-id="'.$product['id'].'" data-store = "'.$product['storeId'].'"></i>
                             </div>
                         </div>
                     </div>
@@ -40,9 +41,9 @@
                     </div>
                     <div class="cartPage__item-input">                           
                         <div class="modal__cart-item-input">
-                            <button class="cart__item-decrement" data-id="'.$product['id'].'">-</button>
-                            <input type="number" min="1" max="9999" step="1" value="'.$product['quantity'].'" class="cart_item-input" data-id="'.$product['id'].'" inputmode="numeric">
-                            <button class="cart__item-increment" data-id="'.$product['id'].'">+</button>
+                            <button class="cart__item-decrement" data-id="'.$product['id'].'" data-store = "'.$product['storeId'].'">-</button>
+                            <input type="number" min="1" max="9999" step="1" value="'.$product['quantity'].'" class="cart_item-input" data-id="'.$product['id'].'" data-store = "'.$product['storeId'].'" inputmode="numeric">
+                            <button class="cart__item-increment" data-id="'.$product['id'].'" data-store = "'.$product['storeId'].'">+</button>
                         </div>
                     </div>                             
                     <div class="cartPage__product-total">
@@ -58,7 +59,7 @@
     <div class="cartPage-footer" style="display: flex;">
         <div class="cartPage__Subtotal">
             <h3 class="cartPage__Subtotal-text">Subtotal:</h3>
-            <div class="cartPage__Subtotal-number">$5,427.00</div>
+            <div class="cartPage__Subtotal-number"><?= $cartTotalPrice['totalPrice'] ?></div>
         </div>
         <div class="cartPage__Checkout">
             <span class="cartPage__Checkout-text">CHECK OUT</span>

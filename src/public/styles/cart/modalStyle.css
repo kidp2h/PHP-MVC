@@ -388,7 +388,7 @@
     align-items: center;
     position: absolute;
     font-size: 30px;
-    color: #fff;
+    /* color: #fff; */
     top: 5px;
     right: 10px;
     z-index: 100000;

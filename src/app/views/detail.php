@@ -16,18 +16,16 @@
 
         <div id="detail-item" class= "detail-item mg-top-42 mg-bot-42 pd-bot-50 pd-left-right-174">
             <div class="detail-item__slider">
-                <div class="item-imgBx data-index = item-imgBx--active">
-                    <img class="item__img" src="./images/products/product-12-img-1.jpg" alt="">
-                </div>
-                <div class="item-imgBx false data-index =">
-                    <img class="item__img" src="./images/products/product-12-img-2.jpg" alt="">
-                </div>
-                <div class="item-imgBx false data-index =">
-                    <img class="item__img" src="./images/products/product-12-img-3.jpg" alt="">
-                </div>
-                <div class="item-imgBx false data-index =">
-                    <img class="item__img" src="./images/products/product-12-img-4.jpg" alt="">
-                </div>
+                <?php 
+                    $product['image'] = json_decode($product['image']);
+                    forEach($product['image'] as $productImage) {
+                        echo '
+                        <div class="item-imgBx">
+                            <img class="item__img" src="'.$productImage.'" alt="">
+                        </div>
+                        ';
+                    }
+                ?>
                 <div class="detail-item__next-prev-btn">
                     <button class="detail-item__prev-btn" onclick="clickSlideBtn(-1)">
                         <i class="fas fa-chevron-left"></i>
@@ -440,18 +438,13 @@
                                         <h3>'.$product['title'].'</h3>
                                         <span>'.$product['price'].'</span>
                                     </div>
-                                    <div class="recommended__control">
-                                        <ul class="recommended__color-list">
-                                                <li data-index="1" class="recommended__color-item color--black 
-                                                        recommended__color-item--active"></li><li data-index="2" class="recommended__color-item color--pink 
-                                                        false"></li>
-                                            </ul>
-                                    </div>
+                                    
                                 </div>
                                 ';
                             }
                         ?>
-                        <div class="recommended__products-item" style="margin-right: 10px; margin-left: 10px; width: 274.75px;">
+                        
+                        <!-- <div class="recommended__products-item" style="margin-right: 10px; margin-left: 10px; width: 274.75px;">
                             <div class="recommended__product-image" data-id="13">
                                 <div class="recommended__img">
                                     
@@ -492,7 +485,7 @@
                                                 false"></li>
                                     </ul>
                             </div>
-                        </div>
+                        </div> -->
                         <!-- <div class="recommended__products-item" style="margin-right: 10px; margin-left: 10px; width: 274.75px;">
                             <div class="recommended__product-image" data-id="18">
                                 <div class="recommended__img">
