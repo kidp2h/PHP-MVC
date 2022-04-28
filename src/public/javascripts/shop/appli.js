@@ -2,24 +2,29 @@
 // const $ = document.querySelector.bind(document);
 // const $$ = document.querySelectorAll.bind(document);
 function InitEvent() {
-  document.getElementById('ter').onclick = function () {
-    var hidden = document.getElementById('filter');
-    if (hidden.style.display == 'block') {
-      hidden.style.display = 'none';
-    } else {
-      hidden.style.display = 'block';
-      hidden.style.animation = 'fadeIn ease-in 0.5s';
-    }
-  };
+  $('#ter')
+    ? (document.getElementById('ter').onclick = function () {
+        var hidden = document.getElementById('filter');
+        if (hidden.style.display == 'block') {
+          hidden.style.display = 'none';
+        } else {
+          hidden.style.display = 'block';
+          hidden.style.animation = 'fadeIn ease-in 0.5s';
+        }
+      })
+    : null;
 
-  document.getElementById('close').onclick = function () {
-    var hidden = document.getElementById('filter');
-    if (hidden.style.display == 'block') {
-      hidden.style.display = 'none';
-    } else {
-      hidden.style.animation = 'fadeIn ease-in 0.5s';
-    }
-  };
+  $('#close')
+    ? (document.getElementById('close').onclick = function () {
+        var hidden = document.getElementById('filter');
+        if (hidden.style.display == 'block') {
+          hidden.style.display = 'none';
+        } else {
+          hidden.style.animation = 'fadeIn ease-in 0.5s';
+        }
+      })
+    : null;
+
   $$('.loc1 h3').forEach((item) => {
     item.onclick = function (e) {
       //console.log("clicked")
@@ -150,18 +155,17 @@ function getStore() {
   document.getElementById('filtertitle').click();
 }
 
-sortfilter.addEventListener('change', getData);
+sortfilter?.addEventListener('change', getData);
 store.addEventListener('change', getStore);
 let url = window.location.href.indexOf('sort=');
 url = window.location.href.slice(url + 5);
 console.log(url);
 if (url.indexOf('shop') != -1) {
-  sortfilter.value = 'All';
+  if (sortfilter) {
+    sortfilter ? (value = 'All') : null;
+  }
 }
-sortfilter.value = url;
+sortfilter ? (value = url) : null;
 window.onload = function () {
   InitEvent();
-  // rendertheloai();
-  //  getData();
-  //  getStore();
 };
