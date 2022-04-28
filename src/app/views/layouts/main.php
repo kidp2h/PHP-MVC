@@ -39,7 +39,7 @@
           <span class="rectangle rectangle--bottom rectangle--small"></span>
         </button>
         <a href="#home" class="logo">
-          <img src="./images/logo.svg" alt="">
+          <img src="/public/images/logo.svg" alt="">
           SHIBA
         </a>
       </div>
