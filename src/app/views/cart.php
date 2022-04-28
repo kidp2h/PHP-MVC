@@ -32,7 +32,7 @@
                             </h3>
                         
                             <div class="modal__cart-delete-icon">
-                            <i class="far fa-trash-alt deleteIcon" data-id="'.$product['id'].'" data-store = "'.$product['storeId'].'"></i>
+                            <i class="ion-trash-a deleteIcon" data-id="'.$product['id'].'" data-store = "'.$product['storeId'].'"></i>
                             </div>
                         </div>
                     </div>
