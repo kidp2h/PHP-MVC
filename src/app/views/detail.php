@@ -18,12 +18,15 @@
             <div class="detail-item__slider">
                 <?php 
                     $product['image'] = json_decode($product['image']);
-                    forEach($product['image'] as $productImage) {
-                        echo '
-                        <div class="item-imgBx">
+                    $listImage = '
+                    <div class="item-imgBx item-imgBx--active">
+                        <img class="item__img" src="'.$productImage.'" alt="">
+                    </div>';
+                    for ($i=1; $i <= count($product['image']); $i++) { 
+                        $listImage.= 
+                        '<div class="item-imgBx">
                             <img class="item__img" src="'.$productImage.'" alt="">
-                        </div>
-                        ';
+                        </div>';
                     }
                 ?>
                 <div class="detail-item__next-prev-btn">
