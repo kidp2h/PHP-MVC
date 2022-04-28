@@ -18,13 +18,17 @@
             <div class="detail-item__slider">
                 <?php 
                     $product['image'] = json_decode($product['image']);
-                    forEach($product['image'] as $productImage) {
-                        echo '
-                        <div class="item-imgBx">
-                            <img class="item__img" src="'.$productImage.'" alt="">
-                        </div>
-                        ';
+                    $listImage = '
+                    <div class="item-imgBx item-imgBx--active">
+                        <img class="item__img" src="'.$product['image'][0].'" alt="">
+                    </div>';
+                    for ($i=1; $i < count($product['image']); $i++) { 
+                        $listImage.= 
+                        '<div class="item-imgBx">
+                            <img class="item__img" src="'.$product['image'][$i].'" alt="">
+                        </div>';
                     }
+                    echo $listImage;
                 ?>
                 <div class="detail-item__next-prev-btn">
                     <button class="detail-item__prev-btn" onclick="clickSlideBtn(-1)">
@@ -158,13 +162,13 @@
 
                         <div class="detail__more-infor-imgBox">
                             <div class="detail__more-infor-img">
-                                <img src="./assets/img/detail_1.jpg" alt="">
+                                <img src="/public/images/products/product-18-img-1.jpg" alt="">
                             </div>
                             <div class="detail__more-infor-img">
-                                <img src="./assets/img/detail_4.jpg" alt="">
+                                <img src="/public/images/products/product-18-img-2.jpg" alt="">
                             </div>
                             <div class="detail__more-infor-img">
-                                <img src="./assets/img/detail_4.jpg" alt="">
+                                <img src="/public/images/products/product-18-img-3.jpg" alt="">
                             </div>
                         </div>
 
