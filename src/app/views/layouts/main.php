@@ -250,7 +250,7 @@
             <div class="modal__cart-header">
                 <h1>CART PRODUCTS</h1>
                 <button class="btn-exist">
-                    <i class="fas fa-times"></i>
+                    <i class="ion-close-round"></i>
                 </button>
             </div>
             
