@@ -85,11 +85,10 @@
                             <li class="hotro">
                                 <i class="fas fa-shipping-fast"></i>
                                 <div>
-                                    <span class="tachchu">FREE SHIPPING
-                                        </span>
+                                    <span class="tachchu">FREE SHIPPING</span>
                                     <span>
-                                            Free shipping for all US order
-                                        </span>
+                                        Free shipping for all US order
+                                    </span>
                                 </div>
                             </li>
                             <li class="hotro">

@@ -375,3 +375,144 @@
   border-radius: 5px;
   background-color: #fff;
 }
+body {
+  position: relative;
+}
+#modal__information {
+  width: 500px;
+  height: 550px;
+  z-index: 999999999999999;
+  position: fixed;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  backdrop-filter: blur(6px) saturate(200%);
+  -webkit-backdrop-filter: blur(6px) saturate(200%);
+  background-color: rgba(201, 196, 196, 0.13);
+  border-radius: 12px;
+  border: 1px solid rgba(209, 213, 219, 0.3);
+  color: white;
+  /* display: flex;
+  flex-direction: column; */
+}
+
+.modal__header h1 {
+  text-transform: uppercase;
+  font-size: 4rem;
+  margin-top: 15px;
+  text-align: center;
+}
+
+.__modal__body {
+  width: 100px;
+  height: 100px;
+  z-index: 99999999999999999999;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 3rem;
+  width: 300px;
+  height: 300px;
+}
+
+.form-group .label-input {
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: white;
+  text-transform: uppercase;
+}
+
+.form-group .form-input {
+  border: 1.5px solid white;
+  padding: 1rem;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.25);
+  font-size: 1.5rem;
+  color: white !important;
+  color: white !important;
+}
+
+.form-input.is-invalid {
+  border: 1px solid #fa4d53;
+}
+
+.form-input.valid {
+  border-color: #49ec49;
+}
+
+.validate-message {
+  visibility: hidden;
+  font-size: 1.3rem;
+  color: #fa4d53;
+}
+.validate-message.validate-error {
+  visibility: visible;
+}
+
+.group-input {
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.group-input .form-input {
+  width: 100%;
+  transition: all 0.2s;
+}
+.form-input.status-valid ~ i {
+  position: absolute;
+  font-size: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  right: 20px;
+  text-align: center;
+  cursor: pointer;
+  display: none;
+}
+.form-input.is-invalid {
+  box-shadow: 0 0 2em #fa4d53b9;
+  transition: all 0.5s;
+  animation: shake 0.2s ease-in-out 0s 2;
+}
+
+.form-input.valid {
+  box-shadow: 0 0 2em #49ec49a2;
+  transition: all 0.5s;
+}
+.form-input.is-invalid ~ i {
+  color: #fa4d53;
+  display: block;
+}
+
+.form-input.valid ~ i {
+  color: #49ec49;
+  display: block;
+}
+
+.form-input.status-valid {
+  padding-right: 60px;
+  padding-left: 10px;
+}
+
+input::placeholder {
+  color: rgba(255, 255, 255, 0.384);
+  text-transform: uppercase;
+}
+
+@keyframes shake {
+  0% {
+    margin-left: 0rem;
+  }
+  25% {
+    margin-left: 1rem;
+  }
+  75% {
+    margin-left: -1rem;
+  }
+  100% {
+    margin-left: 0rem;
+  }
+}

@@ -36,7 +36,13 @@ class Application {
     $this->response = new Response();
     $this->session = new Session();
     $this->router = new Router($this->request, $this->response);
-    $this->db = Database::Instance()->connect();
+    try {
+      $this->db = Database::Instance()->connect();
+    } catch (\Throwable $th) {
+      var_dump($th);
+      exit;
+    }
+
     $this->model = new Model();
     $this->view = new View();
     $this->controller = new Controller();
