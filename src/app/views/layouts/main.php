@@ -29,6 +29,25 @@
 </head>
 
 <body>
+
+  <div class="__modal" id="modal__information">
+    <div class="modal__header">
+      <h1>Information</h1>
+    </div>
+    <div class="__modal__body">
+      kec
+      <div class="form-group">
+        <label for="password" class="label-input">Password</label>
+        <span class="validate-message">Error</span>
+        <div class="group-input">
+          <input spellcheck="false"  type="password" class="form-input status-valid" id="password" name="password" placeholder="Password" />
+          <i class="ion-eye showPassword"></i>
+          <input type="checkbox" name="" id="" style="display: none;" checked>
+        </div>
+      </div>
+    </div>
+    <div class="modal__footer"></div>
+  </div>
   <div class="navigation">
     <div class="navigation-container">
 
@@ -229,7 +248,6 @@
             <input name="email" type="email" placeholder="Your email address">
             <button type="submit" class="btn">Subcribe</button>
           </form>
-          <!-- <img src="./images/footer.png" alt=""> -->
 
         </div>
 
@@ -256,113 +274,6 @@
             
             <div class="box">
                 <ul class="modal__cart-product-box">
-                  <!-- <li class="modal__cart-product-item">
-                      <div class="modal__cart-imgbox">
-                          <img class="modal__cart-img" src="./images/products/product-9-img-1.jpg" alt="">
-                      </div>
-                      <div class="modal__cart-item-infor">
-                          <h3 class="modal__cart-item-name">Sony Alpha ILCE-7CL</h3>
-                          <span class="modal__cart-item-price">$1,854.00</span>
-                          <div class="modal__cart-item-input">
-                              <button class="cart__item-decrement" data-id="9">-</button>
-                              <input type="number" min="1" max="9999" step="1" value="101" class="cart_item-input" data-id="9" inputmode="numeric">
-                              <button class="cart__item-increment" data-id="9">+</button>
-                          </div>
-                          <div class="modal__cart-delete-icon deleteIcon">
-                              <i class="far fa-trash-alt deleteIcon" data-id="9"></i>
-                          </div>
-                      </div>
-                  </li>
-              
-                  <li class="modal__cart-product-item">
-                      <div class="modal__cart-imgbox">
-                          <img class="modal__cart-img" src="./images/products/product-6-img-1.jpg" alt="">
-                      </div>
-                      <div class="modal__cart-item-infor">
-                          <h3 class="modal__cart-item-name">BLUETOOTH PINK</h3>
-                          <span class="modal__cart-item-price">$109.00</span>
-                          <div class="modal__cart-item-input">
-                              <button class="cart__item-decrement" data-id="6">-</button>
-                              <input type="number" min="1" max="9999" step="1" value="2" class="cart_item-input" data-id="6" inputmode="numeric">
-                              <button class="cart__item-increment" data-id="6">+</button>
-                          </div>
-                          <div class="modal__cart-delete-icon deleteIcon">
-                              <i class="far fa-trash-alt deleteIcon" data-id="6"></i>
-                          </div>
-                      </div>
-                  </li>
-              
-                  <li class="modal__cart-product-item">
-                      <div class="modal__cart-imgbox">
-                          <img class="modal__cart-img" src="./images/products/product-17-img-1.jpg" alt="">
-                      </div>
-                      <div class="modal__cart-item-infor">
-                          <h3 class="modal__cart-item-name">Lenovo Ideapad 5 Pro</h3>
-                          <span class="modal__cart-item-price">$2,784.00</span>
-                          <div class="modal__cart-item-input">
-                              <button class="cart__item-decrement" data-id="17">-</button>
-                              <input type="number" min="1" max="9999" step="1" value="1" class="cart_item-input" data-id="17" inputmode="numeric">
-                              <button class="cart__item-increment" data-id="17">+</button>
-                          </div>
-                          <div class="modal__cart-delete-icon deleteIcon">
-                              <i class="far fa-trash-alt deleteIcon" data-id="17"></i>
-                          </div>
-                      </div>
-                  </li>
-              
-                  <li class="modal__cart-product-item">
-                      <div class="modal__cart-imgbox">
-                          <img class="modal__cart-img" src="./images/products/product.jpg" alt="">
-                      </div>
-                      <div class="modal__cart-item-infor">
-                          <h3 class="modal__cart-item-name">GOOGLE HOME</h3>
-                          <span class="modal__cart-item-price">$199.00</span>
-                          <div class="modal__cart-item-input">
-                              <button class="cart__item-decrement" data-id="15">-</button>
-                              <input type="number" min="1" max="9999" step="1" value="1" class="cart_item-input" data-id="15" inputmode="numeric">
-                              <button class="cart__item-increment" data-id="15">+</button>
-                          </div>
-                          <div class="modal__cart-delete-icon deleteIcon">
-                              <i class="far fa-trash-alt deleteIcon" data-id="15"></i>
-                          </div>
-                      </div>
-                  </li>
-              
-                  <li class="modal__cart-product-item">
-                      <div class="modal__cart-imgbox">
-                          <img class="modal__cart-img" src="./images/products/product-14-img-1.jpg" alt="">
-                      </div>
-                      <div class="modal__cart-item-infor">
-                          <h3 class="modal__cart-item-name">Fujifilm Instax Mini 11</h3>
-                          <span class="modal__cart-item-price">$248.00</span>
-                          <div class="modal__cart-item-input">
-                              <button class="cart__item-decrement" data-id="14">-</button>
-                              <input type="number" min="1" max="9999" step="1" value="1" class="cart_item-input" data-id="14" inputmode="numeric">
-                              <button class="cart__item-increment" data-id="14">+</button>
-                          </div>
-                          <div class="modal__cart-delete-icon deleteIcon">
-                              <i class="far fa-trash-alt deleteIcon" data-id="14"></i>
-                          </div>
-                      </div>
-                  </li>
-              
-                  <li class="modal__cart-product-item">
-                      <div class="modal__cart-imgbox">
-                          <img class="modal__cart-img" src="./images/products/product-18-img-1.jpg" alt="">
-                      </div>
-                      <div class="modal__cart-item-infor">
-                          <h3 class="modal__cart-item-name">Asus ROG Strix Scope TKL Electro Punk</h3>
-                          <span class="modal__cart-item-price">$233.00</span>
-                          <div class="modal__cart-item-input">
-                              <button class="cart__item-decrement" data-id="18">-</button>
-                              <input type="number" min="1" max="9999" step="1" value="1" class="cart_item-input" data-id="18" inputmode="numeric">
-                              <button class="cart__item-increment" data-id="18">+</button>
-                          </div>
-                          <div class="modal__cart-delete-icon deleteIcon">
-                              <i class="far fa-trash-alt deleteIcon" data-id="18"></i>
-                          </div>
-                      </div>
-                  </li> -->
                 </ul>
             </div>
 
@@ -388,110 +299,6 @@
                 <h2 class="modal-noti__disc error"></h2>
                 <button class="btn-noti glassmorphism ">OK</button>
             </div> 
-            
-            <!-- <div class="modal__profile">
-
-                <div class="modal-profile__optinons">
-                    <button class="btn-options">
-                        <i class="fa-solid fa-gear"></i>
-                    </button>
-                    <ul class="options__menu">
-                        <li class="option__item" id="edit-profile">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                            <span>Edit Profile</span>
-                        </li>
-                        <li class="option__item" id="change-pass">
-                            <i class="fa-solid fa-key"></i>
-                            <span>Change Pass</span>
-                        </li>
-                    </ul>
-                </div>
-                
-                <button class="btn-exist">
-                    <i class="fas fa-times"></i>
-                </button>
-
-                <div class="modal-profile__main">
-                    <div class="modal-profile__imgBox">
-                        <img src="./images/user-1.jpg" alt="">
-                    </div>
-
-                    <div class="modal-profile__header">
-                        <h1>USERNAME</h1>
-                    </div>
-
-                    <div class="modal-profile__info">
-                        <div class="form">
-                            <div class="form__container">
-                                <div class="col-groups">
-                                    <div class="groups">
-                                        <label for="">Full name</label>
-                                        <input type="text" class="fullname" name="fullname" rules="required" disabled="">
-                                        <span class="message"></span>
-                                    </div>
-                                    <div class="groups">
-                                        <label for="">Address</label>
-                                        <input type="text" class="address" name="address" rules="required" disabled="">
-                                        <span class="message"></span>
-                                    </div>
-                                    <div class="groups">
-                                        <label for="">Phone</label>
-                                        <input type="text" class="phone" name="phone" rules="required|isNumber|min:10" disabled="">
-                                        <span class="message"></span>
-                                    </div>
-                                </div>  
-                            </div>  
-                            <button class="btn-save">SAVE</button>
-                        </div>
-
-                    </div>
-                </div>
-
-                <div class="modal-profile__changePass">
-                    <div class="form">
-                        <div class="form__container">
-                            <div class="col-groups">
-                                <div class="groups">
-                                    <label>Current Password</label>
-                                    <div class="input-pass">
-                                        <input type="password" class="current-password" name="current-password" rules="required|checkPassCurrent" placeholder="Password">
-                                        <span class="show-btn">
-                                            <i class="fas fa-eye"></i>
-                                        </span>
-                                    </div>
-                                    <span class="message"></span>
-                                </div>
-                                <div class="groups">
-                                    <label>New Password</label>
-                                    <div class="input-pass">
-                                        <input type="password" class="password" name="password" rules="required|min:6" placeholder="Password">
-                                        <span class="show-btn">
-                                            <i class="fas fa-eye"></i>
-                                        </span>
-                                    </div>
-                                    <span class="message"></span>
-                                </div>
-                                <div class="groups">
-                                    <label for="">New Password Confirm</label>
-                                    <div class="input-pass">
-                                        <input type="password" class="password_confirm" name="password_confirm" rules="required|isConfirmed" placeholder="Password confirm">
-                                        <span class="show-btn">
-                                            <i class="fas fa-eye"></i>
-                                        </span>
-                                    </div>
-                                    <span class="message"></span>
-                                </div>
-                            </div>  
-                            
-                        </div>  
-                        <button class="btn-changePass">Change</button>
-                        <button class="changeSign">
-                            <i class="fas fa-arrow-right"></i>
-                        </button>
-                    </div>
-                </div>
-
-            </div> -->
         </div>
 
 </body>
