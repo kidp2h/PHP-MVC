@@ -248,6 +248,6 @@ class User extends Model {
   public function getUserByUsername($username){
     $sql = self::$db->query("SELECT * FROM user WHERE user.username = '$username'");
     while($row = mysqli_fetch_array($sql,1)) $data = $row;
-    return (object)$data;
+    return $data;
   }
 }

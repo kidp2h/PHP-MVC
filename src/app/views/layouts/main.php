@@ -67,14 +67,14 @@
       <div class="icons">
         <div class="navbar__inputSearch">
           <input class="navbar-input-Search" type="text">
-          <i class="ion-ios-search-strong" id="nav-search"></i>
+          <i class="fas fa-search" id="nav-search"></i>
         </div>
-        <i class="ion-ios-search-strong" id="search-icon"></i>
+        <i class="fas fa-search" id="search-icon"></i>
         <a href="/signin" class="user-info">
-          <i class="ion-person" id="user-icon"></i>
+          <i class="fas fa-user" id="user-icon"></i>
         </a>
         <div class="icon cart" id="cart-icon" data-amount="0">
-          <i class="ion-ios-cart"></i>
+          <i class="fas fa-shopping-cart"></i>
         </div>
       </div>
     </div>
