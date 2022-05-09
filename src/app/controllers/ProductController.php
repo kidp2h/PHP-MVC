@@ -16,8 +16,9 @@ class ProductController extends Controller
     $body = Application::Instance()->request->body();
     if (!isset($body['store'])) $body['store'] = 1;
     if (!isset($body['page'])) $body['page'] = 1;
-    $products = Product::__self__()->getListProductSaleOn50($body['store'], $body['page'], 8);
+    $rep = Product::__self__()->getListProductSaleOn50($body['store'], $body['page'], 8);
 
-    echo json_encode($products);
+
+    echo json_encode($rep);
   }
 }

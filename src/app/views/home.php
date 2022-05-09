@@ -73,7 +73,7 @@
 
   <div id="feature" class="product  sectionNav">
     <div class="product-header">
-      <h2 class="heading">Featured Products</h2>
+      <h2 class="heading">BigSale Products</h2>
       <p class="content">Select from the premium product and save plenty money</p>
     </div>
 

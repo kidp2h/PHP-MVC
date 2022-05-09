@@ -82,18 +82,7 @@ $$('.showPassword').forEach((element) => {
   };
 });
 
-function selectStore() {
-  $('#store-select').addEventListener('change', () => {
-    let i = window.location.href.indexOf('?');
-    let url = window.location.href + '/';
-    if (i != -1) {
-      url = window.location.href.slice(0, i);
-    }
-    console.log(i);
-    url += '?store=' + $('#store-select').value;
-    // window.location.href = url;
-  });
-}
+
 
 const showMessageValidator = (status, selector, validate) => {
   status.push(selector);
@@ -104,4 +93,25 @@ const showMessageValidator = (status, selector, validate) => {
   input ? input.classList.add('is-invalid') : null;
 };
 
-selectStore();
+
+function activeNavbar() {
+  switch(window.location.pathname) {
+    case "/":
+      $('nav.navbar a.home').classList.add('active');
+      break;
+    case "/shop":
+      $('nav.navbar a.shop').classList.add('active');
+      break;
+    case "/about":
+      $('nav.navbar a.about').classList.add('active');
+      break;
+  }
+}
+activeNavbar();
+
+ 
+function formatMoney(n, currency = '$') {
+  if(typeof(n) != 'number') n = Number(n);
+  return currency + n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
+}
+
