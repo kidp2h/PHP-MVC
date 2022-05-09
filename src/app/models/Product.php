@@ -293,9 +293,19 @@ class Product extends Model
 	{
 		$data = [];
 		$index = ($page - 1) * $limit;
-		$sql = self::$db->query("select p.* from store as s, product_details as pd, product as p
-		where s.id = $store_id and pd.store_id = s.id and pd.product_id = p.id limit $index, $limit");
+		$sql = self::$db->query("select p.*, pd.discount, p.price*(1-pd.discount/100) as sale from store as s, product_details as pd, product as p
+		where s.id = $store_id and pd.store_id = s.id and 
+		pd.discount > 49 and pd.product_id = p.id");
 		while ($row = mysqli_fetch_all($sql, 1)) $data = $row;
-		return $data;
+
+		$totalPage = ceil(count($data)/$limit);
+		$data = array_slice($data, $index, $page * $limit);
+
+		
+
+		return array(
+			"data"=> $data,
+			"totalPage" => $totalPage
+		);
 	}
 }

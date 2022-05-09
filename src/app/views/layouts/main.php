@@ -30,7 +30,7 @@
 
 <body>
 
-  <div class="__modal" id="modal__information">
+  <!-- <div class="__modal" id="modal__information">
     <div class="modal__header">
       <h1>Information</h1>
     </div>
@@ -47,7 +47,9 @@
       </div>
     </div>
     <div class="modal__footer"></div>
-  </div>
+  </div> -->
+
+
   <div class="navigation">
     <div class="navigation-container">
 
@@ -64,9 +66,7 @@
       </div>
 
       <nav class="navbar">
-        <a href="/" class="home active">Home</a>
-        <a href="/#category" class="category">Category</a>
-        <a href="/#feature" class="feature">Featured</a>
+        <a href="/" class="home">Home</a>
         <a href="/shop" class="shop">Shop</a>
         <a href="/about" class="about">About</a>
       </nav>
