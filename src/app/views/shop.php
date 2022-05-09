@@ -137,7 +137,8 @@
                         <div class="product-items"></div>
                         <div class="product-top">
                             <div class="product-thumb">
-                                <a href="http://localhost/detail/product/' . $product["id"] . '">
+
+                                <a href="http://localhost/detail/product/' . $product["id"] . '?storeId='.$storeCurrent.'">
                                     <img src="' . json_decode($product['image'])[0] . '" alt="ảnh 1" width="200px" height="200px">
                                 </a>
                             </div>
