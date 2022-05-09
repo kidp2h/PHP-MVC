@@ -59,16 +59,16 @@
 
   height: 45px;
   width: 45px;
-  margin-left: 2rem;
+  margin-left: 0.5rem;
   border-radius: 50%;
 
   line-height: 45px;
   text-align: center;
-  font-size: 2.5rem;
+  font-size: 17px;
   font-weight: bolder;
 
-  color: white;
-  /* background-color: var(--primary-bgc); */
+  color: var(--black);
+  background-color: var(--primary-bgc);
   transition: all 0.3s ease;
 }
 

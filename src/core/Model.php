@@ -3,7 +3,6 @@
 namespace core;
 
 use database\Database;
-use mysqli;
 use ReflectionProperty;
 
 class Model {
@@ -33,11 +32,7 @@ class Model {
     $table = $this->tableName();
     $sql = "INSERT INTO {$table} ({$fields}) VALUES ({$values})";
     try {
-      $result = self::$db->query($sql);
-      if($result) {
-        $user = mysqli_fetch_assoc(self::$db->query("SELECT LAST_INSERT_ID() AS id;"));
-        return (object)["status" => true, "id" => $user["id"]];
-      }
+      if(self::$db->query($sql)) return (object)["status" => true ]; 
     } catch (\Exception $e) {
       return (object)["message" => $e->getMessage(), "status" => false];
     }
