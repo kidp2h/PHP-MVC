@@ -16,6 +16,7 @@ class CartController extends Controller {
     $userId = $userInfor->id;
     $productId = $body['productId'];
     $amount = $body['amount'];
+    $storeId = $body['storeId'];
 
     $cartItem = Cart::__self__()->getCartByUserId($userId);
 
@@ -24,11 +25,11 @@ class CartController extends Controller {
         if($cartItem[$i]['product_id'] == $productId) {
             $isFind = true;
             $amount += (int)$cartItem[$i]['quantity'];
-            Cart::__self__()->updateProductToCart($userId, $productId, 2,$amount);
+            Cart::__self__()->updateProductToCart($userId, $productId, $storeId,$amount);
         } 
     }
     if(!$isFind) {
-      Cart::__self__()->addProductToCart($userId, $productId, 2, $amount);
+      Cart::__self__()->addProductToCart($userId, $productId, $storeId, $amount);
     }
 
     return json_encode(["status" => $cartItem]);
@@ -41,8 +42,9 @@ class CartController extends Controller {
     $userId = $userInfor->id;
     $productId = $body['productId'];
     $amount = $body['amount'];
+    $storeId = $body['storeId'];
 
-    Cart::__self__()->updateProductToCart($userId, $productId, 1, $amount);
+    Cart::__self__()->updateProductToCart($userId, $productId, $storeId, $amount);
     return json_encode(["status" => true]);
   }
 
@@ -52,8 +54,9 @@ class CartController extends Controller {
     $body = $request->body();
     $userId = $userInfor->id;
     $productId = $body['productId'];
+    $storeId = $body['storeId'];
 
-    Cart::__self__()->deleteProductFromCart($userId, $productId);
+    Cart::__self__()->deleteProductFromCart($userId, $productId, $storeId);
     return json_encode(["status" => true]);
   }
 
@@ -62,12 +65,11 @@ class CartController extends Controller {
     $userInfor = $result['result'];
     $userName = $userInfor->username;
     $CartProducts = Cart::__self__()->getProductFromCart($userName);
-    return parent::render("cart",["productList" => $CartProducts]);
+    $CartTotalPrice = Cart::__self__()->totalPriceOfCart($userName);
+    return parent::render("cart",["productList" => $CartProducts, "cartTotalPrice" => $CartTotalPrice]);
   }
 
   public static function handleRenderCartModal(){ 
-    // if(!isset($_COOKIE["accessToken"])) 
-    //   return json_encode(["status" => false, "productList" => '']);
     $result = User::__self__()->decodeAccessToken($_COOKIE["accessToken"]);
     $userInfor = $result['result'];
     $userName = $userInfor->username;

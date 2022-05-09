@@ -16,9 +16,9 @@ services:
       - 3000:80
     environment:
       MYSQL_ROOT_PASSWORD: root
-      # PMA_HOST: 45.32.107.108
-      PMA_USER: root
-      PMA_PASSWORD: root
+      PMA_HOST: ${HOST_MYSQL}
+      PMA_USER: ${USERNAME_MYSQL}
+      PMA_PASSWORD: ${PASSWORD_MYSQL}
   db:
     image: mysql
     build:

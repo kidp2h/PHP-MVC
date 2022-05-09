@@ -16,18 +16,20 @@
 
         <div id="detail-item" class= "detail-item mg-top-42 mg-bot-42 pd-bot-50 pd-left-right-174">
             <div class="detail-item__slider">
-                <div class="item-imgBx data-index = item-imgBx--active">
-                    <img class="item__img" src="./images/products/product-12-img-1.jpg" alt="">
-                </div>
-                <div class="item-imgBx false data-index =">
-                    <img class="item__img" src="./images/products/product-12-img-2.jpg" alt="">
-                </div>
-                <div class="item-imgBx false data-index =">
-                    <img class="item__img" src="./images/products/product-12-img-3.jpg" alt="">
-                </div>
-                <div class="item-imgBx false data-index =">
-                    <img class="item__img" src="./images/products/product-12-img-4.jpg" alt="">
-                </div>
+                <?php 
+                    $product['image'] = json_decode($product['image']);
+                    $listImage = '
+                    <div class="item-imgBx item-imgBx--active">
+                        <img class="item__img" src="'.$product['image'][0].'" alt="">
+                    </div>';
+                    for ($i=1; $i < count($product['image']); $i++) { 
+                        $listImage.= 
+                        '<div class="item-imgBx">
+                            <img class="item__img" src="'.$product['image'][$i].'" alt="">
+                        </div>';
+                    }
+                    echo $listImage;
+                ?>
                 <div class="detail-item__next-prev-btn">
                     <button class="detail-item__prev-btn" onclick="clickSlideBtn(-1)">
                         <i class="fas fa-chevron-left"></i>
@@ -38,7 +40,7 @@
                 </div>
             </div>
                 <div class="item-infor">
-                    <h1 class="item__title"><?=$product['title']?></h1>
+                    <h1 class="item__title"><?=$product['name']?></h1>
                     <div class="item__price-status">
                         <span class="item__price"><?=$product['price']?></span>
                         <span class="item__status">In stock</span>
@@ -159,15 +161,16 @@
                         </p>
 
                         <div class="detail__more-infor-imgBox">
-                            <div class="detail__more-infor-img">
-                                <img src="./assets/img/detail_1.jpg" alt="">
-                            </div>
-                            <div class="detail__more-infor-img">
-                                <img src="./assets/img/detail_4.jpg" alt="">
-                            </div>
-                            <div class="detail__more-infor-img">
-                                <img src="./assets/img/detail_4.jpg" alt="">
-                            </div>
+                            <?php
+
+                            foreach($product['image'] as $image) {
+                                echo '
+                                <div class="detail__more-infor-img">
+                                    <img src="'.$image.'" alt="">
+                                </div>';
+                            }
+                            ?>
+                            
                         </div>
 
                         <div class="detail__benefit-infor">
@@ -407,12 +410,13 @@
                     <div id="recommended__products-wrapper" class="recommended__products-wrapper">
                         <?php 
                             forEach($randomProduct as $product) {
+                                $product['image'] = json_decode($product['image']);
                                 echo '
-                                <div class="recommended__products-item" style="margin-right: 10px; margin-left: 10px; width: 274.75px;">
+                                <div class="recommended__products-item">
                                     <div class="recommended__product-image" data-id="13">
                                         <div class="recommended__img">
-                                            <img class="recommended-img recommended-img--active" src="./images/products/product-13-img-1.jpg" alt="">
-                                            <img class="recommended-img false" src="./images/products/product-13-img-2.jpg" alt="">
+                                            <img class="recommended-img recommended-img--active" src="'. $product['image'][0].'" alt="">
+                                            <img class="recommended-img false" src="'.$product['image'][1].'" alt="">
                                             <div class="icon-heart " data-index="13" data-wish="0">
                                                 <i class="far fa-heart"></i>
                                                 <i class="fas fa-heart"></i>
@@ -440,18 +444,13 @@
                                         <h3>'.$product['title'].'</h3>
                                         <span>'.$product['price'].'</span>
                                     </div>
-                                    <div class="recommended__control">
-                                        <ul class="recommended__color-list">
-                                                <li data-index="1" class="recommended__color-item color--black 
-                                                        recommended__color-item--active"></li><li data-index="2" class="recommended__color-item color--pink 
-                                                        false"></li>
-                                            </ul>
-                                    </div>
+                                    
                                 </div>
                                 ';
                             }
                         ?>
-                        <div class="recommended__products-item" style="margin-right: 10px; margin-left: 10px; width: 274.75px;">
+                        
+                        <!-- <div class="recommended__products-item" style="margin-right: 10px; margin-left: 10px; width: 274.75px;">
                             <div class="recommended__product-image" data-id="13">
                                 <div class="recommended__img">
                                     
@@ -492,7 +491,7 @@
                                                 false"></li>
                                     </ul>
                             </div>
-                        </div>
+                        </div> -->
                         <!-- <div class="recommended__products-item" style="margin-right: 10px; margin-left: 10px; width: 274.75px;">
                             <div class="recommended__product-image" data-id="18">
                                 <div class="recommended__img">

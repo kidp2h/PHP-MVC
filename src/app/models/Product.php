@@ -111,7 +111,7 @@ class Product extends Model
 
     public function randomProduct() { //random 8 products
         $data = [];
-        $sql = self::$db->query("SELECT * FROM product ORDER BY RAND() LIMIT 7");
+        $sql = self::$db->query("SELECT * FROM product ORDER BY RAND() LIMIT 8");
         while($row=mysqli_fetch_all($sql,1)){
             $data=$row;
         }
