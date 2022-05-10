@@ -93,7 +93,7 @@ class Cart extends Model {
         FROM product, product_details, store , user, cart_item 
         WHERE product.id = cart_item.product_id AND cart_item.user_id = user.id 
         AND cart_item.store_id = store.id AND product.id = product_details.product_id 
-        AND product_details.store_id = store.id AND user.username = 'admin'");
+        AND product_details.store_id = store.id AND user.username = '$username'");
         while($row = mysqli_fetch_all($sql,1)) {
             $data = $row;
         }
