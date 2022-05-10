@@ -154,7 +154,7 @@ class Product extends Model
 	public function getDatafilterAdvancedAll($store, $sort,$priceFrom, $priceTo, $tilte, $limit, $page){
 		$index = ($page - 1) * $limit;
 		if(strtoupper($sort)==strtoupper('All')){
-			$query="SELECT product.*, category.title 
+			$query="SELECT product.*, category.title, product.price*(1 - product_details.discount/100) AS productPrice  
 			FROM product, category,product_details, store 
 			where product.category_id = category.id
 			AND product.id = product_details.product_id
