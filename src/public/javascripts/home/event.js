@@ -21,6 +21,9 @@ function ProductItem( product ) {
                       <div>
                           <p id="add">ADD TO CART</p>
                       </div>
+                      <div>
+                          <i id="cart-icon" class="ion-android-cart"></i>
+                      </div>   
                   </div>
               </div>
 

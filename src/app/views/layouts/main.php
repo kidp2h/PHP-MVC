@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="/public/styles/navbar.css">
   <link rel="stylesheet" href="/public/styles/footer.css">
   <link rel="stylesheet" href="/public/styles/home/index.css">
+  <link rel="stylesheet" href="/public/styles/home/responsive.css">
   <link rel="stylesheet" href="/public/styles/shop/apps.css">
   <link rel="stylesheet" href="/public/styles/shop/base.css">
   <link rel="stylesheet" href="/public/styles/shop/rp.css">
@@ -59,7 +60,7 @@
           <span class="rectangle rectangle--middle"></span>
           <span class="rectangle rectangle--bottom rectangle--small"></span>
         </button>
-        <a href="#home" class="logo">
+        <a href="/" class="logo">
           <img src="/public/images/logo.svg" alt="">
           SHIBA
         </a>
