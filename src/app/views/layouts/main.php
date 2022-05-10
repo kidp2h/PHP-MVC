@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="/public/styles/navbar.css">
   <link rel="stylesheet" href="/public/styles/footer.css">
   <link rel="stylesheet" href="/public/styles/home/index.css">
+  <link rel="stylesheet" href="/public/styles/home/responsive.css">
   <link rel="stylesheet" href="/public/styles/shop/apps.css">
   <link rel="stylesheet" href="/public/styles/shop/base.css">
   <link rel="stylesheet" href="/public/styles/shop/rp.css">
@@ -59,7 +60,7 @@
           <span class="rectangle rectangle--middle"></span>
           <span class="rectangle rectangle--bottom rectangle--small"></span>
         </button>
-        <a href="#home" class="logo">
+        <a href="/" class="logo">
           <img src="/public/images/logo.svg" alt="">
           SHIBA
         </a>
@@ -84,14 +85,14 @@
       <div class="icons">
         <div class="navbar__inputSearch">
           <input class="navbar-input-Search" type="text">
-          <i class="fas fa-search" id="nav-search"></i>
+          <i class="ion-ios-search-strong" id="nav-search"></i>
         </div>
-        <i class="fas fa-search" id="search-icon"></i>
+        <i class="ion-ios-search-strong" id="search-icon"></i>
         <a href="/signin" class="user-info">
-          <i class="fas fa-user" id="user-icon"></i>
+          <i class="ion-person" id="user-icon"></i>
         </a>
         <div class="icon cart" id="cart-icon" data-amount="0">
-          <i class="fas fa-shopping-cart"></i>
+          <i class="ion-ios-cart"></i>
         </div>
       </div>
     </div>
