@@ -115,3 +115,35 @@ function formatMoney(n, currency = '$') {
   return currency + n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
 }
 
+
+const navbarEvent = {
+  fancyBurger() {
+      const navbar = $('.navbar');
+      const btn = $('.fancy-burger');
+      btn.onclick = () => {
+          btn.querySelectorAll('span').forEach((span) => {
+              span.classList.toggle('open');
+          });
+          navbar.classList.toggle('open');
+      };
+  },
+
+  navItem() {
+      $$('nav a').forEach((navItem) => {
+          navItem.onclick = () => {
+              if ($('nav a.active')) $('nav a.active').classList.remove('active');
+              navItem.classList.add('active');
+              if ($('.navbar.open')) $('.fancy-burger').click()
+          };
+      });
+  },
+
+
+  init() {
+      this.fancyBurger();
+      this.navItem();
+  },
+};
+
+
+navbarEvent.init();
