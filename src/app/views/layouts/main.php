@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="/public/styles/navbar.css">
   <link rel="stylesheet" href="/public/styles/footer.css">
   <link rel="stylesheet" href="/public/styles/home/index.css">
+  <link rel="stylesheet" href="/public/styles/home/responsive.css">
   <link rel="stylesheet" href="/public/styles/shop/apps.css">
   <link rel="stylesheet" href="/public/styles/shop/base.css">
   <link rel="stylesheet" href="/public/styles/shop/rp.css">
@@ -30,7 +31,7 @@
 
 <body>
 
-  <div class="__modal" id="modal__information">
+  <!-- <div class="__modal" id="modal__information">
     <div class="modal__header">
       <h1>Information</h1>
     </div>
@@ -47,7 +48,9 @@
       </div>
     </div>
     <div class="modal__footer"></div>
-  </div>
+  </div> -->
+
+
   <div class="navigation">
     <div class="navigation-container">
 
@@ -57,16 +60,14 @@
           <span class="rectangle rectangle--middle"></span>
           <span class="rectangle rectangle--bottom rectangle--small"></span>
         </button>
-        <a href="#home" class="logo">
+        <a href="/" class="logo">
           <img src="/public/images/logo.svg" alt="">
           SHIBA
         </a>
       </div>
 
       <nav class="navbar">
-        <a href="/" class="home active">Home</a>
-        <a href="/#category" class="category">Category</a>
-        <a href="/#feature" class="feature">Featured</a>
+        <a href="/" class="home">Home</a>
         <a href="/shop" class="shop">Shop</a>
         <a href="/about" class="about">About</a>
       </nav>

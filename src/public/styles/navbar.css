@@ -59,16 +59,16 @@
 
   height: 45px;
   width: 45px;
-  margin-left: 2rem;
+  margin-left: 0.5rem;
   border-radius: 50%;
 
   line-height: 45px;
   text-align: center;
-  font-size: 2.5rem;
+  font-size: 17px;
   font-weight: bolder;
 
-  color: white;
-  /* background-color: var(--primary-bgc); */
+  color: var(--black);
+  background-color: var(--primary-bgc);
   transition: all 0.3s ease;
 }
 
@@ -371,7 +371,7 @@
   width: 250px;
   height: 80%;
   font-size: 16px;
-  padding: 10px;
+  padding: 0 10px;
   border-radius: 5px;
   background-color: #fff;
 }
@@ -515,4 +515,86 @@ input::placeholder {
   100% {
     margin-left: 0rem;
   }
+}
+
+@media screen and (max-width: 1023px) {
+  .navigation .navbar {
+      opacity: 0;
+      position: absolute;
+      top: -200px;
+      left: 0;
+      right: 0;
+      padding: 10px 5px 0;
+      border-bottom-right-radius: 50px;
+      box-shadow: var(--box-shadow);
+      background-color: var(--primary-color);
+      z-index: -1000;
+      transition: 0.3s ease;
+  }
+
+  .navigation-container .navbar > a {
+      border-bottom-right-radius: 50px;
+  }
+
+  .navigation .navbar.open {
+      top: 100%;
+      opacity: 1;
+      z-index: -1;
+  }
+
+  .navigation .navbar a,
+  .navigation .navbar.open a {
+      display: block;
+      margin-bottom: 1rem;
+  }
+
+  .fancy-burger {
+      display: inline-block;
+  }
+}
+
+@media (max-width: 600px) {
+  .navigation #search-icon {
+      display: none;
+  }
+  .navigation #heart-icon {
+      display: none;
+  }
+  .navigation #cart-icon {
+      display: none;
+  }
+
+  .footer {
+      padding-bottom: 55px;
+  }
+}
+
+
+
+/* NAVBAR MOBILE */
+@media (max-width: 600px) { 
+  .navigation-mobile {
+      bottom: 0px;
+      margin-bottom: -5px;
+  }
+  .navigation-mobile .icon > i {
+  cursor: pointer;
+  display: inline-block;
+  overflow: hidden;
+
+  height: 35px;
+  width: 35px;
+  margin-left: 0.5rem;
+  border-radius: 50%;
+  border-bottom: 1px solid #fff;
+
+  line-height: 35px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: bolder;
+
+  color: #fff;
+  transition: transform .3s ease;
+  }
+
 }

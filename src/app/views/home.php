@@ -22,8 +22,8 @@
     </div>
 
     <div class="slider-controls">
-      <li class="btn btn-prev"><i class="ion-ios-arrow-back"></i></li>
-      <li class="btn btn-next"><i class="ion-ios-arrow-forward"></i></li>
+      <li class="btn btn-prev"><i class="fas fa-angle-double-left"></i></li>
+      <li class="btn btn-next"><i class="fas fa-angle-double-right"></i></li>
     </div>
 
     <ul class="slider-dots">
@@ -73,7 +73,7 @@
 
   <div id="feature" class="product  sectionNav">
     <div class="product-header">
-      <h2 class="heading">Featured Products</h2>
+      <h2 class="heading">BigSale Products</h2>
       <p class="content">Select from the premium product and save plenty money</p>
     </div>
 
