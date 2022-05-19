@@ -2,24 +2,35 @@ function ProductItem(product) {
   product.image = JSON.parse(product.image);
 
   return `  
-      <div class="product-item">
+      <div class="product-item" data-discount="-${product.discount}%">
           <div class="product-image__box">
 
-              <img src="${product.image[0]}" alt="unsplash" class="product-image"/>
-              <img src="${product.image[1]}" alt="unsplash" class="product-image--back"/>
+              <img src="${
+                product.image[0]
+              }" alt="unsplash" class="product-image"/>
+              <img src="${
+                product.image[1]
+              }" alt="unsplash" class="product-image--back"/>
 
               
               <div class="product-control">
                   <div class="product-quantity">
                       <button class="btn btn-mul"> - </button>
-                      <input type="number" class ="inputQuantity" data-id="${product.id}" min="1" max="9999" value="1">
+                      <input type="number" class ="inputQuantity" data-id="${
+                        product.id
+                      }" min="1" max="9999" value="1">
                       <button class="btn btn-add"> + </button>
                   </div>
 
-                  <div class="product-add-cart addToCart" data-id = "${product.id}">   
+                  <div class="product-add-cart addToCart" data-id = "${
+                    product.id
+                  }">   
                       <div>
                           <p id="add">ADD TO CART</p>
                       </div>
+                      <div>
+                          <i id="cart-icon" class="ion-android-cart"></i>
+                      </div>   
                   </div>
               </div>
 
@@ -28,8 +39,12 @@ function ProductItem(product) {
           <div class="product-info">
               <h2 class="product-info__heading">${product.name}</h2>
               <div class="product-price">
-                  <span class="product-info__price product-info__price--sale"></span>
-                  <span class="product-info__price"></span>
+                  <span class="product-info__price product-info__price--sale">${formatMoney(
+                    product.price
+                  )}</span>
+                  <span class="product-info__price">${formatMoney(
+                    product.sale
+                  )}</span>
               </div> 
           </div> 
       </div>
@@ -148,20 +163,15 @@ const Home = {
           btn.parentElement.querySelector('input').value = quantity - 1;
       };
     });
-
-    this.btnWish();
   },
 
   btnLoad: function () {
-    var btnLoad = $('.btn-load');
+    let btnLoad = $('.btn-load');
     btnLoad.style.display = 'block';
     let _this = this;
     let page = 1;
     btnLoad.onclick = async function () {
-      let dis = await _this.renderProduct(++page);
-      // _this.btnProduct();
-      // _this.btnItemProduct();
-      if (dis) btnLoad.style.display = 'none';
+      await _this.renderProduct(++page);
     };
   },
 
@@ -191,11 +201,12 @@ const Home = {
 
   async renderProduct(page = 1) {
     let store = $('#store-select')?.value;
-    let products = await HttpRequest({
+    let res = await HttpRequest({
       url: `http://localhost/product/on50?store=${store}&page=${page}`,
     });
 
-    if (products.length === 0) return true;
+    let products = res['data'];
+    let totalPage = res['totalPage'];
 
     let productBox = $('.product .product-box');
     if (!productBox) return;
@@ -210,15 +221,32 @@ const Home = {
         products.map((product) => ProductItem(product)).join('')
       );
     }
-    return false;
+    this.btnProduct();
+
+    if (totalPage === page) $('.btn-load').style.display = 'none';
   },
 
   init: function () {
-    // if(!$('#home')) return;
-    // this.slider();
-    // this.renderProduct();
-    // this.btnLoad();
+    if (!$('#home')) return;
+    this.slider();
+    this.renderProduct();
+    this.btnLoad();
   },
 };
 
 Home.init();
+
+function selectStore() {
+  $('#store-select').addEventListener('change', () => {
+    let i = window.location.href.indexOf('?');
+    let url = window.location.href;
+    if (i != -1) {
+      url = window.location.href.slice(0, i);
+    }
+    console.log(i);
+    url += '?store=' + $('#store-select').value;
+    window.location.href = url;
+  });
+}
+
+selectStore();

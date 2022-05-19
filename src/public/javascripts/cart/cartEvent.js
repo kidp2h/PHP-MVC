@@ -150,8 +150,7 @@ const eventCart = {
   },
   inputOnblur() {
     let cartItemInput = $$('.cart_item-input');
-    let lastInputValue = [],
-      newInputValue;
+    let lastInputValue = [], newInputValue;
     cartItemInput.forEach((input, index) => {
       lastInputValue.push(input.value);
       input.onblur = async () => {

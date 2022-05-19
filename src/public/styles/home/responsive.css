@@ -1,0 +1,146 @@
+@media (min-width: 740px) and (max-width: 1023px) {
+    #home .slide__image {
+        height: 50rem;
+    }
+
+    #home .category-content {
+        font-size: 6rem;
+    }
+
+    #home .category-box {
+        --spacing: 20px;
+        --column: 2;
+    }
+
+    #home .product-box,
+    #wishList .product-box {
+        --spacing: 10px;
+        --column: 4;
+        padding: 0;
+        width: 95%;
+        min-width: 730px;
+    }
+
+    #home .product-image__box,
+    #wishList .product-image__box {
+        height: 30rem;
+    }
+
+    .icon-heart {
+        right: 0;
+    }
+
+    .product-control {
+        height: 15%;
+        top: 101%;
+    }
+
+    #home .product-quantity,
+    #wishList .product-quantity {
+        width: 50%;
+    }
+
+    .product-add-cart #cart-icon {
+        display: block;
+    }
+
+    .product-add-cart #add {
+        display: none;
+    }
+
+   
+
+}
+
+@media (max-width: 739px) {
+    :root {
+        --height-nav: 56px;
+        --button-width: 30px;
+    }
+
+    #home .slide__image {
+        height: 400px;
+    }
+
+    #home .slide__content h3 {
+        font-size: 40px;
+    }
+
+    #home .slide__content span {
+        font-size: 24px;
+    }
+
+    #home .slide__content p {
+        font-size: 16px;
+        padding: 8px 0;
+    }
+
+    #home .wraper-slide__btn {
+        margin-top: 0;
+        padding: 3.2px 16px;
+        font-size: 12px;
+    }
+
+    #home .category-content {
+        font-size: 48px;
+    }
+
+    #home .category-box {
+        --spacing: 20px;
+        --column: 1;
+    }
+
+    #wishList .wishList__box {
+        width: 100%;
+    }
+
+    #home .product-box,
+    #wishList .product-box {
+        --spacing: 10px;
+        --column: 2;
+        padding: 0;
+        width: 100%;
+        max-width: 500px;
+        min-width: 0px;
+    }
+
+    #home .product-image__box,
+    #wishList .product-image__box {
+        height: 240px;
+    }
+
+    .icon-heart {
+        right: 0;
+    }
+
+    .product-control {
+        height: 15%;
+        top: 101%;
+    }
+
+    #home .product-quantity,
+    #wishList .product-quantity{
+        width: 50%;
+    }
+
+    .product-quantity input { 
+        width: 40%;
+    }
+
+    .product-quantity button {
+        width: 30%;
+    }
+
+    .product-add-cart #cart-icon {
+        display: block;
+    }
+
+    .product-add-cart #add {
+        display: none;
+    }
+
+    #home .product-header .heading,
+    #wishList .product-header .heading {
+        font-size: 3rem;
+    }
+}
