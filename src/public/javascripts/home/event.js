@@ -1,23 +1,30 @@
-function ProductItem( product ) {
-
+function ProductItem(product) {
   product.image = JSON.parse(product.image);
 
   return `  
       <div class="product-item" data-discount="-${product.discount}%">
           <div class="product-image__box">
 
-              <img src="${product.image[0]}" alt="unsplash" class="product-image"/>
-              <img src="${product.image[1]}" alt="unsplash" class="product-image--back"/>
+              <img src="${
+                product.image[0]
+              }" alt="unsplash" class="product-image"/>
+              <img src="${
+                product.image[1]
+              }" alt="unsplash" class="product-image--back"/>
 
               
               <div class="product-control">
                   <div class="product-quantity">
                       <button class="btn btn-mul"> - </button>
-                      <input type="number" class ="inputQuantity" data-id="${product.id}" min="1" max="9999" value="1">
+                      <input type="number" class ="inputQuantity" data-id="${
+                        product.id
+                      }" min="1" max="9999" value="1">
                       <button class="btn btn-add"> + </button>
                   </div>
 
-                  <div class="product-add-cart addToCart" data-id = "${product.id}">   
+                  <div class="product-add-cart addToCart" data-id = "${
+                    product.id
+                  }">   
                       <div>
                           <p id="add">ADD TO CART</p>
                       </div>
@@ -32,12 +39,16 @@ function ProductItem( product ) {
           <div class="product-info">
               <h2 class="product-info__heading">${product.name}</h2>
               <div class="product-price">
-                  <span class="product-info__price product-info__price--sale">${formatMoney(product.price)}</span>
-                  <span class="product-info__price">${formatMoney(product.sale)}</span>
+                  <span class="product-info__price product-info__price--sale">${formatMoney(
+                    product.price
+                  )}</span>
+                  <span class="product-info__price">${formatMoney(
+                    product.sale
+                  )}</span>
               </div> 
           </div> 
       </div>
-  `
+  `;
 }
 
 const Home = {
@@ -136,7 +147,8 @@ const Home = {
     let listProductBtnAdd = $$('.product-quantity .btn-add');
     listProductBtnAdd.forEach((btn) => {
       btn.onclick = function () {
-        let quantity = Number.parseInt(btn.parentElement.querySelector('input').value) + 1;
+        let quantity =
+          Number.parseInt(btn.parentElement.querySelector('input').value) + 1;
         btn.parentElement.querySelector('input').value = quantity;
       };
     });
@@ -151,10 +163,7 @@ const Home = {
           btn.parentElement.querySelector('input').value = quantity - 1;
       };
     });
-
   },
-
-
 
   btnLoad: function () {
     let btnLoad = $('.btn-load');
@@ -192,43 +201,40 @@ const Home = {
 
   async renderProduct(page = 1) {
     let store = $('#store-select')?.value;
-    let res = await HttpRequest({url:`http://localhost/product/on50?store=${store}&page=${page}`});
+    let res = await HttpRequest({
+      url: `http://localhost/product/on50?store=${store}&page=${page}`,
+    });
 
     let products = res['data'];
     let totalPage = res['totalPage'];
 
-   
     let productBox = $('.product .product-box');
     if (!productBox) return;
 
     if (page == 1) {
-      productBox.innerHTML = products.map((product) => ProductItem(product)).join('');
-
+      productBox.innerHTML = products
+        .map((product) => ProductItem(product))
+        .join('');
     } else {
-
       productBox.insertAdjacentHTML(
         'beforeend',
         products.map((product) => ProductItem(product)).join('')
       );
-
     }
     this.btnProduct();
 
-    if(totalPage === page) $('.btn-load').style.display = 'none';
-    
+    if (totalPage === page) $('.btn-load').style.display = 'none';
   },
 
   init: function () {
-    if(!$('#home')) return;
+    if (!$('#home')) return;
     this.slider();
     this.renderProduct();
     this.btnLoad();
-    
   },
 };
 
 Home.init();
-
 
 function selectStore() {
   $('#store-select').addEventListener('change', () => {
@@ -239,7 +245,7 @@ function selectStore() {
     }
     console.log(i);
     url += '?store=' + $('#store-select').value;
-      window.location.href = url;
+    window.location.href = url;
   });
 }
 

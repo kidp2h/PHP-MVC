@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="/public/styles/auth/signin.css">
   <link rel="stylesheet" href="/public/styles/auth/signup.css">
   <link rel="stylesheet" href="/public/styles/auth/index.css">
+  <link rel="stylesheet" href="/public/styles/toast.css">
   <title><?= $title ?></title>
 </head>
 <body>
@@ -145,7 +146,7 @@
 <script src="https://apis.google.com/js/platform.js?onload=onLoadCallback" async defer></script>
 <script src="/public/javascripts/auth/google.js"></script>
 <script src="/public/javascripts/auth/facebook.js"></script>
-<script src="/public/javascripts/auth/toast.js"></script>
+<script src="/public/javascripts/toast.js"></script>
 <script src="/public/javascripts/auth/signin.js"></script>
 <script src="/public/javascripts/auth/signup.js"></script>
 <script src="/public/javascripts/auth/forgotPassword.js"></script>
