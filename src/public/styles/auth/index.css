@@ -25,6 +25,10 @@ body {
   width: 100%;
   background-color: #6050f149;
 }
+.btn-close-modal {
+  position: absolute;
+  top: 0;
+}
 
 .form-group {
   display: flex;
@@ -262,79 +266,6 @@ input::placeholder {
 
 #confirm-password {
   padding-right: 15px !important;
-}
-
-#toasts {
-  position: fixed;
-  right: 20px;
-  bottom: 20px;
-}
-.toast {
-  border-radius: 10px;
-  margin: 30px 0px;
-  display: flex;
-  padding: 20px 10px;
-  align-items: center;
-  color: white;
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  font-size: 1.5rem;
-  animation: slideIn ease 1s, slideOut ease-in-out 1s 3s forwards;
-}
-.toast.error {
-  background: rgba(255, 0, 32, 0.25);
-}
-.toast.success {
-  background: rgba(0, 255, 20, 0.25);
-}
-
-.icon-toast {
-  margin-right: 30px;
-  margin-left: 15px;
-}
-.icon-toast i {
-  font-size: 3rem;
-  color: white;
-}
-.btn-toast {
-  width: 10px;
-  height: 10px;
-  display: flex;
-  justify-content: center;
-  text-align: center;
-  align-items: center;
-  padding: 9px;
-  margin: 0px 10px;
-  border-radius: 10px;
-  cursor: pointer;
-  margin-left: 30px;
-}
-.btn-toast i {
-  font-size: 2.5rem;
-  color: white;
-}
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateX(500px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-@keyframes slideOut {
-  from {
-    opacity: 1;
-    transform: translateX(0);
-  }
-  to {
-    opacity: 0;
-    transform: translateX(500px);
-  }
 }
 
 ::-ms-reveal,

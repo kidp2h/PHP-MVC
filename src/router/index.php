@@ -8,7 +8,7 @@ use core\Application;
 
 $app = Application::Instance();
 $app->router->prefix("");
-$app->router->get("/", [HomeController::class, "home"]);
+$app->router->get("/",[[AuthMiddleware::class, "isTokenExpire"]] ,[HomeController::class, "home"]);
 $app->router->get("/signin", [[AuthMiddleware::class, "isLogout"]], [AuthController::class, "signin"]);
 $app->router->post("/signin", [AuthController::class, "handleSignIn"]);
 
@@ -23,9 +23,9 @@ $app->router->post("/forgotPassword", [[AuthMiddleware::class, "isLogout"]], [Au
 $app->router->get("/verify",[[AuthMiddleware::class, "isLogout"]], [AuthController::class, "handleVerifyAccount"]);
 $app->router->post("/getTokenReset", [AuthController::class, "getTokenReset"]);
 $app->router->post("/verifyTokenReset", [AuthController::class, "verifyTokenReset"]);
-
+$app->router->post("/sendOTP", [AuthController::class, "sendOTP"]);
+$app->router->post("/verifyOTP", [AuthController::class, "verifyOTP"]);
 $app->router->get("/NotFound", [HomeController::class, "PageNotFound"]);
-
 //$app->router->post("/accessToken", [AuthController::class, "getAccessToken"]);
-//$app->router->post("/verifyAccessToken", [AuthController::class, "verifyAccessToken"]);
+$app->router->post("/verifyAccessToken", [AuthController::class, "verifyAccessToken"]);
 //$app->router->post("/verifyRefreshToken", [AuthController::class, "verifyRefreshToken"]);

@@ -1,5 +1,4 @@
-function ProductItem( product ) {
-
+function ProductItem(product) {
   product.image = JSON.parse(product.image);
 
   return `  
@@ -34,7 +33,7 @@ function ProductItem( product ) {
               </div> 
           </div> 
       </div>
-  `
+  `;
 }
 
 const Home = {
@@ -153,8 +152,6 @@ const Home = {
     this.btnWish();
   },
 
-
-
   btnLoad: function () {
     var btnLoad = $('.btn-load');
     btnLoad.style.display = 'block';
@@ -164,7 +161,7 @@ const Home = {
       let dis = await _this.renderProduct(++page);
       // _this.btnProduct();
       // _this.btnItemProduct();
-      if(dis) btnLoad.style.display = 'none';
+      if (dis) btnLoad.style.display = 'none';
     };
   },
 
@@ -192,34 +189,35 @@ const Home = {
     };
   },
 
-  async renderProduct(page =1) {
+  async renderProduct(page = 1) {
     let store = $('#store-select')?.value;
-    let products = await HttpRequest({url:`http://localhost/product/on50?store=${store}&page=${page}`});
+    let products = await HttpRequest({
+      url: `http://localhost/product/on50?store=${store}&page=${page}`,
+    });
 
-    if(products.length === 0) return true;
-   
+    if (products.length === 0) return true;
+
     let productBox = $('.product .product-box');
     if (!productBox) return;
 
     if (page == 1) {
-      productBox.innerHTML = products.map((product) => ProductItem(product)).join('');
-
+      productBox.innerHTML = products
+        .map((product) => ProductItem(product))
+        .join('');
     } else {
-
       productBox.insertAdjacentHTML(
         'beforeend',
         products.map((product) => ProductItem(product)).join('')
       );
-
     }
     return false;
   },
 
   init: function () {
-    if(!$('#home')) return;
-    this.slider();
-    this.renderProduct();
-    this.btnLoad();
+    // if(!$('#home')) return;
+    // this.slider();
+    // this.renderProduct();
+    // this.btnLoad();
   },
 };
 

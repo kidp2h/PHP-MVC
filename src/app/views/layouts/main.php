@@ -1,3 +1,7 @@
+<?php use core\Application; 
+try {
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,13 +10,12 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta property="og:image" content="https://source.unsplash.com/random" />
   <link rel="shortcut icon" type="image/svg" href="./images/logo.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/public/icons/css/ionicons.min.css">
-  <title>Main</title>
+  <title><?= $title ?></title>
   <link rel="stylesheet" href="/public/styles/base.css">
   <link rel="stylesheet" href="/public/styles/navbar.css">
   <link rel="stylesheet" href="/public/styles/footer.css">
@@ -26,27 +29,75 @@
   <link rel="stylesheet" href="/public/styles/cart/modalCart.css">
   <link rel="stylesheet" href="/public/styles/cart/modalStyle.css">
   <link rel="stylesheet" href="/public/styles/order/index.css">
+  <link rel="stylesheet" href="/public/styles/toast.css">
 </head>
 
 <body>
-
+  <div id="toasts"></div>
+  <div class="__modal__overlay"></div>
   <div class="__modal" id="modal__information">
     <div class="modal__header">
       <h1>Information</h1>
+      <div class="btn-close-modal">
+        <i class="ion-close-round"></i> 
+      </div>
     </div>
     <div class="__modal__body">
-      kec
       <div class="form-group">
-        <label for="password" class="label-input">Password</label>
-        <span class="validate-message">Error</span>
+        <label for="fullName" class="label-input">Full name</label>
         <div class="group-input">
-          <input spellcheck="false"  type="password" class="form-input status-valid" id="password" name="password" placeholder="Password" />
-          <i class="ion-eye showPassword"></i>
-          <input type="checkbox" name="" id="" style="display: none;" checked>
+          <input spellcheck="false"  type="text" class="form-input" id="fullName" name="fullName" placeholder="Full Name" value="<?=Application::$user->fullName?>" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="username" class="label-input">Username</label>
+        <div class="group-input">
+          <input spellcheck="false"  type="text" class="form-input input-disabled" id="username" name="username" value="<?=Application::$user->username?>" placeholder="Username" disabled/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="email" class="label-input">Email address</label>
+        <div class="group-input">
+          <input spellcheck="false"  type="email" class="form-input input-disabled" id="email" name="email" placeholder="Email address"  value="<?=Application::$user->email?>" disabled/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="phoneNumber" class="label-input">Phone number</label>
+        <div class="group-input">
+          <input spellcheck="false"  type="number" min="0" oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" class="form-input <?= Application::$user->isActivePhone ? "input-disabled" : "" ?>" id="phoneNumber" name="phoneNumber" placeholder="Phone Number" value="<?=Application::$user->phoneNumber?>" <?= Application::$user->isActivePhone ? "disabled" : null?>/>
+          
+          <?php if(Application::$user->isActivePhone){ ?>
+            <span class="status__active">
+              <i class="ion-ios-checkmark"></i>
+              Actived
+            </span>
+          <?php }else { ?>
+            <div class="btn__input btn-send-sms"><a href="javascript:void(0)">SEND OTP</a></div>
+          <?php } ?>
+        </div>
+      </div>
+      <?php if(!Application::$user->isActivePhone){ ?>
+      <div class="form-group">
+        <label for="otp" class="label-input">OTP</label>
+        <div class="group-input">
+          <input spellcheck="false"  type="number" min="0" class="form-input" id="otp" name="otp" placeholder="OTP" value=""/>
+          <div class="btn__input btn-active-sms"><a href="javascript:void(0)">Active</a></div>
+        </div>
+      </div>
+      <?php } ?>
+      <div class="form-group">
+        <label for="address" class="label-input">Address</label>
+        <div class="group-input">
+          <input spellcheck="false"  type="text" class="form-input" id="address" name="address" placeholder="Address" value="<?=Application::$user->address?>"/>
         </div>
       </div>
     </div>
-    <div class="modal__footer"></div>
+    <div class="modal__footer">
+      <div class="btn__modal btn-cancel">Cancel</div>
+      <div class="btn__modal btn-save-changes">
+        Save changes 
+      </div>
+    </div>
   </div>
   <div class="navigation">
     <div class="navigation-container">
@@ -87,9 +138,18 @@
           <i class="ion-ios-search-strong" id="nav-search"></i>
         </div>
         <i class="ion-ios-search-strong" id="search-icon"></i>
-        <a href="/signin" class="user-info">
-          <i class="ion-person" id="user-icon"></i>
-        </a>
+          <div href="javascript:void(0)" class="user-info userDropdown">
+            <ul class="dropdown">
+              <?php if(isset($_COOKIE["accessToken"])) {?>
+                <li class="dropdown-item openModal"><a href="javascript:void(0)">Profile</a></li>
+                <li class="dropdown-item"><a href="/logout">Logout</a></li>
+              <?php } else { ?>
+                <li class="dropdown-item"><a href="/signin">Sign In</a></li>
+                <li class="dropdown-item"><a href="/signup">Sign Up</a></li>
+              <?php } ?>
+            </ul>
+            <i class="ion-person" id="user-icon"></i>
+          </div>
         <div class="icon cart" id="cart-icon" data-amount="0">
           <i class="ion-ios-cart"></i>
         </div>
@@ -284,7 +344,7 @@
                 </div>
                 <div class="modal__cart-view-cart">
                     <span class="modal__cart-view-cart-btn">
-                     <a href="/cart">VIEW CART</a></span>
+                    <a href="/cart">VIEW CART</a></span>
                 </div>
             </div>
         </div>
@@ -309,9 +369,16 @@
 <script src="/public/javascripts/shop/appli.js"></script>
 <script src="/public/javascripts/detail/detail.js"></script>
 <script src="/public/javascripts/cart/cartEvent.js"></script>
+<script src="/public/javascripts/toast.js"></script>
 
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-  integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
 </html>
+<?php } catch (\Throwable $th){
+
+  var_dump($th);
+}
+  
+    //throw $th;
+  
+?>

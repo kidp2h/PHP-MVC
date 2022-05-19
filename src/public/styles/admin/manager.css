@@ -161,6 +161,7 @@ button.btn-select-category:hover {
 }
 
 .selectRate {
+  -webkit-user-select: none;
   user-select: none;
 }
 .selectRate i {

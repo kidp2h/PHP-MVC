@@ -1,6 +1,6 @@
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
-
+let tempInterval = null;
 const HttpRequest = async (
   options = { url: '', method: 'GET', data: null, headers: {} }
 ) => {
@@ -103,5 +103,94 @@ const showMessageValidator = (status, selector, validate) => {
   let input = $(`input[name=${selector}]`);
   input ? input.classList.add('is-invalid') : null;
 };
+$('.openModal')
+  ? ($('.openModal').onclick = function () {
+      $('#modal__information').classList.add('active');
+      $('.__modal__overlay').classList.add('active');
+      $('body').classList.add('active');
+    })
+  : null;
+$('.btn-close-modal')
+  ? ($('.btn-close-modal').onclick = function () {
+      $('#modal__information').classList.remove('active');
+      $('.__modal__overlay').classList.remove('active');
+      $('body').classList.remove('active');
+    })
+  : null;
+$('.btn-cancel')
+  ? ($('.btn-cancel').onclick = function () {
+      $('#modal__information').classList.remove('active');
+      $('.__modal__overlay').classList.remove('active');
+      $('body').classList.remove('active');
+    })
+  : null;
+$('.btn-save-changes')
+  ? ($('.btn-save-changes').onclick = function () {
+      showToast('success', 'Update information successfully !');
+    })
+  : null;
+$('.btn-send-sms')
+  ? ($('.btn-send-sms').onclick = async function () {
+      let phoneNumber = $('#phoneNumber').value;
+      if (phoneNumber == '') {
+        return showToast('error', 'Phone number is invalid');
+      } else {
+        let _this = this;
+        if (!this.classList.contains('disabled')) {
+          let timeLeft = 3;
+          $('.btn-send-sms a').textContent = timeLeft;
+          this.classList.add('disabled');
+          tempInterval = setInterval(function () {
+            if (timeLeft <= 0) {
+              clearInterval(tempInterval);
+              _this.classList.remove('disabled');
+              $('.btn-send-sms a').textContent = 'SEND OTP';
+              console.log(tempInterval, timeLeft, 'end');
+            }
+            if (timeLeft > 0) {
+              $('.btn-send-sms a').textContent = timeLeft;
+            }
+            timeLeft -= 1;
+          }, 1000);
+          let response = await HttpRequest({
+            url: '/sendOTP',
+            method: 'POST',
+            data: { phoneNumber },
+          });
+          if (response.status) {
+            showToast('success', `Code OTP was sent to ${phoneNumber} ! `);
+          } else showToast('error', response.message);
+        }
+      }
+    })
+  : null;
+
+$('.btn-active-sms')
+  ? ($('.btn-active-sms').onclick = async function () {
+      let otp = $('#otp').value;
+      let response = await HttpRequest({
+        url: '/verifyOTP',
+        method: 'POST',
+        data: { otp },
+      });
+      if (response.status) {
+        showToast('success', `Successfully active your phone number ! `);
+        this.parentElement.parentElement.remove();
+        let span = document.createElement('span');
+        let icon = document.createElement('i');
+        let text = document.createTextNode('Actived');
+        icon.classList.add('ion-ios-checkmark');
+        span.classList.add('status__active');
+        span.appendChild(icon);
+        span.appendChild(text);
+        $('.btn-send-sms').replaceWith(span);
+        $('#phoneNumber').classList.add('input-disable');
+      } else
+        showToast(
+          'error',
+          "Can't active your phone number, you can check otp again ! "
+        );
+    })
+  : null;
 
 selectStore();
