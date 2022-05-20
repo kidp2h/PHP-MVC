@@ -34,47 +34,26 @@ class Utils {
       echo $e->getMessage();
     }
   }
-  public static function sendSMS($phone, $otp){
-    try {
-      $curl = curl_init("http://".$_ENV['OTP_SERVER']."/emitMessage");
-      curl_setopt_array($curl,[
-        CURLOPT_SSL_VERIFYPEER => false,
-        CURLOPT_PORT => 5000,
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_POST => 1,
-        CURLOPT_SSL_VERIFYHOST => false,
-        CURLOPT_POSTFIELDS => http_build_query([
-          'phoneNumber' => $phone,
-          'otp' => $otp
-        ])
-      ]);
-      $response = curl_exec($curl);
-      curl_close($curl);
-      return json_decode($response);
-    } catch (\Throwable $th) {
-      var_dump($th);
-    }
-
-  }
-  public static function createNewOTP($phone){
+  public static function generateOTP($phone){
     $otp = rand(000000,999999);
     $expire = new \DateTime();
     $expire = $expire->add(new \DateInterval('PT300S'));
     $expire = $expire->getTimestamp();
     $data = "{$phone}.{$otp}.{$expire}";
-    $hash = hash_hmac("sha256",$data, $_ENV['SECRET_KEY']);
-    $fullHash = "{$hash}.{$expire}";
-    Application::$app->setCookie("payload",$fullHash.".$phone", time() + 300);
-    return ["response" => self::SendSMS($phone, $otp), "status" => true ]; 
+    $hash = hash_hmac("sha256",$data, $_ENV['SECRET_KEY']);;
+    $hashOTP = "{$hash}.{$expire}";
+    return [$otp,$hashOTP];
   }
   public static function verifyOTP($phone, $hash, $otp){
-    $fullHash = explode(".",$hash);
-    $hashValue = $fullHash[0];
-    $expire = $fullHash[1]; 
+    $hashOTP = explode(".",$hash);
+    $hashValue = $hashOTP[0];
+    $expire = $hashOTP[1]; 
     $now = new \DateTime();
     if($now->getTimestamp() > (int)$expire) return false;
     $data = "{$phone}.{$otp}.{$expire}";
     $newHash = hash_hmac("sha256",$data, $_ENV['SECRET_KEY']);
+    $newHashOTP = "{$newHash}.{$expire}";
+    echo $newHashOTP;
     if($newHash === $hashValue) return true;
     return false;
   }
