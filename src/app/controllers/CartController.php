@@ -22,7 +22,8 @@ class CartController extends Controller {
 
     $isFind = false;
     for ($i=0; $i < count($cartItem); $i++) { 
-        if($cartItem[$i]['product_id'] == $productId) {
+        if($cartItem[$i]['product_id'] == $productId 
+        && $cartItem[$i]['store_id'] == $storeId) {
             $isFind = true;
             $amount += (int)$cartItem[$i]['quantity'];
             Cart::__self__()->updateProductToCart($userId, $productId, $storeId, $amount);

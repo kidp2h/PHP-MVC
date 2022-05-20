@@ -38,6 +38,22 @@ function handleOpenCloseModalCart() {
 }
 handleOpenCloseModalCart();
 
+function CartPageEmpty() {
+  return `    <div class="cartList__Empty">
+                  <div class="empty__logo">
+                      <i class="fas fa-shopping-bag"></i>
+              
+                  </div>
+                  <h2>YOUR CART IS EMPTY.</h2>
+                  <p>You don't have any products in the cart yet.</p>
+                  
+                  <p>You will find a lot of products on our "Shop" page.</p>
+
+                  <button onclick = " window.location.hash = '#order'">MY ORDER</button>
+                  <button onclick = " window.location.hash = '#shop'">RETURN TO SHOP</button>
+              </div>`;
+}
+
 function modalCartEmpty() {
   return `
         <div class = "modal__cart-empty">
@@ -56,7 +72,7 @@ function productItemCartModal(product) {
         </div>
         <div class="modal__cart-item-infor">
             <h3 class="modal__cart-item-name">${product.name}</h3>
-            <span class="modal__cart-item-price cartProductPrice" data-price = "${product.price}">$${product.price}</span>
+            <span class="modal__cart-item-price cartProductPrice" data-price = "${product.productPrice}">$${product.productPrice}</span>
             <div class="modal__cart-item-input">
                 <button class="cart__item-decrement"  data-id = "${product.id}" data-store = "${product.storeId}">-</button>
                 <input type="number" min="1" max="9999" step="1" value="${product.quantity}" class="cart_item-input" data-id = "${product.id}" data-store = "${product.storeId}" inputmode="numeric">
@@ -104,7 +120,7 @@ function productTotalPrice() {
   productPriceList.forEach((item, index) => {
     productPrice = item.dataset.price;
     productQuantity = productQuantityList[index].value;
-    sumPrice += parseInt(productPrice) * parseInt(productQuantity);
+    sumPrice += parseFloat(productPrice) * parseFloat(productQuantity);
   });
   return sumPrice;
 }
@@ -155,7 +171,7 @@ const eventCart = {
       lastInputValue.push(input.value);
       input.onblur = async () => {
         newInputValue = input.value;
-        if (
+        if ( 
           parseInt(newInputValue) > parseInt(input.max) ||
           parseInt(newInputValue) === parseInt(lastInputValue[index])
         )
@@ -197,12 +213,25 @@ const eventCart = {
       }
     }
   },
-  checkOutBtn() {
+ checkOutBtn() {
     if ($('.cartPage__Checkout') == null) return;
     let checkOutBtn = $('.cartPage__Checkout');
-    checkOutBtn.onclick = function () {
+    let productBox = $('.product-box');
+    let productHeader = $('.cartPage__product-header');
+    let productFooter = $('.cartPage-footer');
+    checkOutBtn.onclick = async () => {
       if (checkOut.updated) {
-        console.log('đã thanh toán');
+        productHeader.style.display = 'none';
+        productBox.innerHTML = CartPageEmpty();
+        productFooter.style.display = 'none';
+        let response = await HttpRequest({
+          url: '/order',
+          method: 'POST',
+          data: {}
+        });
+        if (response.status) {
+          console.log('đã thanh toán');
+        }
       } else {
         console.log('đợi cập nhật');
       }
