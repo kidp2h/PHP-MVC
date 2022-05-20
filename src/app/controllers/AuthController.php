@@ -9,6 +9,8 @@ use app\models\User;
 use core\Application;
 use core\Response;
 use utils\Utils;
+use DateInterval;
+use DateTime;
 
 class AuthController extends Controller {
   public static string $layout = "auth";
@@ -22,8 +24,8 @@ class AuthController extends Controller {
   }
   public static function handleSignIn(Request $request, Response $response) {
     $body = $request->body();
-    $result = Utils::verifyCaptcha($body['captcha']);
-    if (!$result["success"]) return json_encode(["status" => false, "message" => $result["error-codes"][0]]);
+    //$result = Utils::verifyCaptcha($body['captcha']);
+    //if (!$result["success"]) return json_encode(["status" => false, "message" => $result["error-codes"][0]]);
     $result = User::__self__()->checkUser($body["username"], $body["password"]);
     if ($result->status) {
       if(!$result->user->isVerified){
@@ -43,17 +45,14 @@ class AuthController extends Controller {
 
   public static function handleOAuth(Request $request, Response $response){
     $body = $request->body();
-    $user = User::__self__()->getUserByUsername($body["username"]);
-    if(!isset($user->id)){
-      $user = User::__self__()->create([
-        "username" => $body["username"],
-        "password" => Utils::hashBcrypt(rand(1000000000,9999999999)),
-        "email" => $body["email"],
-        "fullName" => $body["fullName"],
-        "isVerified" => 1
-      ]);
-    }
-    self::newAccessToken((int)$user->id);
+    $result = User::__self__()->create([
+      "username" => $body["username"],
+      "password" => Utils::hashBcrypt(rand(1000000000,9999999999)),
+      "email" => $body["email"],
+      "fullName" => $body["fullName"],
+      "isVerified" => 1
+    ]);
+    $response->statusCode(200);
     return json_encode(["status" => true, "redirect" => "/"]);
   }
 
@@ -158,41 +157,23 @@ class AuthController extends Controller {
     $tokenReset = $_POST["tokenReset"];
     var_dump(User::decodeTokenReset($tokenReset));
   }
-  
-  public static function sendOTP(Request $request, Response $response){
-    $phone = ($request->body())['phoneNumber'];
-    $result = Utils::createNewOTP($phone);
-    return json_encode($result);
-  }
-  public static function verifyOTP(Request $request, Response $response){
-    $otp = ($request->body())['otp'];
-    $payload = Application::$app->getCookie('payload');
-    $payload = explode(".",$payload);
-    $hash = "$payload[0].$payload[1]";
-    $phone = $payload[2];
-    $result = Utils::verifyOTP($phone,$hash,$otp);
-    if($result){
-      User::__self__()->update(["isActivePhone" => 1],"phoneNumber='$phone'");
-    }
-    return json_encode(["status" => $result]);
-  }   
-  public static function getAccessToken(){
-    $result = User::newAccessToken($_POST["id"]);
+  // public static function getAccessToken(){
+  //   $result = User::newAccessToken($_POST["id"]);
     
-    return json_encode($result);
-  }
-  public static function verifyAccessToken(){
-    $accessToken = $_POST["accessToken"];
-    $resultDecode = User::decodeAccessToken($accessToken);
-    if(!$resultDecode["status"])
-      return json_encode($resultDecode);
-    return json_encode($resultDecode);
-  }
-  public static function verifyRefreshToken(){
-    $refreshToken = $_POST["refreshToken"];
-    $resultDecode = User::verifyRefreshToken($refreshToken);
-    if($resultDecode)
-      return json_encode(["status" => true]);
-    return json_encode(["status" => $resultDecode["status"], "message" => $resultDecode[""]]);   
-  }
+  //   return json_encode($result);
+  // }
+  // public static function verifyAccessToken(){
+  //   $accessToken = $_POST["accessToken"];
+  //   $resultDecode = User::decodeAccessToken($accessToken);
+  //   if(!$resultDecode["status"])
+  //     return json_encode($resultDecode);
+  //   return json_encode($resultDecode);
+  // }
+  // public static function verifyRefreshToken(){
+  //   $refreshToken = $_POST["refreshToken"];
+  //   $resultDecode = User::verifyRefreshToken($refreshToken);
+  //   if($resultDecode)
+  //     return json_encode(["status" => true]);
+  //   return json_encode(["status" => $resultDecode["status"], "message" => $resultDecode[""]]);   
+  // }
 }

@@ -14,7 +14,6 @@ class User extends Model {
   public string $email;
   public string $fullName;
   public ?string $phoneNumber;
-  public bool $isActivePhone;
   public ?string $address;
   public bool $isVerified;
   public ?string $tokenVerify;
@@ -30,13 +29,12 @@ class User extends Model {
     return new static();
   }
 
-  public function fillInstance($username, $password, $email, $fullName, $phoneNumber = NULL, $isActivePhone, $address = NULL, $isVerified = false, $tokenVerify = NULL) {
+  public function fillInstance($username, $password, $email, $fullName, $phoneNumber = NULL, $address = NULL, $isVerified = false, $tokenVerify = NULL) {
     $this->user->username = $username;
     $this->user->password = $password;
     $this->user->email = $email;
     $this->user->fullName = $fullName;
     $this->user->phoneNumber = $phoneNumber;
-    $this->user->isActivePhone = $isActivePhone;
     $this->user->address = $address;
     $this->user->isVerified = $isVerified;
     $this->user->tokenVerify = $tokenVerify;
@@ -85,7 +83,6 @@ class User extends Model {
     array_key_exists("email",$data) == true ? $user->email = $data["email"] : null;
     array_key_exists("fullName",$data) == true ? $user->fullName = $data["fullName"] : null;
     array_key_exists("phoneNumber",$data) == true ? $user->phoneNumber = $data["phoneNumber"] : null;
-    array_key_exists("isActivePhone",$data) == true ? $user->isActivePhone = $data["isActivePhone"] : null;
     array_key_exists("address",$data) == true ? $user->address = $data["address"] : null;
     array_key_exists("permission",$data) == true ? $user->permission = $data["permission"] : null;
     array_key_exists("isVerified",$data) == true ? $user->isVerified = $data["isVerified"] : null;
@@ -191,14 +188,21 @@ class User extends Model {
     );
   }
   public static function sendCodeOTP($phone){
-    
+    //... send otp to phone user
+    $result = Utils::generateOTP($phone);
+    $otp = $result[0];
+    $hash = $result[1];
+    echo "{$otp}\n{$hash}\n";
+    Utils::verifyOTP($phone, $hash, $otp);
+    exit;
+    return $phone;
   }
 
   public static function newAccessToken(int $id) {
     $baseUrl = $_ENV["BASE_URL"];
     $secretKey = Utils::hashBcrypt($_ENV["SECRET_KEY"]);
     $now = new DateTime();
-    $expire = ($now->add(new \DateInterval("PT300000S")))->getTimestamp();
+    $expire = ($now->add(new \DateInterval("PT300S")))->getTimestamp();
     $user = User::__self__()->read(["*"],"id=$id");
     if(!isset($user)){
       return ["status" => false, "message" => "Invalid id"];
@@ -219,9 +223,7 @@ class User extends Model {
     $arrayHash = explode(".&$@",$accessToken);
     $secretKeyHash = $arrayHash[3];
     $now = (new DateTime())->getTimestamp();
-    //echo $secretKeyHash;
-    //echo !Utils::verifyBcrypt($secretKeyHash, $_ENV["SECRET_KEY"]);
-    if(count($arrayHash)  != 4 || !Utils::verifyBcrypt($secretKeyHash, $_ENV["SECRET_KEY"]))
+    if(count($arrayHash)  != 4 || !Utils::verifyBcrypt($secretKeyHash, $_ENV["SECRET_KEY"])) 
       return ["status" => false, "message" => "Invalid Access Token", "error-code" => -1];
     if(count($arrayHash) == 4) {
       $hash = $arrayHash[0];
@@ -238,7 +240,7 @@ class User extends Model {
       if($now > (int)$expire) return ["status" => false, "id" => $id ,"message" => "This access token is expire", "error-code" => 0];
 
       $data = hash_hmac("sha256","$baseUrl.$info.$expire" ,$_ENV["SECRET_KEY"]);
-      if($data == $hash) return ["status" => true, "id" => $id, "user" => $user];
+      if($data == $hash) return ["status" => true, "id" => $id, "result" => json_decode($info)];
     }
     return ["status" => false, "message" => "Invalid Access Token", "error-code" => 999];
   }

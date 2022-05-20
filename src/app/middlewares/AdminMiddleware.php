@@ -7,7 +7,7 @@ use app\models\User;
 use core\Request;
 use core\Response;
 
-class AuthMiddleware {
+class AdminMiddleware {
   public static function isAuth(Request $request, Response $response) : callable | bool {
     $result = User::decodeAccessToken($_COOKIE['accessToken']);
     
