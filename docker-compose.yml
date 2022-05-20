@@ -9,6 +9,9 @@ services:
       - 80:80
     volumes:
       - ./src:/var/www/html
+    networks:
+      php_network:
+        ipv4_address: 172.26.22.100
   phpmyadmin:
     container_name: phpmyadmin
     image: phpmyadmin
@@ -19,6 +22,9 @@ services:
       PMA_HOST: ${HOST_MYSQL}
       PMA_USER: ${USERNAME_MYSQL}
       PMA_PASSWORD: ${PASSWORD_MYSQL}
+    networks:
+      php_network:
+        ipv4_address: 172.26.22.101
   db:
     image: mysql
     build:
@@ -33,6 +39,9 @@ services:
       MYSQL_ROOT_HOST: '%'
     volumes:
       - ./db:/var/lib/mysql
+    networks:
+      php_network:
+        ipv4_address: 172.26.22.102
   node:
     container_name: node
     build:
@@ -42,3 +51,13 @@ services:
       - 5000:5000
     volumes:
       - ./src/server/socket/:/app
+    networks:
+      php_network:
+        ipv4_address: 172.26.22.103
+networks:
+  php_network:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.26.22.0/24

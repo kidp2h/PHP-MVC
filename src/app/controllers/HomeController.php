@@ -4,33 +4,31 @@ namespace app\controllers;
 
 use app\models\Category;
 use app\models\Store;
-
+use app\models\User;
 use core\Application;
 use core\Controller;
 
 
 class HomeController extends Controller
 {
+  public static array $paramsLayout = ["title" => "Home"];
   public static function home()
   {
+    $user = null;
+    if(isset($_COOKIE["accessToken"])){
+      $result = User::__self__()->decodeAccessToken($_COOKIE["accessToken"]);
+      if($result["status"]){
+        $user = $result["user"];
+
+      }
+    } 
     $body = Application::Instance()->request->body();
     if (!isset($body['store'])) $body['store'] = 1;
-    $categories = Category::__self__()->getCategoryListByStore($body['store']);
-    $stores = Store::__self__()->getStoreList();
-    $banner = Store::__self__()->getBannerStore($body['store']);
-
-
-
     $params = [
-      'name' => $_COOKIE["username"],
-      'categories' => $categories,
-      'slides' => $banner
+      'user' => $user
     ];
-
-
-
-    $paramsLayout = ['storeCurrent' => $body['store'], 'stores' => $stores];
-
+    $paramsLayout = ['user' => $user];
+    
     return parent::render('home', $params, $paramsLayout);
   }
 

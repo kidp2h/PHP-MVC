@@ -2,7 +2,7 @@ const showToast = (
   type,
   message,
   icon = 'ion-alert-circled',
-  duration = 4000
+  duration = 5000
 ) => {
   let toast = document.createElement('div');
   const toasts = $('#toasts');
