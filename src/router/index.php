@@ -20,7 +20,7 @@ $app->router->get("/resetPassword/{tokenReset:.*}", [[AuthMiddleware::class, "is
 $app->router->post("/resetPassword", [[AuthMiddleware::class, "isLogout"], [AuthMiddleware::class, "isTokenReset"]], [AuthController::class, "handleResetPassword"]);
 $app->router->get("/forgotPassword", [[AuthMiddleware::class, "isLogout"]], [AuthController::class, "forgotPassword"]);
 $app->router->post("/forgotPassword", [[AuthMiddleware::class, "isLogout"]], [AuthController::class, "handleForgotPassword"]);
-$app->router->get("/verify",[[AuthMiddleware::class, "isLogout"]], [AuthController::class, "handleVerifyAccount"]);
+$app->router->get("/verify/{token:.*}",[[AuthMiddleware::class, "isLogout"]], [AuthController::class, "handleVerifyAccount"]);
 $app->router->post("/getTokenReset", [AuthController::class, "getTokenReset"]);
 $app->router->post("/verifyTokenReset", [AuthController::class, "verifyTokenReset"]);
 $app->router->post("/sendOTP", [AuthController::class, "sendOTP"]);

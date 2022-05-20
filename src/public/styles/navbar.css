@@ -512,14 +512,19 @@ body.active {
 }
 .btn-send-sms {
   text-align: center;
+  width: 100px !important;
+  max-width: 100px !important;
+  min-width: 100px !important;
+  user-select: none;
+  -webkit-user-select: none;
 }
 .btn-send-sms.disabled {
   color: white !important;
   cursor: not-allowed !important;
   background-color: transparent !important;
-  max-width: 50px;
-  width: 50px;
-  min-width: 50px;
+  min-width: 100px;
+  max-width: 100px;
+  width: 100px;
 }
 .btn-send-sms.disabled:hover a {
   color: white !important;

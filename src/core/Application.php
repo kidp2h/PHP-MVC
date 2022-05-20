@@ -2,6 +2,7 @@
 namespace core;
 
 use app\models\User;
+use app\models\Cart;
 use database\Database;
 use Dotenv\Dotenv;
 use SendGrid\Mail\Mail;
@@ -21,6 +22,7 @@ class Application {
   public static Mail $mail;
   public __Socket__ $socket;
   public static ?User $user;
+  public static ?Cart $cart;
   public $db;
 
   public function __construct($rootPath) {
@@ -58,6 +60,8 @@ class Application {
             $id = $data["id"];
             $this->session->set("id", $id);
             self::$user = $data["user"];
+            //TODO: getCart and assign it to $cart
+            // self::$cart = cart
           }
         }
       }else{
