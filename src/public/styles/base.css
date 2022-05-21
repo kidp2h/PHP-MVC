@@ -17,6 +17,9 @@
 body::-webkit-scrollbar {
   display: none;
 }
+.__modal__body::-webkit-scrollbar {
+  display: none;
+}
 input,
 textarea,
 select,

@@ -72,6 +72,7 @@ class Application {
             $id = $data["id"];
             $this->session->set("id", $id);
             self::$user = $data["user"];
+
             //TODO: getCart and assign it to $cart
             // self::$cart = cart
           }

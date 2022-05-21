@@ -85,7 +85,6 @@ class Utils {
     $data = "{$phone}.{$otp}.{$expire}";
     $newHash = hash_hmac("sha256",$data, $_ENV['SECRET_KEY']);
     $newHashOTP = "{$newHash}.{$expire}";
-    echo $newHashOTP;
     if($newHash === $hashValue) return true;
     return false;
   }
