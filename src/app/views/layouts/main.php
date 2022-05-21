@@ -1,3 +1,8 @@
+
+  
+<?php use core\Application; 
+try {
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -41,10 +46,38 @@
         <label for="password" class="label-input">Password</label>
         <span class="validate-message">Error</span>
         <div class="group-input">
-          <input spellcheck="false"  type="password" class="form-input status-valid" id="password" name="password" placeholder="Password" />
-          <i class="ion-eye showPassword"></i>
-          <input type="checkbox" name="" id="" style="display: none;" checked>
+          <input spellcheck="false"  type="number" min="0"  class="form-input <?= Application::$user->isActivePhone ? "input-disabled" : "" ?>" id="phoneNumber" name="phoneNumber" placeholder="Phone Number" value="<?=Application::$user->phoneNumber?>" <?= Application::$user->isActivePhone ? "disabled" : null?>/>
+          
+          <?php if(Application::$user->isActivePhone){ ?>
+            <span class="status__active">
+              <i class="ion-ios-checkmark"></i>
+              Actived
+            </span>
+          <?php }else { ?>
+            <div class="btn__input btn-send-sms"><a href="javascript:void(0)">SEND OTP</a></div>
+          <?php } ?>
         </div>
+      </div>
+      <?php if(!Application::$user->isActivePhone){ ?>
+      <div class="form-group">
+        <label for="otp" class="label-input">OTP</label>
+        <div class="group-input">
+          <input spellcheck="false"  type="number" min="0" class="form-input" oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" id="otp" name="otp" placeholder="OTP" value=""/>
+          <div class="btn__input btn-active-sms"><a href="javascript:void(0)">Active</a></div>
+        </div>
+      </div>
+      <?php } ?>
+      <div class="form-group">
+        <label for="address" class="label-input">Address</label>
+        <div class="group-input">
+          <input spellcheck="false"  type="text" class="form-input" id="address" name="address" placeholder="Address" value="<?=Application::$user->address?>"/>
+        </div>
+      </div>
+    </div>
+    <div class="modal__footer">
+      <div class="btn__modal btn-cancel">Cancel</div>
+      <div class="btn__modal btn-save-changes">
+        Save changes 
       </div>
     </div>
     <div class="modal__footer"></div>
@@ -292,44 +325,66 @@
   </div>
 
   <div class="modal">
-            <div class="modal__overlay"></div>
+    <div class="modal__overlay"></div>
 
-            <div class="modal__cart active">
-            <div class="modal__cart-header">
-                <h1>CART PRODUCTS</h1>
-                <button class="btn-exist">
-                    <i class="ion-close-round"></i>
-                </button>
-            </div>
-            
-            <div class="box">
-                <ul class="modal__cart-product-box">
-                </ul>
-            </div>
-
-            <div class="modal__cart-footer" style="display: none;">
-                <div class="modal__cart-subtotal">
-                    <h3 class="subtotal-text">Subtotal:</h3>
-                    <span class="modal__cart-subtotal-all"></span>
-                </div>
-                <div class="modal__cart-view-cart">
-                    <span class="modal__cart-view-cart-btn">
-                     <a href="/cart">VIEW CART</a></span>
-                </div>
-            </div>
+      <div class="modal__cart active">
+        <div class="modal__cart-header">
+          <h1>CART PRODUCTS</h1>
+          <button class="btn-exist">
+            <i class="ion-close-round"></i>
+          </button>
         </div>
             
-            <div class="modal__noti glassmorphism ">
-                <div class="modal-noti__logo">
-                    <i class="far fa-check-circle" id="icon-success"></i>
-                    <i class="fas fa-times" id="icon-error"></i>
-                </div> 
-                <input type="text">   
-                <h2 class="modal-noti__disc success"></h2>
-                <h2 class="modal-noti__disc error"></h2>
-                <button class="btn-noti glassmorphism ">OK</button>
-            </div> 
+        <div class="box">
+          <ul class="modal__cart-product-box">
+          </ul>
         </div>
+
+        <div class="modal__cart-footer" style="display: none;">
+          <div class="modal__cart-subtotal">
+            <h3 class="subtotal-text">Subtotal:</h3>
+            <span class="modal__cart-subtotal-all"></span>
+          </div>
+          <div class="modal__cart-view-cart">
+            <span class="modal__cart-view-cart-btn">
+              <a href="/cart">VIEW CART</a>
+            </span>
+          </div>
+        </div>
+      </div>
+            
+      <div class="box">
+        <ul class="modal__cart-product-box">
+          <?php 
+            if(isset(Application::$cart)){
+              
+            }
+          ?>
+        </ul>
+      </div>
+
+        <div class="modal__cart-footer" style="display: none;">
+          <div class="modal__cart-subtotal">
+            <h3 class="subtotal-text">Subtotal:</h3>
+            <span class="modal__cart-subtotal-all"></span>
+          </div>
+          <div class="modal__cart-view-cart">
+            <span class="modal__cart-view-cart-btn">
+            <a href="/cart">VIEW CART</a></span>
+          </div>
+        </div>
+      </div> 
+      <div class="modal__noti glassmorphism ">
+        <div class="modal-noti__logo">
+          <i class="far fa-check-circle" id="icon-success"></i>
+          <i class="fas fa-times" id="icon-error"></i>
+        </div> 
+        <input type="text">   
+        <h2 class="modal-noti__disc success"></h2>
+        <h2 class="modal-noti__disc error"></h2>
+        <button class="btn-noti glassmorphism ">OK</button>
+      </div> 
+  </div>
 
 </body>
 
@@ -345,3 +400,11 @@
   integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
 </html>
+<?php } catch (\Throwable $th){
+
+var_dump($th);
+}
+
+  //throw $th;
+
+?>

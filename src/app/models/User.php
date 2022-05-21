@@ -113,6 +113,8 @@ class User extends Model {
     $arrayHash = explode(".&$$@",$tokenReset);
     $secretKeyHash = $arrayHash[3];
     $now = (new DateTime())->getTimestamp();
+    var_dump($arrayHash);
+    exit;
     if(count($arrayHash)  != 4 || !Utils::verifyBcrypt($secretKeyHash, $_ENV["SECRET_KEY"])) 
       return ["status" => false, "message" => "Invalid Token", "error-code" => -1];
     if(count($arrayHash) == 4) {
@@ -248,6 +250,6 @@ class User extends Model {
   public function getUserByUsername($username){
     $sql = self::$db->query("SELECT * FROM user WHERE user.username = '$username'");
     while($row = mysqli_fetch_array($sql,1)) $data = $row;
-    return $data;
+    return $this->resolve($data);
   }
 }

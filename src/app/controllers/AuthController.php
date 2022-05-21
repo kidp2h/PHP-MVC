@@ -14,10 +14,10 @@ use DateTime;
 
 class AuthController extends Controller {
   public static string $layout = "auth";
-  // public static array $params = [];
-  // public static array $paramsLayout = [];
+  public static array $params = [];
+  public static array $paramsLayout = [];
   public static function signin() {
-    return parent::render('signin',["title" => "Sign In"]);
+    return parent::render('signin',[],["title" => "Sign In"]);
   }
   public static function useHook() {
     self::$params = ['SITE_KEY' => $_ENV["GC_SITE_KEY"], 'SECRET_KEY' => $_ENV["GC_SECRET_KEY"]];
@@ -40,7 +40,7 @@ class AuthController extends Controller {
     } else return json_encode(["status" => false, "message" => "Username or password is wrong"]);
   }
   public static function signup(Request $request) {
-    return parent::render("signup",["title" => "Sign Up"]);
+    return parent::render("signup",[],["title" => "Sign Up"]);
   }
 
   public static function handleOAuth(Request $request, Response $response){
@@ -64,7 +64,8 @@ class AuthController extends Controller {
       "username" => $body["username"],
       "password" => Utils::hashBcrypt($body["password"]),
       "email" => $body["email"],
-      "fullName" => $body["fullName"]
+      "fullName" => $body["fullName"],
+      "tokenVerify" => Utils::v4()
     ]);
     if($result->status) {
       $response->statusCode(200);
@@ -111,6 +112,8 @@ class AuthController extends Controller {
       $confirmNewPassword = $body["confirmNewPassword"];
       if(!empty($newPassword) && !empty($confirmNewPassword) && $newPassword == $confirmNewPassword){
         $resultToken = User::decodeTokenReset($tokenReset);
+        var_dump($resultToken);
+        exit;
         if($resultToken["status"]){
           // TODO: update new password
           $id = $resultToken["user"]->id;
@@ -157,23 +160,57 @@ class AuthController extends Controller {
     $tokenReset = $_POST["tokenReset"];
     var_dump(User::decodeTokenReset($tokenReset));
   }
-  // public static function getAccessToken(){
-  //   $result = User::newAccessToken($_POST["id"]);
+  
+  public static function sendOTP(Request $request, Response $response){
+    $phone = ($request->body())['phoneNumber'];
+    $id = Application::$app->session->get("id");
+    $resultUpdate = User::__self__()->update(["phoneNumber" => "$phone"],"id=$id");
+    if($resultUpdate){
+      $result = Utils::createNewOTP($phone);
+      return json_encode($result);
+    }else return json_encode(["status" => false, "message" => "Phone number is exist, please try again !!"]);
+
+  }
+  public static function verifyOTP(Request $request, Response $response){
+    $otp = ($request->body())['otp'];
+    $payload = Application::$app->getCookie('payload');
+    $payload = explode(".",$payload);
+    $hash = "$payload[0].$payload[1]";
+    $phone = $payload[2];
+    $result = Utils::verifyOTP($phone,$hash,$otp);
+    if($result){
+      User::__self__()->update(["isActivePhone" => 1],"phoneNumber='$phone'");
+    }
+    return json_encode(["status" => $result]);
+  }   
+  public static function getAccessToken(){
+    $result = User::newAccessToken($_POST["id"]);
     
-  //   return json_encode($result);
-  // }
-  // public static function verifyAccessToken(){
-  //   $accessToken = $_POST["accessToken"];
-  //   $resultDecode = User::decodeAccessToken($accessToken);
-  //   if(!$resultDecode["status"])
-  //     return json_encode($resultDecode);
-  //   return json_encode($resultDecode);
-  // }
-  // public static function verifyRefreshToken(){
-  //   $refreshToken = $_POST["refreshToken"];
-  //   $resultDecode = User::verifyRefreshToken($refreshToken);
-  //   if($resultDecode)
-  //     return json_encode(["status" => true]);
-  //   return json_encode(["status" => $resultDecode["status"], "message" => $resultDecode[""]]);   
-  // }
+    return json_encode($result);
+  }
+  public static function verifyAccessToken(){
+    $accessToken = $_POST["accessToken"];
+    $resultDecode = User::decodeAccessToken($accessToken);
+    if(!$resultDecode["status"])
+      return json_encode($resultDecode);
+    return json_encode($resultDecode);
+  }
+  public static function verifyRefreshToken(){
+    $refreshToken = $_POST["refreshToken"];
+    $resultDecode = User::verifyRefreshToken($refreshToken);
+    if($resultDecode)
+      return json_encode(["status" => true]);
+    return json_encode(["status" => $resultDecode["status"], "message" => $resultDecode[""]]);   
+  }
+  public static function handleVerifyAccount(Request $request, Response $response){
+    $tokenVerify = $request->param("token");
+    $result = User::__self__()->read(["*"], "tokenVerify='$tokenVerify'");
+    if($result){
+      User::__self__()->update(["isVerified" => 1], "tokenVerify='$tokenVerify'");
+      $response->redirect("/signin");
+    }else {
+      parent::$layout = "";
+      return parent::render("404");
+    }
+  }
 }
