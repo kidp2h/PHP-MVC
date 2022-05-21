@@ -29,7 +29,13 @@ class AuthMiddleware {
     if($requestPending){
       return true;
     }
-
     return fn() => $response->redirect("/signin");
+  }
+  public static function isTokenExpire(Request $request, Response $response) : callable | bool {
+    $result = User::decodeAccessToken($_COOKIE['accessToken']);
+    if($result["error-code"] == 0 && !$result["status"]) {
+      AuthController::newAccessToken($_SESSION["id"]);
+    }
+    return true;
   }
 }
