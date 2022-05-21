@@ -48,25 +48,36 @@
             Price($)
             <i class="fas fa-sort"></i>
           </th>
-          <th class="sort sortSale col4">
+          <!-- <th class="sort sortSale col4">
             <input type="radio" name="sort" value="" />
             Sale($)
             <i class="fas fa-sort"></i>
-          </th>
-          <th class="sort sortRate col5">
+          </th> -->
+          <!-- <th class="sort sortRate col5">
             <input type="radio" name="sort" value="" />
             Rate
             <i class="fas fa-sort"></i>
-          </th>
+          </th> -->
           <th>Action</th>
         </tr>
       </thead>
-      <tbody></tbody>
+      <tbody>
+
+        <?php 
+          use core\Application;
+
+          foreach($products as $product) {
+            
+          }
+        ?>
+
+
+      </tbody>
     </table>
   </div>
   <div class="actionProduct table-action">
     <div>
-      <span class="btn-table-action add-product"><i class="fas fa-plus"></i></span>
+      <span class="btn-table-action add-product"><i class="ion-plus-round"></i></span>
     </div>
     <div class="pagination page-product" style="float: right">
       <input type="hidden" class="currentPage" value="1" />

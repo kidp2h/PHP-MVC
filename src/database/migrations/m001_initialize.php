@@ -23,7 +23,6 @@ class m001_initialize implements IMigration {
   }
 
   public function up(){
-    // self::$con->multi_query()
     self::$con->multi_query("CREATE DATABASE IF NOT EXISTS `shop`;
                             CREATE TABLE IF NOT EXISTS `shop`.`user`(
                             `id` INT(255) NOT NULL AUTO_INCREMENT,

@@ -9,6 +9,8 @@ use app\models\User;
 use core\Application;
 use core\Response;
 use utils\Utils;
+use DateInterval;
+use DateTime;
 
 class AuthController extends Controller {
   public static string $layout = "auth";
@@ -22,8 +24,8 @@ class AuthController extends Controller {
   }
   public static function handleSignIn(Request $request, Response $response) {
     $body = $request->body();
-    $result = Utils::verifyCaptcha($body['captcha']);
-    if (!$result["success"]) return json_encode(["status" => false, "message" => $result["error-codes"][0]]);
+    //$result = Utils::verifyCaptcha($body['captcha']);
+    //if (!$result["success"]) return json_encode(["status" => false, "message" => $result["error-codes"][0]]);
     $result = User::__self__()->checkUser($body["username"], $body["password"]);
     if ($result->status) {
       if(!$result->user->isVerified){
@@ -43,17 +45,14 @@ class AuthController extends Controller {
 
   public static function handleOAuth(Request $request, Response $response){
     $body = $request->body();
-    $user = User::__self__()->getUserByUsername($body["username"]);
-    if(!isset($user->id)){
-      $user = User::__self__()->create([
-        "username" => $body["username"],
-        "password" => Utils::hashBcrypt(rand(1000000000,9999999999)),
-        "email" => $body["email"],
-        "fullName" => $body["fullName"],
-        "isVerified" => 1
-      ]);
-    }
-    self::newAccessToken((int)$user->id);
+    $result = User::__self__()->create([
+      "username" => $body["username"],
+      "password" => Utils::hashBcrypt(rand(1000000000,9999999999)),
+      "email" => $body["email"],
+      "fullName" => $body["fullName"],
+      "isVerified" => 1
+    ]);
+    $response->statusCode(200);
     return json_encode(["status" => true, "redirect" => "/"]);
   }
 

@@ -1,6 +1,6 @@
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
-let tempInterval = null;
+
 const HttpRequest = async (
   options = { url: '', method: 'GET', data: null, headers: {} }
 ) => {

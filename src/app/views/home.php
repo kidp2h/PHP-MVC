@@ -81,6 +81,5 @@
     </div>
 
     <div class="btn btn-load">Load More</div>
-    <?= $name ?>
   </div>
 </div>
