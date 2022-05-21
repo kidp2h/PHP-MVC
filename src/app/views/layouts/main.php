@@ -31,12 +31,14 @@ try {
   <link rel="stylesheet" href="/public/styles/cart/cartPage.css">
   <link rel="stylesheet" href="/public/styles/cart/modalCart.css">
   <link rel="stylesheet" href="/public/styles/cart/modalStyle.css">
+  <link rel="stylesheet" href="/public/styles/order/orderPage.css">
+  <link rel="stylesheet" href="/public/styles/order/rp.css">
   <link rel="stylesheet" href="/public/styles/order/index.css">
 </head>
 
 <body>
 
-  <!-- <div class="__modal" id="modal__information">
+  <div class="__modal" id="modal__information">
     <div class="modal__header">
       <h1>Information</h1>
     </div>
@@ -81,7 +83,7 @@ try {
       </div>
     </div>
     <div class="modal__footer"></div>
-  </div> -->
+  </div>
 
 
   <div class="navigation">
@@ -394,11 +396,11 @@ try {
 <script src="/public/javascripts/shop/appli.js"></script>
 <script src="/public/javascripts/detail/detail.js"></script>
 <script src="/public/javascripts/cart/cartEvent.js"></script>
-
+<script src="/public/javascripts/order/order.js"></script>
+<script src="/public/javascripts/toast.js"></script>
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
   integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
 </html>
 <?php } catch (\Throwable $th){
 

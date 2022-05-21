@@ -1,3 +1,8 @@
+<?php
+    if($productList == null){
+        $display = 'none';
+    } else $display = 'flex';
+?>
 <div id="cartPage">
     <div class="banner">
         <div class="banner__header">
@@ -9,7 +14,7 @@
     </div>
 
     <div class="cartList__box">
-        <div class="cartPage__product-header">
+        <div class="cartPage__product-header" style="display: <?=$display?>;">
             <div class="cartPage__product-title">PRODUCT</div>
             <div class="cartPage__product-price">PRICE</div>
             <div class="cartPage__product-quantity">QUANTITY</div>
@@ -17,46 +22,59 @@
         </div>
         <div class="product-box">
         <?php 
-            forEach($productList as $product) {
-                $product['image'] = json_decode($product['image']);
-                echo ' 
-                <div class="cartPage__product cartProduct">
-                    <div class="cartPage__product-item">
-                        <div class="cartPage__product-imgBox">
-                            <img class="cartPage__product-img" src="'.$product['image'][0].'" alt="">
-                        </div>
-
-                        <div class="cartPage__product-item-infor">
-                            <h3 class="cartPage__product-name">
-                                '.$product['name'].'
-                            </h3>
-                        
-                            <div class="modal__cart-delete-icon">
-                            <i class="ion-trash-a deleteIcon" data-id="'.$product['id'].'" data-store = "'.$product['storeId'].'"></i>
+            if($productList == null) {
+                echo '<div class="cartList__Empty">
+                <div class="empty__logo">
+                    <i class="fas fa-shopping-bag"></i>
+                </div>
+                <h2>YOUR CART IS EMPTY</h2>
+                <p>You will find a lot of products on our "Shop" page.</p>
+                <button>MY ORDER</button>
+                <button>RETURN TO SHOP</button>
+                ';
+            }
+            else{
+                forEach($productList as $product) {
+                    $product['image'] = json_decode($product['image']);
+                    echo ' 
+                    <div class="cartPage__product cartProduct">
+                        <div class="cartPage__product-item">
+                            <div class="cartPage__product-imgBox">
+                                <img class="cartPage__product-img" src="'.$product['image'][0].'" alt="">
+                            </div>
+    
+                            <div class="cartPage__product-item-infor">
+                                <h3 class="cartPage__product-name">
+                                    '.$product['name'].'
+                                </h3>
+                            
+                                <div class="modal__cart-delete-icon">
+                                <i class="ion-trash-a deleteIcon" data-id="'.$product['id'].'" data-store = "'.$product['storeId'].'"></i>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="cartPage__product-item-price">
-                        <span class="cartPage__product-cost cartProductPrice" data-price = "'.$product['price'].'">$'.$product['price'].'</span>
-                    </div>
-                    <div class="cartPage__item-input">                           
-                        <div class="modal__cart-item-input">
-                            <button class="cart__item-decrement" data-id="'.$product['id'].'" data-store = "'.$product['storeId'].'">-</button>
-                            <input type="number" min="1" max="9999" step="1" value="'.$product['quantity'].'" class="cart_item-input" data-id="'.$product['id'].'" data-store = "'.$product['storeId'].'" inputmode="numeric">
-                            <button class="cart__item-increment" data-id="'.$product['id'].'" data-store = "'.$product['storeId'].'">+</button>
+                        <div class="cartPage__product-item-price">
+                            <span class="cartPage__product-cost cartProductPrice" data-price = "'.$product['productPrice'].'">$'.$product['productPrice'].'</span>
                         </div>
-                    </div>                             
-                    <div class="cartPage__product-total">
-                        <span class="cartPage__product-total-cost">$'.$product['price']*$product['quantity'].'</span>
+                        <div class="cartPage__item-input">                           
+                            <div class="modal__cart-item-input">
+                                <button class="cart__item-decrement" data-id="'.$product['id'].'" data-store = "'.$product['storeId'].'">-</button>
+                                <input type="number" min="1" max="9999" step="1" value="'.$product['quantity'].'" class="cart_item-input" data-id="'.$product['id'].'" data-store = "'.$product['storeId'].'" inputmode="numeric">
+                                <button class="cart__item-increment" data-id="'.$product['id'].'" data-store = "'.$product['storeId'].'">+</button>
+                            </div>
+                        </div>                             
+                        <div class="cartPage__product-total">
+                            <span class="cartPage__product-total-cost">$'.$product['productPrice']*$product['quantity'].'</span>
+                        </div>
                     </div>
-                </div>
-                ';
+                    ';
+                }
             } 
         ?>
         </div>
     </div>
 
-    <div class="cartPage-footer" style="display: flex;">
+    <div class="cartPage-footer" style="display: <?=$display?>;">
         <div class="cartPage__Subtotal">
             <h3 class="cartPage__Subtotal-text">Subtotal:</h3>
             <div class="cartPage__Subtotal-number"><?= $cartTotalPrice['totalPrice'] ?></div>
