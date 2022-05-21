@@ -112,8 +112,6 @@ class AuthController extends Controller {
       $confirmNewPassword = $body["confirmNewPassword"];
       if(!empty($newPassword) && !empty($confirmNewPassword) && $newPassword == $confirmNewPassword){
         $resultToken = User::decodeTokenReset($tokenReset);
-        var_dump($resultToken);
-        exit;
         if($resultToken["status"]){
           // TODO: update new password
           $id = $resultToken["user"]->id;
