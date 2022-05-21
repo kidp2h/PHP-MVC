@@ -45,14 +45,17 @@ class AuthController extends Controller {
 
   public static function handleOAuth(Request $request, Response $response){
     $body = $request->body();
-    $result = User::__self__()->create([
-      "username" => $body["username"],
-      "password" => Utils::hashBcrypt(rand(1000000000,9999999999)),
-      "email" => $body["email"],
-      "fullName" => $body["fullName"],
-      "isVerified" => 1
-    ]);
-    $response->statusCode(200);
+    $user = User::__self__()->getUserByUsername($body["username"]);
+    if(!isset($user->id)){
+      $user = User::__self__()->create([
+        "username" => $body["username"],
+        "password" => Utils::hashBcrypt(rand(1000000000,9999999999)),
+        "email" => $body["email"],
+        "fullName" => $body["fullName"],
+        "isVerified" => 1
+      ]);
+    }
+    self::newAccessToken((int)$user->id);
     return json_encode(["status" => true, "redirect" => "/"]);
   }
 
@@ -210,5 +213,27 @@ class AuthController extends Controller {
       parent::$layout = "";
       return parent::render("404");
     }
+  }
+
+  public static function handleSaveChanges(Request $request, Response $response){
+    $body = $request->body();
+    $user = Application::$user;
+    $id = $user->id;
+    $arraySet = [];
+    foreach ($body as $key => $value) {
+      if($value !== "" && $value !== $user->$key){
+
+        if($key == "password"){
+          $arraySet[$key] = Utils::hashBcrypt($value);
+        }else {
+          $arraySet[$key] = $value;
+        }
+      }
+    }
+    if(count($arraySet) > 0 ){
+      User::__self__()->update($arraySet, "id=$id");
+    }
+    self::newAccessToken($id);
+    return json_encode(["status" => true, "message" => "Update information successfully !!"]);
   }
 }

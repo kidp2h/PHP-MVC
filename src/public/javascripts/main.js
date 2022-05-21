@@ -1,3 +1,15 @@
+let validateInformation = {
+  password: {
+    min: 3,
+    max: 9999999999999,
+    message: 'Your password is too short',
+  },
+  confirmNewPassword: {
+    match: 'password',
+    message: 'Confirm password is not same',
+  },
+};
+
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
 
@@ -46,7 +58,7 @@ function validate(fields, validate) {
     if (
       !input.value ||
       input.value.length < validate[selector]?.min ||
-      input.value.length > validateSignIn[selector]?.max
+      input.value.length > validate[selector]?.max
     ) {
       showMessageValidator(status, selector, validate);
     }
@@ -112,8 +124,29 @@ $('.btn-cancel')
     })
   : null;
 $('.btn-save-changes')
-  ? ($('.btn-save-changes').onclick = function () {
-      showToast('success', 'Update information successfully !');
+  ? ($('.btn-save-changes').onclick = async function () {
+      let fields = ['password', 'confirmNewPassword'];
+      let password = $('#password').value;
+      let confirmNewPassword = $('#confirmNewPassword').value;
+      let status = [];
+      if (password !== '' || confirmNewPassword !== '') {
+        status = validate(fields, validateInformation);
+      }
+      if (status.length == 0) {
+        let fullName = $('#fullName').value;
+        let phoneNumber = $('#phoneNumber').value;
+        let address = $('#address').value;
+        let response = await HttpRequest({
+          url: '/saveChanges',
+          method: 'POST',
+          data: { password, phoneNumber, address, fullName },
+        });
+        if (response.status) {
+          showToast('success', 'Update information successfully !');
+        } else {
+          showToast('error', 'Not found error, please contact developer !');
+        }
+      }
     })
   : null;
 $('.btn-send-sms')
