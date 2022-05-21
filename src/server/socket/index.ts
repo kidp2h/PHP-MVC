@@ -1,8 +1,10 @@
 import http from 'http';
 import { Server } from 'socket.io';
-import queryString from 'query-string';
 import { SMS } from './helper/SocketIO/SMS';
 
+type PhoneNumber = {
+  phoneNumber: string;
+};
 function getReqData(req: http.IncomingMessage) {
   return new Promise<string>((resolve, reject) => {
     try {
@@ -27,15 +29,8 @@ const server = http.createServer(async (req, res) => {
   if (req.url == '/emitMessage' && req.method == 'POST') {
     res.writeHead(200, { 'Content-Type': 'application/json' });
     let body: string = await getReqData(req);
-    let result;
-    try {
-      result = JSON.parse(JSON.stringify(queryString.parse(body)));
-      console.log(result);
-    } catch (error) {
-      console.log(error);
-    }
+    let result = JSON.parse(body);
     SMS.Emit(io, result, 'emitMessage');
-    res.write(JSON.stringify(result));
     res.end();
   }
   if (req.url == '/' && req.method == 'GET') {
@@ -44,7 +39,6 @@ const server = http.createServer(async (req, res) => {
     res.end();
   }
 });
-
 const io = new Server(server);
 io.on('connection', (socket) => {
   socket.on('sendSuccess', (arg) => {

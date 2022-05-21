@@ -31,11 +31,6 @@ function InitEvent() {
       item.parentElement.classList.toggle('active');
     };
   });
-  $$(".theloai").forEach(item=>{
-    item.onclick=function(){
-        item.querySelector("input").checked=true;
-    }       
-  });
 
   // Nút backtop
   // When the user scrolls down 20px from the top of the document, show the button
@@ -170,7 +165,7 @@ if (url.indexOf('shop') != -1) {
     sortfilter ? (value = 'All') : null;
   }
 }
-
+sortfilter ? (value = url) : null;
 window.onload = function () {
   InitEvent();
 };

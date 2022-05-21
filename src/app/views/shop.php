@@ -165,8 +165,8 @@
                             <div href="" class="product-cat">' . $product["title"] . '</div>
                             <div href="" class="product-name">' . $product["name"] . '</div>
                             <div class="price">
-                            <div class="product-price">' . $product["price"] . '</div>
-                            <div class="sale-price">' . $product["productPrice"] . '</div>
+                            <div class="product-price">1000</div>
+                            <div class="sale-price">' . $product["price"] . '</div>
                             </div>
                         </div>
                     </li>';
@@ -195,7 +195,7 @@
                         }
                     } else {
                         for ($i = 1; $i <= $pageNumber; $i++) {
-                            echo '<a class="pagination"href="?page=' . $i . '&store=' .$storeCurrent. '">' . $i . '</a>';
+                            echo '<a class="pagination"href="?page=' . $i . '&store=' . $_GET['store'] . '">' . $i . '</a>';
                         }
                     }
                 }
