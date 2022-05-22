@@ -41,7 +41,7 @@ function handleOpenCloseModalCart() {
 }
 handleOpenCloseModalCart();
 
-function CartPageEmpty() {
+function cartPageEmpty() {
   return `    <div class="cartList__Empty">
                   <div class="empty__logo">
                       <i class="fas fa-shopping-bag"></i>
@@ -67,11 +67,13 @@ function modalCartEmpty() {
 }
 
 function productItemCartModal(product) {
-  product.image = JSON.parse(product.image);
+  // if(product.image) {
+    product.image = JSON.parse(product.image);
+  // }
   return `
-        <li class="modal__cart-product-item cartProduct">
+        <li class="modal__cart-product-item cartProduct" data-id = "${product.id}" data-store = "${product.storeId}">
         <div class="modal__cart-imgbox">
-            <img class="modal__cart-img" src="${product.image[0]}" alt="">
+            <img class="modal__cart-img" src="${product.image[0] || product.image}" alt="">
         </div>
         <div class="modal__cart-item-infor">
             <h3 class="modal__cart-item-name">${product.name}</h3>
@@ -98,7 +100,7 @@ function getParent(element, seletor) {
   }
 }
 
-function updatePriceToCart(product, amount = 0) {
+function updatePriceToCart(product = null, amount = 0) {
   if ($('.modal__cart-product-box')) {
     $('.modal__cart-subtotal-all').innerHTML = `$${productTotalPrice()}`;
   }
@@ -205,7 +207,15 @@ const eventCart = {
       productId = e.target.dataset.id;
       product = getParent(e.target, '.cartProduct');
       product.remove();
-      updatePriceToCart(product);
+      if($('.modal__cart-product-box') && $('.modal__cart-product-box').children.length <= 0){
+        $('.modal__cart-product-box').innerHTML = modalCartEmpty();
+        $('.modal__cart-footer').style.display = 'none';
+      } 
+      else if($('.cartList__box') && $('.product-box').children.length <= 0) {
+        $('.cartPage__product-header').style.display = 'none';
+        $('.product-box').innerHTML = cartPageEmpty();
+        $('.cartPage-footer').style.display = 'none';
+      } else updatePriceToCart(product);
 
       let response = await HttpRequest({
         url: '/cart/delete',
@@ -265,22 +275,74 @@ const eventCart = {
 
 eventCart.init();
 
+// function getCookies(name) {
+//   var cookies = document.cookie;
+//   cookieArr = cookies.split(';');
+//   for(i = 0; i < cookieArr.length; i++) {
+//     var str = cookieArr[i];
+//     var arr = str.split('=');
+//     console.log( i);
+//     if(arr.length == 2) {
+//       if(arr[0] == name) {
+//         return arr[1];
+//       }
+//     }
+//   }
+//   return '';
+// }
+
+function getCookies() {
+  var cookies = document.cookie.split(';');
+  var ret = '';
+  for(var i = 1; i <= cookies.length; i++) {
+      ret += i + ' - ' + cookies[i - 1] + "<br>";
+  }
+  return ret;
+}
+
 function AddToCart() {
   let inputQuantity = $$('.inputQuantity');
   let addToCart = $$('.addToCart');
   for (const [index, item] of addToCart.entries()) {
     item.onclick = async (e) => {
+      let cartItem = $$('.cartProduct');
       let productId = item.dataset.id;
       let amount = inputQuantity[index].value;
-      let storeId = $('#store-select').value;
-
+      let storeId = item.dataset.store;
+      
       let response = await HttpRequest({
         url: '/cart',
         method: 'POST',
         data: { productId, storeId, amount },
       });
+
       if (response.status) {
+        response.product.quantity = amount;
+        let newProduct = response.product;
+        
+        var isExist = false;
+        [...cartItem].forEach((item, index) => {
+          if ((productId == item.dataset.id) && (storeId == item.dataset.store)) {
+                let itemQuantity = item.querySelector('.cart_item-input');
+                isExist = true;
+                itemQuantity.value = parseInt(itemQuantity.value) + parseInt(newProduct.quantity);
+                updatePriceToCart();
+              }
+        })
+
+        if (!isExist) {
+          $('.modal__cart-product-box').
+          insertAdjacentHTML("beforeend",productItemCartModal(newProduct));
+        }
+
+        if($('.modal__cart-footer').style.display == 'none') {
+          $('.modal__cart-product-box').innerHTML = productItemCartModal(newProduct);
+          $('.modal__cart-footer').style.display == 'block';
+        } 
+        updatePriceToCart();
         console.log('add thành công');
+      } else if(response.status == false) {
+        console.log('add thất bại');
       }
     };
   }

@@ -11,7 +11,8 @@ class DetailController extends Controller {
   public static function handleDetail(Request $request){
     $product = new Product();
     $id = $request->param("id");
-    $productById = $product->getProductById($id);
+    $store = $request->param("store");
+    $productById = $product->getProductByIdAndStore($id, $store);
     $randomProduct = $product->randomProduct();
     return parent::render("detail",["product" => $productById,"randomProduct" => $randomProduct]);
   }

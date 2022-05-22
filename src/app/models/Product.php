@@ -100,9 +100,14 @@ class Product extends Model
 		AND product.price BETWEEN $priceFrom AND $priceTo"));
 		}
 	}
-	public function getProductById($id)
+	public function getProductByIdAndStore($productId, $storeId)
 	{
-		$sql = self::$db->query("SELECT * FROM product where product.id = '$id'");
+		$sql = self::$db->query("SELECT product.*, store.id AS storeId, 
+		store.address, product.price*(1 - product_details.discount/100) AS productPrice 
+		FROM product, product_details, store 
+		WHERE product.id = product_details.product_id AND 
+		product_details.store_id = store.id AND product.id = '$productId' 
+		AND store.id = '$storeId'");
 		while ($row = mysqli_fetch_array($sql, 1)) {
 			$data = $row;
 		}
