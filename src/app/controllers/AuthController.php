@@ -9,8 +9,6 @@ use app\models\User;
 use core\Application;
 use core\Response;
 use utils\Utils;
-use DateInterval;
-use DateTime;
 
 class AuthController extends Controller {
   public static string $layout = "auth";
@@ -90,7 +88,7 @@ class AuthController extends Controller {
     $secretKey = $_ENV["SECRET_KEY"];
     if ($id && $hash) {
       $hashes = explode("__", $hash);
-      $user = User::__self__()->read(["email", "isVerified"], "id={$id}");
+      $user = User::__self__()->findOne(["email", "isVerified"], "id={$id}");
       if (!$user->isVerified) {
         $mail = $user->email;
         $token = Utils::v4();
@@ -103,7 +101,7 @@ class AuthController extends Controller {
   public static function newAccessToken(int $id){
     $result = User::newAccessToken($id);
     Application::$user = $result["user"];
-    Application::setCookie("accessToken", $result["accessToken"], time() + 999999999);
+    Application::setCookie("accessToken", $result["accessToken"], time() + 2147483647);
   }
 
   public static function logout(Request $request, Response $response){
@@ -149,10 +147,10 @@ class AuthController extends Controller {
     $email = $body["email"];
     $captcha = Utils::verifyCaptcha($body['captcha']);
     if (!$captcha["success"]) return json_encode(["status" => false, "message" => $captcha["error-codes"][0]]);
-    $user = User::__self__()->read(["*"], "email='$email'");
+    $user = User::__self__()->findOne(["*"], "email='$email'");
     if($user){
       $token = '';
-      $_request = RequestPending::__self__()->read(["*"],"email='$email'");
+      $_request = RequestPending::__self__()->findOne(["*"],"email='$email'");
       $resultToken = User::__self__()->getTokenReset($email);
       if(!$resultToken["status"]) return $response->redirect("/signin");
       $token = $resultToken["tokenReset"];
@@ -213,7 +211,7 @@ class AuthController extends Controller {
   }
   public static function handleVerifyAccount(Request $request, Response $response){
     $tokenVerify = $request->param("token");
-    $result = User::__self__()->read(["*"], "tokenVerify='$tokenVerify'");
+    $result = User::__self__()->findOne(["*"], "tokenVerify='$tokenVerify'");
     if($result){
       User::__self__()->update(["isVerified" => 1], "tokenVerify='$tokenVerify'");
       $response->redirect("/signin");
