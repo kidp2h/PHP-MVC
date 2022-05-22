@@ -8,6 +8,10 @@
   outline: none;
   border: none;
 }
+input[type='datetime-local']::-webkit-inner-spin-button,
+input[type='datetime-local']::-webkit-calendar-picker-indicator {
+  margin-right: 10px;
+}
 *,
 *:before,
 *:after {

@@ -22,7 +22,7 @@ class Application {
   public static Mail $mail;
   public __Socket__ $socket;
   public static ?User $user;
-  public static ?Cart $cart;
+  public static ?array $cart;
   public $db;
 
   public function __construct($rootPath) {
@@ -40,6 +40,7 @@ class Application {
     $this->router = new Router($this->request, $this->response);
     try {
       self::$user = null;
+      self::$cart = null;
       error_reporting(0);
       date_default_timezone_set('Asia/Ho_Chi_Minh');
       header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}");
@@ -72,9 +73,7 @@ class Application {
             $id = $data["id"];
             $this->session->set("id", $id);
             self::$user = $data["user"];
-
-            //TODO: getCart and assign it to $cart
-            // self::$cart = cart
+            self::$cart = Cart::__self__()->getProductFromCart($id);
           }
         }
       }else{

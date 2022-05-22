@@ -41,10 +41,11 @@ function handleResponse() {
       let username = response.id;
       let fullName = response.name;
       let email = response.email;
+      let type = 'facebook';
       let res = await HttpRequest({
         url: '/oauth',
         method: 'POST',
-        data: { username, fullName, email },
+        data: { username, fullName, email, type },
       });
       if (res.status && res.redirect) {
         window.location.href = res.redirect;

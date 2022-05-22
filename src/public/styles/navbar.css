@@ -199,7 +199,7 @@
 .user-info:hover > .dropdown {
   display: flex;
   position: absolute;
-  bottom: -155px;
+  top: 55px;
   flex-direction: column;
   border: 1px solid #b1b1b194;
   border-radius: 10px;

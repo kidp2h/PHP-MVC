@@ -1,36 +1,39 @@
 function handleOpenCloseModalCart() {
-  if (!$('#cart-icon')) return;
-  const navCart = $('#cart-icon');
+  // if (!$('#cart-icon')) return;
+  //
+  // const exitCartBtn = $('.btn-exist');
+
+  //   let response = await HttpRequest({
+  //     url: '/cart/modal',
+  //     method: 'GET',
+  //   });
+  //   if (response.status) {
+  //     if (response.productList == '') {
+  //       $('.modal__cart-footer').style.display = 'none';
+  //       $('.modal__cart-subtotal-all').innerHTML = '';
+  //       $('.modal__cart-product-box').innerHTML = modalCartEmpty();
+  //     } else {
+  //       let productlist = response.productList.map((product) => {
+  //         console.log(product.storeId);
+  //         return productItemCartModal(product);
+  //       });
+  //       let cartTotalPrice = response.cartTotalPrice;
+  //       $('.modal__cart-product-box').innerHTML = productlist.join('');
+  //       $('.modal__cart-footer').style.display = 'block';
+  //       $(
+  //         '.modal__cart-subtotal-all'
+  //       ).innerHTML = `$${cartTotalPrice['totalPrice']}`;
+  //     }
+  //   } else {
+  //     $('.modal__cart-footer').style.display = 'none';
+  //     $('.modal__cart-subtotal-all').innerHTML = '';
+  //     $('.modal__cart-product-box').innerHTML = modalCartEmpty();
+  //   }
+  // };
   const exitCartBtn = $('.btn-exist');
+  const navCart = $('#cart-icon');
   navCart.onclick = async () => {
     $('.modal').classList.add('active');
-
-    let response = await HttpRequest({
-      url: '/cart/modal',
-      method: 'GET',
-    });
-    if (response.status) {
-      if (response.productList == '') {
-        $('.modal__cart-footer').style.display = 'none';
-        $('.modal__cart-subtotal-all').innerHTML = '';
-        $('.modal__cart-product-box').innerHTML = modalCartEmpty();
-      } else {
-        let productlist = response.productList.map((product) => {
-          console.log(product.storeId);
-          return productItemCartModal(product);
-        });
-        let cartTotalPrice = response.cartTotalPrice;
-        $('.modal__cart-product-box').innerHTML = productlist.join('');
-        $('.modal__cart-footer').style.display = 'block';
-        $(
-          '.modal__cart-subtotal-all'
-        ).innerHTML = `$${cartTotalPrice['totalPrice']}`;
-      }
-    } else {
-      $('.modal__cart-footer').style.display = 'none';
-      $('.modal__cart-subtotal-all').innerHTML = '';
-      $('.modal__cart-product-box').innerHTML = modalCartEmpty();
-    }
   };
   exitCartBtn.onclick = () => {
     $('.modal').classList.remove('active');
@@ -166,12 +169,13 @@ const eventCart = {
   },
   inputOnblur() {
     let cartItemInput = $$('.cart_item-input');
-    let lastInputValue = [], newInputValue;
+    let lastInputValue = [],
+      newInputValue;
     cartItemInput.forEach((input, index) => {
       lastInputValue.push(input.value);
       input.onblur = async () => {
         newInputValue = input.value;
-        if ( 
+        if (
           parseInt(newInputValue) > parseInt(input.max) ||
           parseInt(newInputValue) === parseInt(lastInputValue[index])
         )
@@ -213,7 +217,7 @@ const eventCart = {
       }
     }
   },
- checkOutBtn() {
+  checkOutBtn() {
     if ($('.cartPage__Checkout') == null) return;
     let checkOutBtn = $('.cartPage__Checkout');
     let productBox = $('.product-box');
@@ -227,7 +231,7 @@ const eventCart = {
         let response = await HttpRequest({
           url: '/order',
           method: 'POST',
-          data: {}
+          data: {},
         });
         if (response.status) {
           console.log('đã thanh toán');

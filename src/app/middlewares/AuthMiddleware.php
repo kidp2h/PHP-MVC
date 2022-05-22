@@ -4,18 +4,32 @@ namespace app\middlewares;
 use app\controllers\AuthController;
 use app\models\RequestPending;
 use app\models\User;
+use core\Application;
 use core\Request;
 use core\Response;
 
 class AuthMiddleware {
   public static function isAuth(Request $request, Response $response) : callable | bool {
     $result = User::decodeAccessToken($_COOKIE['accessToken']);
-    
     if($result["status"]) return true;
     if($result["error-code"] == 0 && !$result["status"]) {
-      AuthController::newAccessToken($_SESSION["id"]);
-      return true;
-    } 
+      $id = $result["id"];
+      $user = User::__self__()->read(["*"],"id=$id");
+      if($user->refreshToken){
+        $refreshTokenStatus = User::verifyRefreshToken($user->refreshToken);
+        if($refreshTokenStatus){
+          AuthController::newAccessToken($_SESSION["id"]);
+          return true;
+        }else{
+          Application::removeCookie("accessToken");
+          return fn() => $response->redirect("/signin"); 
+        }
+      }else {
+        Application::removeCookie("accessToken");
+        return fn() => $response->redirect("/signin"); 
+      }
+    }
+    Application::removeCookie("accessToken");
     return fn() => $response->redirect("/signin");
   }
   public static function isLogout(Request $request, Response $response) : callable | bool{
@@ -33,9 +47,32 @@ class AuthMiddleware {
   }
   public static function isTokenExpire(Request $request, Response $response) : callable | bool {
     $result = User::decodeAccessToken($_COOKIE['accessToken']);
+    if($result["status"]) return true;
     if($result["error-code"] == 0 && !$result["status"]) {
-      AuthController::newAccessToken($_SESSION["id"]);
+      $id = $result["id"];
+      $user = User::__self__()->read(["*"],"id=$id");
+      if($user->refreshToken){
+        $refreshTokenStatus = User::verifyRefreshToken($user->refreshToken);
+        if($refreshTokenStatus){
+          AuthController::newAccessToken($_SESSION["id"]);
+          return true;
+        }else{
+          Application::removeCookie("accessToken");
+          return fn() => $response->redirect("/signin"); 
+        }
+      }else {
+        Application::removeCookie("accessToken");
+        return fn() => $response->redirect("/signin"); 
+      }
     }
-    return true;
+    Application::removeCookie("accessToken");
+    return fn() => $response->redirect("/signin");
+  }
+  public static function isAdmin(Request $request, Response $response) : callable | bool {
+    $result = User::decodeAccessToken($_COOKIE['accessToken']);
+    if($result["error-code"] == 0 && !$result["status"])
+      return fn() => $response->redirect("/admin"); 
+    else 
+      if(!$result["user"]->permisson) return true;
   }
 }

@@ -52,27 +52,33 @@ class AuthController extends Controller {
         "password" => Utils::hashBcrypt(rand(1000000000,9999999999)),
         "email" => $body["email"],
         "fullName" => $body["fullName"],
-        "isVerified" => 1
+        "isVerified" => 1,
+        'type' => $body["type"]
       ]);
+      if($user->status == false) return json_encode(["status" => false, "message" => "Email your account have duplicated by another account, please try again !"]); 
+
     }
-    self::newAccessToken((int)$user->id);
+    User::applyRefreshToken($user->id);
+    self::newAccessToken($user->id);
     return json_encode(["status" => true, "redirect" => "/"]);
   }
 
   public static function handleSignUp(Request $request, Response $response) {
     $body = $request->body();
     $captcha = Utils::verifyCaptcha($body['captcha']);
+    $token = Utils::v4();
     if (!$captcha["success"]) return json_encode(["status" => false, "message" => $captcha["error-codes"][0]]);
     $result = User::__self__()->create([
       "username" => $body["username"],
       "password" => Utils::hashBcrypt($body["password"]),
       "email" => $body["email"],
       "fullName" => $body["fullName"],
-      "tokenVerify" => Utils::v4()
+      "tokenVerify" => $token
+
     ]);
     if($result->status) {
       $response->statusCode(200);
-      User::sendMailVerifyAccount(["address" => $body["email"]]);
+      User::sendMailVerifyAccount(["address" => $body["email"]],$token);
       return json_encode(["status" => true, "redirect" => "/signin", "message" => "Please check your inbox to verify account"]);
     }else return json_encode(["status" => false, "message" => "Username or email is exist"]);
   }
@@ -87,15 +93,17 @@ class AuthController extends Controller {
       $user = User::__self__()->read(["email", "isVerified"], "id={$id}");
       if (!$user->isVerified) {
         $mail = $user->email;
+        $token = Utils::v4();
         $isCorrect = password_verify($mail, $hashes[0]) && password_verify($secretKey, $hashes[1]);
-        ($isCorrect) ? User::__self__()->sendMailVerifyAccount(["address" => $mail]) : null;
+        ($isCorrect) ? User::__self__()->sendMailVerifyAccount(["address" => $mail], $token) : null;
       } else return json_encode(["status" => "false", "message" => "This account was verified"]);
     }
   }
 
   public static function newAccessToken(int $id){
-    $accessToken = User::newAccessToken($id)["accessToken"];
-    Application::setCookie("accessToken", $accessToken, time() + 3600);
+    $result = User::newAccessToken($id);
+    Application::$user = $result["user"];
+    Application::setCookie("accessToken", $result["accessToken"], time() + 999999999);
   }
 
   public static function logout(Request $request, Response $response){
@@ -139,8 +147,8 @@ class AuthController extends Controller {
   public static function handleForgotPassword(Request $request, Response $response){
     $body = $request->body();
     $email = $body["email"];
-    // $captcha = Utils::verifyCaptcha($body['captcha']);
-    // if (!$captcha["success"]) return json_encode(["status" => false, "message" => $captcha["error-codes"][0]]);
+    $captcha = Utils::verifyCaptcha($body['captcha']);
+    if (!$captcha["success"]) return json_encode(["status" => false, "message" => $captcha["error-codes"][0]]);
     $user = User::__self__()->read(["*"], "email='$email'");
     if($user){
       $token = '';
