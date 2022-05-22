@@ -370,11 +370,8 @@ try {
 <script src="/public/javascripts/shop/appli.js"></script>
 <script src="/public/javascripts/detail/detail.js"></script>
 <script src="/public/javascripts/cart/cartEvent.js"></script>
-<<<<<<< HEAD
 <script src="/public/javascripts/order/order.js"></script>
-=======
 <script src="/public/javascripts/toast.js"></script>
->>>>>>> main
 
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
