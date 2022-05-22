@@ -52,29 +52,23 @@
   display: inline-block;
 }
 
-.navigation-container .icon a,
+.navigation-container .icons a,
 .navigation-container .icons i {
   cursor: pointer;
   overflow: hidden;
 
   height: 45px;
   width: 45px;
-  margin-left: 0.5rem;
+  margin-left: 30px;
   border-radius: 50%;
 
   line-height: 45px;
   text-align: center;
-  font-size: 17px;
+  font-size: 25px;
   font-weight: bolder;
 
-  color: var(--black);
-  background-color: var(--primary-bgc);
+  color: #fff;
   transition: all 0.3s ease;
-}
-
-.navigation-container .icons a:hover,
-.navigation-container .icons i:hover {
-  transform: rotate(360deg);
 }
 
 .navigation-container .navbar > a.active,
@@ -150,6 +144,7 @@
 .navigation-container .user-info {
   display: inline;
 }
+
 .user-info {
   position: relative;
 }
@@ -192,13 +187,19 @@
 }
 .dropdown-item a {
   color: white;
-  display: inline-block;
-  width: 100%;
+  width: 100% !important;
+  font-size: 15px !important;
+  margin-left: 0 !important;
+}
+.showPassword {
+  display: block !important;
+  color: white;
+  font-size: 30px !important;
 }
 .user-info:hover > .dropdown {
   display: flex;
   position: absolute;
-  bottom: -105px;
+  top: 55px;
   flex-direction: column;
   border: 1px solid #b1b1b194;
   border-radius: 10px;
@@ -382,7 +383,7 @@
 
   display: flex;
   justify-content: space-around;
-  align-items: flex-start;
+  align-items: center;
 
   background-color: var(--primary-color);
   border-top: 1px solid var(--primary-color);
@@ -431,6 +432,15 @@
 #store-select {
   width: 250px;
   height: 80%;
+  font-size: 16px;
+  padding: 0 10px;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+#storeMobi-select {
+  width: 200px;
+  height: 60%;
   font-size: 16px;
   padding: 0 10px;
   border-radius: 5px;
@@ -654,6 +664,7 @@ body.active {
 
 input::placeholder {
   text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.548);
 }
 
 .btn-close-modal {
@@ -702,6 +713,7 @@ input::placeholder {
   background-color: var(--red);
   background-color: rgba(247, 0, 0, 0.25);
 }
+
 @keyframes shake {
   0% {
     margin-left: 0rem;
@@ -716,14 +728,7 @@ input::placeholder {
     margin-left: 0rem;
   }
 }
-@keyframes modalSlideBottom {
-  from {
-    transform: translate(-50%, 500px);
-  }
-  to {
-    transform: translate(-50%, -50%);
-  }
-}
+
 @media screen and (max-width: 1023px) {
   .navigation .navbar {
     opacity: 0;
@@ -768,6 +773,10 @@ input::placeholder {
     display: none;
   }
   .navigation #cart-icon {
+    display: none;
+  }
+
+  #store-select {
     display: none;
   }
 

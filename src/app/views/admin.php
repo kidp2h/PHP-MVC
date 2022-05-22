@@ -6,7 +6,7 @@
         <div class="card-name">Account</div>
       </div>
       <div class="icon-card">
-        <i class="fas fa-user-friends ui-bg"></i>
+        <i class="ion-person-stalker ui-bg"></i>
       </div>
     </div>
     <div class="card card-product">
@@ -15,7 +15,7 @@
         <div class="card-name">Product</div>
       </div>
       <div class="icon-card">
-        <i class="fas fa-cubes purple"></i>
+        <i class="ion-cube purple"></i>
       </div>
     </div>
     <div class="card card-category">
@@ -24,7 +24,7 @@
         <div class="card-name">Category</div>
       </div>
       <div class="icon-card">
-        <i class="fas fa-receipt green"></i>
+        <i class="ion-android-bookmark green"></i>
       </div>
     </div>
     <div class="card card-bill">
@@ -33,7 +33,7 @@
         <div class="card-name">Bill</div>
       </div>
       <div class="icon-card">
-        <i class="fas fa-file-invoice-dollar red"></i>
+        <i class="ion-ios-paper red"></i>
       </div>
     </div>
   </div>

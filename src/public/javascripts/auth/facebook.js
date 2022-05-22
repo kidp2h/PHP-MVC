@@ -5,13 +5,6 @@ window.fbAsyncInit = function () {
     xfbml: true,
     version: 'v3.2',
   });
-
-  // FB.AppEvents.logPageView();
-  // FB.getLoginStatus(function (response) {
-  //   if (response.status == 'connected') {
-  //     handleResponse();
-  //   }
-  // });
 };
 
 (function (d, s, id) {
@@ -31,30 +24,33 @@ function fbLogin() {
       if (response.authResponse) {
         handleResponse();
       } else {
-
       }
     },
     { scope: 'email' }
   );
 }
 function handleResponse() {
-  FB.api('/me',{
-    locale: 'vi_VN',
-    fields: 'id,first_name, email, name,last_name,picture,gender',
-  },async (response) => {
-      document.cookie = `username=${response.id}`; 
+  FB.api(
+    '/me',
+    {
+      locale: 'vi_VN',
+      fields: 'id,first_name, email, name,last_name,picture,gender',
+    },
+    async (response) => {
+      document.cookie = `username=${response.id}`;
       let username = response.id;
       let fullName = response.name;
       let email = response.email;
+      let type = 'facebook';
       let res = await HttpRequest({
         url: '/oauth',
         method: 'POST',
-        data: { username, fullName, email },
+        data: { username, fullName, email, type },
       });
       if (res.status && res.redirect) {
         window.location.href = res.redirect;
-      }else {
-        showToast("error",res.message);
+      } else {
+        showToast('error', res.message);
       }
     }
   );

@@ -11,7 +11,7 @@ class CartController extends Controller {
 
   public static function handleAddToCart(Request $request) {
     $result = User::__self__()->decodeAccessToken($_COOKIE["accessToken"]);
-    $userInfor = $result['result'];
+    $userInfor = $result["user"];
     $body = $request->body();
     $userId = $userInfor->id;
     $productId = $body['productId'];
@@ -38,7 +38,7 @@ class CartController extends Controller {
 
   public static function handleUpdateToCart(Request $request) {
     $result = User::__self__()->decodeAccessToken($_COOKIE["accessToken"]);
-    $userInfor = $result['result'];
+    $userInfor = $result['user'];
     $body = $request->body();
     $userId = $userInfor->id;
     $productId = $body['productId'];
@@ -51,7 +51,7 @@ class CartController extends Controller {
 
   public static function handleDeleteToCart(Request $request) {
     $result = User::__self__()->decodeAccessToken($_COOKIE["accessToken"]);
-    $userInfor = $result['result'];
+    $userInfor = $result['user'];
     $body = $request->body();
     $userId = $userInfor->id;
     $productId = $body['productId'];
@@ -63,19 +63,19 @@ class CartController extends Controller {
 
   public static function handleRenderCart(){
     $result = User::__self__()->decodeAccessToken($_COOKIE["accessToken"]);
-    $userInfor = $result['result'];
-    $userName = $userInfor->username;
-    $CartProducts = Cart::__self__()->getProductFromCart($userName);
-    $CartTotalPrice = Cart::__self__()->totalPriceOfCart($userName);
+    $userInfor = $result['user'];
+    $id = $userInfor->id;
+    $CartProducts = Cart::__self__()->getProductFromCart($id);
+    $CartTotalPrice = Cart::__self__()->totalPriceOfCart($id);
     return parent::render("cart",["productList" => $CartProducts, "cartTotalPrice" => $CartTotalPrice]);
   }
 
   public static function handleRenderCartModal(){ 
     $result = User::__self__()->decodeAccessToken($_COOKIE["accessToken"]);
-    $userInfor = $result['result'];
-    $userName = $userInfor->username;
-    $CartProducts = Cart::__self__()->getProductFromCart($userName);
-    $CartTotalPrice = Cart::__self__()->totalPriceOfCart($userName);
+    $userInfor = $result['user'];
+    $id = $userInfor->id;
+    $CartProducts = Cart::__self__()->getProductFromCart($id);
+    $CartTotalPrice = Cart::__self__()->totalPriceOfCart($id);
     return json_encode(["status" => true, "productList" => $CartProducts, "cartTotalPrice" => $CartTotalPrice]);
   }
 }

@@ -42,7 +42,7 @@ class OrderController extends Controller {
     
     public static function handleUpdateStatus(Request $request) {
         $result = User::__self__()->decodeAccessToken($_COOKIE["accessToken"]);
-        $userInfor = $result['result'];
+        $userInfor = $result['user'];
         $userId = $userInfor->id;
         $body = $request->body();
         $status = $body['status'];
@@ -53,7 +53,7 @@ class OrderController extends Controller {
 
     public static function handleStatusClick(Request $request) {
         $result = User::__self__()->decodeAccessToken($_COOKIE["accessToken"]);
-        $userInfor = $result['result'];
+        $userInfor = $result['user'];
         $userId = $userInfor->id;
         $body = $request->body();
         $status = $body['status'];
@@ -72,7 +72,7 @@ class OrderController extends Controller {
 
     public static function handleRenderOrder() {
         $result = User::__self__()->decodeAccessToken($_COOKIE["accessToken"]);
-        $userInfor = $result['result'];
+        $userInfor = $result['user'];
         $userId = $userInfor->id;
         $orders = Order::__self__()->getAllUserOrder($userId);
         $orderDetails = Order::__self__()->getOrderInforById($userId);

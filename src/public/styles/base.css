@@ -57,10 +57,6 @@ html.loader {
   overflow-y: hidden;
   scroll-behavior: smooth;
 }
-input[type='number'] {
-  -moz-appearance: textfield;
-  -webkit-appearance: textfield;
-}
 
 :root {
   /* ADMIN */
@@ -69,6 +65,7 @@ input[type='number'] {
   --red: #f15f50;
   --purple: #b050f1;
   --yellow: #f8ecc7;
+
   /* HOME */
   --black: #192a56;
   --primary-bgc: #fff;

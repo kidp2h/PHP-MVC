@@ -7,7 +7,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Manager</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
@@ -30,10 +30,10 @@
   </head>
   <body>
     <div id="admin">
-      <div class="sidebar active">
+    <div class="sidebar active">
         <ul>
           <li>
-            <a class="item" href="#home">
+            <a class="item" href="javascript:void(0)">
               <img
                 src="/public/images/logo.svg"
                 alt="Kiwi standing on oval"
@@ -41,42 +41,42 @@
                 height="60px"
                 style="object-fit: fill"
               />
-              <span class="title">Shibaaa</span>
+              <span class="title">Shiba Shop</span>
             </a>
           </li>
-          <li class="manager active m-dashboard">
+          <li class="manager m-dashboard">
             <a class="item" href="/admin">
-              <i class="fas fa-chart-line"></i>
+              <i class="ion-speedometer"></i>
                 <span class="title">Dashboard</span>
             </a>
           </li>
           <li class="manager m-user">
             <a class="item" href="/admin/user">
-              <i class="fas fa-user-friends"></i>
+              <i class="ion-person-stalker"></i>
                 <span class="title">User</span>
             </a>
           </li>
           <li class="manager m-product">
             <a class="item" href="/admin/product">
-              <i class="fas fa-cubes"></i>
+              <i class="ion-cube"></i>
               <span class="title">Product</span>
             </a>
           </li>
           <li class="manager m-category">
             <a class="item" href="/admin/category">
-              <i class="fas fa-receipt"></i>
+              <i class="ion-android-bookmark"></i>
               <span class="title">Category</span>
             </a>
           </li>
           <li class="manager m-bill">
             <a class="item" href="/admin/bill">
-              <i class="fas fa-file-invoice-dollar"></i>
+              <i class="ion-ios-paper "></i>
               <span class="title">Bill</span>
             </a>
           </li>
           <li class="manager m-revenue">
             <a class="item" href="/admin/revenue">
-              <i class="fas fa-signal"></i>
+              <i class="ion-cash"></i>
               <span class="title">Revenue</span>
             </a>
           </li>

@@ -1,6 +1,7 @@
+
+  
 <?php use core\Application; 
 try {
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -10,12 +11,13 @@ try {
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <meta property="og:image" content="https://source.unsplash.com/random" />
   <link rel="shortcut icon" type="image/svg" href="./images/logo.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/public/icons/css/ionicons.min.css">
-  <title><?= $title ?></title>
+  <title>Main</title>
   <link rel="stylesheet" href="/public/styles/base.css">
   <link rel="stylesheet" href="/public/styles/navbar.css">
   <link rel="stylesheet" href="/public/styles/footer.css">
@@ -36,8 +38,8 @@ try {
 </head>
 
 <body>
-  <div id="toasts"></div>
-  <div class="__modal__overlay"></div>
+<div id="toasts"></div> 
+<div class="__modal__overlay"></div>
   <div class="__modal" id="modal__information">
     <div class="modal__header">
       <h1>Information</h1>
@@ -48,24 +50,48 @@ try {
     <div class="__modal__body">
       <div class="form-group">
         <label for="fullName" class="label-input">Full name</label>
+        <span class="validate-message">Error</span>
         <div class="group-input">
           <input spellcheck="false"  type="text" class="form-input" id="fullName" name="fullName" placeholder="Full Name" value="<?=Application::$user->fullName?>" />
         </div>
       </div>
+      <?php if(Application::$user->type == "local"){ ?>
       <div class="form-group">
         <label for="username" class="label-input">Username</label>
+        <span class="validate-message">Error</span>
         <div class="group-input">
           <input spellcheck="false"  type="text" class="form-input input-disabled" id="username" name="username" value="<?=Application::$user->username?>" placeholder="Username" disabled/>
         </div>
       </div>
+      <?php } ?>
       <div class="form-group">
         <label for="email" class="label-input">Email address</label>
+        <span class="validate-message">Error</span>
         <div class="group-input">
           <input spellcheck="false"  type="email" class="form-input input-disabled" id="email" name="email" placeholder="Email address"  value="<?=Application::$user->email?>" disabled/>
         </div>
       </div>
+      <?php if(Application::$user->type == "local"){ ?>
+      <div class="form-group">
+        <label for="password" class="label-input">New Password</label>
+        <span class="validate-message">Error</span>
+        <div class="group-input">
+          <input spellcheck="false" type="password" class="form-input status-valid" autocomplete="off" id="password" name="password" placeholder="New password" />
+          <i class="ion-eye showPassword"></i>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="confirmNewPassword" class="label-input">Confirm New Password</label>
+        <span class="validate-message">Error</span>
+        <div class="group-input">
+          <input spellcheck="false" type="password" class="form-input status-valid" autocomplete="off" id="confirmNewPassword" name="confirmNewPassword" placeholder="Confirm password" />
+          <i class="ion-eye showPassword"></i>
+        </div>
+      </div>
+      <?php } ?>
       <div class="form-group">
         <label for="phoneNumber" class="label-input">Phone number</label>
+        <span class="validate-message">Error</span>
         <div class="group-input">
           <input spellcheck="false"  type="number" min="0" oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" class="form-input <?= Application::$user->isActivePhone ? "input-disabled" : "" ?>" id="phoneNumber" name="phoneNumber" placeholder="Phone Number" value="<?=Application::$user->phoneNumber?>" <?= Application::$user->isActivePhone ? "disabled" : null?>/>
           
@@ -82,6 +108,7 @@ try {
       <?php if(!Application::$user->isActivePhone){ ?>
       <div class="form-group">
         <label for="otp" class="label-input">OTP</label>
+        <span class="validate-message">Error</span>
         <div class="group-input">
           <input spellcheck="false"  type="number" min="0" class="form-input" id="otp" name="otp" placeholder="OTP" value=""/>
           <div class="btn__input btn-active-sms"><a href="javascript:void(0)">Active</a></div>
@@ -102,6 +129,8 @@ try {
       </div>
     </div>
   </div>
+
+
   <div class="navigation">
     <div class="navigation-container">
 
@@ -134,26 +163,58 @@ try {
       </select>
 
       <div class="icons">
+
+      
         <div class="navbar__inputSearch">
           <input class="navbar-input-Search" type="text">
           <i class="ion-ios-search-strong" id="nav-search"></i>
         </div>
+
         <i class="ion-ios-search-strong" id="search-icon"></i>
-          <div href="javascript:void(0)" class="user-info userDropdown">
-            <ul class="dropdown">
-              <?php if(isset($_COOKIE["accessToken"])) {?>
-                <li class="dropdown-item openModal"><a href="javascript:void(0)">Profile</a></li>
-                <li class="dropdown-item"><a href="/logout">Logout</a></li>
-              <?php } else { ?>
-                <li class="dropdown-item"><a href="/signin">Sign In</a></li>
-                <li class="dropdown-item"><a href="/signup">Sign Up</a></li>
+        <div href="javascript:void(0)" class="user-info userDropdown">
+          <ul class="dropdown">
+            <?php if(isset($_COOKIE["accessToken"])) {?>
+              <li class="dropdown-item openModal"><a href="javascript:void(0)">Profile</a></li>
+              <?php if(!Application::$user->permission){ ?>
+                <li class="dropdown-item"><a href="/admin">Manager</a></li>
               <?php } ?>
-            </ul>
-            <i class="ion-person" id="user-icon"></i>
-          </div>
+              <li class="dropdown-item"><a href="/logout">Logout</a></li>
+            <?php } else { ?>
+              <li class="dropdown-item"><a href="/signin">Sign In</a></li>
+              <li class="dropdown-item"><a href="/signup">Sign Up</a></li>
+            <?php } ?>
+          </ul>
+          <i class="ion-person" id="user-icon"></i>
+        </div>
         <div class="icon cart" id="cart-icon" data-amount="0">
           <i class="ion-ios-cart"></i>
         </div>
+      </div>
+    </div>
+
+
+    <div class="navigation-mobile">
+
+      <select name="store" id="storeMobi-select">
+        <?php
+        foreach ($stores as $store) {
+          $op = '';
+          if ($store['id'] === $storeCurrent) $op = 'selected="selected"';
+          echo '<option ' . $op . ' value="' . $store['id'] . '">' . $store['address'] . '</option>';
+        }
+        ?>
+      </select>
+      <a href="#shop" class="icon">
+        <i class="fab fa-shopify"></i>
+        <p>Shop</p>
+      </a>
+      <div class="icon noti cart" data-amount="0">
+          <i class="fas fa-shopping-cart"></i>
+          <p>Cart</p>
+      </div>
+      <div class="icon" id ="search-icon-mb">
+        <i class="fas fa-search" ></i>
+        <p>Search</p>
       </div>
     </div>
   </div>
@@ -323,44 +384,71 @@ try {
   </div>
 
   <div class="modal">
-            <div class="modal__overlay"></div>
+    <div class="modal__overlay"></div>
 
-            <div class="modal__cart active">
-            <div class="modal__cart-header">
-                <h1>CART PRODUCTS</h1>
-                <button class="btn-exist">
-                    <i class="ion-close-round"></i>
-                </button>
-            </div>
-            
-            <div class="box">
-                <ul class="modal__cart-product-box">
-                </ul>
-            </div>
-
-            <div class="modal__cart-footer" style="display: none;">
-                <div class="modal__cart-subtotal">
-                    <h3 class="subtotal-text">Subtotal:</h3>
-                    <span class="modal__cart-subtotal-all"></span>
-                </div>
-                <div class="modal__cart-view-cart">
-                    <span class="modal__cart-view-cart-btn">
-                    <a href="/cart">VIEW CART</a></span>
-                </div>
-            </div>
+      <div class="modal__cart active">
+        <div class="modal__cart-header">
+          <h1>CART PRODUCTS</h1>
+          <button class="btn-exist">
+            <i class="ion-close-round"></i>
+          </button>
         </div>
             
-            <div class="modal__noti glassmorphism ">
-                <div class="modal-noti__logo">
-                    <i class="far fa-check-circle" id="icon-success"></i>
-                    <i class="fas fa-times" id="icon-error"></i>
-                </div> 
-                <input type="text">   
-                <h2 class="modal-noti__disc success"></h2>
-                <h2 class="modal-noti__disc error"></h2>
-                <button class="btn-noti glassmorphism ">OK</button>
-            </div> 
+        <div class="box">
+          <ul class="modal__cart-product-box">
+            <?php foreach(Application::$cart as $key => $value){ ?>
+              <?php foreach($value as $key => $value){?>
+                <?= $value."</br>"?>
+              <?php } ?>
+            <?php } ?>
+          </ul>
         </div>
+
+        <div class="modal__cart-footer" style="display: none;">
+          <div class="modal__cart-subtotal">
+            <h3 class="subtotal-text">Subtotal:</h3>
+            <span class="modal__cart-subtotal-all"></span>
+          </div>
+          <div class="modal__cart-view-cart">
+            <span class="modal__cart-view-cart-btn">
+              <a href="/cart">VIEW CART</a>
+            </span>
+          </div>
+        </div>
+      </div>
+            
+      <div class="box">
+        <ul class="modal__cart-product-box">
+          <?php 
+            if(isset(Application::$cart)){
+              
+            }
+          ?>
+        </ul>
+      </div>
+
+        <div class="modal__cart-footer" style="display: none;">
+          <div class="modal__cart-subtotal">
+            <h3 class="subtotal-text">Subtotal:</h3>
+            <span class="modal__cart-subtotal-all"></span>
+          </div>
+          <div class="modal__cart-view-cart">
+            <span class="modal__cart-view-cart-btn">
+            <a href="/cart">VIEW CART</a></span>
+          </div>
+        </div>
+      </div> 
+      <div class="modal__noti glassmorphism ">
+        <div class="modal-noti__logo">
+          <i class="far fa-check-circle" id="icon-success"></i>
+          <i class="fas fa-times" id="icon-error"></i>
+        </div> 
+        <input type="text">   
+        <h2 class="modal-noti__disc success"></h2>
+        <h2 class="modal-noti__disc error"></h2>
+        <button class="btn-noti glassmorphism ">OK</button>
+      </div> 
+  </div>
 
 </body>
 
@@ -372,15 +460,19 @@ try {
 <script src="/public/javascripts/cart/cartEvent.js"></script>
 <script src="/public/javascripts/order/order.js"></script>
 <script src="/public/javascripts/toast.js"></script>
+<<<<<<< HEAD
 
+=======
+>>>>>>> main
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </html>
 <?php } catch (\Throwable $th){
 
-  var_dump($th);
+var_dump($th);
 }
-  
-    //throw $th;
-  
+
+  //throw $th;
+
 ?>

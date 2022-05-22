@@ -67,7 +67,7 @@ class Cart extends Model {
 
     public function addProductToCart($user_id, $product_id, $store_id, $quantity) {
         return self::$db->query("INSERT INTO cart_item (`user_id`, `product_id`, 
-        `store_id`,`quantity`) VALUES ('$user_id', '$product_id', $store_id, '$quantity')");
+        `store_id`,`quantity`) VALUES ($user_id, '$product_id', $store_id, '$quantity')");
     }
 
     public function updateProductToCart($user_id, $product_id, $store_id, $quantity) {

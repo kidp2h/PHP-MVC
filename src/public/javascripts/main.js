@@ -1,6 +1,18 @@
+let validateInformation = {
+  password: {
+    min: 3,
+    max: 9999999999999,
+    message: 'Your password is too short',
+  },
+  confirmNewPassword: {
+    match: 'password',
+    message: 'Confirm password is not same',
+  },
+};
+
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
-let tempInterval = null;
+
 const HttpRequest = async (
   options = { url: '', method: 'GET', data: null, headers: {} }
 ) => {
@@ -46,7 +58,7 @@ function validate(fields, validate) {
     if (
       !input.value ||
       input.value.length < validate[selector]?.min ||
-      input.value.length > validateSignIn[selector]?.max
+      input.value.length > validate[selector]?.max
     ) {
       showMessageValidator(status, selector, validate);
     }
@@ -82,8 +94,6 @@ $$('.showPassword').forEach((element) => {
   };
 });
 
-
-
 const showMessageValidator = (status, selector, validate) => {
   status.push(selector);
   $(`label[for=${selector}]`)?.classList.add('error');
@@ -114,41 +124,64 @@ $('.btn-cancel')
     })
   : null;
 $('.btn-save-changes')
-  ? ($('.btn-save-changes').onclick = function () {
-      showToast('success', 'Update information successfully !');
+  ? ($('.btn-save-changes').onclick = async function () {
+      let fields = ['password', 'confirmNewPassword'];
+      let password = $('#password').value;
+      let confirmNewPassword = $('#confirmNewPassword').value;
+      let status = [];
+      if (password !== '' || confirmNewPassword !== '') {
+        status = validate(fields, validateInformation);
+      }
+      if (status.length == 0) {
+        let fullName = $('#fullName').value;
+        let phoneNumber = $('#phoneNumber').value;
+        let address = $('#address').value;
+        let response = await HttpRequest({
+          url: '/saveChanges',
+          method: 'POST',
+          data: { password, phoneNumber, address, fullName },
+        });
+        if (response.status) {
+          showToast('success', 'Update information successfully !');
+        } else {
+          showToast('error', 'Not found error, please contact developer !');
+        }
+      }
     })
   : null;
 $('.btn-send-sms')
   ? ($('.btn-send-sms').onclick = async function () {
-      let phoneNumber = $('#phoneNumber').value;
-      if (phoneNumber == '') {
-        return showToast('error', 'Phone number is invalid');
-      } else {
-        let _this = this;
-        if (!this.classList.contains('disabled')) {
-          let timeLeft = 3;
-          $('.btn-send-sms a').textContent = timeLeft;
-          this.classList.add('disabled');
-          tempInterval = setInterval(function () {
-            if (timeLeft <= 0) {
-              clearInterval(tempInterval);
-              _this.classList.remove('disabled');
-              $('.btn-send-sms a').textContent = 'SEND OTP';
-              console.log(tempInterval, timeLeft, 'end');
-            }
-            if (timeLeft > 0) {
-              $('.btn-send-sms a').textContent = timeLeft;
-            }
-            timeLeft -= 1;
-          }, 1000);
-          let response = await HttpRequest({
-            url: '/sendOTP',
-            method: 'POST',
-            data: { phoneNumber },
-          });
-          if (response.status) {
-            showToast('success', `Code OTP was sent to ${phoneNumber} ! `);
-          } else showToast('error', response.message);
+      if (!this.classList.contains('disabled')) {
+        let phoneNumber = $('#phoneNumber').value;
+        if (phoneNumber == '') {
+          return showToast('error', 'Phone number is invalid');
+        } else {
+          let _this = this;
+          let timeLeft = 60;
+          $('.btn-send-sms a').textContent = 'Sending...';
+          if (!this.classList.contains('disabled')) {
+            this.classList.add('disabled');
+            let response = await HttpRequest({
+              url: '/sendOTP',
+              method: 'POST',
+              data: { phoneNumber },
+            });
+            if (response.status) {
+              tempInterval = setInterval(function () {
+                if (timeLeft <= 0) {
+                  clearInterval(tempInterval);
+                  _this.classList.remove('disabled');
+                  $('.btn-send-sms a').textContent = 'SEND OTP';
+                  console.log(tempInterval, timeLeft, 'end');
+                }
+                if (timeLeft > 0) {
+                  $('.btn-send-sms a').textContent = timeLeft;
+                }
+                timeLeft -= 1;
+              }, 1000);
+              showToast('success', `Code OTP was sent to ${phoneNumber} ! `);
+            } else showToast('error', response.message);
+          }
         }
       }
     })
@@ -182,57 +215,54 @@ $('.btn-active-sms')
     })
   : null;
 
-
 function activeNavbar() {
-  switch(window.location.pathname) {
-    case "/":
+  switch (window.location.pathname) {
+    case '/':
       $('nav.navbar a.home').classList.add('active');
       break;
-    case "/shop":
+    case '/shop':
       $('nav.navbar a.shop').classList.add('active');
       break;
-    case "/about":
+    case '/about':
       $('nav.navbar a.about').classList.add('active');
       break;
   }
 }
 activeNavbar();
 
- 
 function formatMoney(n, currency = '$') {
-  if(typeof(n) != 'number') n = Number(n);
+  if (typeof n != 'number') n = Number(n);
   return currency + n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
 }
 
-
 const navbarEvent = {
   fancyBurger() {
-      const navbar = $('.navbar');
-      const btn = $('.fancy-burger');
-      btn.onclick = () => {
+    const navbar = $('.navbar');
+    const btn = $('.fancy-burger');
+    btn
+      ? (btn.onclick = () => {
           btn.querySelectorAll('span').forEach((span) => {
-              span.classList.toggle('open');
+            span.classList.toggle('open');
           });
           navbar.classList.toggle('open');
-      };
+        })
+      : null;
   },
 
   navItem() {
-      $$('nav a').forEach((navItem) => {
-          navItem.onclick = () => {
-              if ($('nav a.active')) $('nav a.active').classList.remove('active');
-              navItem.classList.add('active');
-              if ($('.navbar.open')) $('.fancy-burger').click()
-          };
-      });
+    $$('nav a').forEach((navItem) => {
+      navItem.onclick = () => {
+        if ($('nav a.active')) $('nav a.active').classList.remove('active');
+        navItem.classList.add('active');
+        if ($('.navbar.open')) $('.fancy-burger').click();
+      };
+    });
   },
-
 
   init() {
-      this.fancyBurger();
-      this.navItem();
+    this.fancyBurger();
+    this.navItem();
   },
 };
-
 
 navbarEvent.init();

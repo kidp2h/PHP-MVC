@@ -261,9 +261,9 @@ tbody tr:last-child {
 }
 #admin .ic-input-search {
   position: absolute;
-  left: 14px;
-  top: 14px;
-  font-size: 1.75em;
+  left: 15px;
+  top: 9px;
+  font-size: 2em;
 }
 #admin .tmanager-category .ic-input-search {
   color: var(--green);
@@ -289,6 +289,7 @@ tbody tr:last-child {
   position: fixed;
   word-break: keep-all;
   user-select: none;
+  -webkit-user-select: none;
   pointer-events: none;
   white-space: nowrap;
 }
@@ -334,6 +335,7 @@ tbody tr:last-child {
   border: 1px solid var(--purple);
   height: 40px;
   user-select: none;
+  -webkit-user-select: none;
   color: white;
 }
 
@@ -366,9 +368,11 @@ tbody tr:last-child {
 }
 th {
   user-select: none;
+  -webkit-user-select: none;
 }
 .sort {
   user-select: none;
+  -webkit-user-select: none;
   cursor: pointer;
 }
 
