@@ -11,27 +11,27 @@
           <th class="sort sortProductName">
             <input type="radio" name="sort" value="" />
             Product
-            <i class="fas fa-sort"></i>
+            <i class="ion-funnel"></i>
           </th>
           <th class="sort sortCategory">
             <input type="radio" name="sort" value="" />
             Category
-            <i class="fas fa-sort"></i>
+            <i class="ion-funnel"></i>
           </th>
           <th class="sort sortPrice">
             <input type="radio" name="sort" value="" />
             Price
-            <i class="fas fa-sort"></i>
+            <i class="ion-funnel"></i>
           </th>
           <th class="sort sortQTY">
             <input type="radio" name="sort" value="" />
             Quantity Sold
-            <i class="fas fa-sort"></i>
+            <i class="ion-funnel"></i>
           </th>
           <th class="sort sortTotal">
             <input type="radio" name="sort" value="" />
             Total
-            <i class="fas fa-sort"></i>
+            <i class="ion-funnel"></i>
           </th>
         </tr>
       </thead>

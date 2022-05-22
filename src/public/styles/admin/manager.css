@@ -162,6 +162,7 @@ button.btn-select-category:hover {
 
 .selectRate {
   user-select: none;
+  -webkit-user-select: none;
 }
 .selectRate i {
   font-size: 3rem;
@@ -175,7 +176,7 @@ button.btn-select-category:hover {
   margin-bottom: 10px;
   padding: 10px;
   width: 100px;
-  background-color: var(--ui-background);
+  background-color: var(--purple);
   color: white;
   border-radius: 10px;
   transition: all 0.3s;

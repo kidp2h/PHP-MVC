@@ -5,6 +5,7 @@ namespace app\models;
 use core\Model;
 use DateTime;
 use utils\Utils;
+use core\Application;
 
 class User extends Model {
   private self $user;
@@ -18,8 +19,9 @@ class User extends Model {
   public ?string $address;
   public bool $isVerified;
   public ?string $tokenVerify;
-  public string $refreshToken;
+  public ?string $refreshToken;
   public int $permission;
+  public string $type;
   public string $createdAt;
   public string $updatedAt;
 
@@ -30,7 +32,7 @@ class User extends Model {
     return new static();
   }
 
-  public function fillInstance($username, $password, $email, $fullName, $phoneNumber = NULL, $isActivePhone, $address = NULL, $isVerified = false, $tokenVerify = NULL) {
+  public function fillInstance($username, $password, $email, $fullName, $phoneNumber = NULL, $isActivePhone, $address = NULL, $isVerified = false, $tokenVerify = NULL, $refreshToken, $permission = -1, $type = "local") {
     $this->user->username = $username;
     $this->user->password = $password;
     $this->user->email = $email;
@@ -40,7 +42,9 @@ class User extends Model {
     $this->user->address = $address;
     $this->user->isVerified = $isVerified;
     $this->user->tokenVerify = $tokenVerify;
-
+    $this->user->refreshToken = $refreshToken;
+    $this->user->permission = $permission;
+    $this->user->type = $type;
     return $this->user;
 
   }
@@ -79,18 +83,25 @@ class User extends Model {
 
   public static function resolve(array $data) {
     $user = self::__self__();
-    array_key_exists("id",$data) == true ? $user->id = $data["id"] : null;
-    array_key_exists("username",$data) == true ? $user->username = $data["username"] : null;
-    array_key_exists("password",$data) == true ? $user->password = $data["password"] : null;
-    array_key_exists("email",$data) == true ? $user->email = $data["email"] : null;
-    array_key_exists("fullName",$data) == true ? $user->fullName = $data["fullName"] : null;
-    array_key_exists("phoneNumber",$data) == true ? $user->phoneNumber = $data["phoneNumber"] : null;
-    array_key_exists("isActivePhone",$data) == true ? $user->isActivePhone = $data["isActivePhone"] : null;
-    array_key_exists("address",$data) == true ? $user->address = $data["address"] : null;
-    array_key_exists("permission",$data) == true ? $user->permission = $data["permission"] : null;
-    array_key_exists("isVerified",$data) == true ? $user->isVerified = $data["isVerified"] : null;
-    array_key_exists("tokenVerify",$data) == true ? $user->tokenVerify = $data["tokenVerify"] : null;
-    return $user;
+    if(count($data) !=0 ){
+      array_key_exists("id",$data) == true ? $user->id = $data["id"] : null;
+      array_key_exists("username",$data) == true ? $user->username = $data["username"] : null;
+      array_key_exists("password",$data) == true ? $user->password = $data["password"] : null;
+      array_key_exists("email",$data) == true ? $user->email = $data["email"] : null;
+      array_key_exists("fullName",$data) == true ? $user->fullName = $data["fullName"] : null;
+      array_key_exists("phoneNumber",$data) == true ? $user->phoneNumber = $data["phoneNumber"] : null;
+      array_key_exists("isActivePhone",$data) == true ? $user->isActivePhone = $data["isActivePhone"] : null;
+      array_key_exists("address",$data) == true ? $user->address = $data["address"] : null;
+      array_key_exists("permission",$data) == true ? $user->permission = $data["permission"] : null;
+      array_key_exists("type",$data) == true ? $user->type = $data["type"] : null;
+      array_key_exists("isVerified",$data) == true ? $user->isVerified = $data["isVerified"] : null;
+      array_key_exists("tokenVerify",$data) == true ? $user->tokenVerify = $data["tokenVerify"] : null;
+      array_key_exists("refreshToken",$data) == true ? $user->refreshToken = $data["refreshToken"] : null;
+      return $user;
+    }else {
+      return null;
+    }
+
   }
 
   public static function getTokenReset(string $email){
@@ -144,7 +155,7 @@ class User extends Model {
     $data = "$baseUrl.$expire";
     $hash = hash_hmac("sha256", $data,$_ENV["SECRET_KEY"]);
     $refreshToken = "{$hash}.&$@{$expire}.&$@{$id}.&$@{$secretKey}";
-    return User::__self__()->update(["refreshToken" => "'{$refreshToken}'"], "id=$id");
+    return User::__self__()->update(["refreshToken" => "$refreshToken"], "id=$id");
   }
 
   public static function verifyRefreshToken($refreshToken){
@@ -168,10 +179,8 @@ class User extends Model {
     }
   }
 
-  public static function sendMailVerifyAccount(array $to) {
-    $token = Utils::v4();
+  public static function sendMailVerifyAccount(array $to, $token) {
     $address = $to["address"];
-    $server = $_SERVER['SERVER_NAME'];
     Utils::sendMailWithTemplate(
       ['address' => $to["address"]],
       "Verify Account",
@@ -195,7 +204,7 @@ class User extends Model {
     $baseUrl = $_ENV["BASE_URL"];
     $secretKey = Utils::hashBcrypt($_ENV["SECRET_KEY"]);
     $now = new DateTime();
-    $expire = ($now->add(new \DateInterval("PT300000S")))->getTimestamp();
+    $expire = ($now->add(new \DateInterval("PT3600S")))->getTimestamp();
     $user = User::__self__()->read(["*"],"id=$id");
     if(!isset($user)){
       return ["status" => false, "message" => "Invalid id"];
@@ -208,7 +217,7 @@ class User extends Model {
     ]);
     $data = "$baseUrl.$info.$expire";
     $hash = hash_hmac("sha256", $data,$_ENV["SECRET_KEY"]);
-    return ["accessToken" => "{$hash}.&$@{$expire}.&$@{$id}.&$@{$secretKey}"];
+    return ["accessToken" => "{$hash}.&$@{$expire}.&$@{$id}.&$@{$secretKey}", "user" => $user];
   }
 
   public static function decodeAccessToken($accessToken){
@@ -216,8 +225,6 @@ class User extends Model {
     $arrayHash = explode(".&$@",$accessToken);
     $secretKeyHash = $arrayHash[3];
     $now = (new DateTime())->getTimestamp();
-    //echo $secretKeyHash;
-    //echo !Utils::verifyBcrypt($secretKeyHash, $_ENV["SECRET_KEY"]);
     if(count($arrayHash)  != 4 || !Utils::verifyBcrypt($secretKeyHash, $_ENV["SECRET_KEY"]))
       return ["status" => false, "message" => "Invalid Access Token", "error-code" => -1];
     if(count($arrayHash) == 4) {
@@ -243,6 +250,7 @@ class User extends Model {
   public function getUserByUsername($username){
     $sql = self::$db->query("SELECT * FROM user WHERE user.username = '$username'");
     while($row = mysqli_fetch_array($sql,1)) $data = $row;
-    return self::resolve($data);
+    if($data) return self::resolve($data);
+    return null;
   }
 }

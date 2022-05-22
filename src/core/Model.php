@@ -32,7 +32,8 @@ class Model {
     $table = $this->tableName();
     $sql = "INSERT INTO {$table} ({$fields}) VALUES ({$values})";
     try {
-      if(self::$db->query($sql)) return (object)["status" => true ]; 
+      $result = self::$db->query($sql);
+      if($result) return (object)["status" => true, "id" => self::$db->insert_id]; 
     } catch (\Exception $e) {
       return (object)["message" => $e->getMessage(), "status" => false];
     }

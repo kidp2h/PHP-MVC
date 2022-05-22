@@ -55,6 +55,7 @@ try {
           <input spellcheck="false"  type="text" class="form-input" id="fullName" name="fullName" placeholder="Full Name" value="<?=Application::$user->fullName?>" />
         </div>
       </div>
+      <?php if(Application::$user->type == "local"){ ?>
       <div class="form-group">
         <label for="username" class="label-input">Username</label>
         <span class="validate-message">Error</span>
@@ -62,6 +63,7 @@ try {
           <input spellcheck="false"  type="text" class="form-input input-disabled" id="username" name="username" value="<?=Application::$user->username?>" placeholder="Username" disabled/>
         </div>
       </div>
+      <?php } ?>
       <div class="form-group">
         <label for="email" class="label-input">Email address</label>
         <span class="validate-message">Error</span>
@@ -69,6 +71,7 @@ try {
           <input spellcheck="false"  type="email" class="form-input input-disabled" id="email" name="email" placeholder="Email address"  value="<?=Application::$user->email?>" disabled/>
         </div>
       </div>
+      <?php if(Application::$user->type == "local"){ ?>
       <div class="form-group">
         <label for="password" class="label-input">New Password</label>
         <span class="validate-message">Error</span>
@@ -85,6 +88,7 @@ try {
           <i class="ion-eye showPassword"></i>
         </div>
       </div>
+      <?php } ?>
       <div class="form-group">
         <label for="phoneNumber" class="label-input">Phone number</label>
         <span class="validate-message">Error</span>
@@ -171,6 +175,9 @@ try {
           <ul class="dropdown">
             <?php if(isset($_COOKIE["accessToken"])) {?>
               <li class="dropdown-item openModal"><a href="javascript:void(0)">Profile</a></li>
+              <?php if(!Application::$user->permission){ ?>
+                <li class="dropdown-item"><a href="/admin">Manager</a></li>
+              <?php } ?>
               <li class="dropdown-item"><a href="/logout">Logout</a></li>
             <?php } else { ?>
               <li class="dropdown-item"><a href="/signin">Sign In</a></li>
@@ -389,6 +396,11 @@ try {
             
         <div class="box">
           <ul class="modal__cart-product-box">
+            <?php foreach(Application::$cart as $key => $value){ ?>
+              <?php foreach($value as $key => $value){?>
+                <?= $value."</br>"?>
+              <?php } ?>
+            <?php } ?>
           </ul>
         </div>
 

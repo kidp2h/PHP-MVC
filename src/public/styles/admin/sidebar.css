@@ -6,6 +6,7 @@
   transition: ease-in-out 0.3s;
   border-left: 10px solid var(--ui-background);
   user-select: none;
+  -webkit-user-select: none;
   overflow: hidden;
   z-index: 999999999;
 }
@@ -79,7 +80,7 @@
   min-width: 60px;
   text-align: center;
   height: 60px;
-  font-size: 2em;
+  font-size: 2.8em !important;
 }
 #admin .sidebar ul li a .title {
   line-height: 60px;
@@ -90,10 +91,12 @@
   padding: 0 10px;
   white-space: normal;
 }
-
+#admin .sidebar ul li:first-child:hover > a {
+  color: white !important;
+}
 #admin .sidebar ul li:hover > a,
 #admin .sidebar ul li.active > a {
-  color: black;
+  color: var(--ui-background);
   transition: ease-in-out 0.3s;
 }
 #admin .item {

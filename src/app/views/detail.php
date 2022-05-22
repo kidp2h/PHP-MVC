@@ -142,7 +142,7 @@
                         <span class="pane-title">Description</span>
                         <div class="pane-icon">
                             <span class="pane-icon--plus-icon">
-                                <i class="fas fa-plus"></i>
+                                <i class="ion-plus-round"></i>
                             </span>
                             <span class="pane-icon--minus-icon"><i class="fas fa-minus"></i></span>
                         </div>
@@ -251,7 +251,7 @@
                         <span class="pane-title">Additional Information</span>
                         <div class="pane-icon">
                             <span class="pane-icon--plus-icon">
-                                <i class="fas fa-plus"></i>
+                                <i class="ion-plus-round"></i>
                             </span>
                             <span class="pane-icon--minus-icon"><i class="fas fa-minus"></i></span>
                         </div>
@@ -284,7 +284,7 @@
                         <span class="pane-title">Why Buy From Us</span>
                         <div class="pane-icon">
                             <span class="pane-icon--plus-icon">
-                                <i class="fas fa-plus"></i>
+                                <i class="ion-plus-round"></i>
                             </span>
                             <span class="pane-icon--minus-icon"><i class="fas fa-minus"></i></span>
                         </div>
@@ -345,7 +345,7 @@
                         <span class="pane-title">Delivery & Returns</span>
                         <div class="pane-icon">
                             <span class="pane-icon--plus-icon">
-                                <i class="fas fa-plus"></i>
+                                <i class="ion-plus-round"></i>
                             </span>
                             <span class="pane-icon--minus-icon"><i class="fas fa-minus"></i></span>
                         </div>

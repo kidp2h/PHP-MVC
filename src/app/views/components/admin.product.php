@@ -2,7 +2,7 @@
     <td>
         <div class="wrap-image">
             <img class="image-document i-product" src="<?=$product['image'][0]?>" alt="Image product id ${product.id}">
-            <button class="addImage" data-id="${product.id}"><i class="fas fa-plus"></i></button>
+            <button class="addImage" data-id="${product.id}"><i class="ion-plus-round"></i></button>
         </div>
     </td>
     <td contenteditable="true" class="nameProduct"><?=$product['name']?></td>
