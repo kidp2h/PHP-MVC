@@ -4,36 +4,42 @@ namespace app\controllers;
 use core\Controller;
 use core\Request;
 use app\models\Cart;
+use app\models\Product;
 use app\models\User;
 
 class CartController extends Controller {
   public static string $layout = "main";
 
   public static function handleAddToCart(Request $request) {
+    if(empty($_COOKIE["accessToken"])) {
+      return json_encode(["status" => false]);
+    }
     $result = User::__self__()->decodeAccessToken($_COOKIE["accessToken"]);
     $userInfor = $result["user"];
     $body = $request->body();
     $userId = $userInfor->id;
     $productId = $body['productId'];
-    $amount = $body['amount'];
+    $quantity = $body['amount'];
     $storeId = $body['storeId'];
 
     $cartItem = Cart::__self__()->getCartByUserId($userId);
+    $addedProduct = Product::__self__()->getProductByIdAndStore($productId, $storeId);
+    // array_push($addedProduct);
 
     $isFind = false;
     for ($i=0; $i < count($cartItem); $i++) { 
         if($cartItem[$i]['product_id'] == $productId 
         && $cartItem[$i]['store_id'] == $storeId) {
             $isFind = true;
-            $amount += (int)$cartItem[$i]['quantity'];
-            Cart::__self__()->updateProductToCart($userId, $productId, $storeId, $amount);
+            $quantity += (int)$cartItem[$i]['quantity'];
+            Cart::__self__()->updateProductToCart($userId, $productId, $storeId, $quantity);
         } 
     }
     if(!$isFind) {
-      Cart::__self__()->addProductToCart($userId, $productId, $storeId, $amount);
+      Cart::__self__()->addProductToCart($userId, $productId, $storeId, $quantity);
     }
 
-    return json_encode(["status" => $cartItem]);
+    return json_encode(["status" => true, "product" => $addedProduct, "cartItem" => $cartItem]);
   }
 
   public static function handleUpdateToCart(Request $request) {

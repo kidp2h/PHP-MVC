@@ -22,7 +22,8 @@ class Application {
   public static Mail $mail;
   public __Socket__ $socket;
   public static ?User $user;
-  public static ?array $cart;
+  public static $cart;
+  public static $cartTotalPrice;
   public $db;
 
   public function __construct($rootPath) {
@@ -74,6 +75,7 @@ class Application {
             $this->session->set("id", $id);
             self::$user = $data["user"];
             self::$cart = Cart::__self__()->getProductFromCart($id);
+            self::$cartTotalPrice = Cart::__self__()->totalPriceOfCart($id);
           }
         }
       }else{
