@@ -396,18 +396,46 @@ try {
             
         <div class="box">
           <ul class="modal__cart-product-box">
-            <?php foreach(Application::$cart as $key => $value){ ?>
-              <?php foreach($value as $key => $value){?>
-                <?= $value."</br>"?>
+          <?php if(Application::$cart == null) { ?>
+            <?php $display = 'none'; ?>
+            <?= '<div class = "modal__cart-empty">
+                <i class="fas fa-shopping-cart"></i>
+                <h4 class="modal__cart-empty-text">Your shopping cart is empty</h4>
+              </div>'; ?>
+            <?php } else{ ?>
+              <?php forEach(Application::$cart as $product) { ?>
+                <?php
+                  $display = 'block'; 
+                  $product['image'] = json_decode($product['image']);
+                ?>
+                <?= 
+                '<li class="modal__cart-product-item cartProduct" data-id = "'.$product['id'].'" data-store = "'.$product['storeId'].'">
+                  <div class="modal__cart-imgbox">
+                      <img class="modal__cart-img" src="'.$product['image'][0].'" alt="">
+                  </div>
+                  <div class="modal__cart-item-infor">
+                      <h3 class="modal__cart-item-name">'.$product['name'].'</h3>
+                      <span class="modal__cart-item-price cartProductPrice" data-price = "'.$product['productPrice'].'">$'.$product['productPrice'].'</span>
+                      <div class="modal__cart-item-input">
+                          <button class="cart__item-decrement"  data-id = "'.$product['id'].'" data-store = "'.$product['storeId'].'">-</button>
+                          <input type="number" min="1" max="9999" step="1" value="'.$product['quantity'].'" class="cart_item-input" data-id = "'.$product['id'].'" data-store = "'.$product['storeId'].'" inputmode="numeric">
+                          <button class="cart__item-increment" data-id = "'.$product['id'].'" data-store = "'.$product['storeId'].'">+</button>
+                      </div>
+                      <div class="modal__cart-delete-icon">
+                          <i class="ion-trash-a deleteIcon" data-id = "'.$product['id'].'" data-store = "'.$product['storeId'].'"></i>
+                      </div>
+                  </div>
+                </li>';
+                ?>
               <?php } ?>
             <?php } ?>
           </ul>
         </div>
 
-        <div class="modal__cart-footer" style="display: none;">
+        <div class="modal__cart-footer" style="display: <?= $display?>">
           <div class="modal__cart-subtotal">
-            <h3 class="subtotal-text">Subtotal:</h3>
-            <span class="modal__cart-subtotal-all"></span>
+            <h3 class="subtotal-text">Subtotal: </h3>
+            <span class="modal__cart-subtotal-all"><?= '$'.Application::$cartTotalPrice['totalPrice'] ?></span>
           </div>
           <div class="modal__cart-view-cart">
             <span class="modal__cart-view-cart-btn">
@@ -460,10 +488,7 @@ try {
 <script src="/public/javascripts/cart/cartEvent.js"></script>
 <script src="/public/javascripts/order/order.js"></script>
 <script src="/public/javascripts/toast.js"></script>
-<<<<<<< HEAD
 
-=======
->>>>>>> main
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
   integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>

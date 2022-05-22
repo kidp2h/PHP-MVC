@@ -133,13 +133,13 @@
 
                         foreach ($data as $product) {
                             echo '
-                        <li>
+                        <li class="product">
                         <div class="product-items"></div>
                         <div class="product-top">
                             <div class="product-thumb">
 
-                                <a href="http://localhost/detail/product/' . $product["id"] . '?storeId='.$storeCurrent.'">
-                                    <img src="' . json_decode($product['image'])[0] . '" alt="ảnh 1" width="200px" height="200px">
+                                <a href="http://localhost/detail/product/' . $product["id"] . '/'.$storeCurrent.'">
+                                    <img src="' . json_decode($product['image'])[0] . '" alt="ảnh 1" width="200px" height="200px" class="productImg">
                                 </a>
                             </div>
                             
@@ -166,7 +166,7 @@
                             <div href="" class="product-name">' . $product["name"] . '</div>
                             <div class="price">
                             <div class="product-price">1000</div>
-                            <div class="sale-price">' . $product["price"] . '</div>
+                            <div class="sale-price" data-price = "'.$product["price"].'">' . $product["price"] . '</div>
                             </div>
                         </div>
                     </li>';
