@@ -15,7 +15,7 @@ $rootQuery = new ObjectType([
       'args' => [
         'id' => ['type' => Type::int()],
       ],
-      'resolve' => static fn ($user, $args) => User::__self__()->read(["*"], "id=" . $args['id'])
+      'resolve' => static fn ($user, $args) => User::__self__()->findOne(["*"], "id=" . $args['id'])
     ],
   ],
 ]);
