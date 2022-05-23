@@ -29,14 +29,45 @@ class AdminController extends Controller {
     //$categories = Category::__self__()->find(["*"],"1");
     return parent::render('admin',["users" => $users/* "products" => $products, "categories" => $categories */]);
   }
-  public static function product(){
+  public static function product() {
+
+    $products = Product::__self__()->getListProductAllByStoreId();
+    $categories = Category::__self__()->getCategoryList();
+
+    $params = array (
+      "products" => $products,
+      "categories" => $categories
+    );
+
+
+    return parent::render('admin.product', $params);
+
     return parent::render('admin.product');
   }
   public static function productStore(){
-    return parent::render('admin.product');
+
+
+    $products = Product::__self__()->getListProductAllByStoreId(self::$params['idStore']);
+    $categories = Category::__self__()->getCategoryList();
+
+    $params = array (
+      "products" => $products,
+      "categories" => $categories,
+      "idStore" => self::$params['idStore']
+    );
+
+
+    return parent::render('admin.product', $params);
   }
   public static function category(){
-    return parent::render('admin.category');
+
+    $categories = Category::__self__()->getCategoryList();
+
+    $params = array (
+      "categories" => $categories
+    );
+
+    return parent::render('admin.category', $params);
   }
   public static function user(){
     $users = User::__self__()->find(["*"],"1");

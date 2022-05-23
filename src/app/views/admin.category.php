@@ -1,3 +1,5 @@
+<?php use core\Application; ?>
+
 <div class="tmanager tmanager-category">
   <div class="box-filter">
     <div class="table-search">
@@ -18,7 +20,13 @@
           <th>Action</th>
         </tr>
       </thead>
-      <tbody></tbody>
+      <tbody> 
+        <?php
+          foreach($categories as $category) {
+            include Application::$__ROOT_DIR__.'/app/views/components/admin.category.php';
+          }
+        ?>
+      </tbody>
     </table>
   </div>
   <div class="actionCategory table-action">
