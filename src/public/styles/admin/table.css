@@ -370,6 +370,11 @@ th {
   user-select: none;
   -webkit-user-select: none;
 }
+.rowTable {
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: pointer;
+}
 .sort {
   user-select: none;
   -webkit-user-select: none;

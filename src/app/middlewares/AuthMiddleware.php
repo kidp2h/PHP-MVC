@@ -63,11 +63,4 @@ class AuthMiddleware {
     Application::removeCookie("accessToken");
     return true;
   }
-  public static function isAdmin(Request $request, Response $response) : callable | bool {
-    $result = User::decodeAccessToken($_COOKIE['accessToken']);
-    if($result["error-code"] == 0 && !$result["status"])
-      return fn() => $response->redirect("/admin"); 
-    else 
-      if(!$result["user"]->permisson) return true;
-  }
 }

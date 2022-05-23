@@ -294,22 +294,19 @@ class Product extends Model
 
 	}
 
-	public function getListProductAll($page, $limit)
+	public function getListProductAllByStoreId($storeId = NULL)
 	{
 		$data = [];
-		$index = ($page - 1) * $limit;
-		$sql = self::$db->query("select * from product");
-		while ($row = mysqli_fetch_all($sql, 1)) $data = $row;
-
-		$totalPage = ceil(count($data)/$limit);
-		$data = array_slice($data, $index, $page * $limit);
-
+		if(!$storeId)
+		$sql = "select * from product";
+		else 
+		$sql = "select p.* from product as p, product_details as pd, store as s
+				where p.id = pd.product_id and pd.store_id = s.id and s.id = $storeId";
 		
+		$result = self::$db->query($sql);
+		while ($row = mysqli_fetch_all($result, 1)) $data = $row;
 
-		return array(
-			"data"=> $data,
-			"totalPage" => $totalPage
-		);
+		return $data;
 	}
 
 	public function getListProductSaleOn50($store_id, $page, $limit)
