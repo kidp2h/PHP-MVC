@@ -13,26 +13,45 @@ class AdminController extends Controller {
   public static array $params = [];
   public static array $paramsLayout = [];
 
+  public static function useHook(){
+    self::$params = self::$paramsLayout;
+  }
 
   public static function admin(){
     $users = User::__self__()->find(["*"],"1");
-    $products = Product::__self__()->find(["*"], "1");
-    $categories = Category::__self__()->find(["*"], "1");
-    return parent::render('admin',["users" => $users, "products" => $products, "categories" => $categories]);
+    //$product = Product::__self__()->find(["*"], "1");
+    //$categories = Category::__self__()->find(["*"],"1");
+    return parent::render('admin',["users" => $users/* "products" => $products, "categories" => $categories */]);
+  }
+  public static function adminStore(){
+    $users = User::__self__()->find(["*"],"1");
+    //$product = Product::__self__()->find(["*"], "1");
+    //$categories = Category::__self__()->find(["*"],"1");
+    return parent::render('admin',["users" => $users/* "products" => $products, "categories" => $categories */]);
   }
   public static function product(){
+    return parent::render('admin.product');
+  }
+  public static function productStore(){
     return parent::render('admin.product');
   }
   public static function category(){
     return parent::render('admin.category');
   }
   public static function user(){
-    return parent::render('admin.user');
+    $users = User::__self__()->find(["*"],"1");
+    return parent::render('admin.user',["users" => $users]);
   }
   public static function bill(){
     return parent::render('admin.bill');
   }
+  public static function billStore(){
+    return parent::render('admin.bill');
+  }
   public static function revenue(){
+    return parent::render('admin.revenue');
+  }
+  public static function revenueStore(){
     return parent::render('admin.revenue');
   }
 }
