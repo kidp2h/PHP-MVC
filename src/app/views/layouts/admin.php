@@ -20,7 +20,7 @@ use core\Application;
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/public/icons/css/ionicons.min.css">
   <link rel="stylesheet" href="/public/styles/admin/base.css">
-  <link rel="stylesheet" href="/public/styles/admin/alert.css">
+  <link rel="stylesheet" href="/public/styles/admin/toast.css">
   <link rel="stylesheet" href="/public/styles/admin/animations.css">
   <link rel="stylesheet" href="/public/styles/admin/sidebar.css">
   <link rel="stylesheet" href="/public/styles/admin/card.css">
@@ -37,6 +37,7 @@ use core\Application;
 </head>
 
 <body>
+  <div class="toasts"></div>
   <div id="admin">
 
     <div class="overlay overlayAddImage">
@@ -124,6 +125,12 @@ use core\Application;
               <span class="title">Product</span>
             </a>
           </li>
+          <li class="manager m-category">
+            <a class="item" href="/admin/store/category/<?= $idStore ?>">
+              <i class="ion-android-bookmark"></i>
+              <span class="title">Category</span>
+            </a>
+          </li>
           <li class="manager m-bill">
             <a class="item" href="/admin/store/bill/<?= $idStore ?>">
               <i class="ion-ios-paper "></i>
@@ -143,12 +150,6 @@ use core\Application;
               <span class="title">Dashboard</span>
             </a>
           </li>
-          <!-- <li class="manager m-dashboard">
-            <a class="item" href="/admin/bracnh">
-              <i class="ion-speedometer"></i>
-                <span class="title">Dashboard</span>
-            </a>
-          </li> -->
           <li class="manager m-user">
             <a class="item" href="/admin/user">
               <i class="ion-person-stalker"></i>
@@ -179,11 +180,6 @@ use core\Application;
               <span class="title">Revenue</span>
             </a>
           </li>
-
-          <a href="/admin">TONG</a>
-          <a href="/admin/store/1">CHI NHANH 1</a>
-          <a href="/admin/store/2">CHI NHANH 2</a>
-          <a href="/admin/store/3">CHI NHANH 3</a>
         <?php } ?>
       </ul>
     </div>
@@ -194,13 +190,15 @@ use core\Application;
           <div class="toggle__burger"></div>
         </div>
         <div class="user">
-          <i style="font-size: 1.5em" class="fas fa-door-open"></i>
+        <a href="/logout"><i style="font-size: 1.5em" class="ion-log-out"></i></a>
+          
         </div>
       </div>
       {{content}}
     </div>
 
   </div>
+  <script src="/public/javascripts/toast.js"></script>
   <script src="/public/javascripts/main.js"></script>
   <script src="/public/javascripts/admin/main.js"></script>
   <script src="/public/javascripts/admin/modal.js"></script>

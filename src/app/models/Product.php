@@ -11,6 +11,9 @@ class Product extends Model
 	public int $id;
 	public string $name;
 	public int $price;
+	public string $description;
+	public array $image;
+	public int | string $category_id;
 	public string $createdAt;
 	public string $updatedAt;
 	public string $deletedAt;
@@ -309,6 +312,17 @@ class Product extends Model
 		return $data;
 	}
 
+	public function getEntireProduct() {
+		$data = [];
+		$sql = "select product.*, category.title as 'category_id' from product inner join category where category.id = product.category_id;";
+
+		$result = self::$db->query($sql);
+		while ($row = mysqli_fetch_assoc($result)) {
+			array_push($data, $this->resolve($row));
+		}
+		return $data;
+	}
+
 	public function getListProductSaleOn50($store_id, $page, $limit)
 	{
 		$data = [];
@@ -328,4 +342,20 @@ class Product extends Model
 			"totalPage" => $totalPage
 		);
 	}
+
+	public static function resolve(array $data) {
+    $product = self::__self__();
+    if(count($data) !=0 ){
+      array_key_exists("id",$data) == true ? $product->id = $data["id"] : null;
+      array_key_exists("name",$data) == true ? $product->name = $data["name"] : null;
+      array_key_exists("price",$data) == true ? $product->price = $data["price"] : null;
+      array_key_exists("description",$data) == true ? $product->description = $data["description"] : null;
+      array_key_exists("image",$data) == true ? $product->image = json_decode($data["image"]) : null;
+      array_key_exists("category_id",$data) == true ? $product->category_id = $data["category_id"] : null;
+      return $product;
+    }else {
+      return null;
+    }
+
+  }
 }

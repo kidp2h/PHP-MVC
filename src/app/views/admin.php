@@ -2,7 +2,7 @@
   <div class="card-statistic">
     <div class="card card-user">
       <div class="card-wrap">
-        <div class="number">0</div>
+        <div class="number"><?= count($users)?></div>
         <div class="card-name">Account</div>
       </div>
       <div class="icon-card">
@@ -11,7 +11,7 @@
     </div>
     <div class="card card-product">
       <div class="card-wrap">
-        <div class="number">0</div>
+        <div class="number"><?= count($products)?></div>
         <div class="card-name">Product</div>
       </div>
       <div class="icon-card">
@@ -20,7 +20,7 @@
     </div>
     <div class="card card-category">
       <div class="card-wrap">
-        <div class="number">0</div>
+        <div class="number"><?= count($categories)?></div>
         <div class="card-name">Category</div>
       </div>
       <div class="icon-card">
@@ -42,12 +42,20 @@
       <table class="content-table tuser">
         <thead>
           <tr>
-            <th>Username</th>
-            <th>FullName</th>
-            <th>IsAdmin</th>
+            <th>Fullname</th>
+            <th>Address</th>
+            <th>Phone</th>
           </tr>
         </thead>
-        <tbody></tbody>
+        <tbody>
+          <?php foreach(array_slice($users,0,3) as $key => $value){ ?>
+          <tr>
+            <td><?= $value->fullName ?></td>
+            <td><?= $value->address ?></td>
+            <td><?= $value->phoneNumber ?></td>
+          </tr>
+          <?php } ?>
+        </tbody>
       </table>
     </div>
     <div class="wrap-table">
@@ -59,7 +67,15 @@
             <th>Price($)</th>
           </tr>
         </thead>
-        <tbody></tbody>
+        <tbody>
+        <?php foreach(array_slice($products,0,8) as $key => $value){ ?>
+          <tr>
+            <td><?= $value->name ?></td>
+            <td><?= $value->category_id ?></td>
+            <td><?= $value->price ?></td>
+          </tr>
+          <?php } ?>
+        </tbody>
       </table>
     </div>
     <div class="wrap-table">
@@ -70,7 +86,18 @@
             <th>Name</th>
           </tr>
         </thead>
-        <tbody></tbody>
+        <tbody>
+        <?php foreach(array_slice($categories, 0, 3) as $key => $value){ ?>
+          <tr>
+          <td>
+            <div class="wrap-image">
+              <img class="image-document i-category" src="<?= $value->image?>" alt="Category id <?= $value->id?>" width="50">
+            </div>
+          </td>
+            <td><?= $value->title ?></td>
+          </tr>
+          <?php } ?>
+        </tbody>
       </table>
     </div>
   </div>
