@@ -1,12 +1,16 @@
+<?php use core\Application;?>
+
 <tr>
     <td>
         <div class="wrap-image">
         <img class="image-document i-category" src="<?=$category['image']?>" alt="Image product id <?=$category['id']?>">
+        <?php if(Application::$user->permission == 0){ ?>
         <button class="changeImage" data-id="<?=$category['id']?>">
-            <i class="ion-plus-round">
+            <i class="ion-edit">
             <input type="file" name="changeImage" id="inputChangeImage"  style="display: none;" accept="image/*">
             </i>
         </button>
+        <?php } ?>
         </div>
     </td>
     <td contenteditable="true" class="nameCategory"><?=$category['title']?></td>

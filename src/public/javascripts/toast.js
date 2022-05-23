@@ -1,12 +1,22 @@
+const _icon = {
+  success: 'ion-ios-checkmark',
+  warning: 'ion-alert',
+  error: 'ion-alert-circled',
+};
 const showToast = (
   type,
   message,
-  icon = 'ion-alert-circled',
-  duration = 5000
+  duration = 99999999,
+  bgColor = null,
+  textColor = null
 ) => {
+  let icon = _icon[`${type}`];
+  alert(_icon);
   let toast = document.createElement('div');
   const toasts = $('#toasts');
   toast.classList.add('toast', type);
+  toast.style.backgroundColor = bgColor;
+  toast.style.color = textColor;
   let timeOutId = setTimeout(() => {
     toasts.removeChild(toast);
   }, duration);

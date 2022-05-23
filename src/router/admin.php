@@ -22,3 +22,6 @@ $app->router->get("/store/category/{id:\d+}",[[AuthMiddleware::class,"isAuth"],[
 $app->router->get("/store/bill/{id:\d+}",[[AuthMiddleware::class,"isAuth"],[AdminMiddleware::class, "isManagerStore"]] ,[AdminController::class, "billStore"]);
 $app->router->get("/store/revenue/{id:\d+}",[[AuthMiddleware::class,"isAuth"],[AdminMiddleware::class, "isManagerStore"]] ,[AdminController::class, "revenueStore"]);
 $app->router->get("/store/{id:\d+}",[[AuthMiddleware::class,"isAuth"],[AdminMiddleware::class, "isManagerStore"]] ,[AdminController::class, "adminStore"]);
+
+
+$app->router->post("/changeImageCategory/{id:\d+}",[[AuthMiddleware::class,"isAuth"],[AdminMiddleware::class, "isAdmin"]],[AdminController::class, "changeImageCategory"]);

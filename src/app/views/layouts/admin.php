@@ -18,7 +18,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/public/icons/css/ionicons.min.css">
     <link rel="stylesheet" href="/public/styles/admin/base.css">
-    <link rel="stylesheet" href="/public/styles/admin/alert.css">
+    <link rel="stylesheet" href="/public/styles/toast.css">
     <link rel="stylesheet" href="/public/styles/admin/animations.css">
     <link rel="stylesheet" href="/public/styles/admin/sidebar.css">
     <link rel="stylesheet" href="/public/styles/admin/card.css">
@@ -34,6 +34,7 @@
     <link rel="stylesheet" href="/public/styles/admin/load.css">
   </head>
   <body>
+    <div id="toasts"></div> 
     <div id="admin">
     <div class="sidebar active">
         <ul>
@@ -138,7 +139,9 @@
         {{content}}
       </div>
     </div>
+    <script src="/public/javascripts/toast.js"></script>
     <script src="/public/javascripts/main.js"></script>
     <script src="/public/javascripts/admin/main.js"></script>
+    
   </body>
 </html>

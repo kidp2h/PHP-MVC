@@ -31,6 +31,7 @@ class Application {
   public function __construct($rootPath) {
     $queryBuilder = QueryBuilder::select("x","x")->from("kec")->where("x=x")->where("5=5")->__toString();
     error_reporting(0);
+    session_start();
     date_default_timezone_set('Asia/Ho_Chi_Minh');
     header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}");
     header('Access-Control-Allow-Credentials: true');
@@ -70,19 +71,16 @@ class Application {
       $this->session = new Session();
       self::$mail = new Mail();
       self::$app = $this;
-      if(!isset($_SESSION["id"])){
-        if($_COOKIE["accessToken"]){
-          $data = User::decodeAccessToken($_COOKIE["accessToken"]);
-          if(isset($data["id"])){
-            $id = $data["id"];
-            $this->session->set("id", $id);
-            self::$user = $data["user"];
-            self::$cart = Cart::__self__()->getProductFromCart($id);
-            self::$cartTotalPrice = Cart::__self__()->totalPriceOfCart($id);
-          }
+
+      if($_COOKIE["accessToken"]){
+        $data = User::decodeAccessToken($_COOKIE["accessToken"]);
+        if(isset($data["id"])){
+          $id = $data["id"];
+          $this->session->set("id", $id);
+          self::$user = $data["user"];
+          self::$cart = Cart::__self__()->getProductFromCart($id);
+          self::$cartTotalPrice = Cart::__self__()->totalPriceOfCart($id);
         }
-      }else{
-        self::$user = null;
       }
       $this->db = Database::Instance()->connect();
     } catch (\Throwable $th) {
