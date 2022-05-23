@@ -192,7 +192,7 @@ const Home = {
 
   async renderProduct(page = 1) {
     let store = $('#store-select')?.value;
-    let res = await HttpRequest({url:`http://localhost/product/on50?store=${store}&page=${page}`});
+    let res = await HttpRequest({url:`/product/on50?store=${store}&page=${page}`});
 
     let products = res['data'];
     let totalPage = res['totalPage'];

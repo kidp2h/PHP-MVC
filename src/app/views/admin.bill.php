@@ -1,3 +1,5 @@
+<?php use core\Application; ?>
+
 <div class="tmanager tmanager-bill">
   <div class="box-filter">
     <div class="input-date">
@@ -22,6 +24,13 @@
     <table class="content-table">
       <thead>
         <tr>
+          <?php if(!isset($idStore)) {?>
+          <th class="sort sortUsername">
+            <input type="radio" name="sort" value="" checked />
+            Store
+            <i class="ion-funnel"></i>
+          </th>
+          <?php }?>
           <th class="sort sortUsername">
             <input type="radio" name="sort" value="" checked />
             Username
@@ -46,7 +55,17 @@
           <th>Action</th>
         </tr>
       </thead>
-      <tbody></tbody>
+      <tbody>
+        <?php
+
+          foreach($orders as $order) {
+            include Application::$__ROOT_DIR__.'/app/views/components/admin.bill.php';
+          }
+
+        ?>
+
+
+      </tbody>
     </table>
   </div>
 </div>

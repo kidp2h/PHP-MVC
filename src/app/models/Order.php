@@ -128,4 +128,20 @@ class Order extends Model {
         return $data;
     }
 
+    public function getOrderByStoreId($storeId = NULL) {
+
+        $data = [];
+		if(!$storeId)
+		$sql = "select o.*, u.username from orders as o, user as u where o.user_id = u.id";
+		else 
+		$sql = "select o.*, u.username from orders as o, user as u where o.user_id = u.id and o.store_id = $storeId";
+		
+		$result = self::$db->query($sql);
+		while ($row = mysqli_fetch_all($result, 1)) $data = $row;
+
+		return $data;
+
+    }
+
+
 }
