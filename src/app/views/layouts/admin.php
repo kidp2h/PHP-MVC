@@ -8,7 +8,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <link rel="shortcut icon" href="/public/images/logo.svg">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Manager</title>
+    <?php if(isset($idStore)) {?>
+    <title>Manager Store <?= $idStore ?></title>
+    <?php }else { ?>
+      <title>Manager</title>
+    <?php } ?>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
@@ -45,6 +49,44 @@
               <span class="title">Shiba Shop</span>
             </a>
           </li>
+          <?php if(isset($idStore)) {?>
+          <li class="manager m-dashboard">
+            <a class="item" href="/admin/store/<?=$idStore?>">
+              <i class="ion-speedometer"></i>
+                <span class="title">Dashboard</span>
+            </a>
+          </li>
+          <li class="manager m-user">
+            <a class="item" href="/admin/store/user/<?=$idStore?>">
+              <i class="ion-person-stalker"></i>
+                <span class="title">User</span>
+            </a>
+          </li>
+          <li class="manager m-product">
+            <a class="item" href="/admin/store/product/<?=$idStore?>">
+              <i class="ion-cube"></i>
+              <span class="title">Product</span>
+            </a>
+          </li>
+          <li class="manager m-category">
+            <a class="item" href="/admin/store/category/<?=$idStore?>">
+              <i class="ion-android-bookmark"></i>
+              <span class="title">Category</span>
+            </a>
+          </li>
+          <li class="manager m-bill">
+            <a class="item" href="/admin/store/bill/<?=$idStore?>">
+              <i class="ion-ios-paper "></i>
+              <span class="title">Bill</span>
+            </a>
+          </li>
+          <li class="manager m-revenue">
+            <a class="item" href="/admin/store/revenue/<?=$idStore?>">
+              <i class="ion-cash"></i>
+              <span class="title">Revenue</span>
+            </a>
+          </li>
+          <?php } else { ?>
           <li class="manager m-dashboard">
             <a class="item" href="/admin">
               <i class="ion-speedometer"></i>
@@ -81,6 +123,7 @@
               <span class="title">Revenue</span>
             </a>
           </li>
+          <?php } ?>
         </ul>
       </div>
       <div class="main-content active">
