@@ -12,10 +12,10 @@ class OrderController extends Controller {
 
     public static function handleAddOrder() {
         $result = User::__self__()->decodeAccessToken($_COOKIE["accessToken"]);
-        $userInfor = $result['result'];
+        $userInfor = $result['user'];
         $userId = $userInfor->id;
-        $userName = $userInfor->username;
-        $products = Cart::__self__()->getProductFromCart($userName);
+        // $userId = $userInfor->username;
+        $products = Cart::__self__()->getProductFromCart($userId);
         $storeList = array_values(array_unique(array_column($products, 'storeId'))); 
         // $status = 0;
         forEach($storeList as $store) {
