@@ -1,11 +1,12 @@
 <?php
 namespace app\controllers;
-
+use core\Application;
 use core\Controller;
 use core\Request;
 use app\models\Cart;
 use app\models\User;
 use app\models\Order;
+
 
 class OrderController extends Controller {
     public static string $layout = "main";
@@ -77,5 +78,12 @@ class OrderController extends Controller {
         $orders = Order::__self__()->getAllUserOrder($userId);
         $orderDetails = Order::__self__()->getOrderInforById($userId);
         return parent::render("order", ["orders" => $orders, "orderDetails" => $orderDetails]);
+    }
+
+    public static function getOrderDetailsById() {
+        $body = Application::Instance()->request->body();
+        $rep = Order::__self__()->getOrderInforByOrderId($body['id']);
+
+        echo json_encode($rep);
     }
 }
