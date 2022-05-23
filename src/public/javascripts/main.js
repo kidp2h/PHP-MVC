@@ -25,11 +25,15 @@ const HttpRequest = async (
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
+        //gui cookie
+        credentials: "include"
+
       });
     } else {
       response = await fetch(options.url, {
         method: options.method,
         headers: options.headers,
+        credentials: "include"
       });
     }
     return await response.json();
@@ -266,3 +270,13 @@ const navbarEvent = {
 };
 
 navbarEvent.init();
+
+let checkUrl = (...agr) => {
+  let isEmpty = true
+  agr.forEach(url => { 
+    if(!window.location.pathname.includes(url)) {
+      isEmpty = false
+    }
+  })
+  return isEmpty
+}

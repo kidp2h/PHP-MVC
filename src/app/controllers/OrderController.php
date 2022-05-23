@@ -1,21 +1,22 @@
 <?php
 namespace app\controllers;
-
+use core\Application;
 use core\Controller;
 use core\Request;
 use app\models\Cart;
 use app\models\User;
 use app\models\Order;
 
+
 class OrderController extends Controller {
     public static string $layout = "main";
 
     public static function handleAddOrder() {
         $result = User::__self__()->decodeAccessToken($_COOKIE["accessToken"]);
-        $userInfor = $result['result'];
+        $userInfor = $result['user'];
         $userId = $userInfor->id;
-        $userName = $userInfor->username;
-        $products = Cart::__self__()->getProductFromCart($userName);
+        // $userId = $userInfor->username;
+        $products = Cart::__self__()->getProductFromCart($userId);
         $storeList = array_values(array_unique(array_column($products, 'storeId'))); 
         // $status = 0;
         forEach($storeList as $store) {
@@ -77,5 +78,12 @@ class OrderController extends Controller {
         $orders = Order::__self__()->getAllUserOrder($userId);
         $orderDetails = Order::__self__()->getOrderInforById($userId);
         return parent::render("order", ["orders" => $orders, "orderDetails" => $orderDetails]);
+    }
+
+    public static function getOrderDetailsById() {
+        $body = Application::Instance()->request->body();
+        $rep = Order::__self__()->getOrderInforByOrderId($body['id']);
+
+        echo json_encode($rep);
     }
 }

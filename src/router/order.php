@@ -11,3 +11,4 @@ $app->router->get("/order", [[AuthMiddleware::class, "isAuth"]], [OrderControlle
 $app->router->post("/order", [[AuthMiddleware::class, "isAuth"]], [OrderController::class, "handleAddOrder"]);
 $app->router->post("/orderByStatus", [[AuthMiddleware::class, "isAuth"]], [OrderController::class, "handleStatusClick"]);
 $app->router->post("/orderUpdateStatus", [[AuthMiddleware::class, "isAuth"]], [OrderController::class, "handleUpdateStatus"]);
+$app->router->get("/orderAdmin", [[AdminMiddleware::class, "isAdmin"]], [OrderController::class, "getOrderDetailsById"]);

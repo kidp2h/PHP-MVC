@@ -11,7 +11,6 @@ const showToast = (
   textColor = null
 ) => {
   let icon = _icon[`${type}`];
-  alert(_icon);
   let toast = document.createElement('div');
   const toasts = $('#toasts');
   toast.classList.add('toast', type);

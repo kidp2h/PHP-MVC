@@ -2,30 +2,26 @@
     <td>
         <div class="wrap-image">
             <img class="image-document i-product" src="<?=$product['image'][0]?>" alt="Image product id ${product.id}">
-            <button class="addImage" data-image='<?=json_encode($product['image'])?>'><i class="ion-plus-round"></i></button>
+            <button class="addImage" data-image='<?=json_encode($product['image'])?>'><i class="ion-ios-eye"></i></button>
         </div>
     </td>
 
-    <td contenteditable="true" class="nameProduct"><?=$product['name']?></td>
+    <td class="nameProduct"><?=$product['name']?></td>
     <td class="categoryProduct">
 
-        <div id="select">
-            <select id="selectCategory">
-                <?php
-                    foreach($categories as $category) {
+        <?php  
+            foreach($categories as $category) {
 
-                        if($product['category_id'] == $category['id']) 
-                        echo "<option selected value='{$category['title']}'>{$category['title']}</option>";
-                        else
-                        echo "<option value='{$category['title']}'>{$category['title']}</option>";
-                    }    
-            
-                ?>
-            </select>
-        </div>
+                if($product['category_id'] == $category['id']) 
+                echo "{$category['title']}";
+                
+            }   
+        ?>
 
     </td>
-    <td contenteditable="true" class="priceProduct"><?=$product['price']?></td>
+    <td class="priceProduct"><?=$product['price']?></td>
+    <td contenteditable="true" class="quantityProduct"><?=$product['quantity']?></td>
+    <td contenteditable="true" class="discountProduct"><?=$product['discount']?></td>
     <!-- <td contenteditable="true" class="priceSaleProduct">${product.sale}</td> -->
     <!-- <td class="rateProduct">
         <span class="input-number-decrement">–</span>
