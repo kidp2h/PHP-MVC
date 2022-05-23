@@ -14,12 +14,12 @@
       <thead>
         <tr>
           <th class="sort sortUsername">
-            <input type="radio" name="sort" value="" />Username<i
+            <input type="radio" name="sort" value="" />Fullname<i
               class="ion-funnel"
             ></i>
           </th>
           <th class="sort sortFullName">
-            <input type="radio" name="sort" value="" />FullName<i
+            <input type="radio" name="sort" value="" />Username<i
               class="ion-funnel"
             ></i>
           </th>
@@ -34,17 +34,23 @@
             ></i>
           </th>
           <th class="sort sortPermission">
-            IsAdmin<i class="ion-funnel"></i>
+            Email Address<i class="ion-funnel"></i>
           </th>
-          <th>Action</th>
+          <th>Permission</th>
         </tr>
       </thead>
-      <tbody></tbody>
+      <tbody>
+      <?php foreach($users as $key => $value){ ?>
+        <tr>
+            <td class="rowTable"><?= $value->fullName?></td>
+            <td class="rowTable"><?= $value->username?></td>
+            <td class="rowTable"><?= $value->address?></td>
+            <td class="rowTable"><?= $value->phone?></td>
+            <td class="rowTable"><?= $value->email?></td>
+            <td class="rowTable"><?= $value->permission?></td>
+        </tr>
+      <?php } ?> 
+      </tbody>
     </table>
-  </div>
-  <div class="actionUser table-action">
-    <div>
-      <span class="btn-table-action add-user"><i class="ion-plus-round"></i></span>
-    </div>
   </div>
 </div>

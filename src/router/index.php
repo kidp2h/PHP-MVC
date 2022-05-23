@@ -8,7 +8,7 @@ use core\Application;
 
 $app = Application::Instance();
 $app->router->prefix("");
-$app->router->get("/",[HomeController::class, "home"]);
+$app->router->get("/",[[AuthMiddleware::class, "isTokenExpire"]] ,[HomeController::class, "home"]);
 $app->router->get("/signin", [[AuthMiddleware::class, "isLogout"]], [AuthController::class, "signin"]);
 $app->router->post("/signin", [AuthController::class, "handleSignIn"]);
 

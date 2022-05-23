@@ -6,6 +6,8 @@ use app\models\Cart;
 use database\Database;
 use Dotenv\Dotenv;
 use SendGrid\Mail\Mail;
+use core\QueryBuilder\Select;
+use core\QueryBuilder\QueryBuilder;
 
 class Application {
   private static self $instance;
@@ -27,6 +29,7 @@ class Application {
   public $db;
 
   public function __construct($rootPath) {
+    $queryBuilder = QueryBuilder::select("x","x")->from("kec")->where("x=x")->where("5=5")->__toString();
     error_reporting(0);
     date_default_timezone_set('Asia/Ho_Chi_Minh');
     header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}");

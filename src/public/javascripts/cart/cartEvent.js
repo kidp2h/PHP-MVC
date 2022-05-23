@@ -68,12 +68,12 @@ function modalCartEmpty() {
 
 function productItemCartModal(product) {
   // if(product.image) {
-    product.image = JSON.parse(product.image);
+    // product.image = JSON.parse(product.image[1]);
   // }
   return `
         <li class="modal__cart-product-item cartProduct" data-id = "${product.id}" data-store = "${product.storeId}">
         <div class="modal__cart-imgbox">
-            <img class="modal__cart-img" src="${product.image[0] || product.image}" alt="">
+            <img class="modal__cart-img" src="${product.image[0]}" alt="">
         </div>
         <div class="modal__cart-item-infor">
             <h3 class="modal__cart-item-name">${product.name}</h3>
@@ -236,7 +236,7 @@ const eventCart = {
     checkOutBtn.onclick = async () => {
       if (checkOut.updated) {
         productHeader.style.display = 'none';
-        productBox.innerHTML = CartPageEmpty();
+        productBox.innerHTML = cartPageEmpty();
         productFooter.style.display = 'none';
         let response = await HttpRequest({
           url: '/order',
@@ -310,7 +310,8 @@ function AddToCart() {
       if (response.status) {
         response.product.quantity = amount;
         let newProduct = response.product;
-        
+        newProduct.image = JSON.parse(newProduct.image)
+        // console.log(newProduct.image);
         var isExist = false;
         [...cartItem].forEach((item, index) => {
           if ((productId == item.dataset.id) && (storeId == item.dataset.store)) {
@@ -328,7 +329,7 @@ function AddToCart() {
 
         if($('.modal__cart-footer').style.display == 'none') {
           $('.modal__cart-product-box').innerHTML = productItemCartModal(newProduct);
-          $('.modal__cart-footer').style.display == 'block';
+          $('.modal__cart-footer').style.display = 'block';
         } 
         updatePriceToCart();
         console.log('add thành công');

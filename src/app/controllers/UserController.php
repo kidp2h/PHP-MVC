@@ -11,7 +11,7 @@ class UserController extends Controller {
     $body = $request->body();
     if(!empty($body) && array_key_exists("id",$body)){
       $id = $body["id"];
-      $user = User::__self__()->read(["id", "username","password"],"id={$id}");
+      $user = User::__self__()->findOne(["id", "username","password"],"id={$id}");
       echo json_encode($user,JSON_PRETTY_PRINT);
     }
   }

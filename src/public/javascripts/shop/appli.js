@@ -24,14 +24,18 @@ function InitEvent() {
         }
       })
     : null;
-
+    $$(".theloai").forEach(item=>{
+      item.onclick=function(){
+          item.querySelector("input").checked=true;
+      }       
+  });
   $$('.loc1 h3').forEach((item) => {
     item.onclick = function (e) {
       //console.log("clicked")
       item.parentElement.classList.toggle('active');
     };
   });
-
+  
   // Nút backtop
   // When the user scrolls down 20px from the top of the document, show the button
   window.onscroll = function () {
@@ -164,8 +168,11 @@ if (url.indexOf('shop') != -1) {
   if (sortfilter) {
     sortfilter ? (value = 'All') : null;
   }
+}   
+if(sortfilter!=null)
+{ 
+  sortfilter.value=url;
 }
-sortfilter ? (value = url) : null;
 window.onload = function () {
   InitEvent();
 };

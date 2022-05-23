@@ -77,7 +77,7 @@ class User extends Model {
     return $this->user;
   }
   public function checkUser(string $username, string $password){
-    $user = $this->read(["*"],"username='$username'");
+    $user = $this->findOne(["*"],"username='$username'");
     return (object)["status" => Utils::verifyBcrypt($user->password, $password), "user" => $user];
   }
 
@@ -109,7 +109,7 @@ class User extends Model {
     $secretKey = Utils::hashBcrypt($_ENV["SECRET_KEY"]);
     $now = new DateTime();
     $expire = ($now->add(new \DateInterval("PT30000000S")))->getTimestamp();
-    $user = User::__self__()->read(["*"],"email='$email'");
+    $user = User::__self__()->findOne(["*"],"email='$email'");
     if(!isset($user)){
       return ["status" => false, "message" => "Invalid id"];
     }
@@ -134,7 +134,7 @@ class User extends Model {
       $expire = $arrayHash[1];
       $token = $arrayHash[2];
       $baseUrl = $_ENV['BASE_URL'];
-      $user = User::__self__()->read(["*"],"tokenVerify='$token'");
+      $user = User::__self__()->findOne(["*"],"tokenVerify='$token'");
       $info = json_encode([
         "id" => $user->id,
         "email" => $user->email
@@ -205,7 +205,7 @@ class User extends Model {
     $secretKey = Utils::hashBcrypt($_ENV["SECRET_KEY"]);
     $now = new DateTime();
     $expire = ($now->add(new \DateInterval("PT3600S")))->getTimestamp();
-    $user = User::__self__()->read(["*"],"id=$id");
+    $user = User::__self__()->findOne(["*"],"id=$id");
     if(!isset($user)){
       return ["status" => false, "message" => "Invalid id"];
     }
@@ -232,7 +232,7 @@ class User extends Model {
       $expire = $arrayHash[1];
       $id = $arrayHash[2];
       $baseUrl = $_ENV['BASE_URL'];
-      $user = User::__self__()->read(["*"],"id=$id");
+      $user = User::__self__()->findOne(["*"],"id=$id");
       $info = json_encode([
         "id" => $user->id,
         "username" => $user->username,

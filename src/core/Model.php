@@ -38,18 +38,34 @@ class Model {
       return (object)["message" => $e->getMessage(), "status" => false];
     }
   }
-  public function read(array $fieldSelect, string $where) : static | null {
+  public function findOne(array $fieldSelect, string $where) : static | null {
     try {
       $fieldSelect = implode(",", $fieldSelect);
       $table = $this->tableName();
-      $sql = "SELECT {$fieldSelect} FROM {$table} WHERE {$where}";
-      $data = mysqli_fetch_assoc(self::$db->query($sql));
+      $sql = "SELECT {$fieldSelect} FROM {$table} WHERE $where";
+      $result = self::$db->query($sql);
+      $data = $result->fetch_assoc();
       if (!empty($data)) return call_user_func([static::class, "resolve"], $data);
       return $data;
     } catch (\Throwable $th) {
       var_dump($th);
-    }
-
+    } 
+  }
+  public function find(array $fieldSelect, string $where){
+    try {
+      $fieldSelect = implode(",", $fieldSelect);
+      $table = $this->tableName();
+      $sql = "SELECT {$fieldSelect} FROM {$table} WHERE $where";
+      $result = self::$db->query($sql);
+      $data = [];
+      while($row = $result->fetch_assoc()){
+        $dataObject = call_user_func([static::class, "resolve"], $row);
+        array_push($data, $dataObject);
+      }
+      return $data;
+    } catch (\Throwable $th) {
+      var_dump($th);
+    } 
   }
   public function update(array $set, string $where) {
     $setQuery = "";

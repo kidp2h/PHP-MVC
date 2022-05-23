@@ -1,3 +1,5 @@
+<?php use core\Application; ?>
+
 <div class="tmanager tmanager-product">
   <div class="box-filter">
     <div class="table-search">
@@ -39,13 +41,13 @@
       </thead>
       <tbody>
 
-        <?php 
-          use core\Application;
-
+        <?php
           foreach($products as $product) {
-            
+            $product['image'] = json_decode($product['image']);
+            include Application::$__ROOT_DIR__.'/app/views/components/admin.product.php';
           }
         ?>
+
 
 
       </tbody>

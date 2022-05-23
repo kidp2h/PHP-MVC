@@ -14,7 +14,7 @@ class AuthMiddleware {
     if($result["status"]) return true;
     if($result["error-code"] == 0 && !$result["status"]) {
       $id = $result["id"];
-      $user = User::__self__()->read(["*"],"id=$id");
+      $user = User::__self__()->findOne(["*"],"id=$id");
       if($user->refreshToken){
         $refreshTokenStatus = User::verifyRefreshToken($user->refreshToken);
         if($refreshTokenStatus){
@@ -39,7 +39,7 @@ class AuthMiddleware {
   public static function isTokenReset(Request $request, Response $response) : callable | bool {
     
     $tokenReset = urldecode($request->param("tokenReset") ?? ($request->body())["tokenReset"]);
-    $requestPending = RequestPending::__self__()->read(["*"],"token='$tokenReset'");
+    $requestPending = RequestPending::__self__()->findOne(["*"],"token='$tokenReset'");
     if($requestPending){
       return true;
     }
@@ -50,29 +50,17 @@ class AuthMiddleware {
     if($result["status"]) return true;
     if($result["error-code"] == 0 && !$result["status"]) {
       $id = $result["id"];
-      $user = User::__self__()->read(["*"],"id=$id");
+      $user = User::__self__()->findOne(["*"],"id=$id");
       if($user->refreshToken){
         $refreshTokenStatus = User::verifyRefreshToken($user->refreshToken);
-        if($refreshTokenStatus){
-          AuthController::newAccessToken($_SESSION["id"]);
-          return true;
-        }else{
-          Application::removeCookie("accessToken");
-          return fn() => $response->redirect("/signin"); 
-        }
+        if($refreshTokenStatus) AuthController::newAccessToken($_SESSION["id"]);
+        return true;
       }else {
         Application::removeCookie("accessToken");
-        return fn() => $response->redirect("/signin"); 
+        return true;
       }
     }
     Application::removeCookie("accessToken");
-    return fn() => $response->redirect("/signin");
-  }
-  public static function isAdmin(Request $request, Response $response) : callable | bool {
-    $result = User::decodeAccessToken($_COOKIE['accessToken']);
-    if($result["error-code"] == 0 && !$result["status"])
-      return fn() => $response->redirect("/admin"); 
-    else 
-      if(!$result["user"]->permisson) return true;
+    return true;
   }
 }
