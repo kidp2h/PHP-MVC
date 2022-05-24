@@ -125,6 +125,7 @@ class Product extends Model
         }
         return $data;
     }
+	
 	// public function getListProducts($store){
 	// $query="SELECT product.*, category.title  
 	// 	FROM product, category,product_details, store 
