@@ -187,6 +187,10 @@ tbody tr:last-child {
 #admin .tmanager .image-document {
   width: 100px;
   height: 100px;
+  min-width: 100px;
+  max-width: 100px;
+  min-height: 100px;
+  max-height: 100px;
   object-fit: cover;
   border-radius: 50px;
 }

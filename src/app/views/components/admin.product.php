@@ -1,8 +1,8 @@
 <tr>
     <td>
-        <div class="wrap-image">
-            <img class="image-document i-product" src="<?=$product['image'][0]?>" alt="Image product id ${product.id}">
-            <button class="addImage" data-image='<?=json_encode($product['image'])?>'><i class="ion-plus-round"></i></button>
+        <div class="wrap-image" data-id="<?=$product["id"]?>">
+            <img class="image-document i-product" src="<?=$product['image'][0]?>" alt="">
+            <button class="addImage" data-image='<?=json_encode($product['image'])?>' data-product="<?=$product["id"]?>"><i class="ion-plus-round"></i></button>
         </div>
     </td>
 

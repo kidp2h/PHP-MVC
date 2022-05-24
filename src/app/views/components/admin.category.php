@@ -7,7 +7,7 @@
         <?php if(Application::$user->permission == 0){ ?>
         <button class="changeImage" data-id="<?=$category['id']?>">
             <i class="ion-edit">
-            <input type="file" name="changeImage" id="inputChangeImage"  style="display: none;" accept="image/*">
+            <input type="file" name="changeImage" id="inputChangeImage"  accept=".png, .jpg, .jpeg" style="display: none;" accept="image/*">
             </i>
         </button>
         <?php } ?>
