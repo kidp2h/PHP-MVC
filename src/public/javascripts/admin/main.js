@@ -10,12 +10,15 @@ let page = null;
 if (window.location.pathname.split('/').includes('store')) {
   if (window.location.pathname.split('/').length == 4) {
     page = 'dashboard';
+  } else if (window.location.pathname.split('/').length == 3){
+    page = window.location.pathname.split('/')[2] ?? 'dashboard';
   } else {
     page = window.location.pathname.split('/')[3] ?? 'dashboard';
   }
 } else {
   page = window.location.pathname.split('/')[2] ?? 'dashboard';
 }
+console.log(page);
 let selector = `.manager.m-${page}`;
 let itemSidebar = $(selector);
 itemSidebar.classList.add('active');
@@ -105,13 +108,13 @@ const Bill = {
  
   acceptBill: function () {
     $$('.accept').forEach(btn=> {
-      btn.onclick = () => {
+      btn.onclick = async () => {
 
         let row = btn.parentNode.parentNode;
         let status = row.querySelector('.status-bill');
         status.innerHTML = `<i class="ion-checkmark-circled completed"></i>`;
         let orderId = btn.dataset.id;
-        HttpRequest({ 
+        await HttpRequest({ 
           url: '/orderUpdateStatus', 
           method: 'POST',
           data: {
@@ -126,11 +129,12 @@ const Bill = {
   cancelBill: function () {
 
     $$('.cancel').forEach(btn=> {
-      btn.onclick = () => {
+      btn.onclick = async () => {
         let row = btn.parentNode.parentNode;
         let status = row.querySelector('.status-bill');
         status.innerHTML = `<i class="ion-close-circled cancelled"></i>`;
-        HttpRequest({ 
+        let orderId = btn.dataset.id;
+        await HttpRequest({ 
           url: '/orderUpdateStatus', 
           method: 'POST',
           data: {
@@ -148,10 +152,27 @@ const Bill = {
   },
 
   init() {
+    if(!checkUrl('bill')) return;
     this.acceptBill();
     this.cancelBill();
   }
 }
 
-Bill.init()
+Bill.init();
+
+const Store = {
+  linkButton() {
+    $$('.link').forEach(btn => {
+      btn.onclick = () => {
+        window.location.href = `/admin/store/${btn.dataset.id}`
+      }
+    })
+  },
+
+  init() {
+    this.linkButton();
+  }
+}
+
+Store.init()
 

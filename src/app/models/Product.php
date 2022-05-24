@@ -303,7 +303,7 @@ class Product extends Model
 		if(!$storeId)
 		$sql = "select * from product";
 		else 
-		$sql = "select p.* from product as p, product_details as pd, store as s
+		$sql = "select p.*, pd.discount, pd.quantity from product as p, product_details as pd, store as s
 				where p.id = pd.product_id and pd.store_id = s.id and s.id = $storeId";
 		
 		$result = self::$db->query($sql);

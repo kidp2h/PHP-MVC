@@ -6,7 +6,6 @@ use app\middlewares\AdminMiddleware;
 use app\middlewares\AuthMiddleware;
 use core\Application;
 
-
 $app = Application::Instance();
 $app->router->prefix("");
 $app->router->get("/order", [[AuthMiddleware::class, "isAuth"]], [OrderController::class, "handleRenderOrder"]);
