@@ -34,24 +34,55 @@ const Product = {
 
 const Bill = {
  
-  acceptBill: function (btn) {
-    let row = btn.parentNode.parentNode;
-    let status = row.querySelector('.status-bill');
-    status.innerHTML = `<i class="fas fa-check-circle completed"></i>`;
-    BillController.setStatusBill(btn.dataset.id, 'COMPLETED');
+  acceptBill: function () {
+    $$('.accept').forEach(btn=> {
+      btn.onclick = () => {
+
+        let row = btn.parentNode.parentNode;
+        let status = row.querySelector('.status-bill');
+        status.innerHTML = `<i class="ion-checkmark-circled completed"></i>`;
+        let orderId = btn.dataset.id;
+        HttpRequest({ 
+          url: '/orderUpdateStatus', 
+          method: 'POST',
+          data: {
+            orderId,
+            status: 2,
+          }
+        })
+      }
+    })
   },
 
-  cancelBill: function (btn) {
-    let row = btn.parentNode.parentNode;
-    let status = row.querySelector('.status-bill');
-    status.innerHTML = `<i class="fas fa-times-circle cancelled"></i>`;
-    BillController.setStatusBill(btn.dataset.id, 'CANCELLED');
+  cancelBill: function () {
+
+    $$('.cancel').forEach(btn=> {
+      btn.onclick = () => {
+        let row = btn.parentNode.parentNode;
+        let status = row.querySelector('.status-bill');
+        status.innerHTML = `<i class="ion-close-circled cancelled"></i>`;
+        HttpRequest({ 
+          url: '/orderUpdateStatus', 
+          method: 'POST',
+          data: {
+            orderId,
+            status: 3,
+          }
+        })
+      }
+    })
   },
 
   searchBill: function (from, to, key) {
     BillController.searchBill(from, to, key);
     HandleEvent.SlideTdTable();
   },
+
+  init() {
+    this.acceptBill();
+    this.cancelBill();
+  }
 }
 
+Bill.init()
 
