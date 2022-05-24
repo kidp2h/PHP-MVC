@@ -175,7 +175,7 @@ try {
           <ul class="dropdown">
             <?php if(isset($_COOKIE["accessToken"])) {?>
               <li class="dropdown-item openModal"><a href="javascript:void(0)">Profile</a></li>
-              <?php if(!Application::$user->permission){ ?>
+              <?php if(Application::$user->permission != -1){ ?>
                 <li class="dropdown-item"><a href="/admin">Manager</a></li>
               <?php } ?>
               <li class="dropdown-item"><a href="/logout">Logout</a></li>

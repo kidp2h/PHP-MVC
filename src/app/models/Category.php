@@ -6,6 +6,7 @@ class Category extends Model {
     private self $Category;
     public int $id;
     public string $title;
+    public string $image;
     public string $created_at;
     public string $updated_at;
 
@@ -17,9 +18,10 @@ class Category extends Model {
         return new static();
     }
 
-    public function fillInstance($id, $title, $created_at, $updated_at) {
+    public function fillInstance($id, $title,$image, $created_at, $updated_at) {
         $this->Category->id = $id;
         $this->Category->title = $title;
+        $this->Category->image = $image;
         $this->Category->created_at = $created_at;
         $this->Category->updated_at = $updated_at;
     }
@@ -82,6 +84,19 @@ class Category extends Model {
         }
         return $data;
     }
+
+    public static function resolve(array $data) {
+        $category = self::__self__();
+        if(count($data) !=0 ){
+          array_key_exists("id",$data) == true ? $category->id = $data["id"] : null;
+          array_key_exists("title",$data) == true ? $category->title = $data["title"] : null;
+          array_key_exists("image",$data) == true ? $category->image = $data["image"] : null;
+          return $category;
+        }else {
+          return null;
+        }
+    
+      }
 
 }
 ?>
