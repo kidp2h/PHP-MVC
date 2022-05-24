@@ -220,7 +220,13 @@ if(arr1[1]!=null){
 }
 
 }
+$$('.trangn').forEach(element => {
+  element.onclick = function() {
+      $('.trangn.active').classList.remove('active')
+      element.classList.add('active')
 
+  }
+});
 }
 window.onload = function () {
   InitEvent();
