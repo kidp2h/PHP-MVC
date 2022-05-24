@@ -18,6 +18,9 @@ class ShopController extends Controller {
     // $row=$product->getAllProduct();
     
     $currentPage = 1;
+    if($_GET['maxPrice']==null){
+      $priceTo=99999;
+    }
     $priceTo=99999;
     $category="All";
     $priceFrom=0;

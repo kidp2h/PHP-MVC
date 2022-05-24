@@ -38,7 +38,7 @@
                             <?php
                             foreach ($category as $cg) {
                                 echo '<li class="theloai">
-                                <input type="radio" name="categories" value="' . $cg['title'] . '" class="locsanpham ' . $cg['title'] . '" ><p>' . $cg["title"] . '</p></input>
+                                <input type="radio" name="categories" value="' . $cg['title'] . '" class="locsanpham ' . $cg['title'] . '" ><p>' . $cg["title"] . '('.$cg["NUM"].')</p></input>
                             </li>';
                             }
                             ?>
@@ -165,8 +165,8 @@
                             <div href="" class="product-cat">' . $product["title"] . '</div>
                             <div href="" class="product-name">' . $product["name"] . '</div>
                             <div class="price">
-                            <div class="product-price">1000</div>
-                            <div class="sale-price" data-price = "'.$product["price"].'">' . $product["price"] . '</div>
+                            <div class="product-price">'.$product["price"].'</div>
+                            <div class="sale-price" data-price = "'.$product["price"].'">' . $product["sale"] . '</div>
                             </div>
                         </div>
                     </li>';
@@ -191,18 +191,19 @@
                 } else {
                     if (isset($_GET['categories']) || isset($_GET['minPrice']) || isset($_GET['maxPrice']) || isset($_GET['title']) || isset($_GET['storename']) || isset($_GET['sort'])) {
                         for ($i = 1; $i <= $pageNumber; $i++) {
-                            echo '<a class="pagination"href="?page=' . $i . '&store=' . $_GET['store'] . '&sort=' . $_GET['sort'] . '&categories=' . $_GET['categories'] . '&minPrice=' . $_GET['minPrice'] . '&maxPrice=' . $_GET['maxPrice'] . '&title=' . $_GET['title'] . '">' . $i . '</a>';
+                            // echo '<a class="pagination"href="?page=' . $i . '&store=' . $_GET['store'] . '&sort=' . $_GET['sort'] . '&categories=' . $_GET['categories'] . '&minPrice=' . $_GET['minPrice'] . '&maxPrice=' . $_GET['maxPrice'] . '&title=' . $_GET['title'] . '">' . $i . '</a>';
+                            echo '<a class="pagination"href="?page=' . $i . '&categories=' . $_GET['categories'] . '&minPrice=' . $_GET['minPrice'] . '&maxPrice=' . $_GET['maxPrice'] . '&title=' . $_GET['title'] .'&store=' . $storeCurrent . '&sort=' . $_GET['sort'] . '">'.$i.'</a>';
                         }
                     } else {
                         for ($i = 1; $i <= $pageNumber; $i++) {
-                            echo '<a class="pagination"href="?page=' . $i . '&store=' . $_GET['store'] . '">' . $i . '</a>';
+                            echo '<a class="pagination"href="?page=' . $i . '&store=' . $storeCurrent . '">' . $i . '</a>';
                         }
                     }
                 }
                 ?>
             </div>
 
-            <div id="backtop" onclick="topFunction()">
+            <div id="backtop" onclick="topFunction()">  
                 <i class="fas fa-arrow-up"></i>
             </div>
         </div>
