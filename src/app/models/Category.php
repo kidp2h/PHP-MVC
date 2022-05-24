@@ -60,7 +60,10 @@ class Category extends Model {
 
     public function getCategoryList(){
         $data = [];
-        $sql = self::$db->query("SELECT * FROM category");
+        $sql = self::$db->query("SELECT category.title AS title, COUNT(*) AS numproducts
+        FROM category, product
+        WHERE product.category_id = category.id
+        GROUP BY product.category_id, category.title");
         while($row = mysqli_fetch_all($sql,1)){
             $data = $row;
         }
