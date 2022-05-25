@@ -27,6 +27,23 @@ class AdminController extends Controller {
     self::$params = [...self::$params, ...$params];
   }
 
+  public static function store(){
+    $stores = Store::__self__()->getStoreList();
+    $params = array (
+      'stores' => $stores
+    );
+    return parent::render('admin.store', $params);
+  }
+
+  public static function storeStore(){
+    $stores = Store::__self__()->getStoreList(self::$params['idStore']);
+    $params = array (
+      'stores' => $stores
+    );
+    return parent::render('admin.store', $params);
+  }
+
+
   public static function admin(){
     return parent::render('admin',);
   }
@@ -99,7 +116,12 @@ class AdminController extends Controller {
     return parent::render('admin.revenue', $params );
   }
   public static function revenueStore(){
-    return parent::render('admin.revenue');
+    $revenue = Order::__self__()->getRevenue(self::$params['idStore']);
+
+    $params = array (
+      "revenue" => $revenue
+    );
+    return parent::render('admin.revenue', $params );
   }
   public static function changeImageCategory(Request $request, Response $response){
     // error_reporting(E_ALL); ini_set('display_errors', 1);

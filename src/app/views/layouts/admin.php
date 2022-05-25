@@ -179,6 +179,13 @@ use core\Application;
               <span class="title">Revenue</span>
             </a>
           </li>
+          <li class="manager m-store">
+            <a class="item" href="/admin/store/store/<?= $idStore ?>">
+              <i class="ion-fork-repo"></i>
+              <span class="title">Store</span>
+            </a>
+          </li>
+
         <?php } else { ?>
           <li class="manager m-dashboard">
             <a class="item" href="/admin">
@@ -216,6 +223,14 @@ use core\Application;
               <span class="title">Revenue</span>
             </a>
           </li>
+
+          <li class="manager m-store">
+            <a class="item" href="/admin/store">
+              <i class="ion-fork-repo"></i>
+              <span class="title">Store</span>
+            </a>
+          </li>
+
         <?php } ?>
       </ul>
     </div>
@@ -237,7 +252,7 @@ use core\Application;
   <script src="/public/javascripts/toast.js"></script>
   <script src="/public/javascripts/main.js"></script>
   <script src="/public/javascripts/admin/main.js"></script>
-  <script src="/public/javascripts/admin/modal.js"></script>
+
 
 </body>
 

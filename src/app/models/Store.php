@@ -15,9 +15,12 @@ class Store extends Model
         return new static();
     }
 
-    public function getStoreList()
+    public function getStoreList($idStore = NULL)
     {
         $data = [];
+        if($idStore)
+        $sql = self::$db->query("SELECT * FROM store where id = $idStore");
+        else
         $sql = self::$db->query("SELECT * FROM store");
         while ($row = mysqli_fetch_all($sql, 1)) {
             $data = $row;
