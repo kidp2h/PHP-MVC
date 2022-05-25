@@ -1,17 +1,17 @@
 <div class = "detail-content">
-        <div class="detail-nav pd-left-right-174">
-            <div class="detail-nav__item">
-                <span><a href="#">Home</a></span>
-                <i class="fas fa-angle-right"></i>
-                <span><a href="#">Laptop</a></span>
-                <i class="fas fa-angle-right"></i>
-                <span class = "nav__item--disable">Blue Laptop</span>
+        <div class="detail-nav">
+            <div class="detail-nav__item pd-left-right-174">
+                <span><a href="#">HOME</a></span>
+                <i class="ion-chevron-right"></i>
+                <span><a href="#"><?=$product['title']?></a></span>
+                <i class="ion-chevron-right"></i>
+                <span class = "nav__item--disable"><?=$product['name']?></span>
             </div>
 
-            <div class="detail-nav__item">
-                <i class="fas fa-border-all detail__nav-icon"></i>
-                <i class="fas fa-chevron-right detail__nav-icon"></i>
-            </div>
+            <!-- <div class="detail-nav__item">
+                <i class="ion-chevron-right detail__nav-icon"></i>
+                <i class="ion-chevron-right detail__nav-icon"></i>
+            </div> -->
         </div>
 
         <div id="detail-item" class= "detail-item mg-top-42 mg-bot-42 pd-bot-50 pd-left-right-174">
@@ -32,17 +32,17 @@
                 ?>
                 <div class="detail-item__next-prev-btn">
                     <button class="detail-item__prev-btn" onclick="clickSlideBtn(-1)">
-                        <i class="fas fa-chevron-left"></i>
+                        <i class="ion-chevron-left"></i>
                     </button>
                     <button class="detail-item__next-btn" onclick="clickSlideBtn(1)">
-                        <i class="fas fa-chevron-right"></i>
+                        <i class="ion-chevron-right"></i>
                     </button>
                 </div>
             </div>
                 <div class="item-infor">
                     <h1 class="item__title"><?=$product['name']?></h1>
                     <div class="item__price-status">
-                        <span class="item__price"><?=$product['price']?></span>
+                        <span class="item__price">$<?=$product['productPrice']?></span>
                         <span class="item__status">In stock</span>
                     </div>
 
@@ -80,18 +80,15 @@
                         <div class="variation__choose">
                             <div class="item__change-input">
                                 <button class="decrement" id="decrement" onclick="stepper(this)">-</button>
-                                <input class="my-input inputQuantity" data-id="12" type="number" min="1" max="100" step="1" value="1" id="my-input" inputmode="numeric">
+                                <input class="my-input inputQuantity" data-id="<?=$product['id']?>" type="number" min="1" max="100" step="1" value="1" id="my-input" inputmode="numeric">
                                 <button class="increment" id="increment" onclick="stepper(this)">+</button>
                             </div>
-                            <div class="item__favorative">
-                                <i class="far fa-heart " data-index="12" data-wish="0"></i>
-                            </div>
                         </div>
-                        <button id="buy-it-now" data-id="12" class="buy-it-now-btn addToCart">Add to cart</button>
+                        <button id="buy-it-now" data-id="<?=$product['id']?>" data-store="<?=$product['storeId']?>" class="buy-it-now-btn addToCart">Add to cart</button>
                     </div>
 
                     <div class="Img_box">
-                        <img class="img_more" src="./images/detail_icon/img_more.png" alt="">
+                        <img class="img_more" src="/public/images/detail_icon/img_more.png" alt="">
                     </div>
 
                     <div class="item__support-link">
@@ -105,20 +102,20 @@
                             <span class="sku__value"> M-06</span>
                         </span>
                         <span class="item__meta-Category">Categories:
-                            <a href="#" title="">PHONE</a>
+                            <a href="#" title=""><?=$product['title']?></a>
                         </span>
                         <span class="item__meta-tags">Tags:
                             <a href="#" title=""> blue,</a>
                             <a href="#" title=""> blue,</a>
-                            <a href="#" title=""> blue,</a>
+                            <a href="#" title=""> blue</a>
                         </span>
                 </div>
 
                 <div class="icon-bar">
-                    <i class="fab fa-facebook icon-facebook"></i>
-                    <i class="fab fa-twitter icon-twitter"></i>
-                    <i class="fas fa-envelope icon-envelope"></i>
-                    <i class="fab fa-facebook-messenger icon-messenger"></i>
+                    <i class="ion-social-facebook icon-facebook"></i>
+                    <i class="ion-social-twitter icon-twitter"></i>
+                    <i class="ion-android-mail icon-envelope"></i>
+                    <i class="ion-chatbubble-working icon-messenger"></i>
                 </div>
             </div>
         </div>
@@ -144,7 +141,7 @@
                             <span class="pane-icon--plus-icon">
                                 <i class="ion-plus-round"></i>
                             </span>
-                            <span class="pane-icon--minus-icon"><i class="fas fa-minus"></i></span>
+                            <span class="pane-icon--minus-icon"><i class="ion-minus-round"></i></span>
                         </div>
                     </div>
                     <div class="pane-tab-content">
@@ -177,7 +174,7 @@
                             <div class="detail__benefit-list detail__benefit-list--tr">
                                 <div class="detail__benefit-item">
                                     <div class="detail__benefit-img">
-                                        <img src="./assets/img/benefit-img_1.png" alt="">
+                                        <img src="/public/images/detail_icon/benefit-img_1.png" alt="">
                                     </div>
                                     <div class="detail__benefit-name">
                                         Rain & Water 
@@ -188,7 +185,7 @@
 
                                 <div class="detail__benefit-item">
                                     <div class="detail__benefit-img">
-                                        <img src="./assets/img/benefit-img_2.png" alt="">
+                                        <img src="/public/images/detail_icon/benefit-img_2.png" alt="">
                                     </div>
                                     <div class="detail__benefit-name">
                                         UV Resistant
@@ -199,7 +196,7 @@
 
                                 <div class="detail__benefit-item">
                                     <div class="detail__benefit-img">
-                                        <img src="./assets/img/benefit-img_3.png" alt="">
+                                        <img src="/public/images/detail_icon/benefit-img_3.png" alt="">
                                     </div>
                                     <div class="detail__benefit-name">
                                         Corrosion Resistance 
@@ -211,7 +208,7 @@
                             <div class="detail__benefit-list detail__benefit-list--tl">
                                 <div class="detail__benefit-item">
                                     <div class="detail__benefit-img">
-                                        <img src="./assets/img/benefit-img_4.png" alt="">
+                                        <img src="/public/images/detail_icon/benefit-img_4.png" alt="">
                                     </div>
                                     <div class="detail__benefit-name">
                                         Lead-free
@@ -222,7 +219,7 @@
 
                                 <div class="detail__benefit-item">
                                     <div class="detail__benefit-img">
-                                        <img src="./assets/img/benefit-img_5.png" alt="">
+                                        <img src="/public/images/detail_icon/benefit-img_5.png" alt="">
                                     </div>
                                     <div class="detail__benefit-name">
                                         Resistant to
@@ -233,7 +230,7 @@
 
                                 <div class="detail__benefit-item">
                                     <div class="detail__benefit-img">
-                                        <img src="./assets/img/benefit-img_6.png" alt="">
+                                        <img src="/public/images/detail_icon/benefit-img_6.png" alt="">
                                     </div>
                                     <div class="detail__benefit-name">                               
                                         Recyclable
@@ -253,7 +250,7 @@
                             <span class="pane-icon--plus-icon">
                                 <i class="ion-plus-round"></i>
                             </span>
-                            <span class="pane-icon--minus-icon"><i class="fas fa-minus"></i></span>
+                            <span class="pane-icon--minus-icon"><i class="ion-minus-round"></i></span>
                         </div>
                     </div>   
                     <div class="pane-tab-content">
@@ -286,7 +283,7 @@
                             <span class="pane-icon--plus-icon">
                                 <i class="ion-plus-round"></i>
                             </span>
-                            <span class="pane-icon--minus-icon"><i class="fas fa-minus"></i></span>
+                            <span class="pane-icon--minus-icon"><i class="ion-minus-round"></i></span>
                         </div>
                     </div>
                     <div class="pane-tab-content">
@@ -296,7 +293,7 @@
                                 <tbody>
                                     <tr class="detail__sp-tab-reason-list">
                                         <th class="detail__sp-tab-reason-header">
-                                            <img src="./assets/img/reasons_1.png" alt="">
+                                            <img src="/public/images/detail_icon/reasons_1.png" alt="">
                                         </th>
                                         <td class="detail__sp-tab-reason">
                                             <p><strong>Exceptional Support</strong> Our friendly support staff are available all the time to help customers with any questions or concerns. We want our products to deliver the most joy and value with zero hassle. That’s why we insist on being available to assist when the need arises.</p>
@@ -304,7 +301,7 @@
                                     </tr>
                                     <tr class="detail__sp-tab-reason-list">
                                         <th class="detail__sp-tab-reason-header">
-                                            <img src="./assets/img/reasons_1.png" alt="">
+                                            <img src="/public/images/detail_icon/reasons_2.png" alt="">
                                         </th>
                                         <td class="detail__sp-tab-reason">
                                             <p><strong>Exceptional Support</strong> Our friendly support staff are available all the time to help customers with any questions or concerns. We want our products to deliver the most joy and value with zero hassle. That’s why we insist on being available to assist when the need arises.</p>
@@ -312,7 +309,7 @@
                                     </tr>
                                     <tr class="detail__sp-tab-reason-list">
                                         <th class="detail__sp-tab-reason-header">
-                                            <img src="./assets/img/reasons_1.png" alt="">
+                                            <img src="/public/images/detail_icon/reasons_3.png" alt="">
                                         </th>
                                         <td class="detail__sp-tab-reason">
                                             <p><strong>Exceptional Support</strong> Our friendly support staff are available all the time to help customers with any questions or concerns. We want our products to deliver the most joy and value with zero hassle. That’s why we insist on being available to assist when the need arises.</p>
@@ -320,7 +317,7 @@
                                     </tr>
                                     <tr class="detail__sp-tab-reason-list">
                                         <th class="detail__sp-tab-reason-header">
-                                            <img src="./assets/img/reasons_1.png" alt="">
+                                            <img src="/public/images/detail_icon/reasons_4.png" alt="">
                                         </th>
                                         <td class="detail__sp-tab-reason">
                                             <p><strong>Exceptional Support</strong> Our friendly support staff are available all the time to help customers with any questions or concerns. We want our products to deliver the most joy and value with zero hassle. That’s why we insist on being available to assist when the need arises.</p>
@@ -328,7 +325,7 @@
                                     </tr>
                                     <tr class="detail__sp-tab-reason-list">
                                         <th class="detail__sp-tab-reason-header">
-                                            <img src="./assets/img/reasons_1.png" alt="">
+                                            <img src="/public/images/detail_icon/reasons_5.png" alt="">
                                         </th>
                                         <td class="detail__sp-tab-reason">
                                             <p><strong>Exceptional Support</strong> Our friendly support staff are available all the time to help customers with any questions or concerns. We want our products to deliver the most joy and value with zero hassle. That’s why we insist on being available to assist when the need arises.</p>
@@ -347,17 +344,17 @@
                             <span class="pane-icon--plus-icon">
                                 <i class="ion-plus-round"></i>
                             </span>
-                            <span class="pane-icon--minus-icon"><i class="fas fa-minus"></i></span>
+                            <span class="pane-icon--minus-icon"><i class="ion-minus-round"></i></span>
                         </div>
                     </div>
                     <div class="pane-tab-content">
                         <div class="detail__sp-delivery-return"> 
                             <div class="detail__delivery-return pd-top-50">
-                                <div class="detail__delivery-return-header pd-bot-50">
+                                <div class="detail__delivery-return-header">
                                     <h4>Delivery</h4>
                                 </div>
                                 <div class="detail__delivery-return-content">
-                                    <i class="fas fa-truck"></i>
+                                    <i class="ion-android-car"></i>
                                     <div class="delivery-return__detail">
                                         <h3>FREE SHIPPING</h3>
                                         <p>Our free shipping takes between 7 & 14 days from the day of dispatch</p>
@@ -365,7 +362,7 @@
                                 </div>
                         
                                 <div class="detail__delivery-return-content">
-                                    <i class="fas fa-map-marker-alt"></i>
+                                    <i class="ion-ios-location"></i>
                                     <div class="delivery-return__detail">
                                         <h3>TRACKED ORDERS</h3>
                                         <p>After dispatch you will get a tracking code to follow your order's full journey</p>
@@ -374,11 +371,11 @@
                             </div>
 
                             <div class="detail__delivery-return pd-top-50">
-                                <div class="detail__delivery-return-header pd-bot-50">
+                                <div class="detail__delivery-return-header">
                                     <h4>Return</h4>
                                 </div>
                                 <div class="detail__delivery-return-content">
-                                    <i class="fas fa-undo-alt"></i>
+                                    <i class="ion-arrow-return-left"></i>
                                     <div class="delivery-return__detail">
                                         <h3>14 DAYS RETURN</h3>
                                         <p>You can return any unwanted item within 14 days and get a full refund</p>
@@ -386,7 +383,7 @@
                                 </div>
                         
                                 <div class="detail__delivery-return-content">
-                                    <i class="fas fa-barcode"></i>
+                                    <i class="ion-ios-barcode"></i>
                                     <div class="delivery-return__detail">
                                         <h3>FREE RETURNS</h3>
                                         <p>Pre-paid return label will be provided if you need to return your items</p>
@@ -431,18 +428,19 @@
                                                     <button class="recommended__increment">+</button>
                                                 </div>
                                             </div>
-                                            <div class="recommended__addToCart addToCart" data-id="13">
+                                            <div class="recommended__addToCart addToCart" data-id="'.$product['id'].'" data-store="'.$product['storeId'].'">
                                                 <button class="recommended__add-to-cart-btn">
                                                     <span>Add to cart</span>
-                                                    <i class="fas fa-shopping-cart"></i>
+                                                    <i class="ion-android-cart"></i>
                                                 </button>
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="recommended-product-infor">
-                                        <h3>'.$product['title'].'</h3>
-                                        <span>'.$product['price'].'</span>
+                                        <h3>'.$product['name'].'</h3>
+                                        <h3 class="recommended-product-infor__store">STORE: '.$product['address'].'</h3>
+                                        <span>$'.$product['productPrice'].'</span>
                                     </div>
                                     
                                 </div>
@@ -452,8 +450,8 @@
                     </div>
                 </div>
                 <div class="recommended__next-prev-btn">
-                    <i class="fas fa-chevron-circle-left recommended__prev-btn"></i>
-                    <i class="fas fa-chevron-circle-right recommended__next-btn"></i>
+                    <i class="ion-android-arrow-dropleft-circle recommended__prev-btn"></i>
+                    <i class="ion-android-arrow-dropright-circle recommended__next-btn"></i>
                 </div>
                 </div>
             </div>

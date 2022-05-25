@@ -3,6 +3,7 @@ function OrderItem(order, orderDetails) {
     <div class="order__item">
         <div class="order__products">
             <div class="order-products__header">
+                <h2 class="order__store">STORE: ${order.address}</h2>
                 <h2 class="order__status">${
                 (order.status == 0 && 'PENDING') ||
                 (order.status == 1 && 'COMPLETED') ||
@@ -39,7 +40,7 @@ function dateTime(date) {
 function OrderItemEmpty() {
     return `
         <div class="order__itemEmpty">
-            <i class="fas fa-file-invoice-dollar"></i>
+            <i class="ion-pricetags"></i>
             <h2>No orders yet</h2>
         </div>
     `
@@ -65,7 +66,7 @@ function OrderProduct(product) {
             </div>
         </div>
         <div class="order-products__priceTotal">
-            <p>$${product.productPrice * product.quantity}</p>
+            <p>$${product.total}</p>
         </div>
     </div>
     `

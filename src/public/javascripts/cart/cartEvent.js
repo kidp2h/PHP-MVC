@@ -1,35 +1,9 @@
-function handleOpenCloseModalCart() {
-  // if (!$('#cart-icon')) return;
-  //
-  // const exitCartBtn = $('.btn-exist');
 
-  //   let response = await HttpRequest({
-  //     url: '/cart/modal',
-  //     method: 'GET',
-  //   });
-  //   if (response.status) {
-  //     if (response.productList == '') {
-  //       $('.modal__cart-footer').style.display = 'none';
-  //       $('.modal__cart-subtotal-all').innerHTML = '';
-  //       $('.modal__cart-product-box').innerHTML = modalCartEmpty();
-  //     } else {
-  //       let productlist = response.productList.map((product) => {
-  //         console.log(product.storeId);
-  //         return productItemCartModal(product);
-  //       });
-  //       let cartTotalPrice = response.cartTotalPrice;
-  //       $('.modal__cart-product-box').innerHTML = productlist.join('');
-  //       $('.modal__cart-footer').style.display = 'block';
-  //       $(
-  //         '.modal__cart-subtotal-all'
-  //       ).innerHTML = `$${cartTotalPrice['totalPrice']}`;
-  //     }
-  //   } else {
-  //     $('.modal__cart-footer').style.display = 'none';
-  //     $('.modal__cart-subtotal-all').innerHTML = '';
-  //     $('.modal__cart-product-box').innerHTML = modalCartEmpty();
-  //   }
-  // };
+if($('#cartPage')) {
+  $('.modal').style.display = 'none';
+} else $('.modal').style.display = 'block';
+
+function handleOpenCloseModalCart() {
   const exitCartBtn = $('.btn-exist');
   const navCart = $('#cart-icon');
   navCart.onclick = async () => {
@@ -44,7 +18,7 @@ handleOpenCloseModalCart();
 function cartPageEmpty() {
   return `    <div class="cartList__Empty">
                   <div class="empty__logo">
-                      <i class="fas fa-shopping-bag"></i>
+                      <i class="ion-bag"></i>
               
                   </div>
                   <h2>YOUR CART IS EMPTY.</h2>
@@ -52,15 +26,15 @@ function cartPageEmpty() {
                   
                   <p>You will find a lot of products on our "Shop" page.</p>
 
-                  <button onclick = " window.location.hash = '#order'">MY ORDER</button>
-                  <button onclick = " window.location.hash = '#shop'">RETURN TO SHOP</button>
+                  <a href="http://localhost/order"><button>MY ORDER</button></a>
+                  <a href="http://localhost/shop"><button>RETURN TO SHOP</button></a>
               </div>`;
 }
 
 function modalCartEmpty() {
   return `
         <div class = "modal__cart-empty">
-            <i class="fas fa-shopping-cart"></i>
+            <i class="ion-android-cart"></i>
             <h4 class="modal__cart-empty-text">Your shopping cart is empty</h4>
         </div>
     `;
@@ -118,14 +92,16 @@ function updatePriceToCart(product = null, amount = 0) {
 
 function productTotalPrice() {
   let sumPrice = 0;
-  let productPriceList = $$('.cartProductPrice');
-  let productQuantityList = $$('.cart_item-input');
+  let productPriceList = $('#cartPage') ? 
+  $$('#cartPage .cartProductPrice') : $$('.cartProductPrice');
+  let productQuantityList = $('#cartPage') ? 
+  $$('#cartPage .cart_item-input') : $$('.cart_item-input');
   let productQuantity, productPrice;
 
   productPriceList.forEach((item, index) => {
     productPrice = item.dataset.price;
     productQuantity = productQuantityList[index].value;
-    sumPrice += parseFloat(productPrice) * parseFloat(productQuantity);
+    sumPrice += parseInt(productPrice) * parseInt(productQuantity);
   });
   return sumPrice;
 }
@@ -207,7 +183,9 @@ const eventCart = {
       productId = e.target.dataset.id;
       product = getParent(e.target, '.cartProduct');
       product.remove();
-      if($('.modal__cart-product-box') && $('.modal__cart-product-box').children.length <= 0){
+      $('#cart-icon').dataset.amount = parseInt($('#cart-icon').dataset.amount) - 1;
+
+      if($('.modal__cart-product-box') && $('.modal__cart-product-box').children.length <= 0) {
         $('.modal__cart-product-box').innerHTML = modalCartEmpty();
         $('.modal__cart-footer').style.display = 'none';
       } 
@@ -235,6 +213,7 @@ const eventCart = {
     let productFooter = $('.cartPage-footer');
     checkOutBtn.onclick = async () => {
       if (checkOut.updated) {
+        $('#cart-icon').dataset.amount = 0;
         productHeader.style.display = 'none';
         productBox.innerHTML = cartPageEmpty();
         productFooter.style.display = 'none';
@@ -275,31 +254,6 @@ const eventCart = {
 
 eventCart.init();
 
-// function getCookies(name) {
-//   var cookies = document.cookie;
-//   cookieArr = cookies.split(';');
-//   for(i = 0; i < cookieArr.length; i++) {
-//     var str = cookieArr[i];
-//     var arr = str.split('=');
-//     console.log( i);
-//     if(arr.length == 2) {
-//       if(arr[0] == name) {
-//         return arr[1];
-//       }
-//     }
-//   }
-//   return '';
-// }
-
-function getCookies() {
-  var cookies = document.cookie.split(';');
-  var ret = '';
-  for(var i = 1; i <= cookies.length; i++) {
-      ret += i + ' - ' + cookies[i - 1] + "<br>";
-  }
-  return ret;
-}
-
 function AddToCart() {
   let inputQuantity = $$('.inputQuantity');
   let addToCart = $$('.addToCart');
@@ -319,8 +273,8 @@ function AddToCart() {
       if (response.status) {
         response.product.quantity = amount;
         let newProduct = response.product;
-        newProduct.image = JSON.parse(newProduct.image)
-        // console.log(newProduct.image);
+        newProduct.image = JSON.parse(newProduct.image);
+  
         var isExist = false;
         [...cartItem].forEach((item, index) => {
           if ((productId == item.dataset.id) && (storeId == item.dataset.store)) {
@@ -334,6 +288,7 @@ function AddToCart() {
         if (!isExist) {
           $('.modal__cart-product-box').
           insertAdjacentHTML("beforeend",productItemCartModal(newProduct));
+          $('#cart-icon').dataset.amount = parseInt($('#cart-icon').dataset.amount) + 1;
         }
 
         if($('.modal__cart-footer').style.display == 'none') {
@@ -341,9 +296,9 @@ function AddToCart() {
           $('.modal__cart-footer').style.display = 'block';
         } 
         updatePriceToCart();
-        console.log('add thành công');
+        showToast('success', 'Thêm sản phẩm thành công')
       } else if(response.status == false) {
-        console.log('add thất bại');
+        showToast('error', 'Xin quý khách vui lòng đăng nhập');
       }
     };
   }

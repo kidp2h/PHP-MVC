@@ -186,7 +186,7 @@ try {
           </ul>
           <i class="ion-person" id="user-icon"></i>
         </div>
-        <div class="icon cart" id="cart-icon" data-amount="0">
+        <div class="icon cart" id="cart-icon" data-amount="<?=Application::$amountCartItem ? Application::$amountCartItem['amountItem'] : 0 ?>">
           <i class="ion-ios-cart"></i>
         </div>
       </div>

@@ -150,7 +150,12 @@
 .modal__cart-delete-icon i {
   font-size: 2.3rem;
   cursor: pointer;
+  /* font-weight: bold; */
 }
+
+.modal__cart-delete-icon i:hover {
+  color: var(--red);
+} 
 
 .modal__cart-footer {
   width: 100%;
@@ -211,11 +216,12 @@
 }
 
 .modal__cart-empty i {
-  font-size: 4rem;
+  font-size: 5rem;
 }
 
 .modal__cart-empty-text {
-  margin: 13px 0;
+  /* margin: 8px 0; */
+  padding-bottom: 120px;
   text-align: center;
   font-size: 1.8rem;
 }

@@ -4,6 +4,7 @@ use core\Application;
 use core\Controller;
 use core\Request;
 use app\models\Cart;
+use app\models\Product;
 use app\models\User;
 use app\models\Order;
 
@@ -15,10 +16,8 @@ class OrderController extends Controller {
         $result = User::__self__()->decodeAccessToken($_COOKIE["accessToken"]);
         $userInfor = $result['user'];
         $userId = $userInfor->id;
-        // $userId = $userInfor->username;
         $products = Cart::__self__()->getProductFromCart($userId);
         $storeList = array_values(array_unique(array_column($products, 'storeId'))); 
-        // $status = 0;
         forEach($storeList as $store) {
             // đặt tên biến orderId = gọi hàm tạo order_id
             $orderId = strtoupper(substr(md5($userId.microtime().rand(1,10)), -10));
@@ -26,10 +25,15 @@ class OrderController extends Controller {
             Order::__self__()->addOrder($orderId, $userId, $store, 0, 0);
             forEach($products as $product) {
                 // nếu sp trùng địa chỉ store thì mới:
-                // gọi hàm thêm vào order details (orderId....)
+                // gọi hàm thêm vào order details (orderId....) và update lại tồn kho từng sp
                 if($product['storeId'] == $store) {
+                    $total = $product['productPrice'] * $product['quantity'];
+
                     Order::__self__()->addOrderDetail($orderId, $product['id'], 
-                    $product['productPrice'], $product['quantity']);
+                    $product['productPrice'], $product['quantity'], $total);
+
+                    Product::__self__()->updateQuantityAfterCheckout($product['id'], 
+                    $product['storeId'], $product['quantity']);
                 }
             }
             // // đặt tên biến là total = hàm tính tổng đơn theo chi nhánh (truyền storeId)
