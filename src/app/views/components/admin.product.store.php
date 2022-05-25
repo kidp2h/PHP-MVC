@@ -20,8 +20,8 @@
 
     </td>
     <td class="priceProduct"><?=$product['price']?></td>
-    <td contenteditable="true" class="discountProduct"><?=$product['discount']?></td>
     <td contenteditable="true" class="quantityProduct"><?=$product['quantity']?></td>
+    <td contenteditable="true" class="discountProduct"><?=$product['discount']?></td>
     <!-- <td contenteditable="true" class="priceSaleProduct">${product.sale}</td> -->
     <!-- <td class="rateProduct">
         <span class="input-number-decrement">–</span>

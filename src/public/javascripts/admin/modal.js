@@ -73,7 +73,6 @@ const Modal = {
                 let row = ``;
                 let table = $('.product-show tbody');
                 table.innerHTML = row;
-                console.log(`/order/details/${store}?id=${id}`);
 
                 let products = await HttpRequest({ url: `/order/details/${store}?id=${id}` });
      
