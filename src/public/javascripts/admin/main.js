@@ -204,7 +204,7 @@ const Modal = {
         let table = $('.product-show tbody');
         table.innerHTML = row;
 
-        let products = await HttpRequest({ url: `/orderAdmin?id=${id}` });
+        let products = await HttpRequest({ url: `/order/details?id=${id}` });
 
         products.forEach((item) => {
           row += `<tr>
@@ -220,6 +220,7 @@ const Modal = {
 
   openAddProductStore() {
     $('.add-product').onclick =  async function () {
+      console.log(234);
       $('.overlayAddProduct').style.display = 'flex';
       $('.modal-seeAddProduct').style.transform = 'translateY(0px)';
   
@@ -290,6 +291,7 @@ const Modal = {
       this.openImageAdminStore();
       this.closeImageAdminStore();
       if(checkUrl('product')) {
+        console.log(123);
         this.openAddProductStore();
       }
     } else {
