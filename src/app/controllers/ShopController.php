@@ -32,9 +32,7 @@ class ShopController extends Controller {
     }else{
       $priceFrom = $_GET['minPrice'];
     }
-    $priceTo=99999;
     $category="All";
-    $priceFrom=0;
     $title= "";
     $sort="All";
     if(isset($_GET['sort'])){
