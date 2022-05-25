@@ -6,7 +6,7 @@ const _icon = {
 const showToast = (
   type,
   message,
-  duration = 99999999,
+  duration = 5000,
   bgColor = null,
   textColor = null
 ) => {
