@@ -21,10 +21,10 @@
         
     </td>
     <td class="action">
-        <button class="button-icon remove" data-id='${product.id}' data-table='products'>
+        <button class="button-icon remove" data-id='<?=$product['id']?>' data-table='products'>
             <i class="ion-close-round"></i>
         </button>
-        <button class="button-icon save" data-id='${product.id}' data-table='products'>
+        <button class="button-icon save" data-id='<?=$product['id']?>' data-table='products'>
             <i class="ion-checkmark-round"></i>
         </button>
     </td>

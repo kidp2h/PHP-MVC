@@ -8,6 +8,7 @@ use app\models\User;
 use core\Controller;
 use core\Request;
 use core\Response;
+use DateTime;
 use utils\Utils;
 
 class AdminController extends Controller {
@@ -145,6 +146,33 @@ class AdminController extends Controller {
     Product::__self__()->update(["image" => $newListImage],"id=$id");
     return json_encode(["status" => true, "message" => "Delete image success", "payload" => $newListImage]);
     
+  }
+  public static function removeProduct(Request $request, Response $response) {
+    $id = ($request->body())["id"];
+    $now = new DateTime();
+    $now = $now->format('Y-m-d H:i:s');
+    Product::__self__()->update(["deleted_at" => $now],"id=$id");
+    return json_encode(["status" => true, "message" => "Delete product success"]);
+  }
+  public static function saveProduct(Request $request, Response $response) {
+    $body = ($request->body());
+    $id = $body["id"];
+    $nameProduct = $body["nameProduct"];
+    $categoryProduct = $body["categoryProduct"];
+    $priceProduct = $body["priceProduct"];
+    Product::__self__()->update(["name" => $nameProduct,'category_id' => $categoryProduct, "price" => $priceProduct],"id=$id");
+    return json_encode(["status" => true, "message" => "Update product success"]);
+  }
+  public static function createProduct(Request $request, Response $response){
+    $body = ($request->body());
+    $nameProduct = $body["nameProduct"];
+    $categoryProduct = $body["categoryProduct"];
+    $priceProduct = $body["priceProduct"];
+    $image = '[\"/public/images/products/product.jpg\"]';
+    $result = Product::__self__()->create(["name" => $nameProduct,'category_id' => $categoryProduct, "price" => $priceProduct, "image" => $image]);
+    if($result->status)
+      return json_encode(["status" => true, "message" => "Create product success !!", "payload" => $result->id]);
+    return json_encode(["status" => false, "message" => "Name product is exist !!"]);
   }
 }
 ?>
