@@ -99,7 +99,12 @@ class AdminController extends Controller {
   }
 
   public static function revenue(){
-    return parent::render('admin.revenue');
+    $revenue = Order::__self__()->getRevenue();
+
+    $params = array (
+      "revenue" => $revenue
+    );
+    return parent::render('admin.revenue', $params );
   }
 
   public static function revenueStore(){
