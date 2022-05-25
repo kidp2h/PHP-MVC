@@ -183,6 +183,7 @@ function notChangedCategories(){
 url=window.location.href.slice(url + 11);
 var arr=[];
 arr=url.split('&');
+// console.log(arr[0]);
 $$(".theloai").forEach(item=>{
   if(item.querySelector("input").value==arr[0]){
       item.querySelector("input").checked=true;
@@ -197,7 +198,9 @@ arr=url.split('&');
 if(url.indexOf('shop')!=-1){
   $("#search").value=null;
 }else{
-  $("#search").value=arr[0];
+  if($("#search")!=null){
+    $("#search").value=arr[0];
+  };
 }
 }
 function notChangedPrice(){
@@ -209,14 +212,21 @@ if(url.indexOf('shop')!=-1){
   $("#max-input").value=99999;
 }else{
   arr=url.split('&');
-$("#min-input").value=arr[0];
+  if($("#min-input")!=null){
+    $("#min-input").value=arr[0];
+  }
 let arr1 = [];
-console.log(arr[1]);
-arr1=arr[1].split('=');
+if(arr[1]!=null){
+  arr1=arr[1].split('=');
+}
+
 if(arr1[1]!=null){
   $("#max-input").value=arr1[1];
 }else{
-  $("#max-input").value=99999;
+  if($("#max-input")!=null){
+    $("#max-input").value=99999;
+  }
+ 
 }
 
 }
