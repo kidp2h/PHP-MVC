@@ -10,6 +10,14 @@ use core\Application;
 class ProductController extends Controller
 {
 
+  public static function getListProductNotHaveStoreId()
+  {
+    $body = Application::Instance()->request->body();
+    $rep = Product::__self__()->getListProductNotHaveStoreId($body['store']);
+
+    echo json_encode($rep);
+  }
+
 
   public static function getProductOn50()
   {
@@ -20,5 +28,14 @@ class ProductController extends Controller
 
 
     echo json_encode($rep);
+  }
+
+  public static function addProductDetails()
+  {
+    $body = Application::Instance()->request->body();
+    Product::__self__()->AddProductDetails($body['store'], $body['product'], $body['discount'],$body['quantity']);
+    
+    echo json_encode(["status" => true]);
+
   }
 }

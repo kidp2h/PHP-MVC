@@ -87,4 +87,9 @@
       </tbody>
     </table>
   </div>
+  <div class="actionProduct table-action">
+    <div>
+      <span class="btn-table-action add-product" data-store = '<?=$idStore?>'><i class="ion-plus-round"></i></span>
+    </div>
+  </div>
 </div>

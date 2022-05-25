@@ -20,7 +20,7 @@ use core\Application;
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/public/icons/css/ionicons.min.css">
   <link rel="stylesheet" href="/public/styles/admin/base.css">
-  <link rel="stylesheet" href="/public/styles/toast.css">
+  <link rel="stylesheet" href="/public/styles/admin/toast.css">
   <link rel="stylesheet" href="/public/styles/admin/animations.css">
   <link rel="stylesheet" href="/public/styles/admin/sidebar.css">
   <link rel="stylesheet" href="/public/styles/admin/card.css">
@@ -37,7 +37,7 @@ use core\Application;
 </head>
 
 <body>
-  <div id="toasts"></div>
+  <div class="toasts"></div>
   <div id="admin">
 
     <div class="overlay overlayAddImage">
@@ -58,6 +58,9 @@ use core\Application;
             <i class="ion-plus-round">
               <input type="file" name="uploadImage" id="inputUploadImage" style="display: none" accept="image/*" />
             </i>
+          </button>
+          <button class="btn-saveImage">
+            <i class="ion-document-text"></i>
           </button>
         </div>
         <?php } ?>
@@ -95,11 +98,47 @@ use core\Application;
       </div>
     </div>
 
+    <div class="overlay overlayAddProduct">
+      <div class="modal modal-seeAddProduct">
+        <div class="modal-header">
+          <span>San Pham Chua Co</span>
+          <div id="close-seeAddProduct" class="close-modal">X</div>
+        </div>
+        <div class="modal-main" id="modal-product">
+          <div class="add-product-show">
+            <div class="t-wrap">
+              <table class="content-table">
+                <thead>
+                  <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Discount</th>
+                    <th>Quantity</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr> 
+                    
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="sidebar active">
       <ul>
         <li>
           <a class="item" href="javascript:void(0)">
-            <img src="/public/images/logo.svg" alt="" width="60px" height="60px" style="object-fit: fill" />
+            <img src="/public/images/logo.svg" alt="Kiwi standing on oval" width="60px" height="60px" style="object-fit: fill" />
             <span class="title">Shiba Shop</span>
           </a>
         </li>
@@ -198,6 +237,8 @@ use core\Application;
   <script src="/public/javascripts/toast.js"></script>
   <script src="/public/javascripts/main.js"></script>
   <script src="/public/javascripts/admin/main.js"></script>
+  <script src="/public/javascripts/admin/modal.js"></script>
+
 </body>
 
 </html>

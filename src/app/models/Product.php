@@ -81,9 +81,10 @@ class Product extends Model
 	{
 		$this->product->deletedAt = $deletedAt;
 	}
-	public function getQuantity($store,$category, $priceFrom, $priceTo, $tilte) {
-		if(strtoupper($category)==strtoupper("All")){
-		return mysqli_num_rows(self::$db->query("SELECT product.*, category.title 
+	public function getQuantity($store, $category, $priceFrom, $priceTo, $tilte)
+	{
+		if (strtoupper($category) == strtoupper("All")) {
+			return mysqli_num_rows(self::$db->query("SELECT product.*, category.title 
 		FROM product, category,product_details, store 
 		where product.category_id = category.id
 		AND product.id = product_details.product_id
@@ -91,8 +92,8 @@ class Product extends Model
 		AND store.id = $store 
 		AND Upper (product.name) LIKE Upper('%$tilte%') 
 		AND product.price BETWEEN $priceFrom AND $priceTo"));
-	}else{
-		return mysqli_num_rows(self::$db->query("SELECT * 
+		} else {
+			return mysqli_num_rows(self::$db->query("SELECT * 
 		FROM product, category,product_details, store 
 		where product.category_id = category.id 
 		AND product.id = product_details.product_id
@@ -155,12 +156,14 @@ class Product extends Model
 		return $data;
 	}
 
-	public function pageNumber($store,$limit,$category, $priceFrom, $priceTo, $tilte) {
-		$total = $this->getQuantity($store,$category, $priceFrom, $priceTo, $tilte);
+	public function pageNumber($store, $limit, $category, $priceFrom, $priceTo, $tilte)
+	{
+		$total = $this->getQuantity($store, $category, $priceFrom, $priceTo, $tilte);
 		if ($total <= $limit) return 1;
 		else return $total % $limit == 0 ? $total / $limit : $total / $limit + 1;
 	}
-	public function getDatafilterAdvancedAll($store, $sort,$priceFrom, $priceTo, $tilte, $limit, $page){
+	public function getDatafilterAdvancedAll($store, $sort, $priceFrom, $priceTo, $tilte, $limit, $page)
+	{
 		$index = ($page - 1) * $limit;
 		if(strtoupper($sort)==strtoupper('All')){
 			$query="SELECT product.*, category.title, Round(product.price*(1-product_details.discount/100)) AS sale
@@ -219,7 +222,8 @@ class Product extends Model
 		}
 		return $query;
 	}
-	public function getDatafilterAdvancedNotAll($store, $sort, $category, $priceFrom, $priceTo, $tilte, $limit, $page){
+	public function getDatafilterAdvancedNotAll($store, $sort, $category, $priceFrom, $priceTo, $tilte, $limit, $page)
+	{
 		$index = ($page - 1) * $limit;
 		if(strtoupper($sort)==strtoupper('All')){
 			$query="SELECT product.*, category.title,  Round(product.price*(1-product_details.discount/100)) AS sale  
@@ -282,38 +286,54 @@ class Product extends Model
 			LIMIT $index, $limit";
 		}
 		return $query;
-	
 	}
-	public function filterAdvanced($store, $sort, $category, $priceFrom, $priceTo, $tilte, $limit, $page){
-			if(strtoupper($category)==strtoupper("All")){
-				$SQL=$this->getDatafilterAdvancedAll($store, $sort, $priceFrom, $priceTo, $tilte, $limit, $page);
-				}else{
-				$SQL=$this->getDatafilterAdvancedNotAll($store, $sort, $category, $priceFrom, $priceTo, $tilte, $limit, $page);
-			}
+	public function filterAdvanced($store, $sort, $category, $priceFrom, $priceTo, $tilte, $limit, $page)
+	{
+		if (strtoupper($category) == strtoupper("All")) {
+			$SQL = $this->getDatafilterAdvancedAll($store, $sort, $priceFrom, $priceTo, $tilte, $limit, $page);
+		} else {
+			$SQL = $this->getDatafilterAdvancedNotAll($store, $sort, $category, $priceFrom, $priceTo, $tilte, $limit, $page);
+		}
 
-				$sql= self::$db->query($SQL);
-				$data = [];
-				while($row = mysqli_fetch_all($sql, 1)) $data=$row;
-				return $data;
-
+		$sql = self::$db->query($SQL);
+		$data = [];
+		while ($row = mysqli_fetch_all($sql, 1)) $data = $row;
+		return $data;
 	}
 
-	public function getListProductAllByStoreId($storeId = NULL)
+	public function getListProductNotHaveStoreId($storeId)
 	{
 		$data = [];
-		if(!$storeId)
-		$sql = "select * from product";
-		else 
-		$sql = "select p.* from product as p, product_details as pd, store as s
-				where p.id = pd.product_id and pd.store_id = s.id and s.id = $storeId";
-		
+
+		$sql = "select p.*, c.title from product as p, category as c 
+		where p.category_id = c.id and p.id not in (
+		select pd.product_id from product_details as pd
+		where pd.store_id = $storeId )";
+
 		$result = self::$db->query($sql);
 		while ($row = mysqli_fetch_all($result, 1)) $data = $row;
 
 		return $data;
 	}
 
-	public function getEntireProduct() {
+
+	public function getListProductAllByStoreId($storeId = NULL)
+	{
+		$data = [];
+		if (!$storeId)
+			$sql = "select * from product";
+		else
+			$sql = "select p.*, pd.discount, pd.quantity from product as p, product_details as pd, store as s
+				where p.id = pd.product_id and pd.store_id = s.id and s.id = $storeId";
+
+		$result = self::$db->query($sql);
+		while ($row = mysqli_fetch_all($result, 1)) $data = $row;
+
+		return $data;
+	}
+
+	public function getEntireProduct()
+	{
 		$data = [];
 		$sql = "select product.*, category.title as 'category_id' from product inner join category where category.id = product.category_id;";
 
@@ -328,18 +348,18 @@ class Product extends Model
 	{
 		$data = [];
 		$index = ($page - 1) * $limit;
-		$sql = self::$db->query("select p.*, pd.discount, p.price*(1-pd.discount/100) as sale from store as s, product_details as pd, product as p
+		$sql = self::$db->query("select p.*, pd.discount, ROUND(p.price*(1-pd.discount/100), 0)  as sale from store as s, product_details as pd, product as p
 		where s.id = $store_id and pd.store_id = s.id and 
 		pd.discount > 49 and pd.product_id = p.id");
 		while ($row = mysqli_fetch_all($sql, 1)) $data = $row;
 
-		$totalPage = ceil(count($data)/$limit);
+		$totalPage = ceil(count($data) / $limit);
 		$data = array_slice($data, $index, $page * $limit);
 
-		
+
 
 		return array(
-			"data"=> $data,
+			"data" => $data,
 			"totalPage" => $totalPage
 		);
 	}
@@ -366,6 +386,10 @@ class Product extends Model
     }else {
       return null;
     }
+	}
 
-  }
+	public static function AddProductDetails($store, $product, $discount, $quantity) {
+		$sql = "insert into product_details values ($store, $product,  $quantity, $discount)";
+		self::$db->query($sql);
+	}
 }

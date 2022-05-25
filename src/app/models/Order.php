@@ -150,5 +150,27 @@ class Order extends Model {
 
     }
 
+    public function getRevenue($storeId = NULL) {
+
+        $data = [];
+        if(!$storeId)
+        $sql = "select p.*, po.*, c.title from product as p, ( select product_id, sum(quantity) as quantity_sold, sum(od.total) as total 
+        from order_details as od
+        group by product_id ) as po, category as c
+        where p.id = po.product_id and c.id = p.category_id";
+        else 
+        $sql = "select p.*, po.*, c.title from product as p, ( select product_id, sum(quantity) as quantity_sold, sum(od.total) as total 
+        from orders as o, order_details as od
+        where o.id = od.order_id and o.store_id = $storeId
+        group by product_id ) as po, category as c
+        where p.id = po.product_id and c.id = p.category_id";
+
+        $result = self::$db->query($sql);
+        while ($row = mysqli_fetch_all($result, 1)) $data = $row;
+
+        return $data;
+
+    }
+
 
 }
