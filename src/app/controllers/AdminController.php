@@ -5,6 +5,7 @@ use app\models\Category;
 use app\models\Product;
 use app\models\Order;
 use app\models\User;
+use app\models\Store;
 use core\Controller;
 use core\Request;
 use core\Response;
