@@ -7,7 +7,7 @@
         <div id="content">
             <div id="menu">
                 <div id="ter">
-                    <i class="fas fa-sliders-h"></i>
+                    <i class="ion-navicon-round"></i>
                     <p>Filter</p>
                 </div>
 
@@ -33,12 +33,12 @@
                             <li id="loccategories">
                             <li class="theloai">
                                 <input type="radio" name="categories" value="All" checked="true">
-                                <p id="productall">All</p></input>
+                                <p id="productall">All(<?=$NumberProduct?>)</p></input>
                             </li>
                             <?php
                             foreach ($category as $cg) {
                                 echo '<li class="theloai">
-                                <input type="radio" name="categories" value="' . $cg['title'] . '" class="locsanpham ' . $cg['title'] . '" ><p>' . $cg["title"] . '('.$cg["NUM"].')</p></input>
+                                <input type="radio" name="categories" value="' . $cg['title'] . '" class="locsanpham ' . $cg['title'] . '" ><p>' . $cg["title"] . '('.$cg["SUM"].')</p></input>
                             </li>';
                             }
                             ?>
@@ -84,7 +84,7 @@
                         <h3>Shipping & Delivery</h3>
 
                         <li class="hotro">
-                            <i class="fas fa-shipping-fast"></i>
+                            <i class="ion-android-car"></i>
                             <div>
                                 <span class="tachchu">FREE SHIPPING</span>
                                 <span>
@@ -93,7 +93,7 @@
                             </div>
                         </li>
                         <li class="hotro">
-                            <i class="fas fa-headphones-alt"></i>
+                            <i class="ion-headphone"></i>
                             <div>
                                 <span class="tachchu">SUPPORT 24/7
                                 </span>
@@ -103,10 +103,10 @@
                             </div>
                         </li>
                         <li class="hotro">
-                            <i class="fas fa-exchange-alt"></i>
+                            <i class="ion-arrow-return-left"></i>
                             <div>
                                 <span class="tachchu">
-                                    30 DAYS RETURN
+                                    14 DAYS RETURN
                                 </span>
 
                                 <span>
@@ -191,20 +191,31 @@
                 } else {
                     if (isset($_GET['categories']) || isset($_GET['minPrice']) || isset($_GET['maxPrice']) || isset($_GET['title']) || isset($_GET['storename']) || isset($_GET['sort'])) {
                         for ($i = 1; $i <= $pageNumber; $i++) {
+                            if($_GET['page']==$i){
+                                echo  '<a class="pagination active"href="?page=' . $i . '&categories=' . $_GET['categories'] . '&minPrice=' . $_GET['minPrice'] . '&maxPrice=' . $_GET['maxPrice'] . '&title=' . $_GET['title'] .'&store=' . $storeCurrent . '&sort=' . $_GET['sort'] . '">'.$i.'</a>';
+                            }else{
+                                echo '<a class="pagination"href="?page=' . $i . '&categories=' . $_GET['categories'] . '&minPrice=' . $_GET['minPrice'] . '&maxPrice=' . $_GET['maxPrice'] . '&title=' . $_GET['title'] .'&store=' . $storeCurrent . '&sort=' . $_GET['sort'] . '">'.$i.'</a>';
+                            }
                             // echo '<a class="pagination"href="?page=' . $i . '&store=' . $_GET['store'] . '&sort=' . $_GET['sort'] . '&categories=' . $_GET['categories'] . '&minPrice=' . $_GET['minPrice'] . '&maxPrice=' . $_GET['maxPrice'] . '&title=' . $_GET['title'] . '">' . $i . '</a>';
-                            echo '<a class="pagination"href="?page=' . $i . '&categories=' . $_GET['categories'] . '&minPrice=' . $_GET['minPrice'] . '&maxPrice=' . $_GET['maxPrice'] . '&title=' . $_GET['title'] .'&store=' . $storeCurrent . '&sort=' . $_GET['sort'] . '">'.$i.'</a>';
+                            
                         }
                     } else {
                         for ($i = 1; $i <= $pageNumber; $i++) {
-                            echo '<a class="pagination"href="?page=' . $i . '&store=' . $storeCurrent . '">' . $i . '</a>';
+                            if($_GET['page']==$i){
+                                echo '<a class="pagination active"href="?page=' . $i . '&store=' . $storeCurrent . '">' . $i . '</a>';
+                            }else{
+                                echo '<a class="pagination"href="?page=' . $i . '&store=' . $storeCurrent . '">' . $i . '</a>';
+                            }
+                            
                         }
                     }
-                }
+                }   
+               
                 ?>
             </div>
 
             <div id="backtop" onclick="topFunction()">  
-                <i class="fas fa-arrow-up"></i>
+                <i class="ion-arrow-up-c"></i>
             </div>
         </div>
     </div>
