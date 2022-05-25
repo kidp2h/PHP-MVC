@@ -22,7 +22,7 @@
       </thead>
       <tbody> 
         <?php
-          foreach($categories as $category) {
+          foreach(array_reverse($categories) as $category) {
             if($category['deleted_at'] == NULL && $category["id"] != "0")
               include Application::$__ROOT_DIR__.'/app/views/components/admin.category.php';
           }

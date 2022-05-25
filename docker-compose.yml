@@ -12,6 +12,11 @@ services:
     networks:
       php_network:
         ipv4_address: 172.26.22.100
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
   phpmyadmin:
     container_name: phpmyadmin
     image: phpmyadmin
