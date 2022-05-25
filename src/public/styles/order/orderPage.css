@@ -108,7 +108,7 @@
     height: 60px;
 
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
     
     border-bottom: 1px solid var(--primary-color) ;
@@ -304,6 +304,26 @@
         width: 94px;
         height: 46px;
         font-size: 14px;
+    }
+    .order-products__header .order__store,
+    .order-products__header .order__status {
+        font-size: 17px;
+    }
+
+    .order-products__header .order__store{
+        padding-right: 25px;
+    }
+
+    .order-products__header .order__status{
+        padding-left: 25px;
+    }
+
+    .order__subtotal p {
+        padding-right: 15px;
+    }
+
+    .order__total-confirm-canceled {
+        padding-left: 15px;
     }
 }
 

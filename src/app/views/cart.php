@@ -1,8 +1,3 @@
-<?php
-    if($productList == null){
-        $display = 'none';
-    } else $display = 'flex';
-?>
 <div id="cartPage">
     <div class="banner">
         <div class="banner__header">
@@ -14,23 +9,28 @@
     </div>
 
     <div class="cartList__box">
-        <div class="cartPage__product-header" style="display: <?=$display?>;">
-            <div class="cartPage__product-title">PRODUCT</div>
-            <div class="cartPage__product-price">PRICE</div>
-            <div class="cartPage__product-quantity">QUANTITY</div>
-            <div class="cartPage__product-total">TOTAL</div>
-        </div>
+        <?php if($productList) { 
+            $display = 'flex';
+            echo '<div class="cartPage__product-header">
+                <div class="cartPage__product-title">PRODUCT</div>
+                <div class="cartPage__product-price">PRICE</div>
+                <div class="cartPage__product-quantity">QUANTITY</div>
+                <div class="cartPage__product-total">TOTAL</div>
+            </div>';
+         }?>
         <div class="product-box">
         <?php 
             if($productList == null) {
+                $display = 'none';
                 echo '<div class="cartList__Empty">
                 <div class="empty__logo">
-                    <i class="fas fa-shopping-bag"></i>
+                    <i class="ion-bag"></i>
                 </div>
                 <h2>YOUR CART IS EMPTY</h2>
                 <p>You will find a lot of products on our "Shop" page.</p>
-                <button>MY ORDER</button>
-                <button>RETURN TO SHOP</button>
+                <a href="http://localhost/order"><button>MY ORDER</button></a>
+                <a href="http://localhost/shop"><button>RETURN TO SHOP</button></a>
+                </div>
                 ';
             }
             else{
@@ -47,7 +47,9 @@
                                 <h3 class="cartPage__product-name">
                                     '.$product['name'].'
                                 </h3>
-                            
+                                <h3 class="cartPage__product-store">
+                                    STORE: '.$product['address'].'
+                                </h3>
                                 <div class="modal__cart-delete-icon">
                                 <i class="ion-trash-a deleteIcon" data-id="'.$product['id'].'" data-store = "'.$product['storeId'].'"></i>
                                 </div>
@@ -77,7 +79,7 @@
     <div class="cartPage-footer" style="display: <?=$display?>;">
         <div class="cartPage__Subtotal">
             <h3 class="cartPage__Subtotal-text">Subtotal:</h3>
-            <div class="cartPage__Subtotal-number"><?= $cartTotalPrice['totalPrice'] ?></div>
+            <div class="cartPage__Subtotal-number">$<?= $cartTotalPrice['totalPrice'] ?></div>
         </div>
         <div class="cartPage__Checkout">
             <span class="cartPage__Checkout-text">CHECK OUT</span>

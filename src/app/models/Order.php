@@ -67,8 +67,8 @@ class Order extends Model {
     public function getOrderInforById($id) {
         $data = [];
         $sql = self::$db->query("SELECT product.*, order_details.price  
-        AS productPrice, order_details.quantity, order_details.order_id,
-        store.id AS storeId, store.address
+        AS productPrice, order_details.quantity, order_details.order_id, 
+        order_details.total, store.id AS storeId, store.address
         FROM product, order_details, orders, store, user
         WHERE product.id = order_details.product_id 
         AND order_details.order_id = orders.id AND orders.store_id = store.id 
@@ -101,9 +101,9 @@ class Order extends Model {
         `total`, `status`) VALUES ('$order_id', '$user_id','$store_id', '$total', '$status')");
     }
 
-    public function addOrderDetail($order_id, $product_id, $price, $quantity) {
+    public function addOrderDetail($order_id, $product_id, $price, $quantity, $total) {
         return self::$db->query("INSERT INTO order_details (`order_id`,`product_id`,`price`, 
-        `quantity`) VALUES ('$order_id', '$product_id', '$price', '$quantity')");
+        `quantity`, `total`) VALUES ('$order_id', '$product_id', '$price', '$quantity', '$total')");
     }
 
     public function updateOrderTotal($order_id, $user_id, $store_id, $total) {

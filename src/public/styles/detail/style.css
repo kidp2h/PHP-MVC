@@ -129,8 +129,8 @@
 }
 
 .detail-item .item__title {
-    font-size: 1.6rem;
-    color: var(--grey-color);
+    font-size: 2rem;
+    color: var(--black-color);
     letter-spacing: 3px;
 }
 
@@ -149,6 +149,7 @@
 
 .item__price-status .item__price {
     font-size: 2rem;
+    color: var(--red-color);
 }
 
 .item__price-status .item__status {
@@ -439,7 +440,7 @@
 
 .item-infor .icon-bar i {
     margin: 0 10px;
-    font-size: 1.8rem;
+    font-size: 2.5rem;
 }
 
 .item-infor .icon-bar .icon-messenger:hover,
@@ -673,12 +674,17 @@
     margin: 0 15px;
 }
 
+.detail__delivery-return-header {
+    padding-bottom: 25px;
+}
+
 .detail__delivery-return-header h4{
     font-size: 1.8rem;
     letter-spacing: 3px;
     text-align: center;
     color: var(--black-color);
     font-weight: 100;
+    /* padding-bottom: 20px; */
 }
 
 .detail__delivery-return-content {
@@ -688,7 +694,7 @@
 }
 
 .detail__delivery-return-content i {
-    font-size: 5rem;
+    font-size: 6rem;
 }
 
 .delivery-return__detail {
@@ -742,14 +748,14 @@
 
 .recommended__prev-btn {
     position: relative;
-    font-size: 3.4rem;
+    font-size: 4.2rem;
     left: -50px;
     cursor: pointer;
 }
 
 .recommended__next-btn {
     position: relative;
-    font-size: 3.4rem;
+    font-size: 4.2rem;
     right: -50px;
     cursor: pointer;
 }
@@ -820,7 +826,7 @@
 }
 
 .recommended-product-infor h3 {
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     letter-spacing: 2px;
     color:rgb(92, 88, 88);
 
@@ -833,8 +839,14 @@
     word-break: break-word;
 }
 
-.recommended-product-infor span {
+.recommended-product-infor .recommended-product-infor__store {
     font-size: 1.4rem;
+    padding: 5px 0;
+    color: var(--primary-color);
+}
+
+.recommended-product-infor span {
+    font-size: 1.5rem;
     color: var(--red-color);
 }
 

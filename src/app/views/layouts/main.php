@@ -186,7 +186,7 @@ try {
           </ul>
           <i class="ion-person" id="user-icon"></i>
         </div>
-        <div class="icon cart" id="cart-icon" data-amount="0">
+        <div class="icon cart" id="cart-icon" data-amount="<?=Application::$amountCartItem ? Application::$amountCartItem['amountItem'] : 0 ?>">
           <i class="ion-ios-cart"></i>
         </div>
       </div>
@@ -399,7 +399,7 @@ try {
           <?php if(Application::$cart == null) { ?>
             <?php $display = 'none'; ?>
             <?= '<div class = "modal__cart-empty">
-                <i class="fas fa-shopping-cart"></i>
+                <i class="ion-android-cart"></i>
                 <h4 class="modal__cart-empty-text">Your shopping cart is empty</h4>
               </div>'; ?>
             <?php } else{ ?>

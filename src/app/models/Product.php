@@ -100,13 +100,14 @@ class Product extends Model
 		AND product.price BETWEEN $priceFrom AND $priceTo"));
 		}
 	}
+
 	public function getProductByIdAndStore($productId, $storeId)
 	{
-		$sql = self::$db->query("SELECT product.*, store.id AS storeId, 
-		store.address, product.price*(1 - product_details.discount/100) AS productPrice 
-		FROM product, product_details, store 
-		WHERE product.id = product_details.product_id AND 
-		product_details.store_id = store.id AND product.id = '$productId' 
+		$sql = self::$db->query("SELECT product.*, category.title, store.id AS storeId, 
+		store.address,  ROUND(product.price*(1 - product_details.discount/100)) AS productPrice 
+		FROM product, product_details, category, store 
+		WHERE product.category_id = category.id AND product.id = product_details.product_id 
+		AND product_details.store_id = store.id AND product.id = '$productId' 
 		AND store.id = '$storeId'");
 		while ($row = mysqli_fetch_array($sql, 1)) {
 			$data = $row;
@@ -116,12 +117,24 @@ class Product extends Model
 
     public function randomProduct() { //random 8 products
         $data = [];
-        $sql = self::$db->query("SELECT * FROM product ORDER BY RAND() LIMIT 8");
+        $sql = self::$db->query("SELECT product.*, category.title, store.id AS storeId, 
+		store.address,  ROUND(product.price*(1 - product_details.discount/100)) AS productPrice 
+		FROM product, product_details, category, store 
+		WHERE product.category_id = category.id AND product.id = product_details.product_id 
+		AND product_details.store_id = store.id
+		ORDER BY RAND() LIMIT 8");
         while($row=mysqli_fetch_all($sql,1)){
             $data=$row;
         }
         return $data;
     }
+
+	public function updateQuantityAfterCheckout($productId, $storeId, $amount) {
+		return self::$db->query("UPDATE product_details 
+		SET quantity = product_details.quantity - '$amount' 
+        WHERE product_id = '$productId' and store_id = '$storeId'");
+	}
+
 	// public function getListProducts($store){
 	// $query="SELECT product.*, category.title  
 	// 	FROM product, category,product_details, store 

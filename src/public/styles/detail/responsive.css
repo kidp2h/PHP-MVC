@@ -98,7 +98,7 @@
 
     .detail__content-pane {
         display: block;
-        padding: 0 15px 15px 15px;
+        margin: 0 15px 15px 15px;
     }
 
     .pane-heading {
@@ -156,12 +156,12 @@
     }
 
     .recommended__prev-btn {
-        font-size: 4rem;
+        font-size: 4.5rem;
         left: -58px;
     }
     
     .recommended__next-btn {
-        font-size: 4rem;
+        font-size: 4.5rem;
         right: -58px;
     }
 
@@ -212,12 +212,12 @@
     }
 
     .recommended__prev-btn {
-        font-size: 4rem;
+        font-size: 4.5rem;
         left: -52px;
     }
     
     .recommended__next-btn {
-        font-size: 4rem;
+        font-size: 4.5rem;
         right: -52px;
     }
 
@@ -278,7 +278,7 @@
     .item-infor .icon-bar i {
         margin: 0;
         padding: 0 15px;
-        font-size: 2rem;
+        font-size: 2.6rem;
     }
 
     .item-infor .Img_box,
@@ -312,7 +312,7 @@
 
     .detail__content-pane {
         display: block;
-        padding: 0 15px 15px 15px;
+        margin: 0 15px 15px 15px;
     }
 
     .pane-heading {
@@ -332,6 +332,7 @@
         right: -14px;
         width: 43px;
         height: 43px;
+        cursor: pointer;
     }
 
     .pane-tab-content {
@@ -400,13 +401,13 @@
 
     .recommended__prev-btn {
         position: relative;
-        font-size: 3.4rem;
+        font-size: 4.4rem;
         left: -37px;
     }
     
     .recommended__next-btn {
         position: relative;
-        font-size: 3.4rem;
+        font-size: 4.4rem;
         right: -37px;
     }
 
@@ -437,7 +438,7 @@
 
     .recommended__addToCart i {
         display: block;
-        font-size: 2rem;
+        font-size: 3rem;
     }
 }
 
@@ -449,7 +450,7 @@
 
     .recommended__addToCart i {
         display: block;
-        font-size: 2rem;
+        font-size: 3rem;
     }
 }
 
@@ -475,7 +476,7 @@
 
     .recommended__next-btn,
     .recommended__prev-btn {
-        font-size: 3.4rem;
+        font-size: 4.4rem;
     }
    
     /* .recommended__next-prev-btn {
@@ -489,7 +490,7 @@
 
     .recommended__addToCart i {
         display: block;
-        font-size: 2rem;
+        font-size: 3rem;
     }
 }
 

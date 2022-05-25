@@ -26,6 +26,7 @@ class Application {
   public static ?User $user;
   public static $cart;
   public static $cartTotalPrice;
+  public static $amountCartItem;
   public $db;
 
   public function __construct($rootPath) {
@@ -79,6 +80,7 @@ class Application {
             self::$user = $data["user"];
             self::$cart = Cart::__self__()->getProductFromCart($id);
             self::$cartTotalPrice = Cart::__self__()->totalPriceOfCart($id);
+            self::$amountCartItem = Cart::__self__()->getAmountItem($id);
           }
         }
       }else{
