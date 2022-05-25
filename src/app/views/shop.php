@@ -114,7 +114,7 @@
                                 </span>
                             </div>
                         </li>
-
+                            
                     </ul>
                 </div>
 
@@ -123,9 +123,9 @@
                     <?php
                     if ($data == NULL) {
                         echo '<div id="empty">
-                    <i class="far fa-sad-tear"></i>
+                    <i class="ion-sad"></i>
                     <p>Empty Product</p>
-                    <div id="return">Return Shop</div>
+                    <a href="http://localhost/shop"><div id="return">Return Shop</div></a>
                 </div>';
                     } else {
 
