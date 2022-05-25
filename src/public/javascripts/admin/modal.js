@@ -172,19 +172,23 @@ const Modal = {
       btn.onclick = async () => {
         $('.overlayDetail').style.display = 'flex';
         let id = btn.dataset.id;
+        let store = btn.dataset.store;
         $('.modal-seeDetail').style.transform = 'translateY(0px)';
         let row = ``;
         let table = $('.product-show tbody');
         table.innerHTML = row;
+        console.log(`/order/details/${store}?id=${id}`);
 
-        let products = await HttpRequest({ url: `/orderAdmin?id=${id}` });
+        let products = await HttpRequest({
+          url: `/order/details/${store}?id=${id}`,
+        });
 
         products.forEach((item) => {
           row += `<tr>
-                    <td>${item.name}</td>
-                    <td>${item.quantity}</td>
-                    <td>${item.productPrice * item.quantity}</td>
-                </tr>`;
+                <td>${item.name}</td>
+                <td>${item.quantity}</td>
+                <td>${item.productPrice * item.quantity}</td>
+            </tr>`;
         });
         table.innerHTML = row;
       };

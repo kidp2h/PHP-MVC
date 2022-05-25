@@ -24,18 +24,19 @@
           </th>
           
           <?php if(isset($idStore)) {?>
+            
+            <th class="sort sortPrice col3">
+              <input type="radio" name="sort" value="" />
+              Discount
+              <i class="ion-funnel"></i>
+            </th>
+            
+            <th class="sort sortPrice col3">
+              <input type="radio" name="sort" value="" />
+              Quantity
+              <i class="ion-funnel"></i>
+            </th>
 
-          <th class="sort sortPrice col3">
-            <input type="radio" name="sort" value="" />
-            Quantity
-            <i class="ion-funnel"></i>
-          </th>
-
-          <th class="sort sortPrice col3">
-            <input type="radio" name="sort" value="" />
-            Discount
-            <i class="ion-funnel"></i>
-          </th>
 
           <?php }?>
 

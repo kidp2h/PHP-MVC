@@ -2,6 +2,7 @@
 namespace router;
 
 use app\controllers\OrderController;
+use app\middlewares\AdminMiddleware;
 use app\middlewares\AuthMiddleware;
 use core\Application;
 
@@ -11,4 +12,5 @@ $app->router->get("/order", [[AuthMiddleware::class, "isAuth"]], [OrderControlle
 $app->router->post("/order", [[AuthMiddleware::class, "isAuth"]], [OrderController::class, "handleAddOrder"]);
 $app->router->post("/orderByStatus", [[AuthMiddleware::class, "isAuth"]], [OrderController::class, "handleStatusClick"]);
 $app->router->post("/orderUpdateStatus", [[AuthMiddleware::class, "isAuth"]], [OrderController::class, "handleUpdateStatus"]);
-$app->router->get("/orderAdmin", [[AdminMiddleware::class, "isAdmin"]], [OrderController::class, "getOrderDetailsById"]);
+
+$app->router->get("/order/details/{id:\d+}", [[AuthMiddleware::class, "isAuth"], [AdminMiddleware::class, "isManagerStore"]], [OrderController::class, "getOrderDetailsById"]);
