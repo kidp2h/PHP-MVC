@@ -98,6 +98,42 @@ use core\Application;
       </div>
     </div>
 
+    <div class="overlay overlayAddProduct">
+      <div class="modal modal-seeAddProduct">
+        <div class="modal-header">
+          <span>San Pham Chua Co</span>
+          <div id="close-seeAddProduct" class="close-modal">X</div>
+        </div>
+        <div class="modal-main" id="modal-product">
+          <div class="add-product-show">
+            <div class="t-wrap">
+              <table class="content-table">
+                <thead>
+                  <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Discount</th>
+                    <th>Quantity</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr> 
+                    
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="sidebar active">
       <ul>
         <li>

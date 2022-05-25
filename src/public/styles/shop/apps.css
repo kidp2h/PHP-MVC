@@ -3,7 +3,6 @@
                     font-size: 14px;
                     line-height: 1.75;
                     color: #999;
-                    font-weight: 400;
                     width: 100%;
                     color: #878787;
                     overflow-x: hidden;
@@ -176,8 +175,7 @@ lam bo loc */
                     color: #5f50f1;
                     
                 }
-                #shop li#loccategories li.theloai{
-                    
+                #shop  li.theloai{
                     margin: 20px 0px;
                     font-weight: 600;
                     border-bottom: solid 2px #5f50f1;

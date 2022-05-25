@@ -18,7 +18,7 @@ class UserController extends Controller {
   public static function sendOTP(Request $request){
     $phoneNumber = $request->param("phone");
     if(!isset($body)){
-      User::__self__()->sendCodeOTP($phoneNumber);
+      //User::__self__()->sendCodeOTP($phoneNumber);
     }
   }
 }

@@ -16,7 +16,7 @@ class Model {
 
   private function getTypeProp(string $key){
     $property = new ReflectionProperty(static::class, $key);
-    $type = $property->getType()->getName();
+    $type = $property->getType()?->getName();
     return $type;
   }
 

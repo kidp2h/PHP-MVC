@@ -9,6 +9,7 @@ class Category extends Model {
     public string $image;
     public string $created_at;
     public string $updated_at;
+    public string $deleted_at;
 
     public function __construct() {
 
@@ -57,15 +58,25 @@ class Category extends Model {
     public function getUpdatedAt(){
         return $this->Category->updated_at;
     }
-
-    public function getCategoryList(){
+    public function getCategoryListandNum($storeId){
         $data = [];
-        $sql = self::$db->query("select * from category");
+        $sql = self::$db->query("SELECT store.id AS storeId, product.category_id, category.title AS title, COUNT(product.category_id) AS SUM
+        FROM category, product, product_details, store
+        WHERE product.category_id = category.id AND product.id = product_details.product_id AND product_details.store_id = store.id
+        AND store.id = $storeId
+        GROUP BY store.id, product.category_id, category.title");
         while($row = mysqli_fetch_all($sql,1)){
             $data = $row;
         }
         return $data;
     }
+    public function getSumProductbyStoreId($storeId){
+        return mysqli_num_rows(self::$db->query("SELECT product.id 
+		FROM product, product_details, store
+		WHERE product.id=product_details.product_id
+		AND product_details.store_id=store.id
+		AND store.id=$storeId"));
+	}
 
     public function getCategoryById($id) {
         $sql = self::$db->query("SELECT * FROM category WHERE category.id = '$id'");
@@ -84,7 +95,14 @@ class Category extends Model {
         }
         return $data;
     }
-
+    public function getCategoryList(){
+        $data = [];
+        $sql = self::$db->query("select * from category");
+        while($row = mysqli_fetch_all($sql,1)){
+            $data = $row;
+        }
+        return $data;
+    }
     public static function resolve(array $data) {
         $category = self::__self__();
         if(count($data) !=0 ){

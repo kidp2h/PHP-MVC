@@ -29,6 +29,9 @@ button {
 input {
   line-height: normal;
 }
+a {
+  color: black;
+}
 label,
 button {
   cursor: pointer;

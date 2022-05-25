@@ -1,8 +1,8 @@
 <tr>
     <td>
-        <div class="wrap-image">
-            <img class="image-document i-product" src="<?=$product['image'][0]?>" alt="Image product id ${product.id}">
-            <button class="addImage" data-image='<?=json_encode($product['image'])?>'><i class="ion-plus-round"></i></button>
+        <div class="wrap-image" data-id="<?=$product["id"]?>">
+            <img class="image-document i-product" src="<?=$product['image'][0]?>" alt="">
+            <button class="addImage" data-image='<?=json_encode($product['image'])?>' data-product="<?=$product["id"]?>"><i class="ion-plus-round"></i></button>
         </div>
     </td>
 
@@ -12,12 +12,12 @@
         <div id="select">
             <select id="selectCategory">
                 <?php
-                    foreach($categories as $category) {
+                    foreach(array_reverse($categories) as $category) {
 
                         if($product['category_id'] == $category['id']) 
-                        echo "<option selected value='{$category['title']}'>{$category['title']}</option>";
+                        echo "<option selected value='{$category['id']}'>{$category['title']}</option>";
                         else
-                        echo "<option value='{$category['title']}'>{$category['title']}</option>";
+                        echo "<option value='{$category['id']}'>{$category['title']}</option>";
                     }    
             
                 ?>
@@ -33,10 +33,10 @@
         <span class="input-number-increment">+</span>
     </td> -->
     <td class="action">
-        <button class="button-icon remove" data-id='${product.id}' data-table='products'>
+        <button class="button-icon remove" data-id='<?=$product['id']?>' data-table='products'>
             <i class="ion-trash-b"></i>
         </button>
-        <button class="button-icon save" data-id='${product.id}' data-table='products'>
+        <button class="button-icon save" data-id='<?=$product['id']?>' data-table='products'>
             <i class="ion-document-text"></i>
         </button>
     </td>
