@@ -86,7 +86,18 @@
               <span class="title">Revenue</span>
             </a>
           </li>
+<<<<<<< HEAD
           <?php } else { ?>
+=======
+          <li class="manager m-store">
+            <a class="item" href="/admin/store/store/<?= $idStore ?>">
+              <i class="ion-fork-repo"></i>
+              <span class="title">Store</span>
+            </a>
+          </li>
+
+        <?php } else { ?>
+>>>>>>> main
           <li class="manager m-dashboard">
             <a class="item" href="/admin">
               <i class="ion-speedometer"></i>
@@ -123,6 +134,7 @@
               <span class="title">Revenue</span>
             </a>
           </li>
+<<<<<<< HEAD
           <?php } ?>
         </ul>
       </div>
@@ -136,9 +148,44 @@
           </div>
         </div>
         {{content}}
+=======
+
+          <li class="manager m-store">
+            <a class="item" href="/admin/store">
+              <i class="ion-fork-repo"></i>
+              <span class="title">Store</span>
+            </a>
+          </li>
+
+        <?php } ?>
+      </ul>
+    </div>
+
+    <div class="main-content active">
+      <div class="topbar">
+        <div class="toggle">
+          <div class="toggle__burger"></div>
+        </div>
+        <div class="user">
+        <a href="/logout"><i style="font-size: 1.5em" class="ion-log-out"></i></a>
+          
+        </div>
+>>>>>>> main
       </div>
     </div>
+<<<<<<< HEAD
     <script src="/public/javascripts/main.js"></script>
     <script src="/public/javascripts/admin/main.js"></script>
   </body>
+=======
+
+  </div>
+  <script src="/public/javascripts/toast.js"></script>
+  <script src="/public/javascripts/main.js"></script>
+  <script src="/public/javascripts/admin/main.js"></script>
+
+
+</body>
+
+>>>>>>> main
 </html>

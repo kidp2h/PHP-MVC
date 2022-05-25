@@ -14,6 +14,14 @@
   transform: translateY(-3px);
   transition: all 0.5s;
 }
+#admin .save.link{
+  background-color: blue;
+}
+#admin .save.link:hover {
+  background-color: blue;
+  transform: translateY(-3px);
+  transition: all 0.5s;
+}
 #admin .save:not(:hover) {
   transition: all 0.5s;
 }

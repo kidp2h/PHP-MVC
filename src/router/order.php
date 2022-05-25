@@ -10,4 +10,10 @@ $app->router->prefix("");
 $app->router->get("/order", [[AuthMiddleware::class, "isAuth"]], [OrderController::class, "handleRenderOrder"]);
 $app->router->post("/order", [[AuthMiddleware::class, "isAuth"]], [OrderController::class, "handleAddOrder"]);
 $app->router->post("/orderByStatus", [[AuthMiddleware::class, "isAuth"]], [OrderController::class, "handleStatusClick"]);
+<<<<<<< HEAD
 $app->router->post("/orderUpdateStatus", [[AuthMiddleware::class, "isAuth"]], [OrderController::class, "handleUpdateStatus"]);
+=======
+$app->router->post("/orderUpdateStatus", [[AuthMiddleware::class, "isAuth"]], [OrderController::class, "handleUpdateStatus"]);
+
+$app->router->get("/order/details", [[AuthMiddleware::class, "isAuth"], [AdminMiddleware::class, "isManagerStore"]], [OrderController::class, "getOrderDetailsById"]);
+>>>>>>> main
