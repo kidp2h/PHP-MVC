@@ -163,57 +163,57 @@ class Product extends Model
 	public function getDatafilterAdvancedAll($store, $sort,$priceFrom, $priceTo, $tilte, $limit, $page){
 		$index = ($page - 1) * $limit;
 		if(strtoupper($sort)==strtoupper('All')){
-			$query="SELECT product.*, category.title, product.price*(1-product_details.discount/100) AS sale
+			$query="SELECT product.*, category.title, Round(product.price*(1-product_details.discount/100)) AS sale
 			FROM product, category,product_details, store 
 			where product.category_id = category.id
 			AND product.id = product_details.product_id
 			AND product_details.store_id = store.id
 			AND store.id = $store     
 			AND Upper (product.name) LIKE Upper('%$tilte%') 
-			AND product.price*(1-product_details.discount/100) BETWEEN $priceFrom AND $priceTo
+			AND  product.price*(1-product_details.discount/100) BETWEEN $priceFrom AND $priceTo
 			LIMIT $index, $limit";
 		}else if(strtoupper($sort)==strtoupper('AZ')){
-			$query="SELECT product.*, category.title, product.price*(1-product_details.discount/100) AS sale 
+			$query="SELECT product.*, category.title,  Round(product.price*(1-product_details.discount/100))AS sale 
 			FROM product, category,product_details, store 
 			where product.category_id = category.id
 			AND product.id = product_details.product_id
 			AND product_details.store_id = store.id
 			AND store.id = $store     
 			AND Upper (product.name) LIKE Upper('%$tilte%') 
-			AND product.price*(1-product_details.discount/100) BETWEEN $priceFrom AND $priceTo
+			AND  product.price*(1-product_details.discount/100) BETWEEN $priceFrom AND $priceTo
 			ORDER BY product.name
 			LIMIT $index, $limit";
 		}else if(strtoupper($sort)==strtoupper('ZA')){
-			$query="SELECT product.*, category.title, product.price*(1-product_details.discount/100) AS sale 
+			$query="SELECT product.*, category.title,  Round(product.price*(1-product_details.discount/100)) AS sale 
 			FROM product, category,product_details, store 
 			where product.category_id = category.id
 			AND product.id = product_details.product_id
 			AND product_details.store_id = store.id
 			AND store.id = $store     
 			AND Upper (product.name) LIKE Upper('%$tilte%') 
-			AND product.price*(1-product_details.discount/100) BETWEEN $priceFrom AND $priceTo
+			AND  product.price*(1-product_details.discount/100) BETWEEN $priceFrom AND $priceTo
 			ORDER BY product.name DESC
 			LIMIT $index, $limit";
 		}else if(strtoupper($sort)==strtoupper('lowtohigh')){
-			$query="SELECT product.*, category.title, product.price*(1-product_details.discount/100) AS sale 
+			$query="SELECT product.*, category.title,  Round(product.price*(1-product_details.discount/100)) AS sale 
 			FROM product, category,product_details, store 
 			where product.category_id = category.id
 			AND product.id = product_details.product_id
 			AND product_details.store_id = store.id
 			AND store.id = $store     
 			AND Upper (product.name) LIKE Upper('%$tilte%') 
-			AND product.price*(1-product_details.discount/100) BETWEEN $priceFrom AND $priceTo
+			AND  product.price*(1-product_details.discount/100) BETWEEN $priceFrom AND $priceTo
 			ORDER BY sale
 			LIMIT $index, $limit";
 		}else if(strtoupper($sort)==strtoupper('hightolow')){
-			$query="SELECT product.*, category.title , product.price*(1-product_details.discount/100) AS sale
+			$query="SELECT product.*, category.title ,  Round(product.price*(1-product_details.discount/100)) AS sale
 			FROM product, category,product_details, store 
 			where product.category_id = category.id
 			AND product.id = product_details.product_id
 			AND product_details.store_id = store.id
 			AND store.id = $store     
 			AND Upper (product.name) LIKE Upper('%$tilte%') 
-			AND product.price*(1-product_details.discount/100) BETWEEN $priceFrom AND $priceTo
+			AND  product.price*(1-product_details.discount/100) BETWEEN $priceFrom AND $priceTo
 			ORDER BY sale DESC
 			LIMIT $index, $limit";
 		}
@@ -222,7 +222,7 @@ class Product extends Model
 	public function getDatafilterAdvancedNotAll($store, $sort, $category, $priceFrom, $priceTo, $tilte, $limit, $page){
 		$index = ($page - 1) * $limit;
 		if(strtoupper($sort)==strtoupper('All')){
-			$query="SELECT product.*, category.title, product.price*(1-product_details.discount/100) AS sale  
+			$query="SELECT product.*, category.title,  Round(product.price*(1-product_details.discount/100)) AS sale  
 			FROM product, category,product_details, store 
 			where product.category_id = category.id
 			AND product.id = product_details.product_id
@@ -230,10 +230,10 @@ class Product extends Model
 			AND store.id = $store
 			AND Upper(category.title) = Upper('$category')     
 			AND Upper (product.name) LIKE Upper('%$tilte%') 
-			AND product.price*(1-product_details.discount/100) BETWEEN $priceFrom AND $priceTo
+			AND  product.price*(1-product_details.discount/100) BETWEEN $priceFrom AND $priceTo
 			LIMIT $index, $limit";
 		}else if(strtoupper($sort)==strtoupper('AZ')){
-			$query="SELECT product.*, category.title, product.price*(1-product_details.discount/100) AS sale 
+			$query="SELECT product.*, category.title,  Round(product.price*(1-product_details.discount/100)) AS sale 
 			FROM product, category,product_details, store 
 			where product.category_id = category.id
 			AND product.id = product_details.product_id
@@ -245,7 +245,7 @@ class Product extends Model
 			ORDER BY product.name
 			LIMIT $index, $limit";
 		}else if(strtoupper($sort)==strtoupper('ZA')){
-			$query="SELECT product.*, category.title, product.price*(1-product_details.discount/100) AS sale 
+			$query="SELECT product.*, category.title,  Round(product.price*(1-product_details.discount/100)) AS sale 
 			FROM product, category,product_details, store 
 			where product.category_id = category.id
 			AND product.id = product_details.product_id
@@ -253,11 +253,11 @@ class Product extends Model
 			AND store.id = $store
 			AND Upper(category.title) = Upper('$category')     
 			AND Upper (product.name) LIKE Upper('%$tilte%') 
-			AND product.price*(1-product_details.discount/100) BETWEEN $priceFrom AND $priceTo
+			AND  product.price*(1-product_details.discount/100) BETWEEN $priceFrom AND $priceTo
 			ORDER BY product.name DESC
 			LIMIT $index, $limit";
 		}else if(strtoupper($sort)==strtoupper('lowtohigh')){
-			$query="SELECT product.*, category.title, product.price*(1-product_details.discount/100) AS sale 
+			$query="SELECT product.*, category.title,  Round(product.price*(1-product_details.discount/100)) AS sale 
 			FROM product, category,product_details, store 
 			where product.category_id = category.id
 			AND product.id = product_details.product_id
@@ -265,11 +265,11 @@ class Product extends Model
 			AND store.id = $store
 			AND Upper(category.title) = Upper('$category')     
 			AND Upper (product.name) LIKE Upper('%$tilte%') 
-			AND product.price*(1-product_details.discount/100) BETWEEN $priceFrom AND $priceTo
+			AND  product.price*(1-product_details.discount/100) BETWEEN $priceFrom AND $priceTo
 			ORDER BY sale
 			LIMIT $index, $limit";
 		}else if(strtoupper($sort)==strtoupper('hightolow')){
-			$query="SELECT product.*, category.title, product.price*(1-product_details.discount/100) AS sale 
+			$query="SELECT product.*, category.title,  Round(product.price*(1-product_details.discount/100)) AS sale 
 			FROM product, category,product_details, store 
 			where product.category_id = category.id
 			AND product.id = product_details.product_id
@@ -277,7 +277,7 @@ class Product extends Model
 			AND store.id = $store
 			AND Upper(category.title) = Upper('$category')     
 			AND Upper (product.name) LIKE Upper('%$tilte%') 
-			AND product.price*(1-product_details.discount/100) BETWEEN $priceFrom AND $priceTo
+			AND  product.price*(1-product_details.discount/100) BETWEEN $priceFrom AND $priceTo
 			ORDER BY sale DESC
 			LIMIT $index, $limit";
 		}
