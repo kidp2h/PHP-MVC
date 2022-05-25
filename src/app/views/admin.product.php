@@ -1,19 +1,9 @@
 <?php use core\Application; ?>
 
 <div class="tmanager tmanager-product">
-  <div class="box-filter">
-    <div class="table-search">
-      <i class="ion-search ic-input-search"></i>
-      <input class="input-search" type="text" placeholder="Search by name product" />
-    </div>
-    <div class="box-search-detail">
-      <div class="group-range-price">
-        <label>Lọc theo giá</label>
-        <input type="number" class="rangePrice" placeholder="Giá thấp nhất" id="rangePrice-from" maxlength="15" />
-        <span>-</span>
-        <input type="number" placeholder="Giá cao nhất" class="rangePrice" id="rangePrice-to" maxlength="15" />
-      </div>
-      <button class="btn-filter-detail">Filter</button>
+  <div class="actionProduct table-action">
+    <div>
+      <span class="btn-table-action add-product"><i class="ion-plus-round"></i></span>
     </div>
   </div>
   <div class="t-wrap">
@@ -65,15 +55,18 @@
           if(isset($idStore)) {
 
             foreach($products as $product) {
-              $product['image'] = json_decode($product['image']);
-              include Application::$__ROOT_DIR__.'/app/views/components/admin.product.store.php';
+              if($product["deleted_at"] == null){
+                $product['image'] = json_decode($product['image']);
+                include Application::$__ROOT_DIR__.'/app/views/components/admin.product.store.php';
+              }
+              
             }
-
           } else {
-
             foreach($products as $product) {
-              $product['image'] = json_decode($product['image']);
-              include Application::$__ROOT_DIR__.'/app/views/components/admin.product.php';
+              if($product["deleted_at"] == null){
+                $product['image'] = json_decode($product['image']);
+                include Application::$__ROOT_DIR__.'/app/views/components/admin.product.php';
+              }
             }
 
           }
@@ -83,10 +76,5 @@
 
       </tbody>
     </table>
-  </div>
-  <div class="actionProduct table-action">
-    <div>
-      <span class="btn-table-action add-product"><i class="ion-plus-round"></i></span>
-    </div>
   </div>
 </div>

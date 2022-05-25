@@ -13,10 +13,10 @@ class Product extends Model
 	public int $price;
 	public string $description;
 	public array $image;
-	public int | string $category_id;
-	public string $createdAt;
-	public string $updatedAt;
-	public string $deletedAt;
+	public $category_id;
+	public string $created_at;
+	public string $updated_at;
+	public string $deleted_at;
 	public function __construct()
 	{
 	}

@@ -25,3 +25,10 @@ $app->router->get("/store/{id:\d+}",[[AuthMiddleware::class,"isAuth"],[AdminMidd
 
 
 $app->router->post("/changeImageCategory/{id:\d+}",[[AuthMiddleware::class,"isAuth"],[AdminMiddleware::class, "isAdmin"]],[AdminController::class, "changeImageCategory"]);
+$app->router->post("/uploadImageProduct/{id:\d+}",[[AuthMiddleware::class,"isAuth"],[AdminMiddleware::class, "isAdmin"]],[AdminController::class, "uploadImageProduct"]);
+$app->router->post("/deleteImageProduct/{id:\d+}",[[AuthMiddleware::class,"isAuth"],[AdminMiddleware::class, "isAdmin"]],[AdminController::class, "deleteImageProduct"]);
+
+
+$app->router->post("/removeProduct",[[AuthMiddleware::class,"isAuth"],[AdminMiddleware::class, "isAdmin"]],[AdminController::class, "removeProduct"]);
+$app->router->post("/saveProduct",[[AuthMiddleware::class,"isAuth"],[AdminMiddleware::class, "isAdmin"]],[AdminController::class, "saveProduct"]);
+$app->router->post("/createProduct",[[AuthMiddleware::class,"isAuth"],[AdminMiddleware::class, "isAdmin"]],[AdminController::class, "createProduct"]);

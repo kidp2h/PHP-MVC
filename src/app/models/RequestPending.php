@@ -41,7 +41,6 @@ class RequestPending extends Model {
   public static function createRequest($email, $token){
     $now = new DateTime();
     $expire = ($now->add(new DateInterval('PT300S')))->format('Y-m-d H:i:s');
-    var_dump($expire);
     $data = [
       "email" => $email,
       "token" => $token,

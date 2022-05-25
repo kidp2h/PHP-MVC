@@ -1,9 +1,4 @@
 <div class="tmanager tmanager-revenue">
-  <div class="box-filter">
-    <div class="table-search search-category">
-      <select name="search-category" id="select-search-category"></select>
-    </div>
-  </div>
   <div class="t-wrap">
     <table class="content-table">
       <thead>

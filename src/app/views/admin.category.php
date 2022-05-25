@@ -1,12 +1,6 @@
 <?php use core\Application; ?>
 
 <div class="tmanager tmanager-category">
-  <div class="box-filter">
-    <div class="table-search">
-      <i class="ion-search ic-input-search"></i>
-      <input class="input-search" type="text" placeholder="Search by name category" />
-    </div>
-  </div>
   <div class="t-wrap">
     <table class="content-table">
       <thead>

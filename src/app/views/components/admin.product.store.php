@@ -1,7 +1,7 @@
 <tr>
     <td>
         <div class="wrap-image">
-            <img class="image-document i-product" src="<?=$product['image'][0]?>" alt="Image product id ${product.id}">
+            <img class="image-document i-product" src="<?=$product['image'][0]?>" alt="">
             <button class="addImage" data-image='<?=json_encode($product['image'])?>'><i class="ion-ios-eye"></i></button>
         </div>
     </td>
@@ -29,10 +29,10 @@
         <span class="input-number-increment">+</span>
     </td> -->
     <td class="action">
-        <button class="button-icon remove" data-id='${product.id}' data-table='products'>
+        <button class="button-icon remove" data-id='<?=$product['id']?>' data-table='products'>
             <i class="ion-trash-b"></i>
         </button>
-        <button class="button-icon save" data-id='${product.id}' data-table='products'>
+        <button class="button-icon save" data-id='<?=$product['id']?>' data-table='products'>
             <i class="ion-document-text"></i>
         </button>
     </td>
