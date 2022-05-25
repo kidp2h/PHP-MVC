@@ -527,9 +527,9 @@ body.active {
   color: white !important;
   cursor: not-allowed !important;
   background-color: transparent !important;
-  max-width: 50px;
-  width: 50px;
-  min-width: 50px;
+  max-width: 100px;
+  width: 100px;
+  min-width: 100px;
 }
 .btn-send-sms.disabled:hover a {
   color: white !important;
