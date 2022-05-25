@@ -165,5 +165,14 @@ class Order extends Model {
 
     }
 
+    public function getEntireOrders(){
+        $data = [];
+        $sql = self::$db->query("SELECT orders.* FROM orders WHERE 1");
+        while($row = mysqli_fetch_all($sql,1)) {
+            $data = $row;
+        }
+        return $data;g
+    }
+
 
 }
