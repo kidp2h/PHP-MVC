@@ -14,7 +14,6 @@ $app->router->get("/product", [[AuthMiddleware::class,"isAuth"],[AdminMiddleware
 $app->router->get("/category", [[AuthMiddleware::class,"isAuth"],[AdminMiddleware::class, "isAdmin"]] ,[AdminController::class, "category"]);
 $app->router->get("/bill", [[AuthMiddleware::class,"isAuth"],[AdminMiddleware::class, "isAdmin"]] ,[AdminController::class, "bill"]);
 $app->router->get("/revenue", [[AuthMiddleware::class,"isAuth"],[AdminMiddleware::class, "isAdmin"]] ,[AdminController::class, "revenue"]);
-$app->router->get("/store", [[AuthMiddleware::class,"isAuth"],[AdminMiddleware::class, "isAdmin"]] ,[AdminController::class, "store"]);
 
 
 $app->router->get("/store/user/{id:\d+}",[[AuthMiddleware::class,"isAuth"],[AdminMiddleware::class, "isManagerStore"]] ,[AdminController::class, "user"]);

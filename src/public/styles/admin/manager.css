@@ -20,17 +20,6 @@
 #admin .remove {
   background-color: var(--red);
 }
-#admin .link {
-  background-color: blue;
-}
-#admin .link:hover {
-  background-color: blue;
-  transform: translateY(-3px);
-  transition: all 0.5s;
-}
-#admin .link:not(:hover) {
-  transition: all 0.5s;
-}
 #admin .remove:hover,
 .see-detail:hover,
 #admin .cancel:hover {

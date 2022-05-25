@@ -177,12 +177,6 @@ use core\Application;
               <span class="title">Revenue</span>
             </a>
           </li>
-          <li class="manager m-store">
-            <a class="item" href="/admin/store">
-              <i class="ion-fork-repo"></i>
-              <span class="title">Store</span>
-            </a>
-          </li>
         <?php } ?>
       </ul>
     </div>
