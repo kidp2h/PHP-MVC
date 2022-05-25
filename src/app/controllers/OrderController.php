@@ -84,6 +84,7 @@ class OrderController extends Controller {
         return parent::render("order", ["orders" => $orders, "orderDetails" => $orderDetails]);
     }
 
+
     public static function getOrderDetailsById() {
         $body = Application::Instance()->request->body();
         $rep = Order::__self__()->getOrderInforByOrderId($body['id']);
