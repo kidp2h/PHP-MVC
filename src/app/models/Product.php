@@ -11,7 +11,7 @@ class Product extends Model
 	public int $id;
 	public string $name;
 	public int $price;
-	public string $description;
+	public  $description;
 	public array $image;
 	public $category_id;
 	public string $created_at;
@@ -343,7 +343,16 @@ class Product extends Model
 			"totalPage" => $totalPage
 		);
 	}
-
+	public function updateProductStore($discount, $quantity, $productId, $storeId){
+		$sql = "UPDATE product_details SET discount=$discount, quantity=$quantity WHERE product_id=$productId AND store_id=$storeId";
+		$result = self::$db->query($sql);
+		return $result;
+	}
+	public function removeProductStore($storeId, $productId){
+		$sql = "DELETE FROM product_details WHERE product_id=$productId AND store_id=$storeId";
+		$result = self::$db->query($sql);
+		return $result;
+	}
 	public static function resolve(array $data) {
     $product = self::__self__();
     if(count($data) !=0 ){

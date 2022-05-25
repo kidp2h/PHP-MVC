@@ -18,69 +18,12 @@ if (window.location.pathname.split('/').includes('store')) {
 } else {
   page = window.location.pathname.split('/')[2] ?? 'dashboard';
 }
-console.log(page);
 let selector = `.manager.m-${page}`;
 let itemSidebar = $(selector);
 itemSidebar.classList.add('active');
-
-if (window.location.pathname.split('/').includes('category')) {
-  $$('.changeImage').forEach((btn) => {
-    btn.onclick = function () {
-      let id = this.dataset.id;
-      let imgCurrent = btn.parentNode.querySelector('.image-document');
-      $('#inputChangeImage').click();
-      $('#inputChangeImage').onchange = function () {
-        if (this.files && this.files[0]) {
-          let files = this.files[0];
-          let FR = new FileReader();
-          FR.addEventListener('load', async function (e) {
-            if (e.total > 500000) {
-              showToast(
-                'error',
-                'Please upload image less 5MB',
-                5000,
-                '#f15050ad',
-                '#00000099'
-              );
-              showToast('error', '');
-            } else if (!e.target.result.includes('data:image/')) {
-              showToast(
-                'error',
-                'Only upload image, please !',
-                5000,
-                '#f15050ad',
-                '#00000099'
-              );
-            } else {
-              imgCurrent.setAttribute('src', e.target.result);
-              let formData = new FormData();
-              formData.append('file', files);
-              let response = await fetch(`/admin/changeImageCategory/${id}`, {
-                method: 'POST',
-                body: formData,
-              });
-              let result = await response.json();
-              if (result.status) {
-                showToast(
-                  'success',
-                  result.message,
-                  5000,
-                  '#5f50f1ad',
-                  'white'
-                );
-              } else {
-                showToast('error', result.message, 5000, '#f15050ad', 'white');
-              }
-            }
-            $('#inputChangeImage').value = '';
-          });
-          FR.readAsDataURL(this.files[0]);
-        }
-      };
-    };
-  });
+function getStore() {
+  return location.pathname.split('/')[4];
 }
-// itemSidebar.classList.add('active');
 const Modal = {
   removeImageAdmin: function () {
     $$('.removeImage').forEach(function (btn) {
@@ -292,6 +235,89 @@ const Modal = {
 
 Modal.init();
 
+const User = {
+  saveUser() {
+    $$('.tmanager-user .save').forEach((btn) => {
+      btn.onclick = async function () {
+        this.disabled = true;
+        let row = this.parentElement.parentElement;
+        let permission = row.querySelector('#selectPermission').value;
+        let response = null;
+        if (btn.dataset.action == 'create') {
+          let fullName = row.querySelector('.fullName').textContent;
+          let username = row.querySelector('.username').textContent;
+          let address = row.querySelector('.address').textContent;
+          let phoneNumber = row.querySelector('.phoneNumber').textContent;
+          let email = row.querySelector('.email').textContent;
+          response = await HttpRequest({
+            url: '/admin/createUser',
+            method: 'POST',
+            data: {
+              fullName,
+              username,
+              address,
+              phoneNumber,
+              email,
+              permission,
+            },
+          });
+          btn.removeAttribute('data-action');
+          btn.dataset.id = response.payload;
+          row.querySelector('.fullName').removeAttribute('contenteditable');
+          row.querySelector('.username').removeAttribute('contenteditable');
+          row.querySelector('.address').removeAttribute('contenteditable');
+          row.querySelector('.phoneNumber').removeAttribute('contenteditable');
+          row.querySelector('.email').removeAttribute('contenteditable');
+        } else {
+          let id = this.dataset.id;
+          response = await HttpRequest({
+            url: '/admin/saveUser',
+            method: 'POST',
+            data: { id, permission },
+          });
+        }
+        if (response.status)
+          showToast('success', response.message, 5000, '#5f50f1ad', 'white');
+        else
+          showToast('error', response.message, 5000, '#f15050ad', '#00000099');
+        this.disabled = false;
+      };
+    });
+  },
+  createUser() {
+    $('.add-user').onclick = function () {
+      let selectPermission = $('#selectPermission').innerHTML;
+      let row = `
+      <tr>
+        <td contenteditable="true" class="fullName">Full name</td>
+        <td contenteditable="true" class="username">Username</td>
+        <td contenteditable="true" class="address">Address user</td>
+        <td contenteditable="true" class="phoneNumber">Phone number</td>
+        <td contenteditable="true" class="email">Email address</td>
+        <td class="permission">
+          <div id="select">
+            <select id="selectPermission" style="background-color: var(--primary-color);">
+              ${selectPermission}
+            </select>
+          </div>
+        </td>
+        <td class="action">
+          <button class="button-icon save" data-action='create'>
+            <i class="ion-document-text"></i>
+          </button>
+        </td>
+      </tr>`;
+      $('.tmanager-user table tbody').insertAdjacentHTML('afterBegin', row);
+      User.saveUser();
+    };
+  },
+  init() {
+    if (!checkUrl('user') || !isAdmin()) return;
+    this.saveUser();
+    this.createUser();
+  },
+};
+
 const Product = {
   loadImageToModal(image, idProduct, admin = false) {
     let imageList = JSON.parse(image);
@@ -391,28 +417,257 @@ const Product = {
             <button class="addImage" data-id="" style="pointer-events:none;cursor:not-allowed" disabled><i class="ion-plus-round"></i></button>
           </div>
         </td>
-          <td contenteditable="true" class="nameProduct">NameProduct</td>
-          <td class="categoryProduct">
-              <div id="select">
-                <select id="selectCategory">
-                  ${categorySelect}
-                </select>
-              </div>
-          </td>
-          <td contenteditable="true" class="priceProduct">1000</td>
-          <td class="action">
-              <button class="button-icon remove" data-action='create'>
-                  <i class="ion-trash-b"></i>
-              </button>
-              <button class="button-icon save" data-action='create'>
-                  <i class="ion-document-text"></i>
-              </button>
-          </td>
+        <td contenteditable="true" class="nameProduct">NameProduct</td>
+        <td class="categoryProduct">
+          <div id="select">
+            <select id="selectCategory">
+              ${categorySelect}
+            </select>
+          </div>
+        </td>
+        <td contenteditable="true" class="priceProduct">1000</td>
+        <td class="action">
+            <button class="button-icon remove" data-action='create'>
+                <i class="ion-trash-b"></i>
+            </button>
+            <button class="button-icon save" data-action='create'>
+                <i class="ion-document-text"></i>
+            </button>
+        </td>
       </tr>`;
       $('.tmanager-product table tbody').insertAdjacentHTML('afterBegin', row);
       Product.removeProduct();
       Product.saveProduct();
     };
+  },
+  init() {
+    if (!checkUrl('product') || !isAdmin()) return;
+    this.removeProduct();
+    this.saveProduct();
+    this.createProduct();
+  },
+};
+const ProductStore = {
+  removeProduct() {
+    $$('.tmanager-product .remove').forEach((btn) => {
+      btn.onclick = async function () {
+        let row = this.parentElement.parentElement;
+        row.remove();
+        let productId = btn.dataset.id;
+        let response = await HttpRequest({
+          url: `/admin/removeProductStore/${getStore()}`,
+          method: 'POST',
+          data: { productId },
+        });
+        if (response.status) {
+          showToast('success', response.message, 5000, '#5f50f1ad', 'white');
+        }
+      };
+    });
+  },
+  saveProduct() {
+    $$('.tmanager-product .save').forEach((btn) => {
+      btn.onclick = async function () {
+        let row = this.parentElement.parentElement;
+        let discountProduct = row.querySelector('.discountProduct').textContent;
+        let quantityProduct = row.querySelector('.quantityProduct').textContent;
+        let productId = btn.dataset.id;
+        let response = await HttpRequest({
+          url: `/admin/saveProductStore/${getStore()}`,
+          method: 'POST',
+          data: { discountProduct, quantityProduct, productId },
+        });
+        if (response.status) {
+          showToast('success', response.message, 5000, '#5f50f1ad', 'white');
+        }
+      };
+    });
+  },
+  init() {
+    if (!isManager() || !checkUrl('product')) return;
+    this.removeProduct();
+    this.saveProduct();
+  },
+};
+
+const Category = {
+  changeImage() {
+    $$('.changeImage').forEach((btn) => {
+      btn.onclick = function () {
+        let id = this.dataset.id;
+        let imgCurrent = btn.parentNode.querySelector('.image-document');
+        $('#inputChangeImage').click();
+        $('#inputChangeImage').onchange = function () {
+          if (this.files && this.files[0]) {
+            let files = this.files[0];
+            let FR = new FileReader();
+            FR.addEventListener('load', async function (e) {
+              if (e.total > 500000) {
+                showToast(
+                  'error',
+                  'Please upload image less 5MB',
+                  5000,
+                  '#f15050ad',
+                  '#00000099'
+                );
+                showToast('error', '');
+              } else if (!e.target.result.includes('data:image/')) {
+                showToast(
+                  'error',
+                  'Only upload image, please !',
+                  5000,
+                  '#f15050ad',
+                  '#00000099'
+                );
+              } else {
+                imgCurrent.setAttribute('src', e.target.result);
+                let formData = new FormData();
+                formData.append('file', files);
+                let response = await fetch(`/admin/changeImageCategory/${id}`, {
+                  method: 'POST',
+                  body: formData,
+                });
+                let result = await response.json();
+                if (result.status) {
+                  showToast(
+                    'success',
+                    result.message,
+                    5000,
+                    '#5f50f1ad',
+                    'white'
+                  );
+                } else {
+                  showToast(
+                    'error',
+                    result.message,
+                    5000,
+                    '#f15050ad',
+                    'white'
+                  );
+                }
+              }
+              $('#inputChangeImage').value = '';
+            });
+            FR.readAsDataURL(this.files[0]);
+          }
+        };
+      };
+    });
+  },
+  removeCategory() {
+    $$('.tmanager-category .remove').forEach((btn) => {
+      btn.onclick = async function () {
+        this.disabled = true;
+        let response = null;
+        if (btn.dataset.action == 'create') {
+          this.parentElement.parentElement.remove();
+        } else {
+          this.parentElement.parentElement.remove();
+          let id = this.dataset.id;
+          function promiseRemoveCategory() {
+            response = HttpRequest({
+              url: '/admin/removeCategory',
+              method: 'POST',
+              data: { id },
+            });
+            return response;
+          }
+          function promiseHandleProductRemoveCategory() {
+            response = HttpRequest({
+              url: '/admin/handleProductRemoveCategory',
+              method: 'POST',
+              data: { id },
+            });
+            return response;
+          }
+          let result = await Promise.all([
+            promiseRemoveCategory(),
+            promiseHandleProductRemoveCategory(),
+          ]);
+          console.log(result);
+        }
+        if (response.status)
+          showToast('success', response.message, 5000, '#5f50f1ad', 'white');
+        else
+          showToast('error', response.message, 5000, '#f15050ad', '#00000099');
+        this.disabled = false;
+      };
+    });
+  },
+  saveCategory() {
+    $$('.tmanager-category .save').forEach((btn) => {
+      btn.onclick = async function () {
+        this.disabled = true;
+        let row = this.parentElement.parentElement;
+        let btnRemove = this.parentElement.querySelector('.remove');
+        let btnChangeImage = row.querySelector('.changeImage');
+        let nameCategory = row.querySelector('.nameCategory').textContent;
+        let response = null;
+        if (btn.dataset.action == 'create') {
+          response = await HttpRequest({
+            url: '/admin/createCategory',
+            method: 'POST',
+            data: { nameCategory },
+          });
+          btn.removeAttribute('data-action');
+          btnRemove.removeAttribute('data-action');
+          btnRemove.dataset.id = response.payload;
+          btn.dataset.id = response.payload;
+          btnChangeImage.style = null;
+          btnChangeImage.disabled = false;
+          btnChangeImage.dataset.id = response.payload;
+          Category.changeImage();
+        } else {
+          let id = this.dataset.id;
+          response = await HttpRequest({
+            url: '/admin/saveCategory',
+            method: 'POST',
+            data: { id, nameCategory },
+          });
+        }
+        if (response.status)
+          showToast('success', response.message, 5000, '#5f50f1ad', 'white');
+        else
+          showToast('error', response.message, 5000, '#f15050ad', '#00000099');
+        this.disabled = false;
+      };
+    });
+  },
+  createCategory() {
+    $('.add-category').onclick = function () {
+      let row = `
+      <tr>
+        <td>
+          <div class="wrap-image">
+            <img class="image-document i-category" src="/public/images/products/product.jpg" alt="Image category ">
+            <button class="changeImage" style="pointer-events:none;cursor:not-allowed" disabled>
+              <i class="ion-edit">
+                <input type="file" name="changeImage" id="inputChangeImage"  style="display: none;" accept="image/*">
+              </i>
+            </button>
+          </div>
+        </td>
+        <td contenteditable="true" class="nameCategory">NameCategory</td>
+        <td class="action">
+          <button class="button-icon remove" data-action='create'>
+            <i class="ion-trash-b"></i>
+          </button>
+          <button class="button-icon save" data-action='create'>
+            <i class="ion-document-text"></i>
+          </button>
+        </td>
+      </tr>`;
+      $('.tmanager-category table tbody').insertAdjacentHTML('afterBegin', row);
+      Category.removeCategory();
+      Category.saveCategory();
+    };
+  },
+  init() {
+    if (!checkUrl('category') || !isAdmin()) return;
+    this.changeImage();
+    this.removeCategory();
+    this.createCategory();
+    this.saveCategory();
   },
 };
 const Bill = {
@@ -481,10 +736,7 @@ const Store = {
 };
 
 Store.init();
-function init() {
-  Product.removeProduct();
-  Product.saveProduct();
-  Product.createProduct();
-}
-
-init();
+User.init();
+Product.init();
+ProductStore.init();
+Category.init();

@@ -26,14 +26,13 @@ const HttpRequest = async (
           'Content-Type': 'application/x-www-form-urlencoded',
         },
         //gui cookie
-        credentials: "include"
-
+        credentials: 'include',
       });
     } else {
       response = await fetch(options.url, {
         method: options.method,
         headers: options.headers,
-        credentials: "include"
+        credentials: 'include',
       });
     }
     return await response.json();
@@ -271,12 +270,19 @@ const navbarEvent = {
 
 navbarEvent.init();
 
-let checkUrl = (...agr) => {
-  let isEmpty = true
-  agr.forEach(url => { 
-    if(!window.location.pathname.includes(url)) {
-      isEmpty = false
+let checkUrl = (...arg) => {
+  let isEmpty = true;
+  arg.forEach((url) => {
+    if (!window.location.pathname.includes(url)) {
+      isEmpty = false;
     }
-  })
-  return isEmpty
-}
+  });
+  return isEmpty;
+};
+let isAdmin = () => {
+  return location.pathname.split('/').length == 3;
+};
+
+let isManager = () => {
+  return location.pathname.split('/').length == 5;
+};
