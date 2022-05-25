@@ -4,7 +4,7 @@
     <?php }?>
     <td><?=$order['username']?></td>
     <td class="action">
-        <button class="button-icon see-detail" data-id="<?=$order['id']?>">
+        <button class="button-icon see-detail" data-id="<?=$order['id']?>" data-store="<?=$order['store_id']?>">
             <span>Xem chi tiết</span>
         </button>
     </td>
@@ -21,10 +21,10 @@
         
     </td>
     <td class="action">
-        <button class="button-icon remove" data-id='<?=$product['id']?>' data-table='products'>
+        <button class="button-icon cancel" data-id='<?=$order['id']?>' data-table='products'>
             <i class="ion-close-round"></i>
         </button>
-        <button class="button-icon save" data-id='<?=$product['id']?>' data-table='products'>
+        <button class="button-icon accept" data-id='<?=$order['id']?>' data-table='products'>
             <i class="ion-checkmark-round"></i>
         </button>
     </td>

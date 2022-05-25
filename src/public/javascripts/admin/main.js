@@ -10,12 +10,15 @@ let page = null;
 if (window.location.pathname.split('/').includes('store')) {
   if (window.location.pathname.split('/').length == 4) {
     page = 'dashboard';
+  } else if (window.location.pathname.split('/').length == 3) {
+    page = window.location.pathname.split('/')[2] ?? 'dashboard';
   } else {
     page = window.location.pathname.split('/')[3] ?? 'dashboard';
   }
 } else {
   page = window.location.pathname.split('/')[2] ?? 'dashboard';
 }
+console.log(page);
 let selector = `.manager.m-${page}`;
 let itemSidebar = $(selector);
 itemSidebar.classList.add('active');
@@ -413,26 +416,71 @@ const Product = {
   },
 };
 const Bill = {
-  acceptBill: function (btn) {
-    let row = btn.parentNode.parentNode;
-    let status = row.querySelector('.status-bill');
-    status.innerHTML = `<i class="fas fa-check-circle completed"></i>`;
-    BillController.setStatusBill(btn.dataset.id, 'COMPLETED');
+  acceptBill: function () {
+    $$('.accept').forEach((btn) => {
+      btn.onclick = async () => {
+        let row = btn.parentNode.parentNode;
+        let status = row.querySelector('.status-bill');
+        status.innerHTML = `<i class="ion-checkmark-circled completed"></i>`;
+        let orderId = btn.dataset.id;
+        await HttpRequest({
+          url: '/orderUpdateStatus',
+          method: 'POST',
+          data: {
+            orderId,
+            status: 2,
+          },
+        });
+      };
+    });
   },
 
-  cancelBill: function (btn) {
-    let row = btn.parentNode.parentNode;
-    let status = row.querySelector('.status-bill');
-    status.innerHTML = `<i class="fas fa-times-circle cancelled"></i>`;
-    BillController.setStatusBill(btn.dataset.id, 'CANCELLED');
+  cancelBill: function () {
+    $$('.cancel').forEach((btn) => {
+      btn.onclick = async () => {
+        let row = btn.parentNode.parentNode;
+        let status = row.querySelector('.status-bill');
+        status.innerHTML = `<i class="ion-close-circled cancelled"></i>`;
+        let orderId = btn.dataset.id;
+        await HttpRequest({
+          url: '/orderUpdateStatus',
+          method: 'POST',
+          data: {
+            orderId,
+            status: 3,
+          },
+        });
+      };
+    });
   },
 
   searchBill: function (from, to, key) {
     BillController.searchBill(from, to, key);
     HandleEvent.SlideTdTable();
   },
+  init() {
+    if (!checkUrl('bill')) return;
+    this.acceptBill();
+    this.cancelBill();
+  },
 };
 
+Bill.init();
+const Store = {
+  linkButton() {
+    $$('.link').forEach((btn) => {
+      btn.onclick = () => {
+        window.location.href = `/admin/store/${btn.dataset.id}`;
+      };
+    });
+  },
+
+  init() {
+    this.linkButton();
+  },
+};
+
+Store.init();
 function init() {
   Product.removeProduct();
   Product.saveProduct();
