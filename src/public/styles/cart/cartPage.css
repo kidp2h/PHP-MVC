@@ -90,7 +90,6 @@ text-align: center;
 
 #cartPage .cartList__Empty button {
 padding: 10px 20px;
-margin-top: 30px;
 border-radius: 10px;
 font-size: 16px;
 color: #fff;
@@ -103,6 +102,10 @@ background-color: #f15f50;
 letter-spacing: 2px;
 }
 
+#cartPage .cartList__Empty a {
+  margin-top: 30px;
+  text-decoration: none;
+}
 
 /* KHI CART CÓ SẢN PHẨM */
 
@@ -151,6 +154,7 @@ align-items: center;
 margin-left: 15px;
 }
 
+.cartPage__product-store,
 .cartPage__product-name {
   font-size: 1.5rem;
   display: -webkit-box;
@@ -159,6 +163,12 @@ margin-left: 15px;
   overflow: hidden;
   text-overflow: ellipsis;
   word-break: break-word;
+}
+
+.cartPage__product-store {
+  padding-top: 4px;
+  font-size: 1.4rem;
+  color:rgb(82,82,82);
 }
 
 #cartPage .modal__cart-delete-icon {
@@ -240,6 +250,10 @@ text-align: right;
   color: white;
 }
 
+#cartPage .modal__cart-delete-icon i {
+  font-size: 2.4rem;
+}
+
 
 
 
@@ -255,7 +269,7 @@ text-align: right;
 /* MOBILE */
 @media(max-width: 739px) {  
   #cartPage .cartPage__product-header {
-    display: none;
+    display: none; 
   } 
 
   #cartPage .cartList__box {
@@ -284,12 +298,12 @@ text-align: right;
   }
 
   #cartPage .modal__cart-delete-icon {
-    margin-top: 15px;
-    margin-bottom: 15px;
+    margin-top: 8px;
+    margin-bottom: 8px;
   }
 
   #cartPage .modal__cart-delete-icon i {
-    font-size: 1.8rem;
+    font-size: 2.4rem;
   }
 
   .cartPage__product-item-infor {
@@ -300,6 +314,10 @@ text-align: right;
 
   .cartPage__product-item-infor h3 {
     font-size: 1.8rem;
+  }
+
+  .cartPage__product-item-infor .cartPage__product-store {
+    font-size: 1.7rem;
   }
 
   .cartPage__product-item-price {
