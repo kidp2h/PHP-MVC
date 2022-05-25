@@ -286,3 +286,37 @@ let isAdmin = () => {
 let isManager = () => {
   return location.pathname.split('/').length == 5;
 };
+
+function ToastAddToCart() {
+  return `
+      <div class="toast-app__icon">
+          <i class="fas fa-cart-plus"></i>
+      </div>
+      <div class="toast-app__body">
+          <h3 class="toast-title">Đã thêm vào giỏ hàng</h3>
+          <p class="toast-msg">Vào giỏ hàng của bạn và kiểm tra ngay</p>
+      </div>
+      <div class="toast-app__close">
+          <i class="fas fa-times"></i>
+      </div>
+  `
+}
+
+const renderToastAddToCart = {
+  start() {
+    console.log(123);
+    let toastApp = $('#toast-app');
+    let toasts = document.createElement('div');
+    toasts.classList.add('toast-app');
+    toasts.innerHTML = ToastAddToCart();
+    toastApp.appendChild(toasts);
+
+    toasts.querySelector('.toast-app__close').onclick = () => {
+      toastApp.removeChild(toasts);
+    };
+
+    setTimeout(() => {
+      if (toasts) toastApp.removeChild(toasts);
+    }, 2000);
+  },
+};

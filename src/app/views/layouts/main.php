@@ -34,11 +34,13 @@ try {
   <link rel="stylesheet" href="/public/styles/order/orderPage.css">
   <link rel="stylesheet" href="/public/styles/order/rp.css">
   <link rel="stylesheet" href="/public/styles/order/index.css">
-  <link rel="stylesheet" href="/public/styles/toast.css">
+  <!-- <link rel="stylesheet" href="/public/styles/toast.css"> -->
+  <link rel="stylesheet" href="/public/styles/toastapp.css">
 </head>
 
 <body>
-<div id="toasts"></div> 
+<div id="toast-app"></div>
+
 <div class="__modal__overlay"></div>
   <div class="__modal" id="modal__information">
     <div class="modal__header">
@@ -212,10 +214,10 @@ try {
           <i class="fas fa-shopping-cart"></i>
           <p>Cart</p>
       </div>
-      <div class="icon" id ="search-icon-mb">
+      <!-- <div class="icon" id ="search-icon-mb">
         <i class="fas fa-search" ></i>
         <p>Search</p>
-      </div>
+      </div> -->
     </div>
   </div>
 

@@ -89,7 +89,7 @@ class Category extends Model {
     public function getCategoryListByStore($storeId){
         $data = [];
         $sql = self::$db->query("select DISTINCT category.*  from store, product_details, product, category
-        where store.id = $storeId and store.id = product_details.store_id and product_details.product_id = product.id and product.category_id = category.id");
+        where store.id = $storeId and store.id = product_details.store_id and product_details.product_id = product.id and product.category_id = category.id and category.id != 0 ");
         while($row = mysqli_fetch_all($sql,1)){
             $data = $row;
         }

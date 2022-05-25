@@ -171,7 +171,7 @@ class Order extends Model {
         while($row = mysqli_fetch_all($sql,1)) {
             $data = $row;
         }
-        return $data;g
+        return $data;
     }
 
 

@@ -89,7 +89,7 @@ class Product extends Model
 		where product.category_id = category.id
 		AND product.id = product_details.product_id
 		AND product_details.store_id = store.id
-		AND store.id = $store 
+		AND store.id = $store AND product.deleted_at IS NULL
 		AND Upper (product.name) LIKE Upper('%$tilte%') 
 		AND product.price BETWEEN $priceFrom AND $priceTo"));
 		} else {
@@ -125,7 +125,7 @@ class Product extends Model
 		store.address,  ROUND(product.price*(1 - product_details.discount/100)) AS productPrice 
 		FROM product, product_details, category, store 
 		WHERE product.category_id = category.id AND product.id = product_details.product_id 
-		AND product_details.store_id = store.id
+		AND product_details.store_id = store.id AND product.deleted_at IS NULL
 		ORDER BY RAND() LIMIT 8");
         while($row=mysqli_fetch_all($sql,1)){
             $data=$row;
@@ -158,10 +158,10 @@ class Product extends Model
 	public function getListProducts($limit, $page)
 	{
 		$index = ($page - 1) * $limit;
-		$query = "SELECT product.*, category.title FROM product, category where product.category_id = category.id   ";
+		$query = "SELECT product.*, category.title FROM product, category where product.category_id = category.id AND product.deleted_at IS NULL  ";
 		$sql = self::$db->query($query);
 		$data = [];
-		$sql = self::$db->query("SELECT * FROM product ORDER BY RAND() LIMIT 7");
+		$sql = self::$db->query("SELECT * FROM product WHERE product.deleted_at IS NULL ORDER BY RAND() LIMIT 7");
 		while ($row = mysqli_fetch_all($sql, 1)) {
 			$data = $row;
 		}
@@ -183,7 +183,7 @@ class Product extends Model
 			where product.category_id = category.id
 			AND product.id = product_details.product_id
 			AND product_details.store_id = store.id
-			AND store.id = $store     
+			AND store.id = $store AND product.deleted_at IS NULL     
 			AND Upper (product.name) LIKE Upper('%$tilte%') 
 			AND  product.price*(1-product_details.discount/100) BETWEEN $priceFrom AND $priceTo
 			LIMIT $index, $limit";
@@ -193,7 +193,7 @@ class Product extends Model
 			where product.category_id = category.id
 			AND product.id = product_details.product_id
 			AND product_details.store_id = store.id
-			AND store.id = $store     
+			AND store.id = $store AND product.deleted_at IS NULL     
 			AND Upper (product.name) LIKE Upper('%$tilte%') 
 			AND  product.price*(1-product_details.discount/100) BETWEEN $priceFrom AND $priceTo
 			ORDER BY product.name
@@ -204,7 +204,7 @@ class Product extends Model
 			where product.category_id = category.id
 			AND product.id = product_details.product_id
 			AND product_details.store_id = store.id
-			AND store.id = $store     
+			AND store.id = $store AND product.deleted_at IS NULL     
 			AND Upper (product.name) LIKE Upper('%$tilte%') 
 			AND  product.price*(1-product_details.discount/100) BETWEEN $priceFrom AND $priceTo
 			ORDER BY product.name DESC
@@ -215,7 +215,7 @@ class Product extends Model
 			where product.category_id = category.id
 			AND product.id = product_details.product_id
 			AND product_details.store_id = store.id
-			AND store.id = $store     
+			AND store.id = $store AND product.deleted_at IS NULL     
 			AND Upper (product.name) LIKE Upper('%$tilte%') 
 			AND  product.price*(1-product_details.discount/100) BETWEEN $priceFrom AND $priceTo
 			ORDER BY sale
@@ -226,7 +226,7 @@ class Product extends Model
 			where product.category_id = category.id
 			AND product.id = product_details.product_id
 			AND product_details.store_id = store.id
-			AND store.id = $store     
+			AND store.id = $store AND product.deleted_at IS NULL     
 			AND Upper (product.name) LIKE Upper('%$tilte%') 
 			AND  product.price*(1-product_details.discount/100) BETWEEN $priceFrom AND $priceTo
 			ORDER BY sale DESC
@@ -243,7 +243,7 @@ class Product extends Model
 			where product.category_id = category.id
 			AND product.id = product_details.product_id
 			AND product_details.store_id = store.id
-			AND store.id = $store
+			AND store.id = $store AND product.deleted_at IS NULL
 			AND Upper(category.title) = Upper('$category')     
 			AND Upper (product.name) LIKE Upper('%$tilte%') 
 			AND  product.price*(1-product_details.discount/100) BETWEEN $priceFrom AND $priceTo
@@ -254,7 +254,7 @@ class Product extends Model
 			where product.category_id = category.id
 			AND product.id = product_details.product_id
 			AND product_details.store_id = store.id
-			AND store.id = $store
+			AND store.id = $store AND product.deleted_at IS NULL
 			AND Upper(category.title) = Upper('$category')     
 			AND Upper (product.name) LIKE Upper('%$tilte%') 
 			AND product.price*(1-product_details.discount/100) BETWEEN $priceFrom AND $priceTo
@@ -266,7 +266,7 @@ class Product extends Model
 			where product.category_id = category.id
 			AND product.id = product_details.product_id
 			AND product_details.store_id = store.id
-			AND store.id = $store
+			AND store.id = $store AND product.deleted_at IS NULL
 			AND Upper(category.title) = Upper('$category')     
 			AND Upper (product.name) LIKE Upper('%$tilte%') 
 			AND  product.price*(1-product_details.discount/100) BETWEEN $priceFrom AND $priceTo
@@ -278,7 +278,7 @@ class Product extends Model
 			where product.category_id = category.id
 			AND product.id = product_details.product_id
 			AND product_details.store_id = store.id
-			AND store.id = $store
+			AND store.id = $store AND product.deleted_at IS NULL
 			AND Upper(category.title) = Upper('$category')     
 			AND Upper (product.name) LIKE Upper('%$tilte%') 
 			AND  product.price*(1-product_details.discount/100) BETWEEN $priceFrom AND $priceTo
@@ -290,7 +290,7 @@ class Product extends Model
 			where product.category_id = category.id
 			AND product.id = product_details.product_id
 			AND product_details.store_id = store.id
-			AND store.id = $store
+			AND store.id = $store AND product.deleted_at IS NULL
 			AND Upper(category.title) = Upper('$category')     
 			AND Upper (product.name) LIKE Upper('%$tilte%') 
 			AND  product.price*(1-product_details.discount/100) BETWEEN $priceFrom AND $priceTo
@@ -320,7 +320,7 @@ class Product extends Model
 		$sql = "select p.*, c.title from product as p, category as c 
 		where p.category_id = c.id and p.id not in (
 		select pd.product_id from product_details as pd
-		where pd.store_id = $storeId )";
+		where pd.store_id = $storeId and p.deleted_at is null)";
 
 		$result = self::$db->query($sql);
 		while ($row = mysqli_fetch_all($result, 1)) $data = $row;
@@ -362,7 +362,7 @@ class Product extends Model
 		$index = ($page - 1) * $limit;
 		$sql = self::$db->query("select p.*, pd.discount, ROUND(p.price*(1-pd.discount/100), 0)  as sale from store as s, product_details as pd, product as p
 		where s.id = $store_id and pd.store_id = s.id and 
-		pd.discount > 49 and pd.product_id = p.id");
+		pd.discount > 49 and pd.product_id = p.id and p.deleted_at is null");
 		while ($row = mysqli_fetch_all($sql, 1)) $data = $row;
 
 		$totalPage = ceil(count($data) / $limit);

@@ -296,9 +296,11 @@ function AddToCart() {
           $('.modal__cart-footer').style.display = 'block';
         } 
         updatePriceToCart();
-        showToast('success', 'Thêm sản phẩm thành công')
+        // showToast('success', 'Thêm sản phẩm thành công')
+        renderToastAddToCart.start()
       } else if(response.status == false) {
-        showToast('error', 'Xin quý khách vui lòng đăng nhập');
+        // showToast('error', 'Xin quý khách vui lòng đăng nhập');
+        window.location.href = '/signin'
       }
     };
   }

@@ -67,8 +67,8 @@ class Cart extends Model {
 
     public function getAmountItem($userId) {
         $sql = self::$db->query("SELECT COUNT(*) AS amountItem
-        FROM cart_item 
-        WHERE cart_item.user_id = '$userId'");
+        FROM cart_item as c, product as p
+        WHERE c.user_id = $userId and c.product_id = p.id and p.deleted_at is null");
         while($row=mysqli_fetch_array($sql,1)) {
             $data=$row;
         }
@@ -117,7 +117,7 @@ class Cart extends Model {
         FROM product, product_details, store , user, cart_item 
         WHERE product.id = cart_item.product_id AND cart_item.user_id = user.id 
         AND cart_item.store_id = store.id AND product.id = product_details.product_id 
-        AND product_details.store_id = store.id AND user.id = '$userId'");
+        AND product_details.store_id = store.id AND user.id = '$userId' AND product.deleted_at IS NULL");
         while($row = mysqli_fetch_all($sql,1)) {
             $data = $row;
         }
@@ -130,7 +130,7 @@ class Cart extends Model {
         FROM product, product_details, store , user, cart_item 
         WHERE product.id = cart_item.product_id AND cart_item.user_id = user.id 
         AND cart_item.store_id = store.id AND product.id = product_details.product_id 
-        AND product_details.store_id = store.id AND user.id = '$userId'");
+        AND product_details.store_id = store.id AND user.id = '$userId' AND product.deleted_at IS NULL");
         while($row = mysqli_fetch_array($sql,1)) {
             $data = $row;
         }
