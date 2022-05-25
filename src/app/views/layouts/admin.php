@@ -20,7 +20,7 @@ use core\Application;
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/public/icons/css/ionicons.min.css">
   <link rel="stylesheet" href="/public/styles/admin/base.css">
-  <link rel="stylesheet" href="/public/styles/admin/toast.css">
+  <link rel="stylesheet" href="/public/styles/toast.css">
   <link rel="stylesheet" href="/public/styles/admin/animations.css">
   <link rel="stylesheet" href="/public/styles/admin/sidebar.css">
   <link rel="stylesheet" href="/public/styles/admin/card.css">
@@ -37,7 +37,7 @@ use core\Application;
 </head>
 
 <body>
-  <div class="toasts"></div>
+  <div id="toasts"></div>
   <div id="admin">
 
     <div class="overlay overlayAddImage">
@@ -58,9 +58,6 @@ use core\Application;
             <i class="ion-plus-round">
               <input type="file" name="uploadImage" id="inputUploadImage" style="display: none" accept="image/*" />
             </i>
-          </button>
-          <button class="btn-saveImage">
-            <i class="ion-document-text"></i>
           </button>
         </div>
         <?php } ?>
@@ -102,7 +99,7 @@ use core\Application;
       <ul>
         <li>
           <a class="item" href="javascript:void(0)">
-            <img src="/public/images/logo.svg" alt="Kiwi standing on oval" width="60px" height="60px" style="object-fit: fill" />
+            <img src="/public/images/logo.svg" alt="" width="60px" height="60px" style="object-fit: fill" />
             <span class="title">Shiba Shop</span>
           </a>
         </li>
@@ -180,12 +177,6 @@ use core\Application;
               <span class="title">Revenue</span>
             </a>
           </li>
-          <li class="manager m-store">
-            <a class="item" href="/admin/store">
-              <i class="ion-fork-repo"></i>
-              <span class="title">Store</span>
-            </a>
-          </li>
         <?php } ?>
       </ul>
     </div>
@@ -207,8 +198,6 @@ use core\Application;
   <script src="/public/javascripts/toast.js"></script>
   <script src="/public/javascripts/main.js"></script>
   <script src="/public/javascripts/admin/main.js"></script>
-  <script src="/public/javascripts/admin/modal.js"></script>
-
 </body>
 
 </html>

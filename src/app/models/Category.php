@@ -9,6 +9,7 @@ class Category extends Model {
     public string $image;
     public string $created_at;
     public string $updated_at;
+    public string $deleted_at;
 
     public function __construct() {
 
@@ -94,7 +95,14 @@ class Category extends Model {
         }
         return $data;
     }
-
+    public function getCategoryList(){
+        $data = [];
+        $sql = self::$db->query("select * from category");
+        while($row = mysqli_fetch_all($sql,1)){
+            $data = $row;
+        }
+        return $data;
+    }
     public static function resolve(array $data) {
         $category = self::__self__();
         if(count($data) !=0 ){

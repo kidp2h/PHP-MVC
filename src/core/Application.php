@@ -3,6 +3,7 @@ namespace core;
 
 use app\models\User;
 use app\models\Cart;
+use app\models\Category;
 use database\Database;
 use Dotenv\Dotenv;
 use SendGrid\Mail\Mail;
@@ -26,6 +27,7 @@ class Application {
   public static ?User $user;
   public static $cart;
   public static $cartTotalPrice;
+  public static array $data;
   public $db;
 
   public function __construct($rootPath) {

@@ -11,12 +11,12 @@ class Product extends Model
 	public int $id;
 	public string $name;
 	public int $price;
-	public string $description;
+	public  $description;
 	public array $image;
-	public int | string $category_id;
-	public string $createdAt;
-	public string $updatedAt;
-	public string $deletedAt;
+	public $category_id;
+	public string $created_at;
+	public string $updated_at;
+	public string $deleted_at;
 	public function __construct()
 	{
 	}
@@ -304,7 +304,7 @@ class Product extends Model
 		if(!$storeId)
 		$sql = "select * from product";
 		else 
-		$sql = "select p.*, pd.discount, pd.quantity from product as p, product_details as pd, store as s
+		$sql = "select p.* from product as p, product_details as pd, store as s
 				where p.id = pd.product_id and pd.store_id = s.id and s.id = $storeId";
 		
 		$result = self::$db->query($sql);
@@ -343,7 +343,16 @@ class Product extends Model
 			"totalPage" => $totalPage
 		);
 	}
-
+	public function updateProductStore($discount, $quantity, $productId, $storeId){
+		$sql = "UPDATE product_details SET discount=$discount, quantity=$quantity WHERE product_id=$productId AND store_id=$storeId";
+		$result = self::$db->query($sql);
+		return $result;
+	}
+	public function removeProductStore($storeId, $productId){
+		$sql = "DELETE FROM product_details WHERE product_id=$productId AND store_id=$storeId";
+		$result = self::$db->query($sql);
+		return $result;
+	}
 	public static function resolve(array $data) {
     $product = self::__self__();
     if(count($data) !=0 ){
