@@ -231,6 +231,10 @@ tbody tr:last-child {
   transition: ease-in 0.3s;
   bottom: 6px;
 }
+.addImage i {
+  font-size: 22px;
+  text-align: center;
+}
 #admin .addImage:not(:hover),
 #admin .changeImage:not(:hover) {
   transition: ease-in-out 0.3s;

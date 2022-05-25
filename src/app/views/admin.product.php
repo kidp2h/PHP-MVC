@@ -14,21 +14,31 @@
           <th class="sort sortName col1">
             <input type="radio" name="sort" value="" checked />
             Name
-            <i class="ion-funnel"></i>
           </th>
           <th class="sort sortCategory col2">
             <input type="radio" name="sort" value="" />
             Category
-            <i class="ion-funnel"></i>
           </th>
 
           <th class="sort sortPrice col3">
             <input type="radio" name="sort" value="" />
-            Price($)
-            <i class="ion-funnel"></i>
+            Price
+
           </th>
           
           <?php if(isset($idStore)) {?>
+            
+            <th class="sort sortPrice col3">
+              <input type="radio" name="sort" value="" />
+              Discount
+  
+            </th>
+            
+            <th class="sort sortPrice col3">
+              <input type="radio" name="sort" value="" />
+              Quantity
+  
+            </th>
 
           <th class="sort sortPrice col3">
             <input type="radio" name="sort" value="" />
@@ -51,9 +61,9 @@
       <tbody>
 
         <?php
-
+          $products = array_reverse($products);
           if(isset($idStore)) {
-
+            
             foreach($products as $product) {
               if($product["deleted_at"] == null){
                 $product['image'] = json_decode($product['image']);

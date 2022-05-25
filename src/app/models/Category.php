@@ -9,6 +9,7 @@ class Category extends Model {
     public string $image;
     public string $created_at;
     public string $updated_at;
+    public string $deleted_at;
 
     public function __construct() {
 

@@ -12,7 +12,7 @@
         <div id="select">
             <select id="selectCategory">
                 <?php
-                    foreach($categories as $category) {
+                    foreach(array_reverse($categories) as $category) {
 
                         if($product['category_id'] == $category['id']) 
                         echo "<option selected value='{$category['id']}'>{$category['title']}</option>";
