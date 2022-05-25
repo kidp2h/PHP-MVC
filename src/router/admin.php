@@ -33,3 +33,15 @@ $app->router->post("/deleteImageProduct/{id:\d+}",[[AuthMiddleware::class,"isAut
 $app->router->post("/removeProduct",[[AuthMiddleware::class,"isAuth"],[AdminMiddleware::class, "isAdmin"]],[AdminController::class, "removeProduct"]);
 $app->router->post("/saveProduct",[[AuthMiddleware::class,"isAuth"],[AdminMiddleware::class, "isAdmin"]],[AdminController::class, "saveProduct"]);
 $app->router->post("/createProduct",[[AuthMiddleware::class,"isAuth"],[AdminMiddleware::class, "isAdmin"]],[AdminController::class, "createProduct"]);
+$app->router->post("/saveProductStore/{id:\d+}",[[AuthMiddleware::class,"isAuth"],[AdminMiddleware::class, "isManagerStore"]],[AdminController::class, "saveProductStore"]);
+$app->router->post("/removeProductStore/{id:\d+}",[[AuthMiddleware::class,"isAuth"],[AdminMiddleware::class, "isManagerStore"]],[AdminController::class, "removeProductStore"]);
+
+
+$app->router->post("/removeCategory",[[AuthMiddleware::class,"isAuth"],[AdminMiddleware::class, "isAdmin"]],[AdminController::class, "removeCategory"]);
+$app->router->post("/saveCategory",[[AuthMiddleware::class,"isAuth"],[AdminMiddleware::class, "isAdmin"]],[AdminController::class, "saveCategory"]);
+$app->router->post("/createCategory",[[AuthMiddleware::class,"isAuth"],[AdminMiddleware::class, "isAdmin"]],[AdminController::class, "createCategory"]);
+$app->router->post("/handleProductRemoveCategory",[[AuthMiddleware::class,"isAuth"],[AdminMiddleware::class, "isAdmin"]],[AdminController::class, "handleProductRemoveCategory"]);
+
+
+$app->router->post("/saveUser",[[AuthMiddleware::class,"isAuth"],[AdminMiddleware::class, "isAdmin"]],[AdminController::class, "saveUser"]);
+$app->router->post("/createUser",[[AuthMiddleware::class,"isAuth"],[AdminMiddleware::class, "isAdmin"]],[AdminController::class, "createUser"]);

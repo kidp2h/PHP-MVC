@@ -59,9 +59,6 @@ use core\Application;
               <input type="file" name="uploadImage" id="inputUploadImage" style="display: none" accept="image/*" />
             </i>
           </button>
-          <button class="btn-saveImage">
-            <i class="ion-document-text"></i>
-          </button>
         </div>
         <?php } ?>
       </div>
@@ -102,7 +99,7 @@ use core\Application;
       <ul>
         <li>
           <a class="item" href="javascript:void(0)">
-            <img src="/public/images/logo.svg" alt="Kiwi standing on oval" width="60px" height="60px" style="object-fit: fill" />
+            <img src="/public/images/logo.svg" alt="" width="60px" height="60px" style="object-fit: fill" />
             <span class="title">Shiba Shop</span>
           </a>
         </li>
@@ -111,6 +108,12 @@ use core\Application;
             <a class="item" href="/admin/store/<?= $idStore ?>">
               <i class="ion-speedometer"></i>
               <span class="title">Dashboard</span>
+            </a>
+          </li>
+          <li class="manager m-user">
+            <a class="item" href="/admin/store/user/<?= $idStore ?>">
+              <i class="ion-person-stalker"></i>
+              <span class="title">User</span>
             </a>
           </li>
           <li class="manager m-product">
@@ -201,8 +204,6 @@ use core\Application;
   <script src="/public/javascripts/toast.js"></script>
   <script src="/public/javascripts/main.js"></script>
   <script src="/public/javascripts/admin/main.js"></script>
-  <script src="/public/javascripts/admin/modal.js"></script>
-
 </body>
 
 </html>

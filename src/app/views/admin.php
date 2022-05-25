@@ -29,7 +29,7 @@
     </div>
     <div class="card card-bill">
       <div class="card-wrap">
-        <div class="number">0</div>
+        <div class="number"><?= count($orders)?></div>
         <div class="card-name">Bill</div>
       </div>
       <div class="icon-card">
@@ -87,7 +87,7 @@
           </tr>
         </thead>
         <tbody>
-        <?php foreach(array_slice($categories, 0, 3) as $key => $value){ ?>
+        <?php foreach(array_slice($categories, 1, 3) as $key => $value){ ?>
           <tr>
           <td>
             <div class="wrap-image">
