@@ -83,15 +83,14 @@ if (window.location.pathname.split('/').includes('category')) {
 // itemSidebar.classList.add('active');
 
 const Product = {
-  loadImageToModal(image, admin = false) {
+  loadImageToModal(image, idProduct, admin = false) {
     let imageList = JSON.parse(image);
 
     $('.image-show').innerHTML = '';
 
     let btnRemove = '';
     if (admin)
-      btnRemove =
-        '<button class="removeImage"><i class="ion-close-round"></i></button>';
+      btnRemove = `<button class="removeImage" data-id=${idProduct} data-image='${image}'><i class="ion-close-round"></i></button>`;
 
     imageList.forEach((img) => {
       let imageHTML = `                        

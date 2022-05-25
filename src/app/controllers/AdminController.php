@@ -115,11 +115,11 @@ class AdminController extends Controller {
   }
 
   public static function changeImageCategory(Request $request, Response $response){
-    error_reporting(E_ALL); ini_set('display_errors', 1);
-    ini_set('display_errors', 1);
+    // error_reporting(E_ALL); ini_set('display_errors', 1);
+    // ini_set('display_errors', 1);
     $id = $request->param('id');
     $fileName = $_FILES['file']['full_path'];
-    $listValidExt = array("jpg","png","jpeg");
+    $listValidExt = array("jpg","png","jpeg", "svg");
     $fileExt = pathinfo($fileName, PATHINFO_EXTENSION);
     $fileExt = strtolower($fileExt);
     if(in_array($fileExt,$listValidExt)){
@@ -129,6 +129,42 @@ class AdminController extends Controller {
         return json_encode(["status" => true, "message" => "Change success"]);
       }
     }else return json_encode(["status" => false, "message" => "Only upload image !!"]);
+  }
+  public static function uploadImageProduct(Request $request, Response $response){
+    $id = $request->param('id');
+    $body = $request->body();
+    $fileName = $_FILES['file']['full_path'];
+
+    $listValidExt = array("jpg","png","jpeg", "svg");
+    $fileExt = pathinfo($fileName, PATHINFO_EXTENSION);
+    $fileExt = strtolower($fileExt);
+    if(in_array($fileExt,$listValidExt)){
+      $listImage = json_decode($body["listImage"]);
+      $nameUnique = Utils::v4().".$fileExt";
+      $urlNewImage = "/public/images/products/".$nameUnique;
+      $newListImage = [...$listImage, $urlNewImage];
+      $indexNewImage = array_search($urlNewImage, $newListImage);
+      $newListImage = json_encode($newListImage);
+      if(move_uploaded_file($_FILES['file']['tmp_name'],"../public/images/products/".$nameUnique)){
+        Product::__self__()->update(["image" => $newListImage],"id=$id");
+        return json_encode(["status" => true, "message" => "Upload success", "payload" => $newListImage, "index" => $indexNewImage]);
+      }
+    }else return json_encode(["status" => false, "message" => "Only upload image !!"]);
+  }
+  public static function deleteImageProduct(Request $request, Response $response){
+    $id = $request->param('id');
+    $body = $request->body();
+    $newListImage = $body["newListImage"];
+    if(isset($body["index"])){
+      $index = (int)$body["index"];
+      $newListImage = json_decode($newListImage);
+      unset($newListImage[(int)$index]);
+      $newListImage = json_encode($newListImage);
+    }
+
+    Product::__self__()->update(["image" => $newListImage],"id=$id");
+    return json_encode(["status" => true, "message" => "Delete image success", "payload" => $newListImage]);
+    
   }
 }
 ?>

@@ -94,7 +94,14 @@ class Category extends Model {
         }
         return $data;
     }
-
+    public function getCategoryList(){
+        $data = [];
+        $sql = self::$db->query("select * from category");
+        while($row = mysqli_fetch_all($sql,1)){
+            $data = $row;
+        }
+        return $data;
+    }
     public static function resolve(array $data) {
         $category = self::__self__();
         if(count($data) !=0 ){
