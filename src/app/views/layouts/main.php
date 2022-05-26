@@ -12,9 +12,9 @@ try {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="shortcut icon" type="image/svg" href="./images/logo.svg" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <!-- <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" /> -->
   <link rel="stylesheet" href="/public/icons/css/ionicons.min.css">
   <title>Main</title>
   <link rel="stylesheet" href="/public/styles/base.css">
