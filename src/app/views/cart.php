@@ -4,7 +4,6 @@
             <h1>view your CART products</h1>
         </div>
         <div class="banner__img-box">
-            <img src="https://source.unsplash.com/random" alt="">
         </div>
     </div>
 

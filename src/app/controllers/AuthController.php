@@ -49,6 +49,7 @@ class AuthController extends Controller {
         "username" => $body["username"],
         "password" => Utils::hashBcrypt(rand(1000000000,9999999999)),
         "email" => $body["email"],
+        "tokenVerif" =>Utils::v4(),
         "fullName" => $body["fullName"],
         "isVerified" => 1,
         'type' => $body["type"]
