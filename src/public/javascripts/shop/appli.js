@@ -24,10 +24,10 @@ function InitEvent() {
         }
       })
     : null;
-    $$(".theloai").forEach(item=>{
-      item.onclick=function(){
-          item.querySelector("input").checked=true;
-      }       
+  $$('.theloai').forEach((item) => {
+    item.onclick = function () {
+      item.querySelector('input').checked = true;
+    };
   });
   $$('.loc1 h3').forEach((item) => {
     item.onclick = function (e) {
@@ -35,7 +35,7 @@ function InitEvent() {
       item.parentElement.classList.toggle('active');
     };
   });
-  
+
   // Nút backtop
   // When the user scrolls down 20px from the top of the document, show the button
   window.onscroll = function () {
@@ -107,6 +107,7 @@ function AddEvent() {
     };
   });
 }
+AddEvent();
 //
 
 // Hiệu ứng trái tim bé nhỏ
@@ -161,86 +162,82 @@ function getStore() {
 
 sortfilter?.addEventListener('change', getData);
 store.addEventListener('change', getStore);
-function notChangedFilter(){
+function notChangedFilter() {
   let url = window.location.href.indexOf('sort=');
   url = window.location.href.slice(url + 5);
   if (url.indexOf('shop') != -1) {
     if (sortfilter) {
-    sortfilter ? (value = 'All') : null;
+      sortfilter ? (value = 'All') : null;
     }
-  }   
-  if(sortfilter!=null)
-  { 
-    if(url.indexOf('shop')!= -1){
-      sortfilter.value?'All':null;
-  }else{
-    sortfilter.value=url;
   }
+  if (sortfilter != null) {
+    if (url.indexOf('shop') != -1) {
+      sortfilter.value ? 'All' : null;
+    } else {
+      sortfilter.value = url;
+    }
   }
 }
-function notChangedCategories(){
+function notChangedCategories() {
   let url = window.location.href.indexOf('categories');
-url=window.location.href.slice(url + 11);
-var arr=[];
-arr=url.split('&');
-// console.log(arr[0]);
-$$(".theloai").forEach(item=>{
-  if(item.querySelector("input").value==arr[0]){
-      item.querySelector("input").checked=true;
-  }       
-});
+  url = window.location.href.slice(url + 11);
+  var arr = [];
+  arr = url.split('&');
+  // console.log(arr[0]);
+  $$('.theloai').forEach((item) => {
+    if (item.querySelector('input').value == arr[0]) {
+      item.querySelector('input').checked = true;
+    }
+  });
 }
-function notChangedTitle(){
+function notChangedTitle() {
   let url = window.location.href.indexOf('title');
-url=window.location.href.slice(url + 6);
-var arr=[];
-arr=url.split('&');
-if(url.indexOf('shop')!=-1){
-  $("#search").value=null;
-}else{
-  if($("#search")!=null){
-    $("#search").value=arr[0];
-  };
+  url = window.location.href.slice(url + 6);
+  var arr = [];
+  arr = url.split('&');
+  if (url.indexOf('shop') != -1) {
+    $('#search').value = null;
+  } else {
+    if ($('#search') != null) {
+      $('#search').value = arr[0];
+    }
+  }
 }
-}
-function notChangedPrice(){
+function notChangedPrice() {
   let url = window.location.href.indexOf('minPrice');
-url=window.location.href.slice(url + 9);
-var arr=[];
-if(url.indexOf('shop')!=-1){
-  $("#min-input").value=0;
-  $("#max-input").value=99999;
-}else{
-  arr=url.split('&');
-  if($("#min-input")!=null){
-    $("#min-input").value=arr[0];
-  }
-let arr1 = [];
-if(arr[1]!=null){
-  arr1=arr[1].split('=');
-}
+  url = window.location.href.slice(url + 9);
+  var arr = [];
+  if (url.indexOf('shop') != -1) {
+    $('#min-input').value = 0;
+    $('#max-input').value = 99999;
+  } else {
+    arr = url.split('&');
+    if ($('#min-input') != null) {
+      $('#min-input').value = arr[0];
+    }
+    let arr1 = [];
+    if (arr[1] != null) {
+      arr1 = arr[1].split('=');
+    }
 
-if(arr1[1]!=null){
-  $("#max-input").value=arr1[1];
-}else{
-  if($("#max-input")!=null){
-    $("#max-input").value=99999;
+    if (arr1[1] != null) {
+      $('#max-input').value = arr1[1];
+    } else {
+      if ($('#max-input') != null) {
+        $('#max-input').value = 99999;
+      }
+    }
   }
- 
-}
-
-}
-$$('.trangn').forEach(element => {
-  element.onclick = function() {
-      $('.trangn.active').classList.remove('active')
-      element.classList.add('active')
-
-  }
-});
+  $$('.trangn').forEach((element) => {
+    element.onclick = function () {
+      $('.trangn.active').classList.remove('active');
+      element.classList.add('active');
+    };
+  });
 }
 window.onload = function () {
   InitEvent();
-  notChangedFilter(); 
+  notChangedFilter();
   notChangedCategories();
   notChangedTitle();
   notChangedPrice();

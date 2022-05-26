@@ -11,7 +11,6 @@ try {
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta property="og:image" content="https://source.unsplash.com/random" />
   <link rel="shortcut icon" type="image/svg" href="./images/logo.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -34,12 +33,13 @@ try {
   <link rel="stylesheet" href="/public/styles/order/orderPage.css">
   <link rel="stylesheet" href="/public/styles/order/rp.css">
   <link rel="stylesheet" href="/public/styles/order/index.css">
-  <!-- <link rel="stylesheet" href="/public/styles/toast.css"> -->
+  <link rel="stylesheet" href="/public/styles/toast.css">
   <link rel="stylesheet" href="/public/styles/toastapp.css">
 </head>
 
 <body>
 <div id="toast-app"></div>
+<div id="toasts"></div>
 
 <div class="__modal__overlay"></div>
   <div class="__modal" id="modal__information">
@@ -492,8 +492,6 @@ try {
 <script src="/public/javascripts/toast.js"></script>
 
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-  integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </html>
 <?php } catch (\Throwable $th){
 

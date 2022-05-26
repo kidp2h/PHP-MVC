@@ -5,7 +5,7 @@
             <h1>My Order</h1>
         </div>
         <div class="banner__img-box">
-            <img src="https://source.unsplash.com/random" alt="" />
+            <img src="/public/images/products/product.jpg" alt="" />
         </div>
     </div>
 

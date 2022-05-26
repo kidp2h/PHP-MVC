@@ -128,8 +128,8 @@ $('.btn-cancel')
 $('.btn-save-changes')
   ? ($('.btn-save-changes').onclick = async function () {
       let fields = ['password', 'confirmNewPassword'];
-      let password = $('#password').value;
-      let confirmNewPassword = $('#confirmNewPassword').value;
+      let password = $('#password')?.value ?? '';
+      let confirmNewPassword = $('#confirmNewPassword')?.value ?? '';
       let status = [];
       if (password !== '' || confirmNewPassword !== '') {
         status = validate(fields, validateInformation);
@@ -309,12 +309,11 @@ function ToastAddToCart() {
       <div class="toast-app__close">
           <i class="fas fa-times"></i>
       </div>
-  `
+  `;
 }
 
 const renderToastAddToCart = {
   start() {
-    console.log(123);
     let toastApp = $('#toast-app');
     let toasts = document.createElement('div');
     toasts.classList.add('toast-app');
