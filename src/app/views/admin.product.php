@@ -27,19 +27,6 @@
           </th>
           
           <?php if(isset($idStore)) {?>
-            
-            <th class="sort sortPrice col3">
-              <input type="radio" name="sort" value="" />
-              Discount
-  
-            </th>
-            
-            <th class="sort sortPrice col3">
-              <input type="radio" name="sort" value="" />
-              Quantity
-  
-            </th>
-
           <th class="sort sortPrice col3">
             <input type="radio" name="sort" value="" />
             Quantity
