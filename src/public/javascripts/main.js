@@ -54,10 +54,9 @@ function validate(fields, validate) {
   let status = [];
   fields.forEach((selector) => {
     $(`label[for=${selector}]`)?.classList.remove('error');
-    $(`label[for=${selector}] ~ span`)?.classList.remove('validate-error');
+    $(`label[for=${selector}] ~ span`).classList.remove('validate-error');
     $(`input[name=${selector}]`)?.classList.remove('is-invalid');
     let input = $(`#${selector}`);
-    console.log(input.value);
     if (
       !input.value ||
       input.value.length < validate[selector]?.min ||
@@ -136,6 +135,14 @@ $('.btn-save-changes')
         status = validate(fields, validateInformation);
       }
       if (status.length == 0) {
+        $(`label[for=confirmNewPassword]`)?.classList.remove('error');
+        $(`label[for=confirmNewPassword] ~ span`)?.classList.remove(
+          'validate-error'
+        );
+        $(`input[name=confirmNewPassword]`)?.classList.remove('is-invalid');
+        $(`label[for=password]`)?.classList.remove('error');
+        $(`label[for=password] ~ span`)?.classList.remove('validate-error');
+        $(`input[name=password]`)?.classList.remove('is-invalid');
         let fullName = $('#fullName').value;
         let phoneNumber = $('#phoneNumber').value;
         let address = $('#address').value;
@@ -147,7 +154,10 @@ $('.btn-save-changes')
         if (response.status) {
           showToast('success', 'Update information successfully !');
         } else {
-          showToast('error', 'Not found error, please contact developer !');
+          if (response.message == false) {
+          } else {
+            showToast('error', 'Phone number is exist !!');
+          }
         }
       }
     })

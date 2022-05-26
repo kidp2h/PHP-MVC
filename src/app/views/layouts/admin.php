@@ -20,7 +20,7 @@ use core\Application;
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/public/icons/css/ionicons.min.css">
   <link rel="stylesheet" href="/public/styles/admin/base.css">
-  <link rel="stylesheet" href="/public/styles/admin/toast.css">
+  <link rel="stylesheet" href="/public/styles/toast.css">
   <link rel="stylesheet" href="/public/styles/admin/animations.css">
   <link rel="stylesheet" href="/public/styles/admin/sidebar.css">
   <link rel="stylesheet" href="/public/styles/admin/card.css">
@@ -37,7 +37,7 @@ use core\Application;
 </head>
 
 <body>
-  <div class="toasts"></div>
+  <div id="toasts"></div>
   <div id="admin">
 
     <div class="overlay overlayAddImage">

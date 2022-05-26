@@ -237,9 +237,14 @@ class AuthController extends Controller {
       }
     }
     if(count($arraySet) > 0 ){
-      User::__self__()->update($arraySet, "id=$id");
+      $result = User::__self__()->update($arraySet, "id=$id");
+      self::newAccessToken($id);
+      if($result) return json_encode(["status" => true, "message" => "Update information successfully !!"]);
+      return json_encode(["status" => false, "message" => "Phone number is exist"]);
+    }else {
+      return json_encode(["status" => false, "message" => false]);
     }
-    self::newAccessToken($id);
-    return json_encode(["status" => true, "message" => "Update information successfully !!"]);
+
+
   }
 }
