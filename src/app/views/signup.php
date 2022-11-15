@@ -1,23 +1,12 @@
 <!-- <div class="fb-signin-button" data-width="300" data-size="large" data-button-type="continue_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="true"></div> -->
 <div class="form-glass" id="signup">
   <h1 class="title">Sign Up</h1>
-  <span id="text-or">CONITNUE WITH</span>
-  <div class="social-group">
-    <span class="signin-social">
-      <img class="logo-social" src="/public/images/logo-fb.png" alt="facebook" />
-      Continue with Facebook
-    </span>
-    <span class="signin-social">
-      <img class="logo-social" src="/public/images/logo-google.png" alt="facebook" />
-      Continue with Google
-    </span>
-  </div>
   <div id="form-signup">
     <div class="form-group">
       <label for="fullname" class="label-input">Full Name</label>
       <span class="validate-message">Error</span>
       <div class="group-input">
-        <input spellcheck="false" type="text" class="form-input status-valid" id="fullname" name="fullname" placeholder="Full Name" value="Nguyen Phuc Thinh"/>
+        <input spellcheck="false" type="text" class="form-input status-valid" id="fullname" name="fullname" placeholder="Full Name" value="Nguyen Phuc Thinh" />
         <i class="ion-ios-information-outline"></i>
       </div>
     </div>
@@ -25,7 +14,7 @@
       <label for="email" class="label-input">Email Address</label>
       <span class="validate-message">Error</span>
       <div class="group-input">
-        <input spellcheck="false"  type="email" class="form-input status-valid" value="kidp2h@gmail.com" id="email" name="email" placeholder="Email" />
+        <input spellcheck="false" type="email" class="form-input status-valid" value="kidp2h@gmail.com" id="email" name="email" placeholder="Email" />
         <i class="ion-ios-information-outline"></i>
       </div>
     </div>
@@ -33,7 +22,7 @@
       <label for="username" class="label-input">Username</label>
       <span class="validate-message">Error</span>
       <div class="group-input">
-        <input spellcheck="false"  type="text" class="form-input status-valid" value="admin" id="username" name="username" placeholder="Username" value=""/>
+        <input spellcheck="false" type="text" class="form-input status-valid" value="admin" id="username" name="username" placeholder="Username" value="" />
         <i class="ion-ios-information-outline"></i>
       </div>
     </div>
@@ -61,31 +50,11 @@
         </div>
       </div>
     </div>
-
-    <div class="form-group">
-      <label for="captcha" class="label-input">Captcha</label>
-      <input type="hidden" id="captcha">
-      <span class="validate-message">Error</span>
-      <div class="g-recaptcha" data-sitekey="<?= $SITE_KEY ?>"></div>
-    </div>
-    <div class="form-group col-2">
-      <div class="checkbox">
-        <input type="checkbox" name="agree" id="agree" />
-        <span class="checkbox-text">Remember me</span>
-        <span class="checkmark">
-          <i class="ion-checkmark-round"></i>
-        </span>
-      </div>
-      <div class="forgot">
-        <span>Forgot Password?</span>
-      </div>
-    </div>
-    
     <button id="btn-signup" class="btn-submit">
       <i class="ion-ios-arrow-thin-right"></i>
     </button>
     <input type="hidden" id="captcha">
-    
+
     <span id="new-user">Have you already account ?
       <a href="/signin" id="redirect-signup">SignIn</a></span>
   </div>

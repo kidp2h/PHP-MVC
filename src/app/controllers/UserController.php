@@ -15,10 +15,4 @@ class UserController extends Controller {
       echo json_encode($user,JSON_PRETTY_PRINT);
     }
   }
-  public static function sendOTP(Request $request){
-    $phoneNumber = $request->param("phone");
-    if(!isset($body)){
-      //User::__self__()->sendCodeOTP($phoneNumber);
-    }
-  }
 }

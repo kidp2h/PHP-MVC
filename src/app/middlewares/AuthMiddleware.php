@@ -36,15 +36,7 @@ class AuthMiddleware {
     if(!isset($_COOKIE['accessToken'])) return true;
     return fn() => $response->redirect("/");
   }
-  public static function isTokenReset(Request $request, Response $response) : callable | bool {
-    
-    $tokenReset = urldecode($request->param("tokenReset") ?? ($request->body())["tokenReset"]);
-    $requestPending = RequestPending::__self__()->findOne(["*"],"token='$tokenReset'");
-    if($requestPending){
-      return true;
-    }
-    return fn() => $response->redirect("/signin");
-  }
+
   public static function isTokenExpire(Request $request, Response $response) : callable | bool {
     $result = User::decodeAccessToken($_COOKIE['accessToken']);
     if($result["status"]) return true;

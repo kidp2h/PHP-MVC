@@ -9,31 +9,25 @@ let validateSignIn = {
     max: 9999999999999,
     message: 'Minimum length of the password must be 6',
   },
-  captcha: {
-    message: 'Please check this box captcha',
-  },
 };
 
 $('#btn-signin')
   ? ($('#btn-signin').onclick = async () => {
-      $('#captcha').value = grecaptcha.getResponse();
-      let fields = ['username', 'password', 'captcha'];
+      let fields = ['username', 'password'];
       let status = validate(fields, validateSignIn);
 
       if (status.length == 0) {
         let username = $('#username').value;
         let password = $('#password').value;
-        let captcha = grecaptcha.getResponse();
         let response = await HttpRequest({
           url: '/signin',
           method: 'POST',
-          data: { username, password, captcha },
+          data: { username, password },
         });
         if (response.status && response.redirect) {
           window.location.href = response.redirect;
         } else {
           showToast('error', response.message);
-          grecaptcha.reset();
         }
       }
     })

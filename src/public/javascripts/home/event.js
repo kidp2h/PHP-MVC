@@ -191,7 +191,7 @@ const Home = {
   },
 
   async renderProduct(page = 1) {
-    let store = $('#store-select')?.value;
+    let store = 1;
     let res = await HttpRequest({url:`/product/on50?store=${store}&page=${page}`});
 
     let products = res['data'];
@@ -229,18 +229,3 @@ const Home = {
 
 Home.init();
 
-
-function selectStore() {
-  $('#store-select').addEventListener('change', () => {
-    let i = window.location.href.indexOf('?');
-    let url = window.location.href;
-    if (i != -1) {
-      url = window.location.href.slice(0, i);
-    }
-    console.log(i);
-    url += '?store=' + $('#store-select').value;
-      window.location.href = url;
-  });
-}
-
-selectStore();

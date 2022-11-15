@@ -38,9 +38,7 @@ class User extends Model {
     $this->user->email = $email;
     $this->user->fullName = $fullName;
     $this->user->phoneNumber = $phoneNumber;
-    $this->user->isActivePhone = $isActivePhone;
     $this->user->address = $address;
-    $this->user->isVerified = $isVerified;
     $this->user->tokenVerify = $tokenVerify;
     $this->user->refreshToken = $refreshToken;
     $this->user->permission = $permission;
@@ -66,9 +64,6 @@ class User extends Model {
   }
   public function setFullName(string $fullName) {
     $this->user->fullName = $fullName;
-  }
-  public function setIsVerified(bool $isVerified) {
-    $this->user->isVerified = $isVerified;
   }
   public function setTokenVerify(string $tokenVerify) {
     $this->user->tokenVerify = $tokenVerify;
@@ -102,24 +97,6 @@ class User extends Model {
       return null;
     }
 
-  }
-
-  public static function getTokenReset(string $email){
-    $baseUrl = $_ENV["BASE_URL"];
-    $secretKey = Utils::hashBcrypt($_ENV["SECRET_KEY"]);
-    $now = new DateTime();
-    $expire = ($now->add(new \DateInterval("PT30000000S")))->getTimestamp();
-    $user = User::__self__()->findOne(["*"],"email='$email'");
-    if(!isset($user)){
-      return ["status" => false, "message" => "Invalid id"];
-    }
-    $info = json_encode([
-      "id" => $user->id,
-      "email" => $user->email
-    ]);
-    $data = "$baseUrl.$info.$expire";
-    $hash = hash_hmac("sha256", $data,$_ENV["SECRET_KEY"]);
-    return ["tokenReset" => "{$hash}.&$$@{$expire}.&$$@{$user->tokenVerify}.&$$@{$secretKey}", "status" => true];
   }
 
   public static function decodeTokenReset(string $tokenReset){
@@ -179,26 +156,6 @@ class User extends Model {
     }
   }
 
-  public static function sendMailVerifyAccount(array $to, $token) {
-    $address = $to["address"];
-    Utils::sendMailWithTemplate(
-      ['address' => $to["address"]],
-      "Verify Account",
-      $_ENV["TEMPLATE_VERIFY_ACCOUNT"],
-      ["verifyToken" => $token, "baseUrl" => $_ENV["BASE_URL"]]
-    );
-    User::__self__()->update(["tokenVerify" => "'$token'"], "email='$address'");
-  }
-
-  public static function sendMailResetPassword(array $to, string $token){
-    $token = Utils::v4();
-    Utils::sendMailWithTemplate(
-      ['address' => $to["address"]],
-      "Reset Account",
-      $_ENV["TEMPLATE_RESET_PASSWORD"],
-      ["tokenReset" => $token, "baseUrl" => $_ENV["BASE_URL"]]
-    );
-  }
 
   public static function newAccessToken(int $id) {
     $baseUrl = $_ENV["BASE_URL"];
