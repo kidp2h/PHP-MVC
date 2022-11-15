@@ -1,7 +1,0 @@
-FROM node:lts
-RUN apt-get update -y && apt-get upgrade -y
-WORKDIR /app
-RUN npm install -g typescript
-COPY ./src /app
-RUN yarn install
-CMD yarn run production

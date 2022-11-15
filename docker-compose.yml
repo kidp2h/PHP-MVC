@@ -17,19 +17,9 @@ services:
     restart: always
     ports:
       - 8080:8080
-  phpmyadmin:
-    container_name: phpmyadmin
-    image: phpmyadmin
-    ports:
-      - 3000:80
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      PMA_HOST: ${HOST_MYSQL}
-      PMA_USER: ${USERNAME_MYSQL}
-      PMA_PASSWORD: ${PASSWORD_MYSQL}
     networks:
       php_network:
-        ipv4_address: 172.26.22.101
+        ipv4_address: 172.26.22.122
   db:
     image: mysql
     build:
@@ -47,18 +37,6 @@ services:
     networks:
       php_network:
         ipv4_address: 172.26.22.102
-  node:
-    container_name: node
-    build:
-      context: .
-      dockerfile: Dockerfile.node
-    ports:
-      - 5000:5000
-    volumes:
-      - ./src/server/socket/:/app
-    networks:
-      php_network:
-        ipv4_address: 172.26.22.103
 networks:
   php_network:
     driver: bridge

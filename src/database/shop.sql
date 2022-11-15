@@ -1,6 +1,7 @@
+-- Adminer 4.8.1 MySQL 8.0.31 dump
 
 SET NAMES utf8;
-SET time_zone = '+07:00';
+SET time_zone = '+00:00';
 SET foreign_key_checks = 0;
 SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 
@@ -10,56 +11,57 @@ DROP DATABASE IF EXISTS `shop`;
 CREATE DATABASE `shop` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `shop`;
 
-DELIMITER ;;
+DROP TABLE IF EXISTS `banner`;
+CREATE TABLE `banner` (
+  `images` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 
-CREATE EVENT `deleteRequest` ON SCHEDULE EVERY 5 SECOND STARTS '2022-05-21 01:41:27' ON COMPLETION NOT PRESERVE ENABLE DO DELETE FROM requestpending WHERE expire < NOW();;
-
-DELIMITER ;
+INSERT INTO `banner` (`images`) VALUES
+('[\"/public/images/banners/banner-img-1.jpg\",\"/public/images/banners/banner-img-2.jpg\",\"/public/images/banners/banner-img-3.jpg\",\"/public/images/banners/banner-img-4.jpg\"]')
+ON DUPLICATE KEY UPDATE `images` = VALUES(`images`);
 
 DROP TABLE IF EXISTS `cart_item`;
 CREATE TABLE `cart_item` (
   `user_id` int NOT NULL,
   `product_id` int NOT NULL,
-  `store_id` int NOT NULL,
   `quantity` int NOT NULL,
-  PRIMARY KEY (`user_id`,`product_id`,`store_id`),
+  PRIMARY KEY (`user_id`,`product_id`),
   KEY `cart_item_fk_2` (`product_id`),
-  KEY `cart_item_fk_3` (`store_id`),
   CONSTRAINT `cart_item_fk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `cart_item_fk_2` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `cart_item_fk_3` FOREIGN KEY (`store_id`) REFERENCES `store` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  CONSTRAINT `cart_item_fk_2` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 
+INSERT INTO `cart_item` (`user_id`, `product_id`, `quantity`) VALUES
+(25,	6,	1),
+(25,	8,	1),
+(25,	16,	2),
+(25,	17,	8)
+ON DUPLICATE KEY UPDATE `user_id` = VALUES(`user_id`), `product_id` = VALUES(`product_id`), `quantity` = VALUES(`quantity`);
 
 DROP TABLE IF EXISTS `category`;
 CREATE TABLE `category` (
   `id` int NOT NULL AUTO_INCREMENT,
   `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci NOT NULL,
-  `image` text COLLATE utf8mb4_vietnamese_ci,
+  `image` text CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci,
   `created_at` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
   `updated_at` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
   `deleted_at` timestamp(6) NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 
 INSERT INTO `category` (`id`, `title`, `image`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(0,	'CHƯA CÓ LOẠI',	'/public/images/products/product.jpg',	'2022-05-25 07:02:36.252961',	'2022-05-25 07:02:36.252961',	NULL),
-(1,	'LAPTOP',	'/public/images/categories/cd7fdddd-081a-4b46-931c-67d5e9923a1d.jpg',	'2022-05-09 01:17:50.930563',	'2022-05-09 01:17:50.930563',	'2022-05-25 14:00:41.000000'),
-(2,	'WATCH',	'/public/images/categories/468086cb-a907-4d89-8e21-3504c283f0c6.png',	'2022-05-09 01:17:50.930563',	'2022-05-09 01:17:50.930563',	NULL),
-(3,	'KEYBOARD',	'/public/images/categories/574c3faf-a00b-4ae7-bdb7-7e2b2c7c6ff6.png',	'2022-05-09 01:17:50.930563',	'2022-05-09 01:17:50.930563',	NULL),
-(4,	'HEADPHONE',	'/public/images/categories/category-img-4.jpg',	'2022-05-09 01:17:50.930563',	'2022-05-09 01:17:50.930563',	NULL),
-(5,	'CAMERA',	'/public/images/categories/category-img-5.jpg',	'2022-05-09 01:17:50.930563',	'2022-05-09 01:17:50.930563',	NULL),
-(6,	'PHONE',	'/public/images/categories/category-img-6.jpg',	'2022-05-09 01:17:50.930563',	'2022-05-09 01:17:50.930563',	'2022-05-25 14:13:09.000000'),
-(8,	'NameCategory',	'/public/images/products/product.jpg',	'2022-05-25 06:53:36.253577',	'2022-05-25 06:53:36.253577',	'2022-05-25 13:58:13.000000'),
-(9,	'sdsdsd2323',	'/public/images/products/product.jpg',	'2022-05-25 06:53:54.106337',	'2022-05-25 06:53:54.106337',	'2022-05-25 13:58:08.000000'),
-(10,	'3434',	'/public/images/products/product.jpg',	'2022-05-25 06:55:09.575511',	'2022-05-25 06:55:09.575511',	'2022-05-25 13:57:02.000000'),
-(11,	'NameCategory234',	'/public/images/categories/b85e7eb3-e0ee-4cd7-92cf-6f26b5e24216.png',	'2022-05-25 06:59:58.705143',	'2022-05-25 06:59:58.705143',	'2022-05-25 14:00:44.000000'),
-(13,	'NameCate2344gory',	'/public/images/categories/5f73bddd-b1de-42b8-8d58-6ded9446b6c5.png',	'2022-05-25 11:17:38.876096',	'2022-05-25 11:17:38.876096',	NULL)
+(0,	'CHƯA CÓ LOẠI',	'/public/images/products/product.jpg',	'2022-05-25 00:02:36.252961',	'2022-05-25 00:02:36.252961',	NULL),
+(1,	'LAPTOP',	'/public/images/categories/cd7fdddd-081a-4b46-931c-67d5e9923a1d.jpg',	'2022-05-08 18:17:50.930563',	'2022-05-08 18:17:50.930563',	'2022-05-25 07:00:41.000000'),
+(2,	'WATCH',	'/public/images/categories/468086cb-a907-4d89-8e21-3504c283f0c6.png',	'2022-05-08 18:17:50.930563',	'2022-05-08 18:17:50.930563',	NULL),
+(3,	'KEYBOARD',	'/public/images/categories/574c3faf-a00b-4ae7-bdb7-7e2b2c7c6ff6.png',	'2022-05-08 18:17:50.930563',	'2022-05-08 18:17:50.930563',	NULL),
+(4,	'HEADPHONE',	'/public/images/categories/category-img-4.jpg',	'2022-05-08 18:17:50.930563',	'2022-05-08 18:17:50.930563',	NULL),
+(5,	'CAMERA',	'/public/images/categories/category-img-5.jpg',	'2022-05-08 18:17:50.930563',	'2022-05-08 18:17:50.930563',	NULL),
+(6,	'PHONE',	'/public/images/categories/category-img-6.jpg',	'2022-05-08 18:17:50.930563',	'2022-05-08 18:17:50.930563',	'2022-05-25 07:13:09.000000')
 ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `title` = VALUES(`title`), `image` = VALUES(`image`), `created_at` = VALUES(`created_at`), `updated_at` = VALUES(`updated_at`), `deleted_at` = VALUES(`deleted_at`);
 
 DROP TABLE IF EXISTS `order_details`;
 CREATE TABLE `order_details` (
-  `order_id` varchar(150) COLLATE utf8mb4_vietnamese_ci NOT NULL,
+  `order_id` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci NOT NULL,
   `product_id` int NOT NULL,
   `price` int NOT NULL,
   `quantity` int NOT NULL,
@@ -151,7 +153,7 @@ ON DUPLICATE KEY UPDATE `order_id` = VALUES(`order_id`), `product_id` = VALUES(`
 
 DROP TABLE IF EXISTS `orders`;
 CREATE TABLE `orders` (
-  `id` varchar(150) COLLATE utf8mb4_vietnamese_ci NOT NULL,
+  `id` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci NOT NULL,
   `user_id` int NOT NULL,
   `store_id` int NOT NULL,
   `total` int NOT NULL,
@@ -160,46 +162,44 @@ CREATE TABLE `orders` (
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
-  KEY `store_id` (`store_id`),
-  CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`store_id`) REFERENCES `store` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 
 INSERT INTO `orders` (`id`, `user_id`, `store_id`, `total`, `status`, `created_at`, `updated_at`) VALUES
-('04AE1590B1',	25,	1,	3876,	1,	'2022-05-25 08:36:28',	'2022-05-25 08:36:28'),
-('15CAE523B3',	25,	3,	14604,	1,	'2022-05-24 04:45:14',	'2022-05-24 04:45:14'),
-('1856CA49BD',	25,	1,	1940,	2,	'2022-05-25 05:32:41',	'2022-05-25 05:32:41'),
-('1F81971EB7',	25,	1,	167485,	2,	'2022-05-25 08:35:54',	'2022-05-25 08:35:54'),
-('2AD81D08EE',	25,	1,	6827,	2,	'2022-05-23 05:40:13',	'2022-05-23 05:40:13'),
-('384F47EDF2',	25,	1,	13096,	2,	'2022-05-25 05:16:52',	'2022-05-25 05:16:52'),
-('3CC630639F',	25,	2,	4460,	2,	'2022-05-25 05:16:53',	'2022-05-25 05:16:53'),
-('42C1297584',	25,	1,	6437,	1,	'2022-05-23 16:18:11',	'2022-05-23 16:18:11'),
-('65880ECF48',	25,	3,	6743,	1,	'2022-05-25 05:33:20',	'2022-05-25 05:33:20'),
-('685875C238',	25,	2,	12148,	2,	'2022-05-25 05:45:22',	'2022-05-25 05:45:22'),
-('6867657F17',	25,	1,	1776,	2,	'2022-05-23 05:38:30',	'2022-05-23 05:38:30'),
-('773A738A79',	25,	1,	359400,	1,	'2022-05-24 09:57:31',	'2022-05-24 09:57:31'),
-('849E068628',	25,	1,	6391,	1,	'2022-05-25 05:29:58',	'2022-05-25 05:29:58'),
-('993835174D',	25,	1,	1645,	1,	'2022-05-23 14:31:15',	'2022-05-23 14:31:15'),
-('A2B2834230',	25,	2,	338,	2,	'2022-05-23 16:18:12',	'2022-05-23 16:18:12'),
-('AE0123FB81',	25,	2,	444,	1,	'2022-05-25 05:57:09',	'2022-05-25 05:57:09'),
-('BBFEDE011D',	25,	1,	37024,	1,	'2022-05-25 09:16:35',	'2022-05-25 09:16:35'),
-('BF7A79C2AF',	25,	1,	1358,	1,	'2022-05-25 05:25:09',	'2022-05-25 05:25:09'),
-('C49F30B977',	25,	2,	5046,	1,	'2022-05-23 05:41:03',	'2022-05-23 05:41:03'),
-('CA41FFCE33',	25,	1,	54257,	1,	'2022-05-25 05:35:20',	'2022-05-25 05:35:20'),
-('D8C6DA1BDA',	25,	1,	6437,	2,	'2022-05-25 05:22:30',	'2022-05-25 05:22:30'),
-('E6A75E7907',	25,	1,	1648,	2,	'2022-05-23 05:41:02',	'2022-05-23 05:41:02'),
-('F72ECEB9BA',	25,	1,	6437,	2,	'2022-05-23 17:08:28',	'2022-05-23 17:08:28'),
-('FF3C083785',	25,	1,	64485,	2,	'2022-05-25 09:59:47',	'2022-05-25 09:59:47'),
-('FFDC6F02C0',	25,	1,	5133,	1,	'2022-05-25 05:34:28',	'2022-05-25 05:34:28')
+('04AE1590B1',	25,	1,	3876,	1,	'2022-05-25 01:36:28',	'2022-05-25 01:36:28'),
+('15CAE523B3',	25,	3,	14604,	1,	'2022-05-23 21:45:14',	'2022-05-23 21:45:14'),
+('1856CA49BD',	25,	1,	1940,	2,	'2022-05-24 22:32:41',	'2022-05-24 22:32:41'),
+('1F81971EB7',	25,	1,	167485,	2,	'2022-05-25 01:35:54',	'2022-05-25 01:35:54'),
+('2AD81D08EE',	25,	1,	6827,	2,	'2022-05-22 22:40:13',	'2022-05-22 22:40:13'),
+('384F47EDF2',	25,	1,	13096,	2,	'2022-05-24 22:16:52',	'2022-05-24 22:16:52'),
+('3CC630639F',	25,	2,	4460,	2,	'2022-05-24 22:16:53',	'2022-05-24 22:16:53'),
+('42C1297584',	25,	1,	6437,	1,	'2022-05-23 09:18:11',	'2022-05-23 09:18:11'),
+('65880ECF48',	25,	3,	6743,	1,	'2022-05-24 22:33:20',	'2022-05-24 22:33:20'),
+('685875C238',	25,	2,	12148,	2,	'2022-05-24 22:45:22',	'2022-05-24 22:45:22'),
+('6867657F17',	25,	1,	1776,	2,	'2022-05-22 22:38:30',	'2022-05-22 22:38:30'),
+('773A738A79',	25,	1,	359400,	1,	'2022-05-24 02:57:31',	'2022-05-24 02:57:31'),
+('849E068628',	25,	1,	6391,	1,	'2022-05-24 22:29:58',	'2022-05-24 22:29:58'),
+('993835174D',	25,	1,	1645,	1,	'2022-05-23 07:31:15',	'2022-05-23 07:31:15'),
+('A2B2834230',	25,	2,	338,	2,	'2022-05-23 09:18:12',	'2022-05-23 09:18:12'),
+('AE0123FB81',	25,	2,	444,	1,	'2022-05-24 22:57:09',	'2022-05-24 22:57:09'),
+('BBFEDE011D',	25,	1,	37024,	1,	'2022-05-25 02:16:35',	'2022-05-25 02:16:35'),
+('BF7A79C2AF',	25,	1,	1358,	1,	'2022-05-24 22:25:09',	'2022-05-24 22:25:09'),
+('C49F30B977',	25,	2,	5046,	1,	'2022-05-22 22:41:03',	'2022-05-22 22:41:03'),
+('CA41FFCE33',	25,	1,	54257,	1,	'2022-05-24 22:35:20',	'2022-05-24 22:35:20'),
+('D8C6DA1BDA',	25,	1,	6437,	2,	'2022-05-24 22:22:30',	'2022-05-24 22:22:30'),
+('E6A75E7907',	25,	1,	1648,	2,	'2022-05-22 22:41:02',	'2022-05-22 22:41:02'),
+('F72ECEB9BA',	25,	1,	6437,	2,	'2022-05-23 10:08:28',	'2022-05-23 10:08:28'),
+('FF3C083785',	25,	1,	64485,	2,	'2022-05-25 02:59:47',	'2022-05-25 02:59:47'),
+('FFDC6F02C0',	25,	1,	5133,	1,	'2022-05-24 22:34:28',	'2022-05-24 22:34:28')
 ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `user_id` = VALUES(`user_id`), `store_id` = VALUES(`store_id`), `total` = VALUES(`total`), `status` = VALUES(`status`), `created_at` = VALUES(`created_at`), `updated_at` = VALUES(`updated_at`);
 
 DROP TABLE IF EXISTS `product`;
 CREATE TABLE `product` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8mb4_vietnamese_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci NOT NULL,
   `price` int NOT NULL,
-  `description` text COLLATE utf8mb4_vietnamese_ci,
-  `image` text COLLATE utf8mb4_vietnamese_ci,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci,
+  `image` text CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci,
   `category_id` int DEFAULT NULL,
   `created_at` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
   `updated_at` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
@@ -208,174 +208,98 @@ CREATE TABLE `product` (
   UNIQUE KEY `name` (`name`),
   KEY `FK_P_C` (`category_id`),
   CONSTRAINT `FK_P_C` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 
 INSERT INTO `product` (`id`, `name`, `price`, `description`, `image`, `category_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1,	'MASTER HEADPsadsadHONE',	189,	'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti minus tenetur facere voluptates, minima necessitatibus quod et praesentium dolores velit. Voluptas voluptatum repellendus mollitia.',	'[\"/public/images/products/4c572f24-899a-404a-9556-44072248fa21.png\"]',	5,	'2022-05-09 01:46:59.456545',	'2022-05-09 01:46:59.456545',	'2022-05-25 10:23:03.000000'),
-(2,	'SUPER SINGLE CAMERA',	1542322223,	'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti minus tenetur facere voluptates, minima necessitatibus quod et praesentium dolores velit. Voluptas voluptatum repellendus mollitia.',	'[\"/public/images/products/95fbd421-0ad6-4ba4-9f07-64f118c61bff.png\",\"/public/images/products/6ef86b3a-945c-47af-b5cd-038da904cf5c.png\",\"/public/images/products/47ba3918-d50b-4495-bda3-4ed48361d8b5.png\"]',	1,	'2022-05-09 01:46:59.456545',	'2022-05-09 01:46:59.456545',	NULL),
-(3,	'GOOGLE HOME',	213,	'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti minus tenetur facere voluptates, minima necessitatibus quod et praesentium dolores velit. Voluptas voluptatum repellendus mollitia.',	'[\"/public/images/products/product-3-img-1.jpg\",\"/public/images/products/product-3-img-2.jpg\",\"/public/images/products/product-3-img-3.jpg\",\"/public/images/products/product-3-img-4.jpg\"]',	NULL,	'2022-05-09 01:46:59.456545',	'2022-05-09 01:46:59.456545',	NULL),
-(4,	'IPHONE 11',	612,	'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti minus tenetur facere voluptates, minima necessitatibus quod et praesentium dolores velit. Voluptas voluptatum repellendus mollitia.',	'[\"/public/images/products/product-4-img-1.jpg\",\"/public/images/products/product-4-img-2.jpg\",\"/public/images/products/product-4-img-3.jpg\"]',	0,	'2022-05-09 01:46:59.456545',	'2022-05-09 01:46:59.456545',	NULL),
-(5,	'POLAROID CAMERA',	178,	'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti minus tenetur facere voluptates, minima necessitatibus quod et praesentium dolores velit. Voluptas voluptatum repellendus mollitia.',	'[\"/public/images/products/product-5-img-1.jpg\",\"/public/images/products/product-5-img-3.jpg\",\"/public/images/products/product-5-img-2.jpg\",\"/public/images/products/product-5-img-4.jpg\"]',	5,	'2022-05-09 01:46:59.456545',	'2022-05-09 01:46:59.456545',	NULL),
-(6,	'BLUETOOTH PINK',	112,	'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti minus tenetur facere voluptates, minima necessitatibus quod et praesentium dolores velit. Voluptas voluptatum repellendus mollitia.',	'[\"/public/images/products/product-6-img-1.jpg\",\"/public/images/products/product-6-img-2.jpg\",\"/public/images/products/product-6-img-3.jpg\"]',	4,	'2022-05-09 01:46:59.456545',	'2022-05-09 01:46:59.456545',	NULL),
-(7,	'KEYBORD AKO',	230,	'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti minus tenetur facere voluptates, minima necessitatibus quod et praesentium dolores velit. Voluptas voluptatum repellendus mollitia.',	'[\"/public/images/products/product-7-img-1.jpg\",\"/public/images/products/product-7-img-2.jpg\",\"/public/images/products/product-7-img-3.jpg\",\"/public/images/products/product-7-img-4.jpg\"]',	3,	'2022-05-09 01:46:59.456545',	'2022-05-09 01:46:59.456545',	NULL),
-(8,	'ACER NITRO 5',	6120,	'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti minus tenetur facere voluptates, minima necessitatibus quod et praesentium dolores velit. Voluptas voluptatum repellendus mollitia.',	'[\"/public/images/products/product-8-img-1.jpg\",\"/public/images/products/product-8-img-2.jpg\",\"/public/images/products/product-8-img-3.jpg\",\"/public/images/products/product-8-img-4.jpg\"]',	1,	'2022-05-09 01:46:59.456545',	'2022-05-09 01:46:59.456545',	NULL),
-(9,	'Sony Alpha ILCE-7CL',	1941,	'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti minus tenetur facere voluptates, minima necessitatibus quod et praesentium dolores velit. Voluptas voluptatum repellendus mollitia.',	'[\"/public/images/products/product-9-img-1.jpg\",\"/public/images/products/product-9-img-2.jpg\",\"/public/images/products/product-9-img-3.jpg\"]',	5,	'2022-05-09 01:46:59.456545',	'2022-05-09 01:46:59.456545',	NULL),
-(10,	'Galaxy Z Flip 3',	4845,	'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti minus tenetur facere voluptates, minima necessitatibus quod et praesentium dolores velit. Voluptas voluptatum repellendus mollitia.',	'[\"/public/images/products/product-10-img-1.jpg\",\"/public/images/products/product-10-img-2.jpg\",\"/public/images/products/product-10-img-3.jpg\",\"/public/images/products/product-10-img-4.jpg\"]',	0,	'2022-05-09 01:46:59.456545',	'2022-05-09 01:46:59.456545',	NULL),
-(11,	'OPPO Reno6 Pro',	3678,	'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti minus tenetur facere voluptates, minima necessitatibus quod et praesentium dolores velit. Voluptas voluptatum repellendus mollitia.',	'[\"/public/images/products/product-11-img-1.jpg\",\"/public/images/products/product-11-img-2.jpg\"]',	0,	'2022-05-09 01:46:59.456545',	'2022-05-09 01:46:59.456545',	NULL),
-(12,	'IPHONE 13',	3458,	'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti minus tenetur facere voluptates, minima necessitatibus quod et praesentium dolores velit. Voluptas voluptatum repellendus mollitia.',	'[\"/public/images/products/product-12-img-1.jpg\",\"/public/images/products/product-12-img-2.jpg\",\"/public/images/products/product-12-img-3.jpg\",\"/public/images/products/product-12-img-4.jpg\"]',	0,	'2022-05-09 01:46:59.456545',	'2022-05-09 01:46:59.456545',	NULL),
-(13,	'Galaxy Z Fold 3',	4868,	'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti minus tenetur facere voluptates, minima necessitatibus quod et praesentium dolores velit. Voluptas voluptatum repellendus mollitia.',	'[\"/public/images/products/product-13-img-1.jpg\",\"/public/images/products/product-13-img-2.jpg\"]',	0,	'2022-05-09 01:46:59.456545',	'2022-05-09 01:46:59.456545',	NULL),
-(14,	'Fujifilm Instax Mini 11',	536,	'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti minus tenetur facere voluptates, minima necessitatibus quod et praesentium dolores velit. Voluptas voluptatum repellendus mollitia.',	'[\"/public/images/products/product-14-img-1.jpg\",\"/public/images/products/product-14-img-2.jpg\",\"/public/images/products/product-14-img-3.jpg\"]',	5,	'2022-05-09 01:46:59.456545',	'2022-05-09 01:46:59.456545',	NULL),
-(15,	'GOOGLE HOME1',	245,	'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti minus tenetur facere voluptates, minima necessitatibus quod et praesentium dolores velit. Voluptas voluptatum repellendus mollitia.',	'[\"/public/images/products/product.jpg\",\"/public/images/products/product.jpg\",\"/public/images/products/product.jpg\",\"/public/images/products/product.jpg\"]',	NULL,	'2022-05-09 01:46:59.456545',	'2022-05-09 01:46:59.456545',	NULL),
-(16,	'MSI Gaming GF65',	2490,	'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti minus tenetur facere voluptates, minima necessitatibus quod et praesentium dolores velit. Voluptas voluptatum repellendus mollitia.',	'[\"/public/images/products/product-16-img-1.jpg\",\"/public/images/products/product-16-img-2.jpg\",\"/public/images/products/product-16-img-3.jpg\"]',	1,	'2022-05-09 01:46:59.456545',	'2022-05-09 01:46:59.456545',	NULL),
-(17,	'Lenovo Ideapad 5 Pro',	3687,	'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti minus tenetur facere voluptates, minima necessitatibus quod et praesentium dolores velit. Voluptas voluptatum repellendus mollitia.',	'[\"/public/images/products/product-17-img-1.jpg\",\"/public/images/products/product-17-img-2.jpg\"]',	1,	'2022-05-09 01:46:59.456545',	'2022-05-09 01:46:59.456545',	NULL),
-(18,	'Asus ROG Strix Scope TKL Electro Punk',	399,	'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti minus tenetur facere voluptates, minima necessitatibus quod et praesentium dolores velit. Voluptas voluptatum repellendus mollitia.',	'[\"/public/images/products/product-18-img-1.jpg\",\"/public/images/products/product-18-img-2.jpg\",\"/public/images/products/product-18-img-3.jpg\"]',	3,	'2022-05-09 01:46:59.456545',	'2022-05-09 01:46:59.456545',	NULL),
-(19,	'Cooler Master CK530 V2',	201,	'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti minus tenetur facere voluptates, minima necessitatibus quod et praesentium dolores velit. Voluptas voluptatum repellendus mollitia.',	'[\"/public/images/products/product-19-img-1.jpg\",\"/public/images/products/product-19-img-2.jpg\",\"/public/images/products/product-19-img-3.jpg\"]',	3,	'2022-05-09 01:46:59.456545',	'2022-05-09 01:46:59.456545',	NULL),
-(20,	'Razer BlackWidow V3 HALO Infinite Green',	245,	'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti minus tenetur facere voluptates, minima necessitatibus quod et praesentium dolores velit. Voluptas voluptatum repellendus mollitia.',	'[\"/public/images/products/product-20-img-1.jpg\",\"/public/images/products/product-20-img-2.jpg\",\"/public/images/products/product-20-img-3.jpg\"]',	3,	'2022-05-09 01:46:59.456545',	'2022-05-09 01:46:59.456545',	NULL),
-(21,	'Leopold FC660MPD Blue Star',	245,	'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti minus tenetur facere voluptates, minima necessitatibus quod et praesentium dolores velit. Voluptas voluptatum repellendus mollitia.',	'[\"/public/images/products/product-21-img-1.jpg\",\"/public/images/products/product-21-img-2.jpg\",\"/public/images/products/product-21-img-3.jpg\"]',	3,	'2022-05-09 01:46:59.456545',	'2022-05-09 01:46:59.456545',	NULL),
-(22,	'Apple Watch s6',	1999,	'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti minus tenetur facere voluptates, minima necessitatibus quod et praesentium dolores velit. Voluptas voluptatum repellendus mollitia.',	'[\"/public/images/products/product-22-img-1.jpg\",\"/public/images/products/product-22-img-2.jpg\",\"/public/images/products/product-22-img-3.jpg\",\"/public/images/products/product-22-img-4.jpg\"]',	2,	'2022-05-09 01:46:59.456545',	'2022-05-09 01:46:59.456545',	NULL),
-(23,	'Oppo Watch 41mm',	2541,	'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti minus tenetur facere voluptates, minima necessitatibus quod et praesentium dolores velit. Voluptas voluptatum repellendus mollitia.',	'[\"/public/images/products/product-23-img-1.jpg\",\"/public/images/products/product-23-img-2.jpg\",\"/public/images/products/product-23-img-3.jpg\"]',	2,	'2022-05-09 01:46:59.456545',	'2022-05-09 01:46:59.456545',	NULL),
-(24,	'Galaxy Watch 4 Ite',	2315,	'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti minus tenetur facere voluptates, minima necessitatibus quod et praesentium dolores velit. Voluptas voluptatum repellendus mollitia.',	'[\"/public/images/products/product-24-img-1.jpg\",\"/public/images/products/product-24-img-2.jpg\",\"/public/images/products/product-24-img-3.jpg\",\"/public/images/products/product-24-img-4.jpg\"]',	2,	'2022-05-09 01:46:59.456545',	'2022-05-09 01:46:59.456545',	NULL),
-(25,	'Garmin Forerunner 45',	1490,	'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti minus tenetur facere voluptates, minima necessitatibus quod et praesentium dolores velit. Voluptas voluptatum repellendus mollitia.',	'[\"/public/images/products/product-25-img-1.jpg\",\"/public/images/products/product-25-img-2.jpg\",\"/public/images/products/product-25-img-3.jpg\",\"/public/images/products/product-25-img-4.jpg\",\"/public/images/products/product-25-img-5.jpg\"]',	2,	'2022-05-09 01:46:59.456545',	'2022-05-09 01:46:59.456545',	NULL),
-(26,	'Corsair HS50 PRO',	568,	'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti minus tenetur facere voluptates, minima necessitatibus quod et praesentium dolores velit. Voluptas voluptatum repellendus mollitia.',	'[\"/public/images/products/product-26-img-1.jpg\",\"/public/images/products/product-26-img-2.jpg\",\"/public/images/products/product-26-img-3.jpg\"]',	4,	'2022-05-09 01:46:59.456545',	'2022-05-09 01:46:59.456545',	NULL),
-(27,	'Asus ROG THETA 7.1',	490,	'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti minus tenetur facere voluptates, minima necessitatibus quod et praesentium dolores velit. Voluptas voluptatum repellendus mollitia.',	'[\"/public/images/products/product-27-img-1.jpg\",\"/public/images/products/product-27-img-2.jpg\",\"/public/images/products/product-27-img-3.jpg\"]',	4,	'2022-05-09 01:46:59.456545',	'2022-05-09 01:46:59.456545',	NULL),
-(28,	'SteelSeries Arctis Pro 61486',	785,	'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti minus tenetur facere voluptates, minima necessitatibus quod et praesentium dolores velit. Voluptas voluptatum repellendus mollitia.',	'[\"/public/images/products/product-28-img-1.jpg\",\"/public/images/products/product-28-img-2.jpg\"]',	4,	'2022-05-09 01:46:59.456545',	'2022-05-09 01:46:59.456545',	NULL),
-(29,	'Kingston HyperX Cloud Alpha Gold - Limited Editio',	72323,	'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti minus tenetur facere voluptates, minima necessitatibus quod et praesentium dolores velit. Voluptas voluptatum repellendus mollitia.',	'[\"/public/images/products/product-29-img-1.jpg\",\"/public/images/products/product-29-img-2.jpg\",\"/public/images/products/product-29-img-3.jpg\",\"/public/images/products/0f1ec9cb-74dc-4bfe-8e49-8a891505f9e1.jpg\",\"/public/images/products/8b4bb5e6-3799-4c53-8ca4-0b65929d505e.png\",\"/public/images/products/20ccff3c-e21d-4b0c-b2b2-7065cd0a1cd5.png\"]',	0,	'2022-05-09 01:46:59.456545',	'2022-05-09 01:46:59.456545',	NULL),
-(30,	'ROG Zephyrus G14',	5990,	'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti minus tenetur facere voluptates, minima necessitatibus quod et praesentium dolores velit. Voluptas voluptatum repellendus mollitia.',	'[\"/public/images/products/product-15-img-1.jpg\",\"/public/images/products/product-15-img-2.jpg\",\"/public/images/products/product-15-img-3.jpg\"]',	1,	'2022-05-09 01:46:59.456545',	'2022-05-09 01:46:59.456545',	'2022-05-25 11:41:32.000000'),
-(39,	'NameProduct343412',	1000,	NULL,	'[\"/public/images/products/product.jpg\"]',	1,	'2022-05-25 04:37:45.562994',	'2022-05-25 04:37:45.562994',	'2022-05-25 11:41:32.000000'),
-(40,	'234456NameProduct',	1000,	NULL,	'[\"/public/images/products/product.jpg\"]',	1,	'2022-05-25 04:38:19.011480',	'2022-05-25 04:38:19.011480',	'2022-05-25 11:41:35.000000'),
-(41,	'Namsdsd23eProduct',	1000,	NULL,	'[\"/public/images/products/product.jpg\"]',	1,	'2022-05-25 04:41:10.110654',	'2022-05-25 04:41:10.110654',	'2022-05-25 11:41:22.000000'),
-(42,	'NameProduct',	1000,	NULL,	'[\"/public/images/products/product.jpg\"]',	1,	'2022-05-25 04:42:45.433223',	'2022-05-25 04:42:45.433223',	'2022-05-25 11:52:49.000000'),
-(43,	'NameProduct213123213',	1000,	NULL,	'[\"/public/images/products/product.jpg\"]',	1,	'2022-05-25 04:49:46.912551',	'2022-05-25 04:49:46.912551',	'2022-05-25 11:52:52.000000'),
-(44,	'keckec',	1000,	NULL,	'[\"/public/images/products/product.jpg\"]',	1,	'2022-05-25 04:53:02.595306',	'2022-05-25 04:53:02.595306',	'2022-05-25 12:00:57.000000'),
-(45,	'kasdjssdsd',	1000,	NULL,	'[\"/public/images/products/product.jpg\"]',	1,	'2022-05-25 04:56:02.314927',	'2022-05-25 04:56:02.314927',	'2022-05-25 12:00:55.000000'),
-(46,	'ekashdjk34',	1000,	NULL,	'[\"/public/images/products/product.jpg\"]',	1,	'2022-05-25 04:58:21.170845',	'2022-05-25 04:58:21.170845',	'2022-05-25 12:00:51.000000'),
-(47,	'sdklsd238745',	1000,	NULL,	'[\"/public/images/products/7b26ec9b-696d-45d5-b3a5-19b7424980f2.png\",\"/public/images/products/7b26ec9b-696d-45d5-b3a5-19b7424980f2.png\"]',	1,	'2022-05-25 04:59:05.839069',	'2022-05-25 04:59:05.839069',	'2022-05-25 12:00:51.000000'),
-(48,	'NameProkeckecduct',	1000,	NULL,	'[\"/public/images/products/product.jpg\",\"/public/images/products/66fc39f3-feb7-453a-add6-dd44569f206a.png\",\"/public/images/products/c368e88f-abd4-464e-8b3a-64d83a5fdd15.png\"]',	1,	'2022-05-25 05:03:21.348270',	'2022-05-25 05:03:21.348270',	'2022-05-25 12:57:20.000000'),
-(49,	'NamePsajkdhasjkdhroduct',	1000,	NULL,	'[\"/public/images/products/product.jpg\",\"/public/images/products/76bc2a6c-d0c0-4241-ac02-f1f269e592f3.jpg\",\"/public/images/products/ac3fdaba-bd44-49cb-8dd1-95da6d884803.png\"]',	5,	'2022-05-25 05:37:45.414228',	'2022-05-25 05:37:45.414228',	'2022-05-25 12:57:17.000000'),
-(50,	'sdc23',	1000,	NULL,	'[\"/public/images/products/product.jpg\"]',	10,	'2022-05-25 11:17:20.306281',	'2022-05-25 11:17:20.306281',	NULL)
+(1,	'MASTER HEADPsadsadHONE',	189,	'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti minus tenetur facere voluptates, minima necessitatibus quod et praesentium dolores velit. Voluptas voluptatum repellendus mollitia.',	'[\"/public/images/products/4c572f24-899a-404a-9556-44072248fa21.png\"]',	5,	'2022-05-08 18:46:59.456545',	'2022-05-08 18:46:59.456545',	'2022-05-25 03:23:03.000000'),
+(2,	'SUPER SINGLE CAMERA',	1542322223,	'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti minus tenetur facere voluptates, minima necessitatibus quod et praesentium dolores velit. Voluptas voluptatum repellendus mollitia.',	'[\"/public/images/products/95fbd421-0ad6-4ba4-9f07-64f118c61bff.png\",\"/public/images/products/6ef86b3a-945c-47af-b5cd-038da904cf5c.png\",\"/public/images/products/47ba3918-d50b-4495-bda3-4ed48361d8b5.png\"]',	1,	'2022-05-08 18:46:59.456545',	'2022-05-08 18:46:59.456545',	NULL),
+(3,	'GOOGLE HOME',	213,	'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti minus tenetur facere voluptates, minima necessitatibus quod et praesentium dolores velit. Voluptas voluptatum repellendus mollitia.',	'[\"/public/images/products/product-3-img-1.jpg\",\"/public/images/products/product-3-img-2.jpg\",\"/public/images/products/product-3-img-3.jpg\",\"/public/images/products/product-3-img-4.jpg\"]',	NULL,	'2022-05-08 18:46:59.456545',	'2022-05-08 18:46:59.456545',	NULL),
+(4,	'IPHONE 11',	612,	'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti minus tenetur facere voluptates, minima necessitatibus quod et praesentium dolores velit. Voluptas voluptatum repellendus mollitia.',	'[\"/public/images/products/product-4-img-1.jpg\",\"/public/images/products/product-4-img-2.jpg\",\"/public/images/products/product-4-img-3.jpg\"]',	NULL,	'2022-05-08 18:46:59.456545',	'2022-05-08 18:46:59.456545',	NULL),
+(5,	'POLAROID CAMERA',	178,	'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti minus tenetur facere voluptates, minima necessitatibus quod et praesentium dolores velit. Voluptas voluptatum repellendus mollitia.',	'[\"/public/images/products/product-5-img-1.jpg\",\"/public/images/products/product-5-img-3.jpg\",\"/public/images/products/product-5-img-2.jpg\",\"/public/images/products/product-5-img-4.jpg\"]',	5,	'2022-05-08 18:46:59.456545',	'2022-05-08 18:46:59.456545',	NULL),
+(6,	'BLUETOOTH PINK',	112,	'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti minus tenetur facere voluptates, minima necessitatibus quod et praesentium dolores velit. Voluptas voluptatum repellendus mollitia.',	'[\"/public/images/products/product-6-img-1.jpg\",\"/public/images/products/product-6-img-2.jpg\",\"/public/images/products/product-6-img-3.jpg\"]',	4,	'2022-05-08 18:46:59.456545',	'2022-05-08 18:46:59.456545',	NULL),
+(7,	'KEYBORD AKO',	230,	'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti minus tenetur facere voluptates, minima necessitatibus quod et praesentium dolores velit. Voluptas voluptatum repellendus mollitia.',	'[\"/public/images/products/product-7-img-1.jpg\",\"/public/images/products/product-7-img-2.jpg\",\"/public/images/products/product-7-img-3.jpg\",\"/public/images/products/product-7-img-4.jpg\"]',	3,	'2022-05-08 18:46:59.456545',	'2022-05-08 18:46:59.456545',	NULL),
+(8,	'ACER NITRO 5',	6120,	'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti minus tenetur facere voluptates, minima necessitatibus quod et praesentium dolores velit. Voluptas voluptatum repellendus mollitia.',	'[\"/public/images/products/product-8-img-1.jpg\",\"/public/images/products/product-8-img-2.jpg\",\"/public/images/products/product-8-img-3.jpg\",\"/public/images/products/product-8-img-4.jpg\"]',	1,	'2022-05-08 18:46:59.456545',	'2022-05-08 18:46:59.456545',	NULL),
+(9,	'Sony Alpha ILCE-7CL',	1941,	'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti minus tenetur facere voluptates, minima necessitatibus quod et praesentium dolores velit. Voluptas voluptatum repellendus mollitia.',	'[\"/public/images/products/product-9-img-1.jpg\",\"/public/images/products/product-9-img-2.jpg\",\"/public/images/products/product-9-img-3.jpg\"]',	5,	'2022-05-08 18:46:59.456545',	'2022-05-08 18:46:59.456545',	NULL),
+(10,	'Galaxy Z Flip 3',	4845,	'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti minus tenetur facere voluptates, minima necessitatibus quod et praesentium dolores velit. Voluptas voluptatum repellendus mollitia.',	'[\"/public/images/products/product-10-img-1.jpg\",\"/public/images/products/product-10-img-2.jpg\",\"/public/images/products/product-10-img-3.jpg\",\"/public/images/products/product-10-img-4.jpg\"]',	NULL,	'2022-05-08 18:46:59.456545',	'2022-05-08 18:46:59.456545',	NULL),
+(11,	'OPPO Reno6 Pro',	3678,	'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti minus tenetur facere voluptates, minima necessitatibus quod et praesentium dolores velit. Voluptas voluptatum repellendus mollitia.',	'[\"/public/images/products/product-11-img-1.jpg\",\"/public/images/products/product-11-img-2.jpg\"]',	NULL,	'2022-05-08 18:46:59.456545',	'2022-05-08 18:46:59.456545',	NULL),
+(12,	'IPHONE 13',	3458,	'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti minus tenetur facere voluptates, minima necessitatibus quod et praesentium dolores velit. Voluptas voluptatum repellendus mollitia.',	'[\"/public/images/products/product-12-img-1.jpg\",\"/public/images/products/product-12-img-2.jpg\",\"/public/images/products/product-12-img-3.jpg\",\"/public/images/products/product-12-img-4.jpg\"]',	NULL,	'2022-05-08 18:46:59.456545',	'2022-05-08 18:46:59.456545',	NULL),
+(13,	'Galaxy Z Fold 3',	4868,	'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti minus tenetur facere voluptates, minima necessitatibus quod et praesentium dolores velit. Voluptas voluptatum repellendus mollitia.',	'[\"/public/images/products/product-13-img-1.jpg\",\"/public/images/products/product-13-img-2.jpg\"]',	NULL,	'2022-05-08 18:46:59.456545',	'2022-05-08 18:46:59.456545',	NULL),
+(14,	'Fujifilm Instax Mini 11',	536,	'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti minus tenetur facere voluptates, minima necessitatibus quod et praesentium dolores velit. Voluptas voluptatum repellendus mollitia.',	'[\"/public/images/products/product-14-img-1.jpg\",\"/public/images/products/product-14-img-2.jpg\",\"/public/images/products/product-14-img-3.jpg\"]',	5,	'2022-05-08 18:46:59.456545',	'2022-05-08 18:46:59.456545',	NULL),
+(15,	'GOOGLE HOME1',	245,	'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti minus tenetur facere voluptates, minima necessitatibus quod et praesentium dolores velit. Voluptas voluptatum repellendus mollitia.',	'[\"/public/images/products/product.jpg\",\"/public/images/products/product.jpg\",\"/public/images/products/product.jpg\",\"/public/images/products/product.jpg\"]',	NULL,	'2022-05-08 18:46:59.456545',	'2022-05-08 18:46:59.456545',	NULL),
+(16,	'MSI Gaming GF65',	2490,	'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti minus tenetur facere voluptates, minima necessitatibus quod et praesentium dolores velit. Voluptas voluptatum repellendus mollitia.',	'[\"/public/images/products/product-16-img-1.jpg\",\"/public/images/products/product-16-img-2.jpg\",\"/public/images/products/product-16-img-3.jpg\"]',	1,	'2022-05-08 18:46:59.456545',	'2022-05-08 18:46:59.456545',	NULL),
+(17,	'Lenovo Ideapad 5 Pro',	3687,	'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti minus tenetur facere voluptates, minima necessitatibus quod et praesentium dolores velit. Voluptas voluptatum repellendus mollitia.',	'[\"/public/images/products/product-17-img-1.jpg\",\"/public/images/products/product-17-img-2.jpg\"]',	1,	'2022-05-08 18:46:59.456545',	'2022-05-08 18:46:59.456545',	NULL),
+(18,	'Asus ROG Strix Scope TKL Electro Punk',	399,	'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti minus tenetur facere voluptates, minima necessitatibus quod et praesentium dolores velit. Voluptas voluptatum repellendus mollitia.',	'[\"/public/images/products/product-18-img-1.jpg\",\"/public/images/products/product-18-img-2.jpg\",\"/public/images/products/product-18-img-3.jpg\"]',	3,	'2022-05-08 18:46:59.456545',	'2022-05-08 18:46:59.456545',	NULL),
+(19,	'Cooler Master CK530 V2',	201,	'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti minus tenetur facere voluptates, minima necessitatibus quod et praesentium dolores velit. Voluptas voluptatum repellendus mollitia.',	'[\"/public/images/products/product-19-img-1.jpg\",\"/public/images/products/product-19-img-2.jpg\",\"/public/images/products/product-19-img-3.jpg\"]',	3,	'2022-05-08 18:46:59.456545',	'2022-05-08 18:46:59.456545',	NULL),
+(20,	'Razer BlackWidow V3 HALO Infinite Green',	245,	'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti minus tenetur facere voluptates, minima necessitatibus quod et praesentium dolores velit. Voluptas voluptatum repellendus mollitia.',	'[\"/public/images/products/product-20-img-1.jpg\",\"/public/images/products/product-20-img-2.jpg\",\"/public/images/products/product-20-img-3.jpg\"]',	3,	'2022-05-08 18:46:59.456545',	'2022-05-08 18:46:59.456545',	NULL),
+(21,	'Leopold FC660MPD Blue Star',	245,	'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti minus tenetur facere voluptates, minima necessitatibus quod et praesentium dolores velit. Voluptas voluptatum repellendus mollitia.',	'[\"/public/images/products/product-21-img-1.jpg\",\"/public/images/products/product-21-img-2.jpg\",\"/public/images/products/product-21-img-3.jpg\"]',	3,	'2022-05-08 18:46:59.456545',	'2022-05-08 18:46:59.456545',	NULL),
+(22,	'Apple Watch s6',	1999,	'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti minus tenetur facere voluptates, minima necessitatibus quod et praesentium dolores velit. Voluptas voluptatum repellendus mollitia.',	'[\"/public/images/products/product-22-img-1.jpg\",\"/public/images/products/product-22-img-2.jpg\",\"/public/images/products/product-22-img-3.jpg\",\"/public/images/products/product-22-img-4.jpg\"]',	2,	'2022-05-08 18:46:59.456545',	'2022-05-08 18:46:59.456545',	NULL),
+(23,	'Oppo Watch 41mm',	2541,	'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti minus tenetur facere voluptates, minima necessitatibus quod et praesentium dolores velit. Voluptas voluptatum repellendus mollitia.',	'[\"/public/images/products/product-23-img-1.jpg\",\"/public/images/products/product-23-img-2.jpg\",\"/public/images/products/product-23-img-3.jpg\"]',	2,	'2022-05-08 18:46:59.456545',	'2022-05-08 18:46:59.456545',	NULL),
+(24,	'Galaxy Watch 4 Ite',	2315,	'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti minus tenetur facere voluptates, minima necessitatibus quod et praesentium dolores velit. Voluptas voluptatum repellendus mollitia.',	'[\"/public/images/products/product-24-img-1.jpg\",\"/public/images/products/product-24-img-2.jpg\",\"/public/images/products/product-24-img-3.jpg\",\"/public/images/products/product-24-img-4.jpg\"]',	2,	'2022-05-08 18:46:59.456545',	'2022-05-08 18:46:59.456545',	NULL),
+(25,	'Garmin Forerunner 45',	1490,	'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti minus tenetur facere voluptates, minima necessitatibus quod et praesentium dolores velit. Voluptas voluptatum repellendus mollitia.',	'[\"/public/images/products/product-25-img-1.jpg\",\"/public/images/products/product-25-img-2.jpg\",\"/public/images/products/product-25-img-3.jpg\",\"/public/images/products/product-25-img-4.jpg\",\"/public/images/products/product-25-img-5.jpg\"]',	2,	'2022-05-08 18:46:59.456545',	'2022-05-08 18:46:59.456545',	NULL),
+(26,	'Corsair HS50 PRO',	568,	'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti minus tenetur facere voluptates, minima necessitatibus quod et praesentium dolores velit. Voluptas voluptatum repellendus mollitia.',	'[\"/public/images/products/product-26-img-1.jpg\",\"/public/images/products/product-26-img-2.jpg\",\"/public/images/products/product-26-img-3.jpg\"]',	4,	'2022-05-08 18:46:59.456545',	'2022-05-08 18:46:59.456545',	NULL),
+(27,	'Asus ROG THETA 7.1',	490,	'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti minus tenetur facere voluptates, minima necessitatibus quod et praesentium dolores velit. Voluptas voluptatum repellendus mollitia.',	'[\"/public/images/products/product-27-img-1.jpg\",\"/public/images/products/product-27-img-2.jpg\",\"/public/images/products/product-27-img-3.jpg\"]',	4,	'2022-05-08 18:46:59.456545',	'2022-05-08 18:46:59.456545',	NULL),
+(28,	'SteelSeries Arctis Pro 61486',	785,	'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti minus tenetur facere voluptates, minima necessitatibus quod et praesentium dolores velit. Voluptas voluptatum repellendus mollitia.',	'[\"/public/images/products/product-28-img-1.jpg\",\"/public/images/products/product-28-img-2.jpg\"]',	4,	'2022-05-08 18:46:59.456545',	'2022-05-08 18:46:59.456545',	NULL),
+(29,	'Kingston HyperX Cloud Alpha Gold - Limited Editio',	72323,	'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti minus tenetur facere voluptates, minima necessitatibus quod et praesentium dolores velit. Voluptas voluptatum repellendus mollitia.',	'[\"/public/images/products/product-29-img-1.jpg\",\"/public/images/products/product-29-img-2.jpg\",\"/public/images/products/product-29-img-3.jpg\",\"/public/images/products/0f1ec9cb-74dc-4bfe-8e49-8a891505f9e1.jpg\",\"/public/images/products/8b4bb5e6-3799-4c53-8ca4-0b65929d505e.png\",\"/public/images/products/20ccff3c-e21d-4b0c-b2b2-7065cd0a1cd5.png\"]',	NULL,	'2022-05-08 18:46:59.456545',	'2022-05-08 18:46:59.456545',	NULL),
+(30,	'ROG Zephyrus G14',	5990,	'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti minus tenetur facere voluptates, minima necessitatibus quod et praesentium dolores velit. Voluptas voluptatum repellendus mollitia.',	'[\"/public/images/products/product-15-img-1.jpg\",\"/public/images/products/product-15-img-2.jpg\",\"/public/images/products/product-15-img-3.jpg\"]',	1,	'2022-05-08 18:46:59.456545',	'2022-05-08 18:46:59.456545',	'2022-05-25 04:41:32.000000')
 ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `name` = VALUES(`name`), `price` = VALUES(`price`), `description` = VALUES(`description`), `image` = VALUES(`image`), `category_id` = VALUES(`category_id`), `created_at` = VALUES(`created_at`), `updated_at` = VALUES(`updated_at`), `deleted_at` = VALUES(`deleted_at`);
 
 DROP TABLE IF EXISTS `product_details`;
 CREATE TABLE `product_details` (
-  `store_id` int NOT NULL,
   `product_id` int NOT NULL,
   `quantity` int DEFAULT NULL,
   `discount` int DEFAULT NULL,
-  PRIMARY KEY (`product_id`,`store_id`),
-  KEY `fk_pd_s` (`store_id`),
-  CONSTRAINT `fk_pd_p` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`),
-  CONSTRAINT `fk_pd_s` FOREIGN KEY (`store_id`) REFERENCES `store` (`id`)
+  PRIMARY KEY (`product_id`),
+  CONSTRAINT `fk_pd_p` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 
-INSERT INTO `product_details` (`store_id`, `product_id`, `quantity`, `discount`) VALUES
-(1,	1,	395,	70),
-(2,	1,	454,	40),
-(3,	1,	354,	80),
-(1,	2,	50,	2),
-(2,	2,	2,	50),
-(3,	2,	442,	80),
-(1,	3,	344,	60),
-(3,	3,	491,	10),
-(1,	4,	82,	70),
-(2,	4,	396,	40),
-(3,	4,	284,	70),
-(1,	5,	219,	20),
-(2,	5,	34,	20),
-(3,	5,	472,	80),
-(1,	6,	415,	20),
-(2,	6,	20,	10),
-(3,	6,	101,	30),
-(1,	7,	27,	80),
-(2,	7,	58,	60),
-(3,	7,	316,	80),
-(2,	8,	111,	40),
-(3,	8,	498,	10),
-(1,	9,	37,	40),
-(3,	9,	45,	10),
-(2,	10,	317,	20),
-(3,	10,	193,	70),
-(1,	11,	398,	50),
-(2,	11,	430,	10),
-(3,	11,	268,	70),
-(1,	12,	229,	10),
-(2,	12,	496,	70),
-(3,	12,	132,	30),
-(1,	13,	344,	10),
-(3,	13,	77,	50),
-(2,	14,	216,	60),
-(3,	14,	403,	20),
-(3,	15,	474,	80),
-(3,	16,	476,	80),
-(2,	17,	180,	20),
-(3,	17,	122,	80),
-(1,	18,	262,	60),
-(3,	18,	489,	40),
-(1,	19,	176,	10),
-(3,	19,	341,	20),
-(1,	20,	411,	80),
-(2,	20,	237,	30),
-(3,	20,	140,	20),
-(1,	21,	426,	80),
-(2,	21,	95,	70),
-(3,	21,	422,	10),
-(1,	22,	306,	20),
-(3,	22,	281,	70),
-(3,	23,	304,	30),
-(3,	24,	211,	10),
-(3,	25,	488,	10),
-(1,	26,	100,	2),
-(3,	26,	293,	10),
-(1,	27,	238,	70),
-(3,	27,	384,	70),
-(1,	28,	373,	30),
-(3,	28,	419,	30),
-(1,	29,	438,	50),
-(3,	29,	23,	80),
-(1,	30,	259,	20),
-(3,	30,	329,	70)
-ON DUPLICATE KEY UPDATE `store_id` = VALUES(`store_id`), `product_id` = VALUES(`product_id`), `quantity` = VALUES(`quantity`), `discount` = VALUES(`discount`);
-
-DROP TABLE IF EXISTS `requestpending`;
-CREATE TABLE `requestpending` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `email` varchar(50) COLLATE utf8mb4_vietnamese_ci NOT NULL,
-  `token` varchar(255) COLLATE utf8mb4_vietnamese_ci NOT NULL,
-  `expire` datetime(6) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `uniqueEmail` (`email`),
-  UNIQUE KEY `uniqueToken` (`token`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
-
-
-DROP TABLE IF EXISTS `store`;
-CREATE TABLE `store` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `address` varchar(255) COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
-  `banner` text COLLATE utf8mb4_vietnamese_ci,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
-
-INSERT INTO `store` (`id`, `address`, `banner`) VALUES
-(1,	'An Dương Vương, P3, Q5, HCM',	'[\"/public/images/banners/banner-img-1.jpg\",\"/public/images/banners/banner-img-2.jpg\"]'),
-(2,	'Bà Huyện Thanh Quan, P7, Q3, HCM',	'[\"/public/images/banners/banner-img-3.jpg\",\"/public/images/banners/banner-img-4.jpg\"]'),
-(3,	'Tôn Đức Thắng, P.BN, Q1, HCM',	'[\"/public/images/banners/banner-img-1.jpg\",\"/public/images/banners/banner-img-3.jpg\"]')
-ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `address` = VALUES(`address`), `banner` = VALUES(`banner`);
+INSERT INTO `product_details` (`product_id`, `quantity`, `discount`) VALUES
+(1,	395,	70),
+(2,	50,	2),
+(3,	344,	60),
+(4,	82,	70),
+(5,	34,	20),
+(6,	415,	20),
+(7,	27,	80),
+(8,	111,	40),
+(9,	37,	40),
+(10,	317,	20),
+(11,	398,	50),
+(12,	496,	70),
+(13,	77,	50),
+(14,	216,	60),
+(15,	474,	80),
+(16,	476,	80),
+(17,	180,	20),
+(18,	262,	60),
+(19,	176,	10),
+(20,	411,	80),
+(21,	426,	80),
+(22,	306,	20),
+(23,	304,	30),
+(24,	211,	10),
+(25,	488,	10),
+(26,	293,	10),
+(27,	384,	70),
+(28,	419,	30),
+(29,	438,	50),
+(30,	259,	20)
+ON DUPLICATE KEY UPDATE `product_id` = VALUES(`product_id`), `quantity` = VALUES(`quantity`), `discount` = VALUES(`discount`);
 
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `id` int NOT NULL AUTO_INCREMENT,
   `username` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8mb4_vietnamese_ci NOT NULL,
-  `email` varchar(30) COLLATE utf8mb4_vietnamese_ci NOT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci NOT NULL,
+  `email` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci NOT NULL,
   `fullName` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci NOT NULL,
-  `phoneNumber` varchar(15) COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
+  `phoneNumber` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
   `isActivePhone` tinyint(1) NOT NULL DEFAULT '0',
   `address` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
   `isVerified` tinyint(1) NOT NULL DEFAULT '0',
   `tokenVerify` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
-  `refreshToken` varchar(255) COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
+  `refreshToken` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
   `permission` int NOT NULL DEFAULT '-1',
-  `type` varchar(255) COLLATE utf8mb4_vietnamese_ci NOT NULL DEFAULT 'local',
+  `type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci NOT NULL DEFAULT 'local',
   `createdAt` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
   `updatedAt` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
   PRIMARY KEY (`id`),
@@ -384,18 +308,19 @@ CREATE TABLE `user` (
   UNIQUE KEY `REFRESH_TOKEN_UNIQUE` (`refreshToken`),
   UNIQUE KEY `TOKEN_VERIFY_UNIQUE` (`tokenVerify`),
   UNIQUE KEY `PHONE_UNIQUE` (`phoneNumber`)
-) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 
 INSERT INTO `user` (`id`, `username`, `password`, `email`, `fullName`, `phoneNumber`, `isActivePhone`, `address`, `isVerified`, `tokenVerify`, `refreshToken`, `permission`, `type`, `createdAt`, `updatedAt`) VALUES
-(25,	'admin',	'$2y$10$qAwb/vul7pgbZ0hXTA1NA.7muSsdoolxTB89eS5TOC3BWnHeSf/Ca',	'kidph@gmail.com',	'Nguyen Phuc Thinh',	'896359374',	0,	'kec',	1,	'934fe853-605f-487e-b105-bfeb5ac3b3e6',	'cd7480ac7f6987274026bfd38d644b06d7ecbee947188d738b933b25ddee9b6b.&$@1656153741.&$@25.&$@$2y$10$b.TLV3vminpum1Ejsv/DHevQMPxzxvnNieiubaiTMToMYQDPY.EOy',	2,	'local',	'2022-05-20 19:01:34.903843',	'2022-05-20 19:01:34.903843'),
-(29,	'thjnhsoajca',	'$2y$10$aP9ygm/lAiJOkrxf7DdUBOzn3RZCU/aqzrcBYreNRDzbPd8x72kOW',	'thjnhsoajca@gmail.com',	'Nguyen Phuc Thinh',	NULL,	0,	NULL,	1,	'b6d28636-eef8-4e82-9991-4560a3a4fd67',	'fc6d05ebad92f31449d0b0c529d452d634a9df15518ff75537d4f674f76635ee.&$@1655875442.&$@29.&$@$2y$10$OLK4HKEcFMjV5/X4g2OsR.iKi5HrWm6uEyIjdZyoao2HwfxKOt.yK',	0,	'local',	'2022-05-21 05:22:09.131326',	'2022-05-21 05:22:09.131326'),
-(55,	'1346573135844289',	'$2y$10$NhwAk15L15mXXEPz2DqDqOVLPYW.0NgOVEteqrudOwyNXks0MwFmu',	'kidp2h@outlook.com',	'Nguyễn Phúc Thịnh',	NULL,	0,	NULL,	1,	'b6d28636-eef8-4e82-9991-4560a3a4ef67',	'9f046fdbffe49ef5537cc6be12559f729ead36401a469f9b7ca16b94788b5af6.&$@1656155654.&$@55.&$@$2y$10$p8vN6FSyDutvEIVflGOQXeFjRCbnIMI0qhS9HKrapoes0Cd35qx0C',	0,	'facebook',	'2022-05-22 06:03:17.533334',	'2022-05-22 06:03:17.533334'),
-(56,	'100864461323288714004',	'$2y$10$l5PAQTw0WTAaaKtl9P3z1egLVpJ4FzI95vBpyhXMiZ2CnZ5bc8fo2',	'0x4b68@gmail.com',	'Thinh Nguyen',	NULL,	0,	NULL,	1,	'b6d28636-eef8-4e82-9991-4340a3a4fd42',	'77f1743137f5b1c3f640e9c9d7a7d78d5c092ef356f2fa18ae4d0053418c96e9.&$@1656067509.&$@56.&$@$2y$10$dE8BgbT0H4oRaRhBJjQhgeVpLxz.HvN/j0FJSBSvy28uDQ4ZdJgV6',	0,	'google',	'2022-05-22 06:03:31.742260',	'2022-05-22 06:03:31.742260'),
-(59,	'user1',	'$2y$10$8o3C2ii7QH.zJpVRY2RfxeNyoZFUPKY8Tjdr82O/mwgVUrBoScZq2',	'kidp2adfdfh@gmail.com',	'Nguyen Phuc Thinh',	NULL,	0,	NULL,	0,	'77c99182-c2c8-478c-b3c3-04b200b537a2',	NULL,	0,	'local',	'2022-05-23 17:40:15.652200',	'2022-05-23 17:40:15.652200'),
-(60,	'user123',	'$2y$10$G7kH7rTKjFhu53zHiMuc.u/Mc/gVqw8e3uaxVvnV3XNa08luaxCYO',	'phuthinh5322@gmail.com',	'Chau Phu Thinh',	NULL,	0,	NULL,	1,	'7fb143ba-7f13-4c63-b3a0-d6f9394f694b',	'2f50e360262520522a4960c9e6ddb6f49dc0ee0dbe48cfc074e29d50b0ad0183.&$@1656006558.&$@60.&$@$2y$10$qXJl6Oe1XWaBrkt5wHagQOu.ZHau39wemjFyqgZnuTqFICJEJj94a',	0,	'local',	'2022-05-23 17:42:07.931684',	'2022-05-23 17:42:07.931684'),
-(63,	'usertest',	'$2a$12$Wuv.KY8PhystsQY5Ia3Ca.Yug.FOi91OpkNY0WwLWyt3UxMzuFXgK',	'Email address',	'keckec',	'045848954',	1,	'kec',	1,	'feb93702-c056-445d-b658-8bfbe0fa5e9a',	'374f2a4ac66d2a788a0f53a0bd7ad5a1e306af3aa30135281727431aede592f1.&$@1656152775.&$@63.&$@$2y$10$zvDLtcBx2fFQGcNWZEx1I.jxeXZNtvoGHTEZsRKYWP36r9B0N1eam',	-1,	'local',	'2022-05-25 08:57:47.198137',	'2022-05-25 08:57:47.198137'),
-(65,	'thjs',	'$2y$10$G4gTIsxqxWaDOJH9tgWGh.n8vTlZzKaxm2Qp4kw8roigQ18xkPjye',	'34453',	'thjs',	'0893462',	1,	'3434',	1,	'0020f66d-bfd8-4a22-8cf8-f972cf3c733c',	NULL,	3,	'local',	'2022-05-25 09:01:40.716514',	'2022-05-25 09:01:40.716514'),
-(66,	'kidp2h',	'$2y$10$FubP2GWo4iTL.cmDtj4jjOAD1c5i6MzrpzsfgLwjsONgMz0Aw5gHS',	'kidp2h@gmail.com',	'Nguyen Phuc Thinh',	NULL,	0,	NULL,	1,	'5c9d7079-b9eb-491d-b36f-309b46fb4a1b',	'da9c8dee540bc857589b1b74dc0a6f8ad67e29cff63b262e4b5d2dd62e9805fe.&$@1656155635.&$@66.&$@$2y$10$KCMNa4mIyjWzBAIh16uphePo8mtxnBBBX4LsTfIiOxYt1H/yTZY/6',	1,	'local',	'2022-05-25 11:03:22.276437',	'2022-05-25 11:03:22.276437')
+(25,	'admin',	'$2y$10$qAwb/vul7pgbZ0hXTA1NA.7muSsdoolxTB89eS5TOC3BWnHeSf/Ca',	'kidph@gmail.com',	'Nguyen Phuc Thinh',	'896359374',	0,	'kec',	1,	'934fe853-605f-487e-b105-bfeb5ac3b3e6',	'bda12e3d71e9afb7cea0531dfc32699aae184084aae09e651b8d40d48cea8ad3.&$@1671154823.&$@25.&$@$2y$10$nNBn9n0DrDf9AIcHFWY1kOvuWdyts56yjrJo9fEVoCHhAspmku9JG',	2,	'local',	'2022-05-20 12:01:34.903843',	'2022-05-20 12:01:34.903843'),
+(29,	'thjnhsoajca',	'$2y$10$aP9ygm/lAiJOkrxf7DdUBOzn3RZCU/aqzrcBYreNRDzbPd8x72kOW',	'thjnhsoajca@gmail.com',	'Nguyen Phuc Thinh',	NULL,	0,	NULL,	1,	'b6d28636-eef8-4e82-9991-4560a3a4fd67',	'fc6d05ebad92f31449d0b0c529d452d634a9df15518ff75537d4f674f76635ee.&$@1655875442.&$@29.&$@$2y$10$OLK4HKEcFMjV5/X4g2OsR.iKi5HrWm6uEyIjdZyoao2HwfxKOt.yK',	0,	'local',	'2022-05-20 22:22:09.131326',	'2022-05-20 22:22:09.131326'),
+(55,	'1346573135844289',	'$2y$10$NhwAk15L15mXXEPz2DqDqOVLPYW.0NgOVEteqrudOwyNXks0MwFmu',	'kidp2h@outlook.com',	'Nguyễn Phúc Thịnh',	NULL,	0,	NULL,	1,	'b6d28636-eef8-4e82-9991-4560a3a4ef67',	'9f046fdbffe49ef5537cc6be12559f729ead36401a469f9b7ca16b94788b5af6.&$@1656155654.&$@55.&$@$2y$10$p8vN6FSyDutvEIVflGOQXeFjRCbnIMI0qhS9HKrapoes0Cd35qx0C',	0,	'facebook',	'2022-05-21 23:03:17.533334',	'2022-05-21 23:03:17.533334'),
+(56,	'100864461323288714004',	'$2y$10$l5PAQTw0WTAaaKtl9P3z1egLVpJ4FzI95vBpyhXMiZ2CnZ5bc8fo2',	'0x4b68@gmail.com',	'Thinh Nguyen',	NULL,	0,	NULL,	1,	'b6d28636-eef8-4e82-9991-4340a3a4fd42',	'77f1743137f5b1c3f640e9c9d7a7d78d5c092ef356f2fa18ae4d0053418c96e9.&$@1656067509.&$@56.&$@$2y$10$dE8BgbT0H4oRaRhBJjQhgeVpLxz.HvN/j0FJSBSvy28uDQ4ZdJgV6',	0,	'google',	'2022-05-21 23:03:31.742260',	'2022-05-21 23:03:31.742260'),
+(59,	'user1',	'$2y$10$8o3C2ii7QH.zJpVRY2RfxeNyoZFUPKY8Tjdr82O/mwgVUrBoScZq2',	'kidp2adfdfh@gmail.com',	'Nguyen Phuc Thinh',	NULL,	0,	NULL,	0,	'77c99182-c2c8-478c-b3c3-04b200b537a2',	NULL,	0,	'local',	'2022-05-23 10:40:15.652200',	'2022-05-23 10:40:15.652200'),
+(60,	'user123',	'$2y$10$G7kH7rTKjFhu53zHiMuc.u/Mc/gVqw8e3uaxVvnV3XNa08luaxCYO',	'phuthinh5322@gmail.com',	'Chau Phu Thinh',	NULL,	0,	NULL,	1,	'7fb143ba-7f13-4c63-b3a0-d6f9394f694b',	'2f50e360262520522a4960c9e6ddb6f49dc0ee0dbe48cfc074e29d50b0ad0183.&$@1656006558.&$@60.&$@$2y$10$qXJl6Oe1XWaBrkt5wHagQOu.ZHau39wemjFyqgZnuTqFICJEJj94a',	0,	'local',	'2022-05-23 10:42:07.931684',	'2022-05-23 10:42:07.931684'),
+(63,	'usertest',	'$2a$12$Wuv.KY8PhystsQY5Ia3Ca.Yug.FOi91OpkNY0WwLWyt3UxMzuFXgK',	'Email address',	'keckec',	'045848954',	1,	'kec',	1,	'feb93702-c056-445d-b658-8bfbe0fa5e9a',	'374f2a4ac66d2a788a0f53a0bd7ad5a1e306af3aa30135281727431aede592f1.&$@1656152775.&$@63.&$@$2y$10$zvDLtcBx2fFQGcNWZEx1I.jxeXZNtvoGHTEZsRKYWP36r9B0N1eam',	-1,	'local',	'2022-05-25 01:57:47.198137',	'2022-05-25 01:57:47.198137'),
+(65,	'thjs',	'$2y$10$G4gTIsxqxWaDOJH9tgWGh.n8vTlZzKaxm2Qp4kw8roigQ18xkPjye',	'34453',	'thjs',	'0893462',	1,	'3434',	1,	'0020f66d-bfd8-4a22-8cf8-f972cf3c733c',	NULL,	3,	'local',	'2022-05-25 02:01:40.716514',	'2022-05-25 02:01:40.716514'),
+(66,	'kidp2h',	'$2y$10$FubP2GWo4iTL.cmDtj4jjOAD1c5i6MzrpzsfgLwjsONgMz0Aw5gHS',	'kidp2h@gmail.com',	'Nguyen Phuc Thinh',	NULL,	0,	NULL,	1,	'5c9d7079-b9eb-491d-b36f-309b46fb4a1b',	'da9c8dee540bc857589b1b74dc0a6f8ad67e29cff63b262e4b5d2dd62e9805fe.&$@1656155635.&$@66.&$@$2y$10$KCMNa4mIyjWzBAIh16uphePo8mtxnBBBX4LsTfIiOxYt1H/yTZY/6',	1,	'local',	'2022-05-25 04:03:22.276437',	'2022-05-25 04:03:22.276437'),
+(69,	'kingeagles2604',	'$2y$10$/PBrR/6miY3ORQPRW6ICBuZ20HczWj41vgwSwVbZlmQSZcAvLyFDy',	'kidp2hsdsdasd@gmail.com',	'Nguyen Phuc Thinh',	NULL,	0,	NULL,	0,	'10b19675-29ac-4cb2-bbfe-658289789dc0',	NULL,	-1,	'local',	'2022-11-14 11:01:17.187899',	'2022-11-14 11:01:17.187899')
 ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `username` = VALUES(`username`), `password` = VALUES(`password`), `email` = VALUES(`email`), `fullName` = VALUES(`fullName`), `phoneNumber` = VALUES(`phoneNumber`), `isActivePhone` = VALUES(`isActivePhone`), `address` = VALUES(`address`), `isVerified` = VALUES(`isVerified`), `tokenVerify` = VALUES(`tokenVerify`), `refreshToken` = VALUES(`refreshToken`), `permission` = VALUES(`permission`), `type` = VALUES(`type`), `createdAt` = VALUES(`createdAt`), `updatedAt` = VALUES(`updatedAt`);
 
--- 2022-05-25 11:52:07
+-- 2022-11-15 02:28:08
