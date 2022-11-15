@@ -145,7 +145,7 @@ function Searchshop(from, to, name, category) {
   return products;
 }
 var sortfilter = document.getElementById('slt');
-var store = document.getElementById('store-select');
+
 function getData() {
   let sortfilter = document.getElementById('slt');
   let valuefilter = sortfilter.value;
@@ -154,14 +154,13 @@ function getData() {
   document.getElementById('filtertitle').click();
 }
 function getStore() {
-  let sortname = document.getElementById('store-select');
+
   let sortNameValue = sortname.value;
   $('#storename').value = sortNameValue;
   document.getElementById('filtertitle').click();
 }
 
 sortfilter?.addEventListener('change', getData);
-store.addEventListener('change', getStore);
 function notChangedFilter() {
   let url = window.location.href.indexOf('sort=');
   url = window.location.href.slice(url + 5);

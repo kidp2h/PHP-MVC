@@ -30,14 +30,12 @@ let validateSignUp = {
 
 $('#btn-signup')
   ? ($('#btn-signup').onclick = async () => {
-      $('#captcha').value = grecaptcha.getResponse();
       let fields = [
         'fullname',
         'username',
         'email',
         'password',
         'confirm-password',
-        'captcha',
       ];
       let status = validate(fields, validateSignUp);
       if (status.length == 0) {
@@ -46,7 +44,6 @@ $('#btn-signup')
         let confirmPassword = $('#password').value;
         let fullName = $('#fullname').value;
         let email = $('#email').value;
-        let captcha = grecaptcha.getResponse();
         let response = await HttpRequest({
           url: '/signup',
           method: 'POST',
@@ -56,7 +53,6 @@ $('#btn-signup')
             fullName,
             email,
             confirmPassword,
-            captcha,
           },
         });
         if (response.status && response.redirect && response.message) {
@@ -66,10 +62,8 @@ $('#btn-signup')
           }, 3000);
         } else if (response.message && response.status) {
           showToast('success', response.message);
-          grecaptcha.reset();
         } else {
           showToast('error', response.message);
-          grecaptcha.reset();
         }
       }
     })

@@ -22,8 +22,6 @@ class Application {
   public Session $session;
   public View $view;
   public Model $model;
-  public static Mail $mail;
-  public __Socket__ $socket;
   public static ?User $user;
   public static $cart;
   public static $cartTotalPrice;
@@ -32,7 +30,6 @@ class Application {
   public $db;
 
   public function __construct($rootPath) {
-    $queryBuilder = QueryBuilder::select("x","x")->from("kec")->where("x=x")->where("5=5")->__toString();
     error_reporting(0);
     session_start();
     date_default_timezone_set('Asia/Ho_Chi_Minh');
@@ -72,7 +69,6 @@ class Application {
       $this->view = new View();
       $this->controller = new Controller();
       $this->session = new Session();
-      self::$mail = new Mail();
       self::$app = $this;
 
       if($_COOKIE["accessToken"]){
@@ -96,7 +92,6 @@ class Application {
     $this->view = new View();
     $this->controller = new Controller();
     $this->session = new Session();
-    self::$mail = new Mail();
     self::$app = $this;
     if(!isset($_SESSION["id"])){
       if($_COOKIE["accessToken"]){

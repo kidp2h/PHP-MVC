@@ -33,12 +33,12 @@
                             <li id="loccategories">
                             <li class="theloai">
                                 <input type="radio" name="categories" value="All" checked="true">
-                                <p id="productall">All(<?=$NumberProduct?>)</p></input>
+                                <p id="productall">All(<?= $NumberProduct ?>)</p></input>
                             </li>
                             <?php
                             foreach ($category as $cg) {
                                 echo '<li class="theloai">
-                                <input type="radio" name="categories" value="' . $cg['title'] . '" class="locsanpham ' . $cg['title'] . '" ><p>' . $cg["title"] . '('.$cg["SUM"].')</p></input>
+                                <input type="radio" name="categories" value="' . $cg['title'] . '" class="locsanpham ' . $cg['title'] . '" ><p>' . $cg["title"] . '(' . $cg["SUM"] . ')</p></input>
                             </li>';
                             }
                             ?>
@@ -114,7 +114,7 @@
                                 </span>
                             </div>
                         </li>
-                            
+
                     </ul>
                 </div>
 
@@ -138,7 +138,7 @@
                         <div class="product-top">
                             <div class="product-thumb">
 
-                                <a href="http://localhost/detail/product/' . $product["id"] . '/'.$storeCurrent.'">
+                                <a href="http://localhost/detail/product/' . $product["id"] . '/' . $storeCurrent . '">
                                     <img src="' . json_decode($product['image'])[0] . '" alt="ảnh 1" width="200px" height="200px" class="productImg">
                                 </a>
                             </div>
@@ -150,7 +150,7 @@
                                 <input type="number" min="1" max="99" value="1" class="inputQuantity" data-id ="' . $product["id"] . '">
                                 <button class="btn btn-add"> + </button>
                             </div>
-                                <div class="addtocart addToCart" data-id ="' . $product["id"] . '" data-store="'.$storeCurrent.'">
+                                <div class="addtocart addToCart" data-id ="' . $product["id"] . '" data-store="' . $storeCurrent . '">
                                     <p>ADD TO CART</p>
                                     <i id="cart-icon" class="fas fa-shopping-cart"></i>
                 
@@ -165,8 +165,8 @@
                             <div href="" class="product-cat">' . $product["title"] . '</div>
                             <div href="" class="product-name">' . $product["name"] . '</div>
                             <div class="price">
-                            <div class="product-price">'.$product["price"].'</div>
-                            <div class="sale-price" data-price = "'.$product["price"].'">' . $product["sale"] . '</div>
+                            <div class="product-price">' . $product["price"] . '</div>
+                            <div class="sale-price" data-price = "' . $product["price"] . '">' . $product["sale"] . '</div>
                             </div>
                         </div>
                     </li>';
@@ -191,30 +191,29 @@
                 } else {
                     if (isset($_GET['categories']) || isset($_GET['minPrice']) || isset($_GET['maxPrice']) || isset($_GET['title']) || isset($_GET['storename']) || isset($_GET['sort'])) {
                         for ($i = 1; $i <= $pageNumber; $i++) {
-                            if($_GET['page']==$i){
-                                echo  '<a class="pagination active"href="?page=' . $i . '&categories=' . $_GET['categories'] . '&minPrice=' . $_GET['minPrice'] . '&maxPrice=' . $_GET['maxPrice'] . '&title=' . $_GET['title'] .'&store=' . $storeCurrent . '&sort=' . $_GET['sort'] . '">'.$i.'</a>';
-                            }else{
-                                echo '<a class="pagination"href="?page=' . $i . '&categories=' . $_GET['categories'] . '&minPrice=' . $_GET['minPrice'] . '&maxPrice=' . $_GET['maxPrice'] . '&title=' . $_GET['title'] .'&store=' . $storeCurrent . '&sort=' . $_GET['sort'] . '">'.$i.'</a>';
+                            if ($_GET['page'] == $i) {
+                                echo  '<a class="pagination active"href="?page=' . $i . '&categories=' . $_GET['categories'] . '&minPrice=' . $_GET['minPrice'] . '&maxPrice=' . $_GET['maxPrice'] . '&title=' . $_GET['title'] . '&sort=' . $_GET['sort'] . '">' . $i . '</a>';
+                            } else {
+                                echo '<a class="pagination"href="?page=' . $i . '&categories=' . $_GET['categories'] . '&minPrice=' . $_GET['minPrice'] . '&maxPrice=' . $_GET['maxPrice'] . '&title=' . $_GET['title'] .  $_GET['sort'] . '">' . $i . '</a>';
                             }
                             // echo '<a class="pagination"href="?page=' . $i . '&store=' . $_GET['store'] . '&sort=' . $_GET['sort'] . '&categories=' . $_GET['categories'] . '&minPrice=' . $_GET['minPrice'] . '&maxPrice=' . $_GET['maxPrice'] . '&title=' . $_GET['title'] . '">' . $i . '</a>';
-                            
+
                         }
                     } else {
                         for ($i = 1; $i <= $pageNumber; $i++) {
-                            if($_GET['page']==$i){
-                                echo '<a class="pagination active"href="?page=' . $i . '&store=' . $storeCurrent . '">' . $i . '</a>';
-                            }else{
-                                echo '<a class="pagination"href="?page=' . $i . '&store=' . $storeCurrent . '">' . $i . '</a>';
+                            if ($_GET['page'] == $i) {
+                                echo '<a class="pagination active"href="?page=' . $i  . '">' . $i . '</a>';
+                            } else {
+                                echo '<a class="pagination"href="?page=' . $i . '">' . $i . '</a>';
                             }
-                            
                         }
                     }
-                }   
-               
+                }
+
                 ?>
             </div>
 
-            <div id="backtop" onclick="topFunction()">  
+            <div id="backtop" onclick="topFunction()">
                 <i class="ion-arrow-up-c"></i>
             </div>
         </div>

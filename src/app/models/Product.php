@@ -81,70 +81,65 @@ class Product extends Model
 	{
 		$this->product->deletedAt = $deletedAt;
 	}
-	public function getQuantity($store, $category, $priceFrom, $priceTo, $tilte)
+	public function getQuantity($category, $priceFrom, $priceTo, $tilte)
 	{
 		if (strtoupper($category) == strtoupper("All")) {
 			return mysqli_num_rows(self::$db->query("SELECT product.*, category.title 
-		FROM product, category,product_details, store 
+		FROM product, category,product_details
 		where product.category_id = category.id
 		AND product.id = product_details.product_id
-		AND product_details.store_id = store.id
-		AND store.id = $store AND product.deleted_at IS NULL
+		
 		AND Upper (product.name) LIKE Upper('%$tilte%') 
 		AND product.price BETWEEN $priceFrom AND $priceTo"));
 		} else {
 			return mysqli_num_rows(self::$db->query("SELECT * 
-		FROM product, category,product_details, store 
+		FROM product, category,product_details
 		where product.category_id = category.id 
 		AND product.id = product_details.product_id
-		AND product_details.store_id = store.id
-		AND store.id = $store   
 		AND Upper(category.title) = Upper('$category')
 		AND Upper (product.name) LIKE Upper('%$tilte%') 
 		AND product.price BETWEEN $priceFrom AND $priceTo"));
 		}
 	}
-	
-	public function getProductByIdAndStore($productId, $storeId)
+
+	public function getProductByIdAndStore($productId)
 	{
-		$sql = self::$db->query("SELECT product.*, category.title, store.id AS storeId, 
-		store.address,  ROUND(product.price*(1 - product_details.discount/100)) AS productPrice 
-		FROM product, product_details, category, store 
-		WHERE product.category_id = category.id AND product.id = product_details.product_id 
-		AND product_details.store_id = store.id AND product.id = '$productId' 
-		AND store.id = '$storeId'");
+		$sql = self::$db->query("SELECT product.*, category.title, 
+		  ROUND(product.price*(1 - product_details.discount/100)) AS productPrice 
+		FROM product, product_details, category
+		WHERE product.category_id = category.id AND product.id = product_details.product_id AND product.id = '$productId' 
+		");
 		while ($row = mysqli_fetch_array($sql, 1)) {
 			$data = $row;
 		}
 		return $data;
 	}
 
-    public function randomProduct() { //random 8 products
-        $data = [];
-        $sql = self::$db->query("SELECT product.*, category.title, store.id AS storeId, 
-		store.address,  ROUND(product.price*(1 - product_details.discount/100)) AS productPrice 
-		FROM product, product_details, category, store 
+	public function randomProduct()
+	{ //random 8 products
+		$data = [];
+		$sql = self::$db->query("SELECT product.*, category.title, 
+		  ROUND(product.price*(1 - product_details.discount/100)) AS productPrice 
+		FROM product, product_details, category
 		WHERE product.category_id = category.id AND product.id = product_details.product_id 
-		AND product_details.store_id = store.id AND product.deleted_at IS NULL
 		ORDER BY RAND() LIMIT 8");
-        while($row=mysqli_fetch_all($sql,1)){
-            $data=$row;
-        }
-        return $data;
-    }
+		while ($row = mysqli_fetch_all($sql, 1)) {
+			$data = $row;
+		}
+		return $data;
+	}
 
-	public function updateQuantityAfterCheckout($productId, $storeId, $amount) {
+	public function updateQuantityAfterCheckout($productId, $storeId, $amount)
+	{
 		return self::$db->query("UPDATE product_details 
 		SET quantity = product_details.quantity - '$amount' 
         WHERE product_id = '$productId' and store_id = '$storeId'");
 	}
-	
+
 	// public function getListProducts($store){
 	// $query="SELECT product.*, category.title  
-	// 	FROM product, category,product_details, store 
 	// 	where product.category_id = category.id
 	// 	AND product.id = product_details.product_id
-	// 	AND product_details.store_id = store.id
 	// 	AND store.id = $store ";
 	// 	$sql= self::$db->query($query);
 	// 	$data = [];
@@ -168,65 +163,56 @@ class Product extends Model
 		return $data;
 	}
 
-	public function pageNumber($store, $limit, $category, $priceFrom, $priceTo, $tilte)
+	public function pageNumber($limit, $category, $priceFrom, $priceTo, $tilte)
 	{
-		$total = $this->getQuantity($store, $category, $priceFrom, $priceTo, $tilte);
+		$total = $this->getQuantity($category, $priceFrom, $priceTo, $tilte);
 		if ($total <= $limit) return 1;
 		else return $total % $limit == 0 ? $total / $limit : $total / $limit + 1;
 	}
-	public function getDatafilterAdvancedAll($store, $sort, $priceFrom, $priceTo, $tilte, $limit, $page)
+	public function getDatafilterAdvancedAll($sort, $priceFrom, $priceTo, $tilte, $limit, $page)
 	{
 		$index = ($page - 1) * $limit;
-		if(strtoupper($sort)==strtoupper('All')){
-			$query="SELECT product.*, category.title, Round(product.price*(1-product_details.discount/100)) AS sale
-			FROM product, category,product_details, store 
+		if (strtoupper($sort) == strtoupper('All')) {
+			$query = "SELECT product.*, category.title, Round(product.price*(1-product_details.discount/100)) AS sale
+			FROM product, category,product_details
 			where product.category_id = category.id
 			AND product.id = product_details.product_id
-			AND product_details.store_id = store.id
-			AND store.id = $store AND product.deleted_at IS NULL     
+
 			AND Upper (product.name) LIKE Upper('%$tilte%') 
 			AND  product.price*(1-product_details.discount/100) BETWEEN $priceFrom AND $priceTo
 			LIMIT $index, $limit";
-		}else if(strtoupper($sort)==strtoupper('AZ')){
-			$query="SELECT product.*, category.title,  Round(product.price*(1-product_details.discount/100))AS sale 
-			FROM product, category,product_details, store 
+		} else if (strtoupper($sort) == strtoupper('AZ')) {
+			$query = "SELECT product.*, category.title,  Round(product.price*(1-product_details.discount/100))AS sale 
+			FROM product, category,product_details
 			where product.category_id = category.id
 			AND product.id = product_details.product_id
-			AND product_details.store_id = store.id
-			AND store.id = $store AND product.deleted_at IS NULL     
 			AND Upper (product.name) LIKE Upper('%$tilte%') 
 			AND  product.price*(1-product_details.discount/100) BETWEEN $priceFrom AND $priceTo
 			ORDER BY product.name
 			LIMIT $index, $limit";
-		}else if(strtoupper($sort)==strtoupper('ZA')){
-			$query="SELECT product.*, category.title,  Round(product.price*(1-product_details.discount/100)) AS sale 
-			FROM product, category,product_details, store 
+		} else if (strtoupper($sort) == strtoupper('ZA')) {
+			$query = "SELECT product.*, category.title,  Round(product.price*(1-product_details.discount/100)) AS sale 
+			FROM product, category,product_details
 			where product.category_id = category.id
 			AND product.id = product_details.product_id
-			AND product_details.store_id = store.id
-			AND store.id = $store AND product.deleted_at IS NULL     
 			AND Upper (product.name) LIKE Upper('%$tilte%') 
 			AND  product.price*(1-product_details.discount/100) BETWEEN $priceFrom AND $priceTo
 			ORDER BY product.name DESC
 			LIMIT $index, $limit";
-		}else if(strtoupper($sort)==strtoupper('lowtohigh')){
-			$query="SELECT product.*, category.title,  Round(product.price*(1-product_details.discount/100)) AS sale 
-			FROM product, category,product_details, store 
+		} else if (strtoupper($sort) == strtoupper('lowtohigh')) {
+			$query = "SELECT product.*, category.title,  Round(product.price*(1-product_details.discount/100)) AS sale 
+			FROM product, category,product_details
 			where product.category_id = category.id
 			AND product.id = product_details.product_id
-			AND product_details.store_id = store.id
-			AND store.id = $store AND product.deleted_at IS NULL     
 			AND Upper (product.name) LIKE Upper('%$tilte%') 
 			AND  product.price*(1-product_details.discount/100) BETWEEN $priceFrom AND $priceTo
 			ORDER BY sale
 			LIMIT $index, $limit";
-		}else if(strtoupper($sort)==strtoupper('hightolow')){
-			$query="SELECT product.*, category.title ,  Round(product.price*(1-product_details.discount/100)) AS sale
-			FROM product, category,product_details, store 
+		} else if (strtoupper($sort) == strtoupper('hightolow')) {
+			$query = "SELECT product.*, category.title ,  Round(product.price*(1-product_details.discount/100)) AS sale
+			FROM product, category,product_details
 			where product.category_id = category.id
 			AND product.id = product_details.product_id
-			AND product_details.store_id = store.id
-			AND store.id = $store AND product.deleted_at IS NULL     
 			AND Upper (product.name) LIKE Upper('%$tilte%') 
 			AND  product.price*(1-product_details.discount/100) BETWEEN $priceFrom AND $priceTo
 			ORDER BY sale DESC
@@ -234,63 +220,53 @@ class Product extends Model
 		}
 		return $query;
 	}
-	public function getDatafilterAdvancedNotAll($store, $sort, $category, $priceFrom, $priceTo, $tilte, $limit, $page)
+	public function getDatafilterAdvancedNotAll($sort, $category, $priceFrom, $priceTo, $tilte, $limit, $page)
 	{
 		$index = ($page - 1) * $limit;
-		if(strtoupper($sort)==strtoupper('All')){
-			$query="SELECT product.*, category.title,  Round(product.price*(1-product_details.discount/100)) AS sale  
-			FROM product, category,product_details, store 
+		if (strtoupper($sort) == strtoupper('All')) {
+			$query = "SELECT product.*, category.title,  Round(product.price*(1-product_details.discount/100)) AS sale  
+			FROM product, category,product_details 
 			where product.category_id = category.id
 			AND product.id = product_details.product_id
-			AND product_details.store_id = store.id
-			AND store.id = $store AND product.deleted_at IS NULL
 			AND Upper(category.title) = Upper('$category')     
 			AND Upper (product.name) LIKE Upper('%$tilte%') 
 			AND  product.price*(1-product_details.discount/100) BETWEEN $priceFrom AND $priceTo
 			LIMIT $index, $limit";
-		}else if(strtoupper($sort)==strtoupper('AZ')){
-			$query="SELECT product.*, category.title,  Round(product.price*(1-product_details.discount/100)) AS sale 
-			FROM product, category,product_details, store 
+		} else if (strtoupper($sort) == strtoupper('AZ')) {
+			$query = "SELECT product.*, category.title,  Round(product.price*(1-product_details.discount/100)) AS sale 
+			FROM product, category,product_details
 			where product.category_id = category.id
 			AND product.id = product_details.product_id
-			AND product_details.store_id = store.id
-			AND store.id = $store AND product.deleted_at IS NULL
 			AND Upper(category.title) = Upper('$category')     
 			AND Upper (product.name) LIKE Upper('%$tilte%') 
 			AND product.price*(1-product_details.discount/100) BETWEEN $priceFrom AND $priceTo
 			ORDER BY product.name
 			LIMIT $index, $limit";
-		}else if(strtoupper($sort)==strtoupper('ZA')){
-			$query="SELECT product.*, category.title,  Round(product.price*(1-product_details.discount/100)) AS sale 
-			FROM product, category,product_details, store 
+		} else if (strtoupper($sort) == strtoupper('ZA')) {
+			$query = "SELECT product.*, category.title,  Round(product.price*(1-product_details.discount/100)) AS sale 
+			FROM product, category,product_details
 			where product.category_id = category.id
 			AND product.id = product_details.product_id
-			AND product_details.store_id = store.id
-			AND store.id = $store AND product.deleted_at IS NULL
 			AND Upper(category.title) = Upper('$category')     
 			AND Upper (product.name) LIKE Upper('%$tilte%') 
 			AND  product.price*(1-product_details.discount/100) BETWEEN $priceFrom AND $priceTo
 			ORDER BY product.name DESC
 			LIMIT $index, $limit";
-		}else if(strtoupper($sort)==strtoupper('lowtohigh')){
-			$query="SELECT product.*, category.title,  Round(product.price*(1-product_details.discount/100)) AS sale 
-			FROM product, category,product_details, store 
+		} else if (strtoupper($sort) == strtoupper('lowtohigh')) {
+			$query = "SELECT product.*, category.title,  Round(product.price*(1-product_details.discount/100)) AS sale 
+			FROM product, category,product_details
 			where product.category_id = category.id
 			AND product.id = product_details.product_id
-			AND product_details.store_id = store.id
-			AND store.id = $store AND product.deleted_at IS NULL
 			AND Upper(category.title) = Upper('$category')     
 			AND Upper (product.name) LIKE Upper('%$tilte%') 
 			AND  product.price*(1-product_details.discount/100) BETWEEN $priceFrom AND $priceTo
 			ORDER BY sale
 			LIMIT $index, $limit";
-		}else if(strtoupper($sort)==strtoupper('hightolow')){
-			$query="SELECT product.*, category.title,  Round(product.price*(1-product_details.discount/100)) AS sale 
-			FROM product, category,product_details, store 
+		} else if (strtoupper($sort) == strtoupper('hightolow')) {
+			$query = "SELECT product.*, category.title,  Round(product.price*(1-product_details.discount/100)) AS sale 
+			FROM product, category,product_details
 			where product.category_id = category.id
 			AND product.id = product_details.product_id
-			AND product_details.store_id = store.id
-			AND store.id = $store AND product.deleted_at IS NULL
 			AND Upper(category.title) = Upper('$category')     
 			AND Upper (product.name) LIKE Upper('%$tilte%') 
 			AND  product.price*(1-product_details.discount/100) BETWEEN $priceFrom AND $priceTo
@@ -299,12 +275,12 @@ class Product extends Model
 		}
 		return $query;
 	}
-	public function filterAdvanced($store, $sort, $category, $priceFrom, $priceTo, $tilte, $limit, $page)
+	public function filterAdvanced($sort, $category, $priceFrom, $priceTo, $tilte, $limit, $page)
 	{
 		if (strtoupper($category) == strtoupper("All")) {
-			$SQL = $this->getDatafilterAdvancedAll($store, $sort, $priceFrom, $priceTo, $tilte, $limit, $page);
+			$SQL = $this->getDatafilterAdvancedAll($sort, $priceFrom, $priceTo, $tilte, $limit, $page);
 		} else {
-			$SQL = $this->getDatafilterAdvancedNotAll($store, $sort, $category, $priceFrom, $priceTo, $tilte, $limit, $page);
+			$SQL = $this->getDatafilterAdvancedNotAll($sort, $category, $priceFrom, $priceTo, $tilte, $limit, $page);
 		}
 
 		$sql = self::$db->query($SQL);
@@ -335,8 +311,8 @@ class Product extends Model
 		if (!$storeId)
 			$sql = "select * from product";
 		else
-			$sql = "select p.*, pd.discount, pd.quantity from product as p, product_details as pd, store as s
-				where p.id = pd.product_id and pd.store_id = s.id and s.id = $storeId";
+			$sql = "select p.*, pd.discount, pd.quantity from product as p, product_details as pd
+				where p.id = pd.product_id";
 
 		$result = self::$db->query($sql);
 		while ($row = mysqli_fetch_all($result, 1)) $data = $row;
@@ -356,13 +332,13 @@ class Product extends Model
 		return $data;
 	}
 
-	public function getListProductSaleOn50($store_id, $page, $limit)
+	public function getListProductLimit($page, $limit)
 	{
 		$data = [];
 		$index = ($page - 1) * $limit;
-		$sql = self::$db->query("select p.*, pd.discount, ROUND(p.price*(1-pd.discount/100), 0)  as sale from store as s, product_details as pd, product as p
-		where s.id = $store_id and pd.store_id = s.id and 
-		pd.discount > 49 and pd.product_id = p.id and p.deleted_at is null");
+		$sql = self::$db->query("select product.*, pd.discount, ROUND(product.price*(1-pd.discount/100), 0)
+		FROM product, product_details as pd where 
+		pd.discount > 49 and pd.product_id = product.id and product.deleted_at is null");
 		while ($row = mysqli_fetch_all($sql, 1)) $data = $row;
 
 		$totalPage = ceil(count($data) / $limit);
@@ -375,32 +351,36 @@ class Product extends Model
 			"totalPage" => $totalPage
 		);
 	}
-	public function updateProductStore($discount, $quantity, $productId, $storeId){
+	public function updateProductStore($discount, $quantity, $productId, $storeId)
+	{
 		$sql = "UPDATE product_details SET discount=$discount, quantity=$quantity WHERE product_id=$productId AND store_id=$storeId";
 		$result = self::$db->query($sql);
 		return $result;
 	}
-	public function removeProductStore($storeId, $productId){
+	public function removeProductStore($storeId, $productId)
+	{
 		$sql = "DELETE FROM product_details WHERE product_id=$productId AND store_id=$storeId";
 		$result = self::$db->query($sql);
 		return $result;
 	}
-	public static function resolve(array $data) {
-    $product = self::__self__();
-    if(count($data) !=0 ){
-      array_key_exists("id",$data) == true ? $product->id = $data["id"] : null;
-      array_key_exists("name",$data) == true ? $product->name = $data["name"] : null;
-      array_key_exists("price",$data) == true ? $product->price = $data["price"] : null;
-      array_key_exists("description",$data) == true ? $product->description = $data["description"] : null;
-      array_key_exists("image",$data) == true ? $product->image = json_decode($data["image"]) : null;
-      array_key_exists("category_id",$data) == true ? $product->category_id = $data["category_id"] : null;
-      return $product;
-    }else {
-      return null;
-    }
+	public static function resolve(array $data)
+	{
+		$product = self::__self__();
+		if (count($data) != 0) {
+			array_key_exists("id", $data) == true ? $product->id = $data["id"] : null;
+			array_key_exists("name", $data) == true ? $product->name = $data["name"] : null;
+			array_key_exists("price", $data) == true ? $product->price = $data["price"] : null;
+			array_key_exists("description", $data) == true ? $product->description = $data["description"] : null;
+			array_key_exists("image", $data) == true ? $product->image = json_decode($data["image"]) : null;
+			array_key_exists("category_id", $data) == true ? $product->category_id = $data["category_id"] : null;
+			return $product;
+		} else {
+			return null;
+		}
 	}
 
-	public static function AddProductDetails($store, $product, $discount, $quantity) {
+	public static function AddProductDetails($store, $product, $discount, $quantity)
+	{
 		$sql = "insert into product_details values ($store, $product,  $quantity, $discount)";
 		self::$db->query($sql);
 	}

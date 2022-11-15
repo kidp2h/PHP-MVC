@@ -22,9 +22,8 @@ class ProductController extends Controller
   public static function getProductOn50()
   {
     $body = Application::Instance()->request->body();
-    if (!isset($body['store'])) $body['store'] = 1;
     if (!isset($body['page'])) $body['page'] = 1;
-    $rep = Product::__self__()->getListProductSaleOn50($body['store'], $body['page'], 8);
+    $rep = Product::__self__()->getListProductLimit($body['page'], 8);
 
 
     echo json_encode($rep);
@@ -33,9 +32,8 @@ class ProductController extends Controller
   public static function addProductDetails()
   {
     $body = Application::Instance()->request->body();
-    Product::__self__()->AddProductDetails($body['store'], $body['product'], $body['discount'],$body['quantity']);
-    
-    echo json_encode(["status" => true]);
+    Product::__self__()->AddProductDetails($body['store'], $body['product'], $body['discount'], $body['quantity']);
 
+    echo json_encode(["status" => true]);
   }
 }
