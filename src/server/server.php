@@ -6,7 +6,7 @@ use core\Application;
 
 try {
   require_once __DIR__ . '/../vendor/autoload.php';
-
+  define("DIRSRC", dirname(__DIR__));
   Application::Instance();
 
   $uri = urldecode(parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH));
