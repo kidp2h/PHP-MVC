@@ -15,6 +15,7 @@ class AuthController extends Controller
   public static string $layout = "auth";
   public static array $params = [];
   public static array $paramsLayout = [];
+  public static ?User $userModel = NULL;
   public static function signin()
   {
     return parent::render('signin', [], ["title" => "Sign In"]);
@@ -25,12 +26,20 @@ class AuthController extends Controller
   }
   public static function handleSignIn(Request $request, Response $response)
   {
+
+    if (!self::$userModel) {
+      self::$userModel = User::__self__();
+    }
     $body = $request->body();
-    $result = User::__self__()->checkUser($body["username"], $body["password"]);
+    $result = self::$userModel->checkUser($body["username"], $body["password"]);
     if ($result->status) {
-      User::applyRefreshToken($result->user->id);
-      $data = User::newAccessToken($result->user->id);
-      Application::setCookie("accessToken", $data["accessToken"], time() + 3600);
+      try {
+        User::applyRefreshToken($result->user->id);
+        $data = User::newAccessToken($result->user->id);
+        Application::setCookie("accessToken", $data["accessToken"], time() + 3600);
+      } catch (\Throwable $th) {
+      }
+
 
       $response->statusCode(200);
       return json_encode(["status" => true, "redirect" => "/"]);
@@ -41,26 +50,6 @@ class AuthController extends Controller
     return parent::render("signup", [], ["title" => "Sign Up"]);
   }
 
-  public static function handleOAuth(Request $request, Response $response)
-  {
-    $body = $request->body();
-    $user = User::__self__()->getUserByUsername($body["username"]);
-    if (!isset($user->id)) {
-      $user = User::__self__()->create([
-        "username" => $body["username"],
-        "password" => Utils::hashBcrypt(rand(1000000000, 9999999999)),
-        "email" => $body["email"],
-        "tokenVerif" => Utils::v4(),
-        "fullName" => $body["fullName"],
-        "isVerified" => 1,
-        'type' => $body["type"]
-      ]);
-      if ($user->status == false) return json_encode(["status" => false, "message" => "Email your account have duplicated by another account, please try again !"]);
-    }
-    User::applyRefreshToken($user->id);
-    self::newAccessToken($user->id);
-    return json_encode(["status" => true, "redirect" => "/"]);
-  }
 
   public static function handleSignUp(Request $request, Response $response)
   {

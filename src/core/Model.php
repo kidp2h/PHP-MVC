@@ -5,22 +5,27 @@ namespace core;
 use database\Database;
 use ReflectionProperty;
 
-class Model {
+class Model
+{
   public static $db;
-  public function __construct() {
+  public function __construct()
+  {
     self::$db = Database::Instance()->getDatabase();
   }
-  private function tableName() {
+  private function tableName()
+  {
     return strtolower(str_replace("app\models\\", "", static::class));
   }
 
-  private function getTypeProp(string $key){
+  private function getTypeProp(string $key)
+  {
     $property = new ReflectionProperty(static::class, $key);
     $type = $property->getType()?->getName();
     return $type;
   }
 
-  public function create(array $data) {
+  public function create(array $data)
+  {
     $fields = "";
     $values = "";
     foreach ($data as $key => $value) {
@@ -33,46 +38,51 @@ class Model {
     $sql = "INSERT INTO {$table} ({$fields}) VALUES ({$values})";
     try {
       $result = self::$db->query($sql);
-      if($result) return (object)["status" => true, "id" => self::$db->insert_id]; 
+      if ($result) return (object)["status" => true, "id" => self::$db->insert_id];
     } catch (\Exception $e) {
       return (object)["message" => $e->getMessage(), "status" => false];
     }
   }
-  public function findOne(array $fieldSelect, string $where) : static | null {
+  public function findOne(array $fieldSelect, string $where)
+  {
     try {
       $fieldSelect = implode(",", $fieldSelect);
       $table = $this->tableName();
       $sql = "SELECT {$fieldSelect} FROM {$table} WHERE $where";
       $result = self::$db->query($sql);
+
       $data = $result->fetch_assoc();
       if (!empty($data)) return call_user_func([static::class, "resolve"], $data);
       return $data;
     } catch (\Throwable $th) {
       var_dump($th);
-    } 
+    }
   }
-  public function find(array $fieldSelect, string $where){
+  public function find(array $fieldSelect, string $where)
+  {
     try {
       $fieldSelect = implode(",", $fieldSelect);
       $table = $this->tableName();
       $sql = "SELECT {$fieldSelect} FROM {$table} WHERE $where";
+
       $result = self::$db->query($sql);
       $data = [];
-      while($row = $result->fetch_assoc()){
+      while ($row = $result->fetch_assoc()) {
         $dataObject = call_user_func([static::class, "resolve"], $row);
         array_push($data, $dataObject);
       }
       return $data;
     } catch (\Throwable $th) {
       var_dump($th);
-    } 
+    }
   }
-  public function update(array $set, string $where) {
+  public function update(array $set, string $where)
+  {
     $setQuery = "";
     foreach ($set as $key => $value) {
-      if($this->getTypeProp($key) == "int") 
+      if ($this->getTypeProp($key) == "int")
         $setQuery .= $key . "=" . $value . ", ";
-      else 
+      else
         $setQuery .= $key . "='" . $value . "', ";
     }
     $setQuery = rtrim($setQuery, ", ");
@@ -84,7 +94,8 @@ class Model {
       return (object)["message" => $e->getMessage(), "status" => false];
     }
   }
-  public function delete(string $where) {
+  public function delete(string $where)
+  {
     $table = $this->tableName();
     $sql = "DELETE FROM {$table} WHERE {$where}";
     try {
