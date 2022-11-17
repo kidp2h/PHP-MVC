@@ -77,7 +77,7 @@ class Category extends Model
         $sql = self::$db->query("SELECT product.category_id, category.title AS title, COUNT(product.category_id) AS SUM
         FROM category, product, product_details
         WHERE product.category_id = category.id AND product.id = product_details.product_id
-
+        AND product.deleted_at IS NULL
         GROUP BY product.category_id, category.title");
         while ($row = mysqli_fetch_all($sql, 1)) {
             $data = $row;
@@ -88,7 +88,8 @@ class Category extends Model
     {
         return mysqli_num_rows(self::$db->query("SELECT product.id 
 		FROM product, product_details
-		WHERE product.id=product_details.product_id"));
+		WHERE product.id=product_details.product_id AND product.deleted_at IS NULL
+        AND product.category_id IS NOT NULL"));
     }
 
     public function getCategoryById($id)
