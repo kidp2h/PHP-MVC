@@ -1,6 +1,7 @@
 version: '3.7'
 services:
   php:
+    restart: always
     container_name: php
     build:
       context: .
@@ -9,6 +10,17 @@ services:
       - 80:80
     volumes:
       - ./src:/var/www/html
+    environment:
+      - BASE_URL=http://localhost
+      - PASSWORD_MYSQL=root
+      - HOST_MYSQL=db
+      - USERNAME_MYSQL=root
+      - SALT=10
+      - HOSTNAME_DB=db
+      - USERNAME_DB=root
+      - PASSWORD_DB=root
+      - DATABASE=shop
+      - SECRET_KEY=0Cw378UK2FwdD02YJM7r1Sakn3zmLtru
     networks:
       php_network:
         ipv4_address: 172.26.22.100
