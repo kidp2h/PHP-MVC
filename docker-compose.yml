@@ -11,16 +11,16 @@ services:
     volumes:
       - ./src:/var/www/html
     environment:
-      - BASE_URL=http://localhost
-      - PASSWORD_MYSQL=root
-      - HOST_MYSQL=db
-      - USERNAME_MYSQL=root
-      - SALT=10
-      - HOSTNAME_DB=db
-      - USERNAME_DB=root
-      - PASSWORD_DB=root
-      - DATABASE=shop
-      - SECRET_KEY=0Cw378UK2FwdD02YJM7r1Sakn3zmLtru
+      BASE_URL: ${BASE_URL}
+      PASSWORD_MYSQL: ${BASE_URL}
+      HOST_MYSQL: ${HOST_MYSQL}
+      USERNAME_MYSQL: ${USERNAME_MYSQL}
+      SALT: ${SALT}
+      HOSTNAME_DB: ${HOSTNAME_DB}
+      USERNAME_DB: ${USERNAME_DB}
+      PASSWORD_DB: ${PASSWORD_DB}
+      DATABASE: ${DATABASE}
+      SECRET_KEY: ${SECRET_KEY}
     networks:
       php_network:
         ipv4_address: 172.26.22.100
