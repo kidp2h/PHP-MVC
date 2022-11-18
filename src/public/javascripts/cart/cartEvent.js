@@ -1,5 +1,4 @@
-
-if($('#cartPage')) {
+if ($('#cartPage')) {
   $('.modal').style.display = 'none';
 } else $('.modal').style.display = 'block';
 
@@ -42,7 +41,7 @@ function modalCartEmpty() {
 
 function productItemCartModal(product) {
   // if(product.image) {
-    // product.image = JSON.parse(product.image[1]);
+  // product.image = JSON.parse(product.image[1]);
   // }
   return `
         <li class="modal__cart-product-item cartProduct" data-id = "${product.id}" data-store = "${product.storeId}">
@@ -92,10 +91,12 @@ function updatePriceToCart(product = null, amount = 0) {
 
 function productTotalPrice() {
   let sumPrice = 0;
-  let productPriceList = $('#cartPage') ? 
-  $$('#cartPage .cartProductPrice') : $$('.cartProductPrice');
-  let productQuantityList = $('#cartPage') ? 
-  $$('#cartPage .cart_item-input') : $$('.cart_item-input');
+  let productPriceList = $('#cartPage')
+    ? $$('#cartPage .cartProductPrice')
+    : $$('.cartProductPrice');
+  let productQuantityList = $('#cartPage')
+    ? $$('#cartPage .cart_item-input')
+    : $$('.cart_item-input');
   let productQuantity, productPrice;
 
   productPriceList.forEach((item, index) => {
@@ -183,13 +184,19 @@ const eventCart = {
       productId = e.target.dataset.id;
       product = getParent(e.target, '.cartProduct');
       product.remove();
-      $('#cart-icon').dataset.amount = parseInt($('#cart-icon').dataset.amount) - 1;
+      $('#cart-icon').dataset.amount =
+        parseInt($('#cart-icon').dataset.amount) - 1;
 
-      if($('.modal__cart-product-box') && $('.modal__cart-product-box').children.length <= 0) {
+      if (
+        $('.modal__cart-product-box') &&
+        $('.modal__cart-product-box').children.length <= 0
+      ) {
         $('.modal__cart-product-box').innerHTML = modalCartEmpty();
         $('.modal__cart-footer').style.display = 'none';
-      } 
-      else if($('.cartList__box') && $('.product-box').children.length <= 0) {
+      } else if (
+        $('.cartList__box') &&
+        $('.product-box').children.length <= 0
+      ) {
         $('.cartPage__product-header').style.display = 'none';
         $('.product-box').innerHTML = cartPageEmpty();
         $('.cartPage-footer').style.display = 'none';
@@ -263,7 +270,7 @@ function AddToCart() {
       let productId = item.dataset.id;
       let amount = inputQuantity[index].value;
       let storeId = item.dataset.store;
-      
+
       let response = await HttpRequest({
         url: '/cart',
         method: 'POST',
@@ -274,33 +281,38 @@ function AddToCart() {
         response.product.quantity = amount;
         let newProduct = response.product;
         newProduct.image = JSON.parse(newProduct.image);
-  
+
         var isExist = false;
         [...cartItem].forEach((item, index) => {
-          if ((productId == item.dataset.id) && (storeId == item.dataset.store)) {
-                let itemQuantity = item.querySelector('.cart_item-input');
-                isExist = true;
-                itemQuantity.value = parseInt(itemQuantity.value) + parseInt(newProduct.quantity);
-                updatePriceToCart();
-              }
-        })
+          if (productId == item.dataset.id) {
+            let itemQuantity = item.querySelector('.cart_item-input');
+            isExist = true;
+            itemQuantity.value =
+              parseInt(itemQuantity.value) + parseInt(newProduct.quantity);
+            updatePriceToCart();
+          }
+        });
 
         if (!isExist) {
-          $('.modal__cart-product-box').
-          insertAdjacentHTML("beforeend",productItemCartModal(newProduct));
-          $('#cart-icon').dataset.amount = parseInt($('#cart-icon').dataset.amount) + 1;
+          $('.modal__cart-product-box').insertAdjacentHTML(
+            'beforeend',
+            productItemCartModal(newProduct)
+          );
+          $('#cart-icon').dataset.amount =
+            parseInt($('#cart-icon').dataset.amount) + 1;
         }
 
-        if($('.modal__cart-footer').style.display == 'none') {
-          $('.modal__cart-product-box').innerHTML = productItemCartModal(newProduct);
+        if ($('.modal__cart-footer').style.display == 'none') {
+          $('.modal__cart-product-box').innerHTML =
+            productItemCartModal(newProduct);
           $('.modal__cart-footer').style.display = 'block';
-        } 
+        }
         updatePriceToCart();
         // showToast('success', 'Thêm sản phẩm thành công')
-        renderToastAddToCart.start()
-      } else if(response.status == false) {
+        renderToastAddToCart.start();
+      } else if (response.status == false) {
         // showToast('error', 'Xin quý khách vui lòng đăng nhập');
-        window.location.href = '/signin'
+        window.location.href = '/signin';
       }
     };
   }
