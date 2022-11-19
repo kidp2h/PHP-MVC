@@ -53,9 +53,12 @@ class AuthController extends Controller
 
   public static function handleSignUp(Request $request, Response $response)
   {
+    if (!self::$userModel) {
+      self::$userModel = User::__self__();
+    }
     $body = $request->body();
     $token = Utils::v4();
-    $result = User::__self__()->create([
+    $result = self::$userModel->create([
       "username" => $body["username"],
       "password" => Utils::hashBcrypt($body["password"]),
       "email" => $body["email"],
