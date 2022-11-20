@@ -17,6 +17,7 @@ class AdminController extends Controller
   public static string $layout = 'admin';
   public static array $params = [];
   public static array $paramsLayout = [];
+  public static ?Product $productModel = NULL;
 
   public static function useHook()
   {
@@ -28,10 +29,6 @@ class AdminController extends Controller
     self::$params = self::$paramsLayout;
     self::$params = [...self::$params, ...$params];
   }
-
-
-
-
 
   public static function admin()
   {
@@ -151,11 +148,18 @@ class AdminController extends Controller
   }
   public static function removeProduct(Request $request, Response $response)
   {
+    if (!self::$productModel)
+      self::$productModel = Product::__self__();
+
     $id = ($request->body())["id"];
     $now = new DateTime();
     $now = $now->format('Y-m-d H:i:s');
-    Product::__self__()->update(["deleted_at" => $now], "id=$id");
-    return json_encode(["status" => true, "message" => "Delete product success"]);
+    $result = self::$productModel->update(["deleted_at" => $now], "id=$id");
+
+    if (isset($result->status) && $result->status === false)
+      return json_encode(["status" => false, "message" => "Wrong id"]);
+    else
+      return json_encode(["status" => true, "message" => "Delete product success"]);
   }
   public static function saveProduct(Request $request, Response $response)
   {
