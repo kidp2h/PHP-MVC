@@ -55,13 +55,11 @@ $('#btn-signup')
             confirmPassword,
           },
         });
-        if (response.status && response.redirect && response.message) {
+        if (response.status && response.redirect) {
           showToast('success', response.message);
           setTimeout(() => {
             window.location.href = response.redirect;
           }, 3000);
-        } else if (response.message && response.status) {
-          showToast('success', response.message);
         } else {
           showToast('error', response.message);
         }
