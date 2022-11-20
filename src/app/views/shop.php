@@ -26,7 +26,7 @@
 
                 <div id="filter" class="hide" style="z-index:1100">
                     <i class="fas fa-times" id="close"></i>
-                    <form action="" method="GEST">
+                    <form action="" method="GEST" id="formfilter">
                         <ul class="loc1">
                             <h3>Product Categories</h3>
 

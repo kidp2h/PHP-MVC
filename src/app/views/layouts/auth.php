@@ -19,7 +19,7 @@
 
 <body>
   <!-- <div id="fb-root"></div> -->
-  <div class="blobs">
+  <!-- <div class="blobs">
     <svg viewBox="0 0 800 500" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" id="blobSvg">
 
       <g transform="translate(500, -200)">
@@ -104,7 +104,7 @@
         <image x="0" y="0" width="100%" height="100%" clip-path="url(#shape)" xlink:href="https://products.ls.graphics/mesh-gradients/images/29.-Pale-Cornflower-Blue_1.jpg" preserveAspectRatio="none"></image>
       </g>
     </svg>
-  </div>
+  </div> -->
 
   <div class="container">
     {{content}}
