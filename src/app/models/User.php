@@ -86,7 +86,7 @@ class User extends Model
   public function checkUser(string $username, string $password)
   {
     $user = $this->findOne(["*"], "username='$username'");
-    if(!$user) return false;
+    // if(!$user) return false;
     return (object)["status" => Utils::verifyBcrypt($user->password, $password), "user" => $user];
   }
 

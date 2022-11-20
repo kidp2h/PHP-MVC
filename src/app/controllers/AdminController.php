@@ -18,6 +18,7 @@ class AdminController extends Controller
   public static array $params = [];
   public static array $paramsLayout = [];
   public static ?Product $productModel = NULL;
+  public static ?Category $categoryModel = NULL;
 
   public static function useHook()
   {
@@ -181,7 +182,7 @@ class AdminController extends Controller
     $result = Product::__self__()->create(["name" => $nameProduct, 'category_id' => $categoryProduct, "price" => $priceProduct, "image" => $image]);
     if ($result->status)
       return json_encode(["status" => true, "message" => "Create product success !!", "payload" => $result->id]);
-    return json_encode(["status" => false, "message" => "Name product is exist !!"]);
+    return json_encode(["status" => false, "message" => "Name product is exist or category not exist !!"]);
   }
   public static function saveProductStore(Request $request, Response $response)
   {
@@ -204,11 +205,18 @@ class AdminController extends Controller
 
   public static function removeCategory(Request $request, Response $response)
   {
+    if (!self::$categoryModel)
+      self::$categoryModel = Category::__self__();
     $id = ($request->body())["id"];
     $now = new DateTime();
     $now = $now->format('Y-m-d H:i:s');
-    Category::__self__()->update(["deleted_at" => $now], "id=$id");
-    return json_encode(["status" => true, "message" => "Delete category success"]);
+    $result = self::$categoryModel->update(["deleted_at" => $now], "id=$id");
+
+
+    if (isset($result->status) && $result->status === false)
+      return json_encode(["status" => false, "message" => "Wrong id"]);
+    else
+      return json_encode(["status" => true, "message" => "Delete category success"]);
   }
   public static function saveCategory(Request $request, Response $response)
   {
