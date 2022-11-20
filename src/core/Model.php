@@ -76,7 +76,7 @@ class Model
       var_dump($th);
     }
   }
-  public function update(array $set, string $where)
+  public function update(array $set, string $where): bool|object
   {
     $setQuery = "";
     foreach ($set as $key => $value) {
@@ -91,7 +91,7 @@ class Model
     try {
       return self::$db->query($sql);
     } catch (\Exception $e) {
-      return (object)["message" => $e->getMessage(), "status" => false];
+      return (object)["message" => "Failed", "status" => false];
     }
   }
   public function delete(string $where)

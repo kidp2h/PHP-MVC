@@ -16,7 +16,7 @@ class Product extends Model
 	public $category_id;
 	public string $created_at;
 	public string $updated_at;
-	public string $deleted_at;
+	public ?string $deleted_at = NULL;
 	public function __construct()
 	{
 	}
@@ -373,6 +373,7 @@ class Product extends Model
 			array_key_exists("description", $data) == true ? $product->description = $data["description"] : null;
 			array_key_exists("image", $data) == true ? $product->image = json_decode($data["image"]) : null;
 			array_key_exists("category_id", $data) == true ? $product->category_id = $data["category_id"] : null;
+			array_key_exists("deleted_at", $data) == true ? $product->deleted_at = $data["deleted_at"] : null;
 			return $product;
 		} else {
 			return null;
