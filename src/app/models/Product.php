@@ -323,7 +323,7 @@ class Product extends Model
 	public function getEntireProduct()
 	{
 		$data = [];
-		$sql = "select product.*, category.title as 'category_id' from product inner join category where category.id = product.category_id;";
+		$sql = "select product.*, category.title from product, category where category.deleted_at is NULL and product.deleted_at is NULL and category.id = product.category_id;";
 
 		$result = self::$db->query($sql);
 		while ($row = mysqli_fetch_assoc($result)) {
@@ -380,9 +380,9 @@ class Product extends Model
 		}
 	}
 
-	public static function AddProductDetails($store, $product, $discount, $quantity)
+	public static function AddProductDetails($product, $discount, $quantity)
 	{
-		$sql = "insert into product_details values ($store, $product,  $quantity, $discount)";
+		$sql = "insert into product_details values ( $product,  $quantity, $discount)";
 		self::$db->query($sql);
 	}
 }

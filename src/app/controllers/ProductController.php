@@ -32,7 +32,7 @@ class ProductController extends Controller
   public static function addProductDetails()
   {
     $body = Application::Instance()->request->body();
-    Product::__self__()->AddProductDetails($body['store'], $body['product'], $body['discount'], $body['quantity']);
+    Product::__self__()->AddProductDetails( $body['product'], $body['discount'], $body['quantity']);
 
     echo json_encode(["status" => true]);
   }

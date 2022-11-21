@@ -1,7 +1,5 @@
 {
-  "require": {
-   
-  },
+  "require": {},
   "autoload": {
     "psr-4": {
       "app\\": "./app/",
@@ -13,6 +11,8 @@
   },
   "scripts": {
     "start-docker": "docker compose up -d --build && docker exec php composer install",
+    "test-docker": "docker exec php vendor/bin/phpunit tests --testdox --colors=always",
+    "test": "vendor/bin/phpunit tests --testdox --colors=always",
     "stop": "docker compose down"
   },
   "require-dev": {

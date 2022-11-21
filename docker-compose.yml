@@ -10,7 +10,6 @@ services:
       - 80:80
     volumes:
       - ./src:/var/www/html
-      
     environment:
       BASE_URL: ${BASE_URL}
       PASSWORD_MYSQL: ${BASE_URL}

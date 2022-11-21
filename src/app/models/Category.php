@@ -114,7 +114,7 @@ class Category extends Model
     public function getCategoryList()
     {
         $data = [];
-        $sql = self::$db->query("select * from category");
+        $sql = self::$db->query("select * from category where deleted_at is NULL");
         while ($row = mysqli_fetch_all($sql, 1)) {
             $data = $row;
         }
