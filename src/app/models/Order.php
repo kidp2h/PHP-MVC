@@ -49,9 +49,9 @@ class Order extends Model
     public function getAllUserOrder($id)
     {
         $data = [];
-        $sql = self::$db->query("SELECT orders.*, store.address 
-        FROM orders, store, user 
-        WHERE orders.store_id = store.id AND orders.user_id = user.id 
+        $sql = self::$db->query("SELECT orders.*
+        FROM orders, user
+        WHERE  orders.user_id = user.id
         AND user.id = '$id'");
         while ($row = mysqli_fetch_all($sql, 1)) {
             $data = $row;
@@ -78,10 +78,10 @@ class Order extends Model
         $data = [];
         $sql = self::$db->query("SELECT product.*, order_details.price  
         AS productPrice, order_details.quantity, order_details.order_id, 
-        order_details.total, store.id AS storeId, store.address
-        FROM product, order_details, orders, store, user
+        order_details.total
+        FROM product, order_details, orders, user
         WHERE product.id = order_details.product_id 
-        AND order_details.order_id = orders.id AND orders.store_id = store.id 
+        AND order_details.order_id = orders.id
         AND orders.user_id = user.id AND user.id = '$id'");
 
         while ($row = mysqli_fetch_all($sql, 1)) {

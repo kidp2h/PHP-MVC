@@ -24,13 +24,6 @@ class AuthTest extends BaseTest
   public function testSignIn(string $username, string $password, bool $status, string $expected): void
   {
     // Mocking
-    // $this->requestMock->expects($this->any())
-    //   ->method('method')
-    //   ->will($this->returnValue("POST"));
-
-    // $this->requestMock->expects($this->any())
-    //   ->method('body')
-    //   ->will($this->returnValue(["username" => $username, "password" => $password]));
     $this->methodRequest("POST");
 
     $this->bodyRequest(["username" => $username, "password" => $password]);
@@ -40,16 +33,13 @@ class AuthTest extends BaseTest
     ]]);
     $this->userMock->expects($this->any())->method("update")->willReturn(true);
 
-    // Inject Dependencies
-    $controller = new ReflectionClass(AuthController::class);
-    $controller->getProperty("userModel")->setValue($this->userMock);
-    $controller->getProperty("userModel")->getValue()->setPassword($password);
-    $controller->getMethod("handleSignIn")->invoke(new AuthController(), $this->requestMock, $this->responseMock);
+    $this->injectMockModel(AuthController::class,"userModel",$this->userMock, fn() =>  $this->controller->getProperty("userModel")->getValue()->setPassword($password));
+    $result = $this->invokeMethod("handleSignIn",new AuthController);
 
     //Assertion
     $this->assertEquals(
       $expected,
-      $controller->getMethod("handleSignIn")->invoke(new AuthController(), $this->requestMock, $this->responseMock)
+      $result
     );
   }
 
@@ -75,9 +65,6 @@ class AuthTest extends BaseTest
 
     $this->methodRequest("POST");
 
-    // $this->requestMock->expects($this->any())
-    //   ->method('body')
-    //   ->will($this->returnValue(["username" => $username, "password" => $password, "email" => $email, "fullName" => "any"]));
     $this->bodyRequest(["username" => $username, "password" => $password, "email" => $email, "fullName" => "any"]);
 
     $this->userMock->expects($this->any())->method("create")->willReturn((object)["status" => $status, "id" => 1]);

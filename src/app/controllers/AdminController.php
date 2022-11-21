@@ -19,6 +19,7 @@ class AdminController extends Controller
   public static array $paramsLayout = [];
   public static ?Product $productModel = NULL;
   public static ?Category $categoryModel = NULL;
+  public static ?User $userModel = NULL;
 
   public static function useHook()
   {
@@ -174,12 +175,14 @@ class AdminController extends Controller
   }
   public static function createProduct(Request $request, Response $response)
   {
+    if (!self::$productModel)
+      self::$productModel = Product::__self__();
     $body = ($request->body());
     $nameProduct = $body["nameProduct"];
     $categoryProduct = $body["categoryProduct"];
     $priceProduct = $body["priceProduct"];
     $image = '[\"/public/images/products/product.jpg\"]';
-    $result = Product::__self__()->create(["name" => $nameProduct, 'category_id' => $categoryProduct, "price" => $priceProduct, "image" => $image]);
+    $result = self::$productModel->create(["name" => $nameProduct, 'category_id' => $categoryProduct, "price" => $priceProduct, "image" => $image]);
     if ($result->status)
       return json_encode(["status" => true, "message" => "Create product success !!", "payload" => $result->id]);
     return json_encode(["status" => false, "message" => "Name product is exist or category not exist !!"]);
@@ -228,10 +231,12 @@ class AdminController extends Controller
   }
   public static function createCategory(Request $request, Response $response)
   {
+    if (!self::$categoryModel)
+      self::$categoryModel = Category::__self__();
     $body = ($request->body());
     $nameCategory = $body["nameCategory"];
     $image = "/public/images/products/product.jpg";
-    $result = Category::__self__()->create(["title" => $nameCategory, 'image' => $image]);
+    $result = self::$categoryModel->create(["title" => $nameCategory, 'image' => $image]);
     if ($result->status)
       return json_encode(["status" => true, "message" => "Create category success !!", "payload" => $result->id]);
     return json_encode(["status" => false, "message" => "Name category is exist !!"]);
@@ -254,17 +259,19 @@ class AdminController extends Controller
   }
   public static function createUser(Request $request, Response $response)
   {
+    if (!self::$userModel)
+      self::$userModel = User::__self__();
     $body = ($request->body());
     $fullName = $body["fullName"];
-    $username = $body["fullName"];
+    $username = $body["username"];
     $password = Utils::hashBcrypt("admin");
     $email = $body["email"];
     $address = $body["address"];
     $phoneNumber = $body["phoneNumber"];
     $permission = $body["permission"];
-    $result = User::__self__()->create(["username" => $username, 'password' => $password, "email" => $email, "fullName" => $fullName, "phoneNumber" => $phoneNumber, "address" => $address, "isVerified" => 1, "isActivePhone" => 1, "type" => "local", "tokenVerify" => Utils::v4(), "permission" => $permission]);
+    $result = self::$userModel->create(["username" => $username, 'password' => $password, "email" => $email, "fullName" => $fullName, "phoneNumber" => $phoneNumber, "address" => $address, "isVerified" => 1, "isActivePhone" => 1, "type" => "local", "tokenVerify" => Utils::v4(), "permission" => $permission]);
     if ($result->status)
       return json_encode(["status" => true, "message" => "Create user success !!", "payload" => $result->id]);
-    return json_encode(["status" => false, "message" => "User is exist !!"]);
+    return json_encode(["status" => false, "message" => "Username or email is exist !!"]);
   }
 }

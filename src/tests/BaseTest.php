@@ -2,15 +2,18 @@
 
 namespace tests;
 
+use core\Controller;
 use core\Request;
 use core\Response;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use ReflectionClass;
 
 abstract class BaseTest extends TestCase implements ITestCase
 {
   protected MockObject $requestMock;
   protected MockObject $responseMock;
+  protected ReflectionClass $controller;
   protected function setUp(): void
   {
     /** @var Request&MockObject $requestMock */
@@ -34,6 +37,15 @@ abstract class BaseTest extends TestCase implements ITestCase
       ->will($this->returnValue($value));
   }
 
+  protected function injectMockModel($controller, $nameVariable, MockObject $mock, callable $action = NULL){
+    $this->controller = new ReflectionClass($controller);
+    $this->controller->getProperty($nameVariable)->setValue($mock);
+    if($action) $action();
+    return ["controller" => $this->controller, "class" => $controller ];
+  }
+  protected function invokeMethod($method, $class) {
+    return $this->controller->getMethod($method)->invoke($class, $this->requestMock, $this->responseMock);
+  }
   protected function tearDown(): void
   {
     parent::tearDown();

@@ -31,5 +31,7 @@ class AdminMiddleware
     $result = User::decodeAccessToken($_COOKIE['accessToken']);
     if ($result["status"] && $result["user"]->permission == 0)
       return true;
+    else
+      return fn () => $response->redirect("/");
   }
 }
