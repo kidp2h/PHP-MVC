@@ -19,12 +19,10 @@ class AuthController extends Controller {
     return parent::render('signin', [], ["title" => "Sign In"]);
   }
   public static function useHook() {
+    self::$userModel = User::__self__();
     self::$params = ['SITE_KEY' => $_ENV["GC_SITE_KEY"], 'SECRET_KEY' => $_ENV["GC_SECRET_KEY"]];
   }
   public static function handleSignIn(Request $request, Response $response) {
-    if (!self::$userModel) {
-      self::$userModel = User::__self__();
-    }
     $body = $request->body();
     $result = self::$userModel->checkUser($body["username"], $body["password"]);
     if ($result->status) {
@@ -45,9 +43,6 @@ class AuthController extends Controller {
 
 
   public static function handleSignUp(Request $request, Response $response) {
-    if (!self::$userModel) {
-      self::$userModel = User::__self__();
-    }
     $body = $request->body();
     $token = Utils::v4();
     $result = self::$userModel->create([
