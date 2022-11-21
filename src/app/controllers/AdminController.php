@@ -12,8 +12,7 @@ use core\Response;
 use DateTime;
 use utils\Utils;
 
-class AdminController extends Controller
-{
+class AdminController extends Controller {
   public static string $layout = 'admin';
   public static array $params = [];
   public static array $paramsLayout = [];
@@ -21,8 +20,7 @@ class AdminController extends Controller
   public static ?Category $categoryModel = NULL;
   public static ?User $userModel = NULL;
 
-  public static function useHook()
-  {
+  public static function useHook() {
     $users = User::__self__()->find(["*"], "1");
     $categories = Category::__self__()->find(["*"], "1");
     $products = Product::__self__()->getEntireProduct();
@@ -32,13 +30,11 @@ class AdminController extends Controller
     self::$params = [...self::$params, ...$params];
   }
 
-  public static function admin()
-  {
+  public static function admin() {
     return parent::render('admin',);
   }
 
-  public static function product()
-  {
+  public static function product() {
 
     $products = Product::__self__()->getEntireProduct();
     $categories = Category::__self__()->getCategoryList();
@@ -52,8 +48,7 @@ class AdminController extends Controller
     return parent::render('admin.product', $params);
   }
 
-  public static function category()
-  {
+  public static function category() {
 
     $categories = Category::__self__()->getCategoryList();
 
@@ -63,13 +58,11 @@ class AdminController extends Controller
 
     return parent::render('admin.category', $params);
   }
-  public static function user()
-  {
+  public static function user() {
     $users = User::__self__()->find(["*"], "1");
     return parent::render('admin.user', ["users" => $users]);
   }
-  public static function bill()
-  {
+  public static function bill() {
 
     $orders = Order::__self__()->getEntireOrders();
     $params = array(
@@ -78,8 +71,7 @@ class AdminController extends Controller
     return parent::render('admin.bill', $params);
   }
 
-  public static function revenue()
-  {
+  public static function revenue() {
     $revenue = Order::__self__()->getRevenue();
 
     $params = array(
@@ -87,8 +79,7 @@ class AdminController extends Controller
     );
     return parent::render('admin.revenue', $params);
   }
-  public static function revenueStore()
-  {
+  public static function revenueStore() {
     $revenue = Order::__self__()->getRevenue(self::$params['idStore']);
 
     $params = array(
@@ -96,8 +87,7 @@ class AdminController extends Controller
     );
     return parent::render('admin.revenue', $params);
   }
-  public static function changeImageCategory(Request $request, Response $response)
-  {
+  public static function changeImageCategory(Request $request, Response $response) {
     $id = $request->param('id');
     $fileName = $_FILES['file']['full_path'];
     $listValidExt = array("jpg", "png", "jpeg", "svg");
@@ -111,8 +101,7 @@ class AdminController extends Controller
       }
     } else return json_encode(["status" => false, "message" => "Only upload image !!"]);
   }
-  public static function uploadImageProduct(Request $request, Response $response)
-  {
+  public static function uploadImageProduct(Request $request, Response $response) {
     $id = $request->param('id');
     $body = $request->body();
     $fileName = $_FILES['file']['full_path'];
@@ -133,8 +122,7 @@ class AdminController extends Controller
       }
     } else return json_encode(["status" => false, "message" => "Only upload image !!"]);
   }
-  public static function deleteImageProduct(Request $request, Response $response)
-  {
+  public static function deleteImageProduct(Request $request, Response $response) {
     $id = $request->param('id');
     $body = $request->body();
     $newListImage = $body["newListImage"];
@@ -148,8 +136,7 @@ class AdminController extends Controller
     Product::__self__()->update(["image" => $newListImage], "id=$id");
     return json_encode(["status" => true, "message" => "Delete image success", "payload" => $newListImage]);
   }
-  public static function removeProduct(Request $request, Response $response)
-  {
+  public static function removeProduct(Request $request, Response $response) {
     if (!self::$productModel)
       self::$productModel = Product::__self__();
 
@@ -163,18 +150,21 @@ class AdminController extends Controller
     else
       return json_encode(["status" => true, "message" => "Delete product success"]);
   }
-  public static function saveProduct(Request $request, Response $response)
-  {
+  public static function saveProduct(Request $request, Response $response) {
+    if (!self::$productModel)
+      self::$productModel = Product::__self__();
     $body = ($request->body());
     $id = $body["id"];
     $nameProduct = $body["nameProduct"];
     $categoryProduct = $body["categoryProduct"];
     $priceProduct = $body["priceProduct"];
-    Product::__self__()->update(["name" => $nameProduct, 'category_id' => $categoryProduct, "price" => $priceProduct], "id=$id");
-    return json_encode(["status" => true, "message" => "Update product success"]);
+    $result = self::$productModel->update(["name" => $nameProduct, 'category_id' => $categoryProduct, "price" => $priceProduct], "id=$id");
+    if (isset($result->status) && $result->status === false)
+      return json_encode(["status" => false, "message" => "Update failed, name product is exist or category is not exist"]);
+    else
+      return json_encode(["status" => true, "message" => "Update product success"]);
   }
-  public static function createProduct(Request $request, Response $response)
-  {
+  public static function createProduct(Request $request, Response $response) {
     if (!self::$productModel)
       self::$productModel = Product::__self__();
     $body = ($request->body());
@@ -187,27 +177,10 @@ class AdminController extends Controller
       return json_encode(["status" => true, "message" => "Create product success !!", "payload" => $result->id]);
     return json_encode(["status" => false, "message" => "Name product is exist or category not exist !!"]);
   }
-  public static function saveProductStore(Request $request, Response $response)
-  {
-    $body = ($request->body());
-    $storeId = $request->param('id');
-    $productId = $body["productId"];
-    $discountProduct = $body["discountProduct"];
-    $quantityProduct = $body["quantityProduct"];
-    Product::__self__()->updateProductStore($discountProduct, $quantityProduct, $productId, $storeId);
-    return json_encode(["status" => true, "message" => "Update product success"]);
-  }
-  public static function removeProductStore(Request $request, Response $response)
-  {
-    $body = ($request->body());
-    $productId = $body["productId"];
-    $storeId = $request->param('id');
-    Product::__self__()->removeProductStore($storeId, $productId);
-    return json_encode(["status" => true, "message" => "Remove product success"]);
-  }
 
-  public static function removeCategory(Request $request, Response $response)
-  {
+
+
+  public static function removeCategory(Request $request, Response $response) {
     if (!self::$categoryModel)
       self::$categoryModel = Category::__self__();
     $id = ($request->body())["id"];
@@ -221,16 +194,19 @@ class AdminController extends Controller
     else
       return json_encode(["status" => true, "message" => "Delete category success"]);
   }
-  public static function saveCategory(Request $request, Response $response)
-  {
+  public static function saveCategory(Request $request, Response $response) {
+    if (!self::$categoryModel)
+      self::$categoryModel = Category::__self__();
     $body = ($request->body());
     $id = $body["id"];
     $nameCategory = $body["nameCategory"];
-    Category::__self__()->update(["title" => $nameCategory], "id=$id");
-    return json_encode(["status" => true, "message" => "Update category success"]);
+    $result =  self::$categoryModel->update(["title" => $nameCategory], "id=$id");
+    if (isset($result->status) && $result->status === false)
+      return json_encode(["status" => false, "message" => "Name category is exist"]);
+    else
+      return json_encode(["status" => true, "message" => "Update category success"]);
   }
-  public static function createCategory(Request $request, Response $response)
-  {
+  public static function createCategory(Request $request, Response $response) {
     if (!self::$categoryModel)
       self::$categoryModel = Category::__self__();
     $body = ($request->body());
@@ -241,24 +217,26 @@ class AdminController extends Controller
       return json_encode(["status" => true, "message" => "Create category success !!", "payload" => $result->id]);
     return json_encode(["status" => false, "message" => "Name category is exist !!"]);
   }
-  public static function handleProductRemoveCategory(Request $request, Response $response)
-  {
+  public static function handleProductRemoveCategory(Request $request, Response $response) {
     $body = ($request->body());
     $id = $body["id"];
     Product::__self__()->update(["category_id" => 0], "category_id=$id");
     return json_encode(["status" => true]);
   }
 
-  public static function saveUser(Request $request, Response $response)
-  {
+  public static function saveUser(Request $request, Response $response) {
+    if (!self::$userModel)
+      self::$userModel = User::__self__();
     $body = ($request->body());
     $id = $body["id"];
     $permission = $body["permission"];
-    User::__self__()->update(["permission" => $permission], "id=$id");
-    return json_encode(["status" => true, "message" => "Update user success"]);
+    $result = self::$userModel->update(["permission" => $permission], "id=$id");
+    if (isset($result->status) && $result->status === false)
+      return json_encode(["status" => false, "message" => "Invalid permission"]);
+    else
+      return json_encode(["status" => true, "message" => "Update user success"]);
   }
-  public static function createUser(Request $request, Response $response)
-  {
+  public static function createUser(Request $request, Response $response) {
     if (!self::$userModel)
       self::$userModel = User::__self__();
     $body = ($request->body());
