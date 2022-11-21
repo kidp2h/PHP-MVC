@@ -119,6 +119,9 @@ try {
           <div href="javascript:void(0)" class="user-info userDropdown">
             <ul class="dropdown">
               <?php if (isset($_COOKIE["accessToken"])) { ?>
+                <?php if(Application::$user->permission === 0){ ?>
+                <li class="dropdown-item"><a href="/admin">Manager</a></li>
+                <?php } ?>
                 <li class="dropdown-item openModal"><a href="javascript:void(0)">Profile</a></li>
                 <li class="dropdown-item"><a href="/logout">Logout</a></li>
               <?php } else { ?>
