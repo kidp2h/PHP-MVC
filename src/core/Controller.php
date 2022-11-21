@@ -2,25 +2,21 @@
 
 namespace core;
 
-class Controller
-{
+class Controller {
   public static string $layout = 'main';
   public static array $params = [];
   public static array $paramsLayout = [];
 
-  public static function setLayout(string $layout)
-  {
+  public static function setLayout(string $layout) {
     self::$layout = $layout;
   }
 
   // Global hook
-  public static function hook()
-  {
+  public static function hook() {
     self::setLayout(static::$layout);
   }
 
-  public static function render($view, $params = [], $paramsLayout = [])
-  {
+  public static function render($view, $params = [], $paramsLayout = []) {
     // handle params optional or params in hook controller
     $params = array_merge(static::$params, $params);
     $paramsLayout = array_merge(static::$paramsLayout,  $paramsLayout);

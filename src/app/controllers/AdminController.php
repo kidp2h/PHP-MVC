@@ -26,6 +26,9 @@ class AdminController extends Controller {
     $products = Product::__self__()->getEntireProduct();
     $orders = Order::__self__()->getEntireOrders();
     $params = ["users" => $users, "categories" => $categories, "products" => $products, "orders" => $orders];
+    self::$productModel = Product::__self__();
+    self::$categoryModel = Category::__self__();
+    self::$userModel = User::__self__();
     self::$params = self::$paramsLayout;
     self::$params = [...self::$params, ...$params];
   }
@@ -137,9 +140,6 @@ class AdminController extends Controller {
     return json_encode(["status" => true, "message" => "Delete image success", "payload" => $newListImage]);
   }
   public static function removeProduct(Request $request, Response $response) {
-    if (!self::$productModel)
-      self::$productModel = Product::__self__();
-
     $id = ($request->body())["id"];
     $now = new DateTime();
     $now = $now->format('Y-m-d H:i:s');
@@ -151,8 +151,6 @@ class AdminController extends Controller {
       return json_encode(["status" => true, "message" => "Delete product success"]);
   }
   public static function saveProduct(Request $request, Response $response) {
-    if (!self::$productModel)
-      self::$productModel = Product::__self__();
     $body = ($request->body());
     $id = $body["id"];
     $nameProduct = $body["nameProduct"];
@@ -165,8 +163,6 @@ class AdminController extends Controller {
       return json_encode(["status" => true, "message" => "Update product success"]);
   }
   public static function createProduct(Request $request, Response $response) {
-    if (!self::$productModel)
-      self::$productModel = Product::__self__();
     $body = ($request->body());
     $nameProduct = $body["nameProduct"];
     $categoryProduct = $body["categoryProduct"];
@@ -181,13 +177,10 @@ class AdminController extends Controller {
 
 
   public static function removeCategory(Request $request, Response $response) {
-    if (!self::$categoryModel)
-      self::$categoryModel = Category::__self__();
     $id = ($request->body())["id"];
     $now = new DateTime();
     $now = $now->format('Y-m-d H:i:s');
     $result = self::$categoryModel->update(["deleted_at" => $now], "id=$id");
-
 
     if (isset($result->status) && $result->status === false)
       return json_encode(["status" => false, "message" => "Wrong id"]);
@@ -195,8 +188,6 @@ class AdminController extends Controller {
       return json_encode(["status" => true, "message" => "Delete category success"]);
   }
   public static function saveCategory(Request $request, Response $response) {
-    if (!self::$categoryModel)
-      self::$categoryModel = Category::__self__();
     $body = ($request->body());
     $id = $body["id"];
     $nameCategory = $body["nameCategory"];
@@ -207,8 +198,6 @@ class AdminController extends Controller {
       return json_encode(["status" => true, "message" => "Update category success"]);
   }
   public static function createCategory(Request $request, Response $response) {
-    if (!self::$categoryModel)
-      self::$categoryModel = Category::__self__();
     $body = ($request->body());
     $nameCategory = $body["nameCategory"];
     $image = "/public/images/products/product.jpg";
@@ -225,8 +214,6 @@ class AdminController extends Controller {
   }
 
   public static function saveUser(Request $request, Response $response) {
-    if (!self::$userModel)
-      self::$userModel = User::__self__();
     $body = ($request->body());
     $id = $body["id"];
     $permission = $body["permission"];
@@ -237,8 +224,6 @@ class AdminController extends Controller {
       return json_encode(["status" => true, "message" => "Update user success"]);
   }
   public static function createUser(Request $request, Response $response) {
-    if (!self::$userModel)
-      self::$userModel = User::__self__();
     $body = ($request->body());
     $fullName = $body["fullName"];
     $username = $body["username"];

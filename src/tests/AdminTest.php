@@ -29,8 +29,8 @@ class AdminTest extends BaseTest {
   /**
    * @dataProvider removeProductProvider
    * @test
+   * @group testRemoveProduct
    */
-
   public function testRemoveProduct(int $number, bool $status, string $expected) {
     $this->methodRequest("POST");
 
@@ -43,9 +43,12 @@ class AdminTest extends BaseTest {
     }
 
     // Inject Dependencies
-    $controller = new ReflectionClass(AdminController::class);
-    $controller->getProperty("productModel")->setValue($this->productMock);
-    $result = $controller->getMethod("removeProduct")->invoke(new AdminController(), $this->requestMock, $this->responseMock);
+    $this->injectMockModel(AdminController::class, "productModel", $this->productMock);
+    $result = $this->invokeMethod("removeProduct", new AdminController);
+    $this->assertEquals(
+      $expected,
+      $result
+    );
 
     $this->assertEquals(
       $expected,
@@ -98,6 +101,7 @@ class AdminTest extends BaseTest {
   /**
    * @dataProvider createProductProvider
    * @test
+   * @group testCreateProduct
    */
   public function testCreateProduct(string $nameProduct, $category, $price, $status, $expected) {
     $this->methodRequest("POST");
@@ -126,10 +130,10 @@ class AdminTest extends BaseTest {
     ];
   }
 
-
   /**
    * @dataProvider createUserProvider
    * @test
+   * @group testCreateUser
    */
   public function testCreateUser(string $fullName, $username, $email, $address, $phoneNumber, $status, $expected) {
     $this->methodRequest("POST");
@@ -192,6 +196,7 @@ class AdminTest extends BaseTest {
   /**
    * @dataProvider saveProductProvider
    * @test
+   * @group testSaveProduct
    */
   public function testSaveProduct($nameProduct, $categoryId, $price, $status, $expected) {
     $this->methodRequest("POST");
@@ -220,6 +225,7 @@ class AdminTest extends BaseTest {
   /**
    * @dataProvider saveCategoryProvider
    * @test
+   * @group testSaveCategory
    */
   public function testSaveCategory($nameCategory, $status, $expected) {
     $this->methodRequest("POST");
@@ -249,6 +255,7 @@ class AdminTest extends BaseTest {
   /**
    * @dataProvider saveUserProvider
    * @test
+   * @group testSaveUser
    */
   public function testSaveUser($permission, $status, $expected) {
     $this->methodRequest("POST");
