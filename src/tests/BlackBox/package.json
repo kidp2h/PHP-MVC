@@ -11,7 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "chai": "^4.3.7",
-    "chromedriver": "^107.0.3",
+    "chromedriver": "^119.0.1",
     "mocha": "^10.1.0",
     "selenium-webdriver": "^4.6.0"
   }
